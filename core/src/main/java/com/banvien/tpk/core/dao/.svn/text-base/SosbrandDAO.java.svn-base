@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Sosbrand;
+/**
+ * <p>Generic DAO layer for Sosbrands</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface SosbrandDAO extends GenericDAO<Sosbrand,Long> {
+    public List<Sosbrand> findAndFetch();
+}

@@ -1,0 +1,109 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.domain.Storepromotion;
+import com.banvien.fcv.core.domain.Storepromotionproducttohandheld;
+import com.banvien.fcv.core.domain.Storepromotionscope;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Promotions</p>
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class StorepromotionHibernateDAO extends
+		AbstractHibernateDAO<Storepromotion, Long> implements
+		StorepromotionDAO {
+
+    public StorepromotionHibernateDAO() {
+		super(Storepromotion.class);
+	}
+
+    @Override
+    public List<Storepromotionscope> findStorepromotionscopeByAccounts(final Set<Long> accountIDs) {
+        if (accountIDs.isEmpty()) {
+            return new ArrayList<Storepromotionscope>();
+        }
+        final StringBuffer q = new StringBuffer();
+        q.append("select ps from Storepromotionscope ps");
+        q.append(" inner join fetch ps.storepromotion as p");
+        q.append(" inner join fetch p.storepromotiontype");
+        q.append(" inner join fetch p.buyUnit");
+        q.append(" inner join fetch p.sosbrand");
+        q.append(" where p.effectiveDate <= :now and p.expireDate >= :now");
+        q.append(" and ps.account.accountID in (:accountIDs)");
+        return (List<Storepromotionscope>)getHibernateTemplate().execute(
+               new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                       Query query = session.createQuery(q.toString());
+                       query.setParameter("now",new Date(System.currentTimeMillis()));
+                       query.setParameterList("accountIDs",accountIDs);
+                       return query.list();
+                    }
+               });
+
+    }
+
+    @Override
+    public List<Storepromotionproducttohandheld> findStorepromotionproducttohandhelds(final Set<Long> storepromotionIDs) {
+        if (storepromotionIDs.isEmpty()) {
+            return  new ArrayList<Storepromotionproducttohandheld>();
+        }
+        final StringBuffer q = new StringBuffer();
+        q.append("select ps from Storepromotionproducttohandheld ps");
+        q.append(" inner join fetch ps.storepromotionproduct as p");
+        q.append(" where ps.storepromotion.storePromotionID in (:storepromotionIDs)");
+        return (List<Storepromotionproducttohandheld>)getHibernateTemplate().execute(
+               new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                       Query query = session.createQuery(q.toString());
+                       query.setParameterList("storepromotionIDs",storepromotionIDs);
+                       return query.list();
+                    }
+               });
+    }
+
+    @Override
+    public List<Storepromotion> findActivePromotions(final Long accountID, final Timestamp fromDate, final Timestamp toDate) {
+
+        return getHibernateTemplate().execute(
+               new HibernateCallback<List<Storepromotion>>() {
+                    public List<Storepromotion> doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                        StringBuffer buffer = new StringBuffer("SELECT distinct sc.storepromotion FROM Storepromotionscope sc WHERE  1 = 1");
+                        if (accountID != null && accountID > 0) {
+                            buffer.append(" AND sc.account.accountID = :accountID");
+                        }
+                        if (fromDate != null && toDate != null) {
+                            buffer.append(" AND ((DATE(sc.storepromotion.effectiveDate) >= DATE(:fromDate) AND DATE(sc.storepromotion.expireDate) >= DATE(:fromDate))")
+                                    .append(" OR (DATE(sc.storepromotion.effectiveDate) <= DATE(:toDate) AND DATE(sc.storepromotion.expireDate) >= DATE(:toDate))")
+                                    .append(" OR (DATE(sc.storepromotion.effectiveDate) >= DATE(:fromDate) AND DATE(sc.storepromotion.expireDate) <= DATE(:toDate)))");
+                        }
+                        Query query = session.createQuery(buffer.toString());
+                        if (accountID != null && accountID > 0) {
+                            query.setParameter("accountID", accountID);
+                        }
+                        if (fromDate != null && toDate != null) {
+                            query.setParameter("fromDate", fromDate);
+                            query.setParameter("toDate", toDate);
+                        }
+                        return (List<Storepromotion>)query.list();
+                    }
+               });
+    }
+}

@@ -1,0 +1,50 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.OarLatestBonus;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 3/6/13
+ * Time: 10:10 AM
+ */
+public class LatestBonusReportInfo implements Serializable {
+    private List<OarLatestBonus> oarLatestBonuses;
+
+    private Map<Long, OarLatestBonus> latestBonusMap = new HashMap<Long, OarLatestBonus>();
+
+    public LatestBonusReportInfo() {
+
+    }
+
+    public LatestBonusReportInfo(List<OarLatestBonus> oarLatestBonuses) {
+        this.oarLatestBonuses = oarLatestBonuses;
+        if (oarLatestBonuses != null) {
+            for (OarLatestBonus oarLatestBonus : oarLatestBonuses) {
+                latestBonusMap.put(oarLatestBonus.getOutletBrand().getOutletBrandID(), oarLatestBonus);
+            }
+        }
+    }
+
+    public List<OarLatestBonus> getOarLatestBonuses() {
+        return oarLatestBonuses;
+    }
+
+    public void setOarLatestBonuses(List<OarLatestBonus> oarLatestBonuses) {
+        this.oarLatestBonuses = oarLatestBonuses;
+    }
+
+    public Map<Long, OarLatestBonus> getLatestBonusMap() {
+        return latestBonusMap;
+    }
+
+    public void setLatestBonusMap(Map<Long, OarLatestBonus> latestBonusMap) {
+        this.latestBonusMap = latestBonusMap;
+    }
+}

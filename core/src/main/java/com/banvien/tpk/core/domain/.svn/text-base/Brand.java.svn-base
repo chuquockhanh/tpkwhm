@@ -1,0 +1,112 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE Brand</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Brand implements Serializable {
+    public static final String FIELD_NAME = "name";
+	/**
+	 * Attribute brandID.
+	 */
+	private Long brandID;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute brandgroup
+	 */
+	 private Brandgroup brandgroup;	
+
+	/**
+	 * Attribute rightLocation.
+	 */
+	private String rightLocation;
+
+    private String products;
+
+
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return brandID
+	 */
+	public Long getBrandID() {
+		return brandID;
+	}
+
+	/**
+	 * @param brandID new value for brandID 
+	 */
+	public void setBrandID(Long brandID) {
+		this.brandID = brandID;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * get brandgroup
+	 */
+	public Brandgroup getBrandgroup() {
+		return this.brandgroup;
+	}
+	
+	/**
+	 * set brandgroup
+	 */
+	public void setBrandgroup(Brandgroup brandgroup) {
+		this.brandgroup = brandgroup;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return rightLocation
+	 */
+	public String getRightLocation() {
+		return rightLocation;
+	}
+
+	/**
+	 * @param rightLocation new value for rightLocation 
+	 */
+	public void setRightLocation(String rightLocation) {
+		this.rightLocation = rightLocation;
+	}
+
+
+    public String getProducts() {
+        return products;
+    }
+
+    public void setProducts(String products) {
+        this.products = products;
+    }
+}

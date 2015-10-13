@@ -1,0 +1,77 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Fullrangesku;
+import com.banvien.fcv.core.domain.POSMMiniValue;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:41 PM
+ */
+public class POSMMiniValueDTO {
+    /**
+	 * Attribute POSMMiniValueID.
+	 */
+	private Long POSMMiniValueID;
+
+	/**
+	 * Attribute POSMID
+	 */
+	private Long POSMID;
+
+    private String  POSMName;
+
+    private Integer value;
+
+    public Long getPOSMMiniValueID() {
+        return POSMMiniValueID;
+    }
+
+    public void setPOSMMiniValueID(Long POSMMiniValueID) {
+        this.POSMMiniValueID = POSMMiniValueID;
+    }
+
+    public Long getPOSMID() {
+        return POSMID;
+    }
+
+    public void setPOSMID(Long POSMID) {
+        this.POSMID = POSMID;
+    }
+
+    public String getPOSMName() {
+        return POSMName;
+    }
+
+    public void setPOSMName(String POSMName) {
+        this.POSMName = POSMName;
+    }
+
+    public Integer getValue() {
+        return value;
+    }
+
+    public void setValue(Integer value) {
+        this.value = value;
+    }
+
+    public POSMMiniValueDTO(POSMMiniValue o) {
+        setValue(o.getMiniValue());
+        setPOSMName(o.getOutletPosm().getName());
+        setPOSMMiniValueID(o.getPOSMMiniValueID());
+        setPOSMID(o.getOutletPosm().getOutletPOSMID());
+    }
+
+    public POSMMiniValueDTO() {
+
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setPOSMMiniValueID(o.getLong("posmMiniValueID"));
+        setPOSMID(o.getLong("POSMID"));
+        setPOSMName(o.getString("POSMName"));
+        setValue(o.getInt("values"));
+    }
+}

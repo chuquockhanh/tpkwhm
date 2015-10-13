@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.dto;
+
+
+import com.banvien.fcv.core.domain.Saleman;
+
+public class SalemanImportBean extends AbstractBean<Saleman> {
+
+}

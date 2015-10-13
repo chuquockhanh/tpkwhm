@@ -1,0 +1,25 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storepromotion;
+import com.banvien.fcv.core.dto.StorepromotionBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+
+public interface StorepromotionService extends GenericService<Storepromotion,Long> {
+
+    Storepromotion findByCode(String code) throws ObjectNotFoundException;
+
+    void updateItem(StorepromotionBean storepromotionBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(StorepromotionBean storepromotionBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(StorepromotionBean bean);
+
+    List<Storepromotion> findActivePromotions(Long accountID, Timestamp fromDate, Timestamp toDate);
+}

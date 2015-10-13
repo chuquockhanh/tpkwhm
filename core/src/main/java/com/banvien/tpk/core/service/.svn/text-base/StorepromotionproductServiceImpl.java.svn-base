@@ -1,0 +1,79 @@
+package com.banvien.fcv.core.service;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.StorepromotionproductDAO;
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Storepromotionproduct;
+import com.banvien.fcv.core.dto.StorepromotionproductBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+public class StorepromotionproductServiceImpl extends GenericServiceImpl<Storepromotionproduct,Long>
+                                                    implements StorepromotionproductService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StorepromotionproductDAO storepromotionproductDAO;
+
+    public void setStorepromotionproductDAO(StorepromotionproductDAO promotionproductDAO) {
+        this.storepromotionproductDAO = promotionproductDAO;
+    }
+
+    @Override
+	protected GenericDAO<Storepromotionproduct, Long> getGenericDAO() {
+		return storepromotionproductDAO;
+	}
+
+   @Override
+    public void updateItem(StorepromotionproductBean promotionproductBean) throws ObjectNotFoundException, DuplicateException {
+        Storepromotionproduct dbItem = this.storepromotionproductDAO.findByIdNoAutoCommit(promotionproductBean.getPojo().getStorePromotionProductID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found product " + promotionproductBean.getPojo().getStorePromotionProductID());
+
+        Storepromotionproduct pojo = promotionproductBean.getPojo();
+
+        this.storepromotionproductDAO.detach(dbItem);
+        this.storepromotionproductDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(StorepromotionproductBean promotionproductBean) throws DuplicateException {
+        Storepromotionproduct pojo = promotionproductBean.getPojo();
+        pojo = this.storepromotionproductDAO.save(pojo);
+        promotionproductBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                storepromotionproductDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(StorepromotionproductBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Product.FIELD_NAME, bean.getPojo().getName());
+        }
+
+
+        return this.storepromotionproductDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+
+}

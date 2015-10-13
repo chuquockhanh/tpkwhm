@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.StoreposmhistoryDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Storeposmhistory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class StoreposmhistoryServiceImpl extends GenericServiceImpl<Storeposmhistory,Long> 
+                                                    implements StoreposmhistoryService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StoreposmhistoryDAO storeposmhistoryDAO;
+
+    public void setStoreposmhistoryDAO(StoreposmhistoryDAO storeposmhistoryDAO) {
+        this.storeposmhistoryDAO = storeposmhistoryDAO;
+    }
+
+    @Override
+	protected GenericDAO<Storeposmhistory, Long> getGenericDAO() {
+		return storeposmhistoryDAO;
+	}
+
+}

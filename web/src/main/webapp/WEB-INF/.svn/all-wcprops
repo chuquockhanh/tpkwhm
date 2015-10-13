@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/webapp/WEB-INF
+END
+applicationContext-service.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/webapp/WEB-INF/applicationContext-service.xml
+END
+applicationContext-validation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/applicationContext-validation.xml
+END
+decorators.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/563/trunk/outlet-audit/web/src/main/webapp/WEB-INF/decorators.xml
+END
+validation.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/validation.xml
+END
+validator-rules.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/validator-rules.xml
+END
+urlrewrite.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/urlrewrite.xml
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/applicationContext.xml
+END
+dispatcher-servlet.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dcs/!svn/ver/1040/trunk/outlet-audit/web/src/main/webapp/WEB-INF/dispatcher-servlet.xml
+END
+security.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/web/src/main/webapp/WEB-INF/security.xml
+END
+validator-rules-custom.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/validator-rules-custom.xml
+END
+applicationContext-dao.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/webapp/WEB-INF/applicationContext-dao.xml
+END
+sitemesh.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/sitemesh.xml
+END
+web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/WEB-INF/web.xml
+END

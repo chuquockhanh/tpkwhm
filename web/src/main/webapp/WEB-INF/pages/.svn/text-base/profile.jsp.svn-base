@@ -1,0 +1,82 @@
+<%@ include file="/common/taglibs.jsp"%>
+
+<head>
+    <title>My Profile</title>
+    <meta name="heading" content="Account Management"/>
+</head>
+<div class="pathway">
+   My Profile
+</div>
+<c:url var="url" value="/profile.html"/>
+<c:url var="backUrl" value="/"/>
+
+<div id="content">
+    <form:form commandName="item" action="${url}" method="post" id="itemForm">
+        <div class="box_container">
+            <div class="header">
+                My Profile
+            </div>
+
+            <div class="form">
+                <table width="100%" cellpadding="5" cellspacing="5" border="0">
+
+                    <tr>
+                        <td>Fullname</td>
+                        <td>
+                            <form:input path="pojo.fullname" size="40"/>
+                            <form:errors path="pojo.fullname" cssClass="validateError"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>
+                            <form:input path="pojo.email" size="40"/>
+                            <form:errors path="pojo.email" cssClass="validateError"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Old Password</td>
+                        <td>
+                            <form:password path="oldPassword" size="40"/>
+                            <form:errors path="oldPassword" cssClass="validateError"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>New Password</td>
+                        <td>
+                            <form:password path="newPassword" size="40"/>
+                            <form:errors path="newPassword" cssClass="validateError"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>Confirmed Password</td>
+                        <td>
+                            <form:password path="confirmedPassword" size="40"/>
+                            <form:errors path="confirmedPassword" cssClass="validateError"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <form:hidden path="crudaction" id="crudaction" value="insert-update"/>
+                            <form:hidden path="pojo.userID"/>
+                            <input type="button" value="<fmt:message key="button.update"/>" onclick="$('#itemForm').submit();"/>
+                            <input type="button" value="<fmt:message key="button.back"/>" onclick="document.location.href='${backUrl}';"/>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <c:if test="${not empty messageResponse}">
+                <div style="text-align: left; color: red;">
+                    <label>${messageResponse}</label>
+                </div>
+            </c:if>
+        </div>
+    </form:form>
+</div>

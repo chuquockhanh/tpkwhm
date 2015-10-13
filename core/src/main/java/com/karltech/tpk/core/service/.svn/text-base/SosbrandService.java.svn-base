@@ -1,0 +1,19 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Sosbrand;
+import com.banvien.fcv.core.dto.SosbrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface SosbrandService extends GenericService<Sosbrand,Long> {
+
+
+    void updateItem(SosbrandBean sosbrandBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(SosbrandBean sosbrandBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(SosbrandBean bean);
+}

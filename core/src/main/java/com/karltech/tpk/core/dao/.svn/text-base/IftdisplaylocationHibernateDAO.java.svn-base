@@ -1,0 +1,59 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Iftdisplaylocation;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Iftdisplaylocations</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class IftdisplaylocationHibernateDAO extends
+		AbstractHibernateDAO<Iftdisplaylocation, Long> implements
+		IftdisplaylocationDAO {
+
+    public IftdisplaylocationHibernateDAO() {
+		super(Iftdisplaylocation.class);
+	}
+
+    public List<Iftdisplaylocation> findAll() {
+        return getHibernateTemplate().find("from Iftdisplaylocation order by displayOrder asc");
+    }
+
+    @Override
+    public Iftdisplaylocation findByCode(final String Code) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Iftdisplaylocation>() {
+                public Iftdisplaylocation doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Iftdisplaylocation d WHERE d.code = :code");
+                    query.setParameter("code", Code);
+                    return (Iftdisplaylocation) query.uniqueResult();
+                }
+            });
+    }
+
+    @Override
+    public Iftdisplaylocation findByName(final String Name) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Iftdisplaylocation>() {
+                public Iftdisplaylocation doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Iftdisplaylocation d WHERE d.name = :name");
+                    query.setParameter("name", Name);
+                    return (Iftdisplaylocation) query.uniqueResult();
+                }
+            });
+    }
+}

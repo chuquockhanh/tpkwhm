@@ -1,0 +1,79 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/10/12
+ * Time: 7:03 AM
+ */
+public class MTOutOfStockReportDTO implements Serializable{
+    private Long storeID;
+    private String account;
+    private String storeName;
+
+    private Integer numberOfSKUListed;
+    private Integer totalSKUs;
+    private Integer numberOfDayAudit;
+
+    private Map<String, OutOfStockDTO> dailyOutOfStocks;
+
+
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public Integer getNumberOfSKUListed() {
+        return numberOfSKUListed;
+    }
+
+    public void setNumberOfSKUListed(Integer numberOfSKUListed) {
+        this.numberOfSKUListed = numberOfSKUListed;
+    }
+
+    public Integer getTotalSKUs() {
+        return totalSKUs;
+    }
+
+    public void setTotalSKUs(Integer totalSKUs) {
+        this.totalSKUs = totalSKUs;
+    }
+
+    public Integer getNumberOfDayAudit() {
+        return numberOfDayAudit;
+    }
+
+    public void setNumberOfDayAudit(Integer numberOfDayAudit) {
+        this.numberOfDayAudit = numberOfDayAudit;
+    }
+
+    public Map<String, OutOfStockDTO> getDailyOutOfStocks() {
+        return dailyOutOfStocks;
+    }
+
+    public void setDailyOutOfStocks(Map<String, OutOfStockDTO> dailyOutOfStocks) {
+        this.dailyOutOfStocks = dailyOutOfStocks;
+    }
+}

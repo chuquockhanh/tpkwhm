@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/resources
+END
+applicationContext-resources.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/web/src/main/resources/applicationContext-resources.xml
+END
+oscache.properties
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dcs/!svn/ver/193/trunk/outlet-audit/web/src/main/resources/oscache.properties
+END
+log4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dcs/!svn/ver/351/trunk/outlet-audit/web/src/main/resources/log4j.xml
+END
+jdbc.properties
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/web/src/main/resources/jdbc.properties
+END
+displaytag.properties
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/130/trunk/outlet-audit/web/src/main/resources/displaytag.properties
+END
+ApplicationResources.properties
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/resources/ApplicationResources.properties
+END
+ApplicationResources_en.properties
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/resources/ApplicationResources_en.properties
+END

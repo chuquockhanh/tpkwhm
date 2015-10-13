@@ -1,0 +1,44 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.dto.WardBean;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit district form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class WardValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(WardValidator.class);
+
+    public boolean supports(Class<?> aClass) {
+        return WardBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        WardBean cmd = (WardBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+    }
+
+    private void validateRequiredValues(WardBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.district.form.name")}, "non-empty value required.");
+    }
+
+    private void trimingField(WardBean cmd) {
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+
+    }
+}

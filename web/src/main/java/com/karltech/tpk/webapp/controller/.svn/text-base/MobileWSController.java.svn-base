@@ -1,0 +1,420 @@
+package com.banvien.fcv.webapp.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.Outletauditpicture;
+import com.banvien.fcv.core.domain.Outletauditresult;
+import com.banvien.fcv.core.domain.Setting;
+import com.banvien.fcv.core.domain.Store;
+import com.banvien.fcv.core.domain.Storeauditpicture;
+import com.banvien.fcv.core.domain.Storeauditresult;
+import com.banvien.fcv.core.dto.OutletAuditResultDTO;
+import com.banvien.fcv.core.dto.OutletInfoList;
+import com.banvien.fcv.core.dto.StoreInfoList;
+import com.banvien.fcv.core.dto.StoreauditresultDTO;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.exception.ServiceException;
+import com.banvien.fcv.core.service.AuditorService;
+import com.banvien.fcv.core.service.OutletService;
+import com.banvien.fcv.core.service.OutletauditpictureService;
+import com.banvien.fcv.core.service.OutletauditresultService;
+import com.banvien.fcv.core.service.SettingService;
+import com.banvien.fcv.core.service.StoreService;
+import com.banvien.fcv.core.service.StoreauditpictureService;
+import com.banvien.fcv.core.service.StoreauditresultService;
+import com.banvien.fcv.webapp.util.FileUtils;
+
+/**
+ * User: BAN
+ * Date: 6/17/12
+ * Time: 6:23 PM
+ */
+@Controller
+public class MobileWSController {
+    private transient final Log log = LogFactory.getLog(getClass());
+    @Autowired
+    private OutletService outletService;
+    @Autowired
+    private StoreService storeService;
+    @Autowired
+	private OutletauditresultService outletauditresultService;
+    @Autowired
+    private StoreauditresultService storeauditresultService;
+    @Autowired
+    private OutletauditpictureService outletauditpictureService;
+    @Autowired
+    private StoreauditpictureService storeauditpictureService;
+    @Autowired
+    private AuditorService auditorService;
+    @Autowired
+    private SettingService settingService;
+
+    public static final String OUTLET_TYPE = "outlet";
+
+    public static final String STORE_TYPE = "store";
+
+    @RequestMapping("/MobileWS/getAuditTasks.html")
+    public ModelAndView getAuditTasks(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            String auditorCode = request.getParameter("auditorCode");
+            String sPage = request.getParameter("page");
+            JSONObject object = new JSONObject();
+            String errorMessage = isExistedAuditor(auditorCode) ? null : "auditorCode does not exist";
+            String taskType = "NO";
+            
+            Integer page = 1;
+        	if(StringUtils.isNotBlank(sPage)) {
+        		try {
+        			page = Integer.valueOf(sPage);
+        		}catch (Exception e) {
+        			log.error(e.getMessage(), e);
+				}
+        	}
+        	
+            if (errorMessage == null) {
+                try {
+                    OutletInfoList outletInfoList = outletService.getOutletInfoListByAuditorCode(auditorCode, (page - 1) * Constants.MAX_JSON_ITEM, Constants.MAX_JSON_ITEM);
+                    object.put("outletInfoList",outletInfoList.serializeJSON());
+                    taskType = "OUTLET";
+                } catch (ObjectNotFoundException e) {
+                    errorMessage = "NOT found any Outlet for auditorCode="+auditorCode;
+                    log.error(errorMessage,e);
+                } catch (JSONException e) {
+                    errorMessage = "serializeJSON error in building OutletInfoList";
+                    log.error(errorMessage,e);
+                }
+                if (taskType.equals("NO")) {
+                    try {
+                        StoreInfoList storeInfoList = storeService.getStoreInfoListByAuditorCode(auditorCode);
+                        object.put("storeInfoList",storeInfoList.serializeJSON());
+                        taskType = "STORE";
+                        errorMessage = null;
+                    } catch (ObjectNotFoundException e) {
+                        errorMessage = "NOT found any Store for auditorCode="+auditorCode;
+                        log.error(errorMessage,e);
+                    } catch (JSONException e) {
+                        errorMessage = "serializeJSON error in building StoreInfoList";
+                        log.error(errorMessage,e);
+                    }
+                }
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+            }
+            object.put("taskType",taskType);
+            out.print(object);
+            out.flush();
+            out.close();
+        } catch (Exception e){
+            log.error("MobileWSController",e);
+        }
+        return null;
+    }
+
+    private boolean isExistedAuditor(String auditorCode) {
+        try {
+            return (auditorService.findByCode(auditorCode) != null);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @RequestMapping("/MobileWS/synchOutletAuditResult.html")
+    public ModelAndView outletAuditResult(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	PrintWriter out = response.getWriter();
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            String resultAsString = request.getParameter("resultAsString");
+            JSONObject object = new JSONObject();
+            String errorMessage = null;
+            try {
+                JSONObject outletAuditResult =  new JSONObject(resultAsString);
+                OutletAuditResultDTO dto = new OutletAuditResultDTO();
+                dto.unserializeJSON(outletAuditResult);
+                Long outletAuditResultID = outletauditresultService.addOutletAuditResult(dto);
+                object.put("outletAuditResultID",outletAuditResultID);
+            } catch (ServiceException e) {
+                errorMessage = "Can not NOT add OutletAuditResult";
+                log.error(errorMessage,e);
+            } catch (JSONException e) {
+                errorMessage = "unserializeJSON error in building OutletAuditResultDTO";
+                log.error(errorMessage,e);
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+                object.put("success",false);
+            } else {
+                object.put("success",true);
+            }
+            out.print(object);
+        } catch (Exception e){
+            log.error("MobileWSController",e);
+        }finally {
+        	out.flush();
+            out.close();
+        }
+        return null;
+    }
+
+    @RequestMapping("/MobileWS/synchStoreAuditResult.html")
+    public ModelAndView storeAuditResult(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            String resultAsString = request.getParameter("resultAsString");
+            JSONObject object = new JSONObject();
+            String errorMessage = null;
+            try {
+                JSONObject storeAuditResult =  new JSONObject(resultAsString);
+                StoreauditresultDTO dto = new StoreauditresultDTO();
+                dto.unserializeJSON(storeAuditResult);
+                Long storeAuditResultID = storeauditresultService.addStoreAuditResult(dto);
+                object.put("storeAuditResultID",storeAuditResultID);
+            } catch (ServiceException e) {
+                errorMessage = "Can not NOT add Storeauditresult";
+                log.error(errorMessage,e);
+            } catch (JSONException e) {
+                errorMessage = "unserializeJSON error in building StoreauditresultDTO";
+                log.error(errorMessage,e);
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+                object.put("success",false);
+            } else {
+                object.put("success",true);
+            }
+            out.print(object);
+            out.flush();
+            out.close();
+        } catch (Exception e){
+            log.error("MobileWSController",e);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/MobileWS/fileUpload.html", method = RequestMethod.POST)
+    public ModelAndView handleFileUpload(@RequestParam(value="description", required=false) String description,
+                                         @RequestParam("resultID") Long resultID,
+                                         @RequestParam("type") String type,
+                                         @RequestParam("itemID") Long itemID,
+                                         @RequestParam("file") MultipartFile file,
+                                         HttpServletRequest request, HttpServletResponse response) throws IOException{
+    	PrintWriter out = response.getWriter();
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            JSONObject object = new JSONObject();
+            String errorMessage = null;
+            if (!file.isEmpty()) {
+                if (OUTLET_TYPE.equals(type)) {
+                    Outlet outlet = new Outlet();
+                    outlet = outletService.findById(itemID);
+
+                    //Instead of OutletID, we replace by DMSCode
+                    //String folder = "files/" + type + "/" +  itemID;
+                    String folder = "files/" + type + "/" +  outlet.getDmsCode();
+
+                    String fileName = FileUtils.upload(request,folder,file);
+                    Outletauditpicture op = new Outletauditpicture();
+                    op.setDescription(description);
+                    Outletauditresult result =  new Outletauditresult();
+                    result.setOutletAuditResultID(resultID);
+                    op.setOutletauditresult(result);
+                    String fileURL  =  folder + "/" + fileName;
+                    op.setPath(fileURL);
+                    try {
+                        outletauditpictureService.save(op);
+                        object.put("fileURL",fileURL);
+                    } catch (Exception e) {
+                        errorMessage = "Can not save Outletauditpicture:" + e.getMessage();
+                    }
+
+                } else if (STORE_TYPE.equals(type)) {
+                    String folder = "files/" + type + "/" +  itemID;
+                    String fileName = FileUtils.upload(request,folder,file);
+                    Storeauditpicture sp = new Storeauditpicture();
+                    sp.setDescription(description);
+                    Storeauditresult result =  new Storeauditresult();
+                    result.setStoreAuditResultID(resultID);
+                    sp.setStoreauditresult(result);
+                    String fileURL  =  folder + "/" + fileName;
+                    sp.setPath(fileURL);
+                    try {
+                        storeauditpictureService.save(sp);
+                        object.put("fileURL",fileURL);
+                    } catch (Exception e) {
+                        errorMessage = "Can not save Storeauditpicture:" + e.getMessage();
+                    }
+                } else {
+                    errorMessage = "type should be outlet or store";
+                }
+
+            } else {
+                errorMessage = "File upload should not be empty";
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+                object.put("success",false);
+            } else {
+                object.put("success",true);
+            }
+            out.print(object);
+           
+        } catch (Exception e) {
+            log.error("handleFileUpload",e);
+        }finally {
+        	 out.flush();
+             out.close();
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/MobileWS/updateOutletGPS.html", method = RequestMethod.POST)
+    public ModelAndView updateOutletGPS(@RequestParam("outletID") Long outletID,
+                                     @RequestParam("gpsLatitude") Double gpsLatitude,
+                                     @RequestParam("gpsLongtitude") Double gpsLongtitude,
+                                     HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            JSONObject object = new JSONObject();
+            String errorMessage = null;
+            try {
+                Outlet outlet = outletService.findById(outletID);
+                outlet.setGpsLatitude(gpsLatitude.floatValue());
+                outlet.setGpsLongtitude(gpsLongtitude.floatValue());
+                outletService.update(outlet);
+            } catch (ObjectNotFoundException en) {
+                errorMessage = "NOT found any outlet for outletID="+outletID;
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+                object.put("success",false);
+            } else {
+                object.put("success",true);
+            }
+            out.print(object);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            log.error("updateOutletGPS",e);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/MobileWS/updateStoreGPS.html", method = RequestMethod.POST)
+    public ModelAndView updateStoreGPS(@RequestParam("storeID") Long storeID,
+                                     @RequestParam("gpsLatitude") Double gpsLatitude,
+                                     @RequestParam("gpsLongtitude") Double gpsLongtitude,
+                                     HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            JSONObject object = new JSONObject();
+            String errorMessage = null;
+            try {
+                Store s = storeService.findById(storeID);
+                s.setGpsLatitude(gpsLatitude.floatValue());
+                s.setGpsLongtitude(gpsLongtitude.floatValue());
+                storeService.update(s);
+            } catch (ObjectNotFoundException en) {
+                errorMessage = "NOT found any outlet for storeID="+storeID;
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+                object.put("success",false);
+            } else {
+                object.put("success",true);
+            }
+            out.print(object);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            log.error("updateStoreGPS",e);
+        }
+        return null;
+    }
+
+    @RequestMapping("/MobileWS/validatePassword.html")
+    public ModelAndView validatePassword(@RequestParam("Password") String password,
+                                         HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            JSONObject object = new JSONObject();
+            String errorMessage = null;
+            try {
+                Setting s = settingService.findEqualUnique("fieldName","Password");
+                if (!password.equals(s.getFieldValue())) {
+                   errorMessage = "Password miss match";
+                }
+            } catch (Exception en) {
+                errorMessage = "NOT found any Setting for Password. Please ask admin";
+            }
+            if (errorMessage != null) {
+                object.put("ERROR",errorMessage);
+                object.put("success",false);
+            } else {
+                object.put("success",true);
+            }
+            out.print(object);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            log.error("updateStoreGPS",e);
+        }
+        return null;
+    }
+
+    public void setOutletService(OutletService outletService) {
+        this.outletService = outletService;
+    }
+
+    public void setOutletauditresultService(OutletauditresultService outletauditresultService) {
+        this.outletauditresultService = outletauditresultService;
+    }
+
+    public void setStoreService(StoreService storeService) {
+        this.storeService = storeService;
+    }
+
+    public void setStoreauditresultService(StoreauditresultService storeauditresultService) {
+        this.storeauditresultService = storeauditresultService;
+    }
+
+    public void setOutletauditpictureService(OutletauditpictureService outletauditpictureService) {
+        this.outletauditpictureService = outletauditpictureService;
+    }
+
+    public void setStoreauditpictureService(StoreauditpictureService storeauditpictureService) {
+        this.storeauditpictureService = storeauditpictureService;
+    }
+
+    public void setAuditorService(AuditorService auditorService) {
+        this.auditorService = auditorService;
+    }
+
+    public void setSettingService(SettingService settingService) {
+        this.settingService = settingService;
+    }
+}

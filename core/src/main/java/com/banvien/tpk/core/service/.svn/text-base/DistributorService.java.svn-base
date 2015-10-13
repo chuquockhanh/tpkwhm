@@ -1,0 +1,27 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Distributor;
+import com.banvien.fcv.core.dto.DistributorBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+
+public interface DistributorService extends GenericService<Distributor,Long> {
+
+    Distributor findBySapCode(String sapCode, String name) throws ObjectNotFoundException;
+
+    void updateItem(DistributorBean distributorBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(DistributorBean distributorBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(DistributorBean bean);
+
+    List<Distributor> findByOnlineAgent();
+
+    List<Distributor> findAllSortAsc();
+
+}

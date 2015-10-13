@@ -1,0 +1,50 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.dto.ProductBean;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit product form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class ProductValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(ProductValidator.class);
+
+    public boolean supports(Class<?> aClass) {
+        return ProductBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        ProductBean cmd = (ProductBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+    }
+
+    private void validateRequiredValues(ProductBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.product.form.name")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.productgroup", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.product.form.productgroup")}, "non-empty value required.");
+
+    }
+
+    private void trimingField(ProductBean cmd) {
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+
+    }
+
+
+
+
+}

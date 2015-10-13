@@ -1,0 +1,12 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Promotionproduct;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/6/12
+ * Time: 3:13 PM
+ */
+public class PromotionproductHibernateDAO extends AbstractHibernateDAO<Promotionproduct, Long> implements PromotionproductDAO{
+}

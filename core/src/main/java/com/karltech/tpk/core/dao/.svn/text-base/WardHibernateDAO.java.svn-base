@@ -1,0 +1,40 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Ward;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+
+
+/**
+ * <p>Hibernate DAO layer for Wards</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class WardHibernateDAO extends
+		AbstractHibernateDAO<Ward, Long> implements
+		WardDAO {
+
+    public WardHibernateDAO() {
+		super(Ward.class);
+	}
+
+    @Override
+    public Ward findByNameAndDistrict(final String name, final Long districtID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Ward>() {
+                public Ward doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Ward o WHERE o.name = :name AND o.district.districtID = :districtID");
+                    query.setParameter("name", name);
+                    query.setParameter("districtID", districtID);
+                    return (Ward) query.uniqueResult();
+                }
+            });
+    }
+}

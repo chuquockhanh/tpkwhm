@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Storeposm;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 1:01 AM
+ */
+public class StorePOSMBean extends AbstractBean<Storeposm> {
+    public StorePOSMBean() {
+        this.pojo = new Storeposm();
+    }
+}

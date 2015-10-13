@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Auditor;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 12:42 AM
+ */
+public class AuditorBean extends AbstractBean<Auditor> {
+    public AuditorBean() {
+        this.pojo = new Auditor();
+    }
+}

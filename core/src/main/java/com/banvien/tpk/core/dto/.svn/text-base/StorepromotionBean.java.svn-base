@@ -1,0 +1,37 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Storepromotion;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 2:18 PM
+ */
+public class StorepromotionBean extends AbstractBean<Storepromotion> {
+    private Long[] scopes;
+
+    private Long[] storeProductsToHandheld;
+
+    public StorepromotionBean() {
+        this.pojo = new Storepromotion();
+
+    }
+
+    public Long[] getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(Long[] scopes) {
+        this.scopes = scopes;
+    }
+
+	public Long[] getStoreProductsToHandheld() {
+		return storeProductsToHandheld;
+	}
+
+	public void setStoreProductsToHandheld(Long[] storeProductsToHandheld) {
+		this.storeProductsToHandheld = storeProductsToHandheld;
+	}
+
+}

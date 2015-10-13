@@ -1,0 +1,100 @@
+package com.banvien.fcv.core.dto;
+
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:31 AM
+ */
+public class OarStorepromotionDTO {
+    /**
+	 * Attribute promotion
+	 */
+	 private Long storePromotionID;
+
+	/**
+	 * Attribute getQuantity.
+	 */
+	private Integer getQuantity;
+
+	/**
+	 * Attribute unitID.
+	 */
+	private Long unitID;
+
+	/**
+	 * Attribute productID.
+	 */
+	private Long productID;
+
+	/**
+	 * Attribute known.
+	 */
+	private Byte known;
+
+	/**
+	 * Attribute correct.
+	 */
+	private Byte correct;
+
+
+	public Long getStorePromotionID() {
+		return storePromotionID;
+	}
+
+	public void setStorePromotionID(Long storePromotionID) {
+		this.storePromotionID = storePromotionID;
+	}
+
+	public Integer getGetQuantity() {
+        return getQuantity;
+    }
+
+    public void setGetQuantity(Integer getQuantity) {
+        this.getQuantity = getQuantity;
+    }
+
+    public Long getUnitID() {
+        return unitID;
+    }
+
+    public void setUnitID(Long unitID) {
+        this.unitID = unitID;
+    }
+
+    public Long getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Long productID) {
+        this.productID = productID;
+    }
+
+    public Byte getKnown() {
+        return known;
+    }
+
+    public void setKnown(Byte known) {
+        this.known = known;
+    }
+
+    public Byte getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Byte correct) {
+        this.correct = correct;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setCorrect(Byte.valueOf(o.getString("correct")));
+        setGetQuantity(o.getInt("getQuantity"));
+        setKnown(Byte.valueOf(o.getString("known")));
+        setProductID(o.getLong("productID"));
+        setStorePromotionID(o.getLong("storePromotionID"));
+        setUnitID(o.getLong("unitID"));
+    }
+}

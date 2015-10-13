@@ -1,0 +1,26 @@
+package com.banvien.fcv.core.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/20/12
+ * Time: 12:59 PM
+ */
+public class StoreImportBean extends AbstractBean<StoreImportDTO> {
+
+    private List<ProductImportDTO> productImports;
+
+    public List<ProductImportDTO> getProductImports() {
+        if (productImports == null) {
+            productImports = new ArrayList<ProductImportDTO>();
+        }
+        return productImports;
+    }
+
+    public void setProductImports(List<ProductImportDTO> productImports) {
+        this.productImports = productImports;
+    }
+}

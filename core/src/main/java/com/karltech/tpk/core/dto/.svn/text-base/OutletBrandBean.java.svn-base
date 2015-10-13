@@ -1,0 +1,17 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outletbrand;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 3:03 PM
+ */
+public class OutletBrandBean extends AbstractBean<Outletbrand> {
+    public OutletBrandBean() {
+        this.pojo = new Outletbrand();
+    }
+
+
+}

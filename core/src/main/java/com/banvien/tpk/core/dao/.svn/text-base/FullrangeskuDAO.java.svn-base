@@ -1,0 +1,17 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Fullrangesku;
+
+import java.util.List;
+/**
+ * <p>Generic DAO layer for Fullrangeskus</p>
+ * <p>Generated at Thu Jun 14 18:28:14 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface FullrangeskuDAO extends GenericDAO<Fullrangesku,Long> {
+
+    List<Fullrangesku> findAndFetchAll();
+
+    List<Fullrangesku> findBySubFullRangeBrand(final Long subFullRangeBrandID);
+}

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/webapp/common
+END
+taglibs.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/common/taglibs.jsp
+END
+report_menu.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/983/trunk/outlet-audit/web/src/main/webapp/common/report_menu.jsp
+END
+footer.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/dcs/!svn/ver/199/trunk/outlet-audit/web/src/main/webapp/common/footer.jsp
+END
+messages.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/dcs/!svn/ver/130/trunk/outlet-audit/web/src/main/webapp/common/messages.jsp
+END
+header.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/webapp/common/header.jsp
+END
+menu.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dcs/!svn/ver/910/trunk/outlet-audit/web/src/main/webapp/common/menu.jsp
+END
+login_header.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/338/trunk/outlet-audit/web/src/main/webapp/common/login_header.jsp
+END
+meta.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/common/meta.jsp
+END

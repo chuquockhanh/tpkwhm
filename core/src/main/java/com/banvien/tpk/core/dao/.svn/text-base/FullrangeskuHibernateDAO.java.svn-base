@@ -1,0 +1,45 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.banvien.fcv.core.domain.Fullrangesku;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Fullrangeskus</p>
+ * <p>Generated at Thu Jun 14 18:28:14 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class FullrangeskuHibernateDAO extends
+		AbstractHibernateDAO<Fullrangesku, Long> implements
+		FullrangeskuDAO {
+
+    public FullrangeskuHibernateDAO() {
+		super(Fullrangesku.class);
+	}
+
+    @Override
+    public List<Fullrangesku> findAndFetchAll() {
+        return getHibernateTemplate().find("select p from Fullrangesku p  inner join fetch p.outletbrand order by p.outletbrand.name asc, displayOrder asc");
+    }
+
+    @Override
+    public List<Fullrangesku> findBySubFullRangeBrand(final Long subFullRangeBrandID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Fullrangesku>>() {
+                public List<Fullrangesku> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Fullrangesku d WHERE d.subFullRangeBrand.subFullRangeBrandID = :subFullRangeBrandID Order By d.mensural");
+                    query.setParameter("subFullRangeBrandID", subFullRangeBrandID);
+                    return (List<Fullrangesku>)query.list();
+                }
+            });
+    }
+}

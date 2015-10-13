@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/security
+END
+MyUserDetailsService.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/security/MyUserDetailsService.java
+END
+MyUserDetail.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/security/MyUserDetail.java
+END
+MD5Utils.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/security/MD5Utils.java
+END
+DesEncrypterUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/111/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/security/DesEncrypterUtils.java
+END
+SecurityUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/security/SecurityUtils.java
+END

@@ -1,0 +1,188 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Auditschedule;
+import com.banvien.fcv.core.dto.AuditScheduleBean;
+import com.banvien.fcv.core.dto.AuditorTaskDTO;
+
+
+/**
+ * <p>Hibernate DAO layer for Auditschedules</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class AuditscheduleHibernateDAO extends
+		AbstractHibernateDAO<Auditschedule, Long> implements
+		AuditscheduleDAO {
+
+    public AuditscheduleHibernateDAO() {
+		super(Auditschedule.class);
+	}
+
+    @Override
+    public Object[] searchAndGetAssignedInfo(AuditScheduleBean bean) {
+        Object[] res = new Object[]{0, new ArrayList<Auditschedule>()};
+
+        try{
+            StringBuffer whereClause = new StringBuffer(" 1 = 1 ");
+            if (bean.getCreatedBy() != null && bean.getCreatedBy() > 0) {
+                whereClause.append(" AND createdBy.userID = ").append(bean.getCreatedBy());
+            }
+            if (StringUtils.isNotBlank(bean.getPojo().getCode())){
+                whereClause.append(" AND LOWER(a.code) LIKE '%").append(bean.getPojo().getCode().toLowerCase()).append("%'");
+            }
+            if (StringUtils.isNotBlank(bean.getPojo().getName())){
+                whereClause.append(" AND LOWER(a.name) LIKE '%").append(bean.getPojo().getName().toLowerCase()).append("%'");
+            }
+            if (bean.getFromDate() != null) {
+                whereClause.append(" AND a.fromDate >= '").append(bean.getFromDate().toString()).append("'");
+            }
+            if (bean.getToDate() != null) {
+                whereClause.append(" AND a.toDate <= '").append(bean.getToDate().toString()).append("'");
+            }
+
+            final String where = whereClause.toString();
+            List<Auditschedule> items = getHibernateTemplate().execute(
+                new HibernateCallback<List<Auditschedule>>() {
+                    public List<Auditschedule> doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        StringBuffer listSQL = new StringBuffer();
+                        listSQL.append("SELECT a.auditScheduleID as auditScheduleID, a.code as code, a.name as name, a.fromDate as fromDate, a.toDate as toDate,");
+                        listSQL.append(" (SELECT COUNT(*) FROM Auditorstoretask ask WHERE ask.auditschedule.auditScheduleID = a.auditScheduleID) as totalAssignedStore,");
+                        listSQL.append(" (SELECT COUNT(*) FROM Auditoroutlettask aok WHERE aok.auditschedule.auditScheduleID = a.auditScheduleID) as totalAssignedOutlet,");
+                        listSQL.append(" (SELECT COUNT(*) FROM Auditorstoretask ask WHERE ask.auditschedule.auditScheduleID = a.auditScheduleID AND ask.status = :auditedStatus) as totalAuditedStore,");
+                        listSQL.append(" (SELECT COUNT(*) FROM Auditoroutlettask aok WHERE aok.auditschedule.auditScheduleID = a.auditScheduleID AND aok.status = :auditedStatus) as totalAuditedOutlet");
+                        listSQL.append(" FROM Auditschedule a WHERE");
+                        listSQL.append(where);
+                        Query query = session
+                                .createQuery(listSQL.toString());
+                        query.setParameter("auditedStatus", Constants.AUDIT_FINISHED);
+                        query.setResultTransformer(Transformers.aliasToBean(Auditschedule.class));
+                        return (List<Auditschedule>) query.list();
+                    }
+                });
+
+            Long total = getHibernateTemplate().execute(
+                new HibernateCallback<Long>() {
+                    public Long doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        StringBuffer listSQL = new StringBuffer();
+                        listSQL.append(" SELECT COUNT(*) FROM Auditschedule a WHERE");
+                        listSQL.append(where);
+                        Query query = session.createQuery(listSQL.toString());
+
+                        return (Long) query.uniqueResult();
+                    }
+                });
+            res = new Object[]{total, items};
+        }catch (Exception e){
+            logger.error(e);
+            res = new Object[]{0, new ArrayList<Auditschedule>()};
+        }
+        return res;
+    }
+
+	@Override
+	public List<AuditorTaskDTO> findAuditorTaskByID(final Long auditScheduleID, final Long createdBy) {
+		return getHibernateTemplate().execute(
+	            new HibernateCallback<List<AuditorTaskDTO>>() {
+	                public List<AuditorTaskDTO> doInHibernate(Session session)
+	                        throws HibernateException, SQLException {
+	                    StringBuffer sqlQuery = new StringBuffer("SELECT au.auditorID AS auditorID, au.Code AS auditorCode, au.Name AS auditorName");
+	                    sqlQuery.append(", (SELECT COUNT(DISTINCT ot.OutletID) AS outletAssigned FROM AuditorOutletTask ot WHERE ot.AuditorScheduleID = :auditScheduleID AND ot.AuditorID = au.AuditorID) AS outletAssigned");
+	                    sqlQuery.append(", (SELECT COUNT(DISTINCT ot2.OutletID) AS outletComleted FROM AuditorOutletTask ot2 WHERE ot2.AuditorScheduleID = :auditScheduleID AND ot2.Status = :status AND ot2.AuditorID = au.AuditorID) AS outletComleted");
+	                    sqlQuery.append(", (SELECT COUNT(DISTINCT st.StoreID) AS storeAssigned FROM AuditorStoreTask st WHERE st.AuditorScheduleID = :auditScheduleID AND st.AuditorID = au.AuditorID) AS storeAssigned");
+	                    sqlQuery.append(", (SELECT COUNT(DISTINCT st2.StoreID) AS storeComleted FROM AuditorStoreTask st2 WHERE st2.AuditorScheduleID = :auditScheduleID AND st2.Status = :status AND st2.AuditorID = au.AuditorID) AS storeComleted");
+	                    sqlQuery.append(" FROM Auditor au");
+	                    sqlQuery.append(" WHERE (EXISTS(SELECT ot3.AuditorID FROM AuditorOutletTask ot3 WHERE ot3.AuditorScheduleID = :auditScheduleID)");
+	                    sqlQuery.append(" OR EXISTS(SELECT st3.AuditorID FROM AuditorStoreTask st3 WHERE st3.AuditorScheduleID = :auditScheduleID))");
+	                    if (createdBy != null) {
+                            sqlQuery.append(" AND au.CreatedBy = :createdBy");
+                        }
+	                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+	                    if (createdBy != null) {
+                            query.setParameter("createdBy", createdBy);
+                        }
+                        query.setParameter("auditScheduleID", auditScheduleID);
+                        query.setParameter("status", Constants.AUDIT_FINISHED);
+
+                        query.addScalar("auditorID", StandardBasicTypes.LONG);
+                        query.addScalar("auditorCode", StandardBasicTypes.STRING);
+	                    query.addScalar("auditorName", StandardBasicTypes.STRING);
+	                    query.addScalar("outletAssigned", StandardBasicTypes.LONG);
+	                    query.addScalar("outletComleted", StandardBasicTypes.LONG);
+	                    query.addScalar("storeAssigned", StandardBasicTypes.LONG);
+	                    query.addScalar("storeComleted", StandardBasicTypes.LONG);
+	                    
+	                    query.setResultTransformer(Transformers.aliasToBean(AuditorTaskDTO.class));
+	                    return (List<AuditorTaskDTO>) query.list();
+	                }
+	            });
+	}
+
+	@Override
+	public List<Auditschedule> findActiveAuditNotAuditID(final Long auditID, final Long createdBy) {
+		return getHibernateTemplate().execute(
+	            new HibernateCallback<List<Auditschedule>>() {
+	                public List<Auditschedule> doInHibernate(Session session)
+	                        throws HibernateException, SQLException {
+	                	Timestamp now = new Timestamp(new Date().getTime());
+	                    StringBuffer hqlQuery = new StringBuffer("FROM Auditschedule a WHERE a.toDate >= :now");
+	                    if(auditID != null && auditID > 0) {
+	                    	hqlQuery.append(" AND a.auditScheduleID <> :auditID");
+	                    }
+                        if (createdBy != null && createdBy > 0) {
+                            hqlQuery.append(" AND a.createdBy.userID = :createdBy");
+                        }
+	                    Query query = session.createQuery(hqlQuery.toString());
+	                    query.setParameter("now", now);
+	                    if(auditID != null && auditID > 0) {
+	                    	query.setParameter("auditID", auditID);
+	                    }
+
+                        if (createdBy != null && createdBy > 0) {
+                            query.setParameter("createdBy", createdBy);
+                        }
+	                    
+	                    return (List<Auditschedule>) query.list();
+	                }
+	            });
+	}
+    @Override
+    public List<Auditschedule> findActiveAudit(final Long createdBy) {
+        return getHibernateTemplate().execute(
+                new HibernateCallback<List<Auditschedule>>() {
+                    public List<Auditschedule> doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        Timestamp now = new Timestamp(new Date().getTime());
+                        StringBuffer hqlQuery = new StringBuffer("FROM Auditschedule a WHERE DATE(a.toDate) >= date(now())");
+                        if (createdBy != null && createdBy > 0) {
+                            hqlQuery.append(" AND a.createdBy.userID = :createdBy");
+                        }
+                        Query query = session.createQuery(hqlQuery.toString());
+
+                        if (createdBy != null && createdBy > 0) {
+                            query.setParameter("createdBy", createdBy);
+                        }
+
+                        return (List<Auditschedule>) query.list();
+                    }
+                });
+    }
+}

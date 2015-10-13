@@ -1,0 +1,45 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Promotionproduct;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 7/6/12
+ * Time: 4:02 PM
+ */
+public class PromotionproductDTO {
+    private Long promotionProductID;
+	private String name;
+
+    public PromotionproductDTO(Promotionproduct p) {
+        setName(p.getName());
+        setPromotionProductID(p.getPromotionProductID());
+    }
+
+    public PromotionproductDTO() {
+
+    }
+
+    public Long getPromotionProductID() {
+        return promotionProductID;
+    }
+
+    public void setPromotionProductID(Long promotionProductID) {
+        this.promotionProductID = promotionProductID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setName(o.getString("name"));
+        setPromotionProductID(o.getLong("promotionProductID"));
+    }
+}

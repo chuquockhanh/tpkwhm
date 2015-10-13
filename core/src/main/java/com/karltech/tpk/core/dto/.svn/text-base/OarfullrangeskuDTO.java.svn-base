@@ -1,0 +1,64 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:27 AM
+ */
+public class OarfullrangeskuDTO {
+    /**
+	 * Attribute fullrangesku
+	 */
+	 private Long fullrangeskuID;
+
+	 private Long outletblandID;
+	 
+	 private Long outletPosmID;
+
+	/**
+	 * Attribute facing.
+	 */
+	private Integer facing;
+
+    public Long getFullrangeskuID() {
+        return fullrangeskuID;
+    }
+
+    public void setFullrangeskuID(Long fullrangeskuID) {
+        this.fullrangeskuID = fullrangeskuID;
+    }
+
+    public Integer getFacing() {
+        return facing;
+    }
+
+    public void setFacing(Integer facing) {
+        this.facing = facing;
+    }
+
+    public Long getOutletblandID() {
+		return outletblandID;
+	}
+
+	public void setOutletblandID(Long outletblandID) {
+		this.outletblandID = outletblandID;
+	}
+	
+	public Long getOutletPosmID() {
+		return outletPosmID;
+	}
+
+	public void setOutletPosmID(Long outletPosmID) {
+		this.outletPosmID = outletPosmID;
+	}	
+
+	public void unserializeJSON(JSONObject o) throws JSONException {
+        setFacing(o.getInt("facing"));
+        setFullrangeskuID(o.getLong("fullrangeskuID"));
+        setOutletPosmID(o.getLong("outletPosmID"));	
+        setOutletblandID(o.getLong("outletblandID"));
+    }
+}

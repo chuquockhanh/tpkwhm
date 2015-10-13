@@ -1,0 +1,201 @@
+package com.banvien.fcv.core.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 12:30 PM
+ */
+public class StoreInfoList {
+    private String auditorCode;
+    private List<StoreDTO> storeDTOs;
+    private List<StoreposmDTO> storeposmDTOs;
+    private List<SosbrandDTO> sosbrandDTOs;
+    private List<SarshareofdisplayDTO> sarshareofdisplayDTOs;
+    private List<BrandDTO> brandDTOs;
+    private List<StorepromotionDTO> storepromotionDTOs;
+    private Map<Long,List<Long>> accountPromotions;
+    private Map<Long,List<Long>> promotionProductToHandheld;
+    private List<StorepromotionproductDTO> storepromotionproductDTOs;
+    private List<UnitDTO> unitDTOs;
+    
+    public String getAuditorCode() {
+        return auditorCode;
+    }
+
+    public void setAuditorCode(String auditorCode) {
+        this.auditorCode = auditorCode;
+    }
+
+    public List<StoreDTO> getStoreDTOs() {
+        return storeDTOs;
+    }
+
+    public void setStoreDTOs(List<StoreDTO> storeDTOs) {
+        this.storeDTOs = storeDTOs;
+    }
+
+    public List<StoreposmDTO> getStoreposmDTOs() {
+        return storeposmDTOs;
+    }
+
+    public void setStoreposmDTOs(List<StoreposmDTO> storeposmDTOs) {
+        this.storeposmDTOs = storeposmDTOs;
+    }
+
+    public List<SosbrandDTO> getSosbrandDTOs() {
+        return sosbrandDTOs;
+    }
+
+    public void setSosbrandDTOs(List<SosbrandDTO> sosbrandDTOs) {
+        this.sosbrandDTOs = sosbrandDTOs;
+    }
+
+    public List<SarshareofdisplayDTO> getSarshareofdisplayDTOs() {
+        return sarshareofdisplayDTOs;
+    }
+
+    public void setSarshareofdisplayDTOs(List<SarshareofdisplayDTO> sarshareofdisplayDTOs) {
+        this.sarshareofdisplayDTOs = sarshareofdisplayDTOs;
+    }
+
+    public List<BrandDTO> getBrandDTOs() {
+        return brandDTOs;
+    }
+
+    public void setBrandDTOs(List<BrandDTO> brandDTOs) {
+        this.brandDTOs = brandDTOs;
+    }
+
+    public List<StorepromotionDTO> getStorepromotionDTOs() {
+		return storepromotionDTOs;
+	}
+
+	public void setStorepromotionDTOs(List<StorepromotionDTO> storepromotionDTOs) {
+		this.storepromotionDTOs = storepromotionDTOs;
+	}
+
+	public Map<Long, List<Long>> getAccountPromotions() {
+		return accountPromotions;
+	}
+
+	public void setAccountPromotions(Map<Long, List<Long>> accountPromotions) {
+		this.accountPromotions = accountPromotions;
+	}
+
+	public Map<Long, List<Long>> getPromotionProductToHandheld() {
+		return promotionProductToHandheld;
+	}
+
+	public void setPromotionProductToHandheld(
+			Map<Long, List<Long>> promotionProductToHandheld) {
+		this.promotionProductToHandheld = promotionProductToHandheld;
+	}
+
+	public List<StorepromotionproductDTO> getStorepromotionproductDTOs() {
+		return storepromotionproductDTOs;
+	}
+
+	public void setStorepromotionproductDTOs(
+			List<StorepromotionproductDTO> storepromotionproductDTOs) {
+		this.storepromotionproductDTOs = storepromotionproductDTOs;
+	}
+
+	public List<UnitDTO> getUnitDTOs() {
+		return unitDTOs;
+	}
+
+	public void setUnitDTOs(List<UnitDTO> unitDTOs) {
+		this.unitDTOs = unitDTOs;
+	}
+
+	public JSONObject serializeJSON() {
+        return new JSONObject(this);
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setAuditorCode(o.getString("auditorCode"));
+        updateBrandDTOs(o.getJSONArray("brandDTOs"));
+        updateStoreDTOs(o.getJSONArray("storeDTOs"));
+        updateStoreposmDTOs(o.getJSONArray("storeposmDTOs"));
+        updateSosbrandDTOs(o.getJSONArray("sosbrandDTOs"));
+        updateSarshareofdisplayDTOs(o.getJSONArray("sarshareofdisplayDTOs"));
+    }
+
+    private void updateSarshareofdisplayDTOs(JSONArray a) throws JSONException {
+        if (sarshareofdisplayDTOs == null) {
+            sarshareofdisplayDTOs = new ArrayList<SarshareofdisplayDTO>();
+        } else {
+            sarshareofdisplayDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SarshareofdisplayDTO bean = new SarshareofdisplayDTO();
+            bean.unserializeJSON(o);
+            sarshareofdisplayDTOs.add(bean);
+        }
+    }
+
+    private void updateSosbrandDTOs(JSONArray a) throws JSONException {
+        if (sosbrandDTOs == null) {
+            sosbrandDTOs = new ArrayList<SosbrandDTO>();
+        } else {
+            sosbrandDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SosbrandDTO bean = new SosbrandDTO();
+            bean.unserializeJSON(o);
+            sosbrandDTOs.add(bean);
+        }
+    }
+
+    private void updateStoreposmDTOs(JSONArray a) throws JSONException {
+        if (storeposmDTOs == null) {
+            storeposmDTOs = new ArrayList<StoreposmDTO>();
+        } else {
+            storeposmDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            StoreposmDTO bean = new StoreposmDTO();
+            bean.unserializeJSON(o);
+            storeposmDTOs.add(bean);
+        }
+    }
+
+    private void updateStoreDTOs(JSONArray a) throws JSONException {
+        if (storeDTOs == null) {
+            storeDTOs = new ArrayList<StoreDTO>();
+        } else {
+            storeDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            StoreDTO bean = new StoreDTO();
+            bean.unserializeJSON(o);
+            storeDTOs.add(bean);
+        }
+    }
+
+    private void updateBrandDTOs(JSONArray a) throws JSONException {
+        if (brandDTOs == null) {
+            brandDTOs = new ArrayList<BrandDTO>();
+        } else {
+            brandDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            BrandDTO bean = new BrandDTO();
+            bean.unserializeJSON(o);
+            brandDTOs.add(bean);
+        }
+    }
+}

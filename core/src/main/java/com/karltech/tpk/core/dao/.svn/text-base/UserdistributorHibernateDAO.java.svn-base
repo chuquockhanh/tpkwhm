@@ -1,0 +1,44 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Userdistributor;
+import com.banvien.fcv.core.domain.Userregion;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.dao.DataAccessException;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+
+
+/**
+ * <p>Hibernate DAO layer for Userregions</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class UserdistributorHibernateDAO extends
+		AbstractHibernateDAO<Userdistributor, Long> implements
+        UserdistributorDAO {
+
+    public UserdistributorHibernateDAO() {
+		super(Userdistributor.class);
+	}
+
+    @Override
+    public void deleteByUser(final Long userID) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Object>() {
+                public Object doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM Userdistributor WHERE user.userID = :userID");
+                    query.setParameter("userID", userID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+
+
+}
+

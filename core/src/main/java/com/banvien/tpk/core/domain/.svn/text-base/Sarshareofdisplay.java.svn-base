@@ -1,0 +1,183 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE SARShareOfDisplay</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Sarshareofdisplay implements Serializable {
+
+	/**
+	 * Attribute sarShareOfDisplayID.
+	 */
+	private Long sarShareOfDisplayID;
+	
+	/**
+	 * Attribute storeauditresult
+	 */
+	 private Storeauditresult storeauditresult;	
+
+	/**
+	 * Attribute brandgroup
+	 */
+	 private Sosbrand sosbrand;	
+
+	/**
+	 * Attribute fcvss.
+	 */
+	private Integer fcvss;
+	
+	/**
+	 * Attribute fcvge.
+	 */
+	private Integer fcvge;
+	
+	/**
+	 * Attribute fcvOther.
+	 */
+	private Integer fcvOther;
+	
+	/**
+	 * Attribute storeSS.
+	 */
+	private Integer storeSS;
+	
+	/**
+	 * Attribute storeGE.
+	 */
+	private Integer storeGE;
+	
+	/**
+	 * Attribute storeOther.
+	 */
+	private Integer storeOther;
+
+
+    public Long getSarShareOfDisplayID() {
+        return sarShareOfDisplayID;
+    }
+
+    public void setSarShareOfDisplayID(Long sarShareOfDisplayID) {
+        this.sarShareOfDisplayID = sarShareOfDisplayID;
+    }
+
+    /**
+	 * get storeauditresult
+	 */
+	public Storeauditresult getStoreauditresult() {
+		return this.storeauditresult;
+	}
+	
+	/**
+	 * set storeauditresult
+	 */
+	public void setStoreauditresult(Storeauditresult storeauditresult) {
+		this.storeauditresult = storeauditresult;
+	}
+
+
+	public Sosbrand getSosbrand() {
+		return sosbrand;
+	}
+
+	public void setSosbrand(Sosbrand sosbrand) {
+		this.sosbrand = sosbrand;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return fcvss
+	 */
+	public Integer getFcvss() {
+		return fcvss;
+	}
+
+	/**
+	 * @param fcvss new value for fcvss 
+	 */
+	public void setFcvss(Integer fcvss) {
+		this.fcvss = fcvss;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return fcvge
+	 */
+	public Integer getFcvge() {
+		return fcvge;
+	}
+
+	/**
+	 * @param fcvge new value for fcvge 
+	 */
+	public void setFcvge(Integer fcvge) {
+		this.fcvge = fcvge;
+	}
+
+    public Integer getFcvOther() {
+        return fcvOther;
+    }
+
+    public void setFcvOther(Integer fcvOther) {
+        this.fcvOther = fcvOther;
+    }
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return storeSS
+	 */
+	public Integer getStoreSS() {
+		return storeSS;
+	}
+
+	/**
+	 * @param storeSS new value for storeSS 
+	 */
+	public void setStoreSS(Integer storeSS) {
+		this.storeSS = storeSS;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storeGE
+	 */
+	public Integer getStoreGE() {
+		return storeGE;
+	}
+
+	/**
+	 * @param storeGE new value for storeGE 
+	 */
+	public void setStoreGE(Integer storeGE) {
+		this.storeGE = storeGE;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storeOther
+	 */
+	public Integer getStoreOther() {
+		return storeOther;
+	}
+
+	/**
+	 * @param storeOther new value for storeOther 
+	 */
+	public void setStoreOther(Integer storeOther) {
+		this.storeOther = storeOther;
+	}
+	
+
+
+}

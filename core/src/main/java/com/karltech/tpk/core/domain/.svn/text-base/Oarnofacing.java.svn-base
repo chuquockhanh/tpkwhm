@@ -1,0 +1,93 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE OARNoFacing</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Oarnofacing implements Serializable {
+
+	/**
+	 * Attribute oARNoFacingID.
+	 */
+	private Long oarNoFacingID;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute outletbrand
+	 */
+	 private Outletbrand outletbrand;	
+
+	/**
+	 * Attribute facing.
+	 */
+	private Integer facing;
+
+
+    public Long getOarNoFacingID() {
+        return oarNoFacingID;
+    }
+
+    public void setOarNoFacingID(Long oarNoFacingID) {
+        this.oarNoFacingID = oarNoFacingID;
+    }
+
+    /**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * get outletbrand
+	 */
+	public Outletbrand getOutletbrand() {
+		return this.outletbrand;
+	}
+	
+	/**
+	 * set outletbrand
+	 */
+	public void setOutletbrand(Outletbrand outletbrand) {
+		this.outletbrand = outletbrand;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return facing
+	 */
+	public Integer getFacing() {
+		return facing;
+	}
+
+	/**
+	 * @param facing new value for facing 
+	 */
+	public void setFacing(Integer facing) {
+		this.facing = facing;
+	}
+	
+
+
+}

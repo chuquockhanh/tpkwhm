@@ -1,0 +1,191 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Store;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 10:38 AM
+ */
+public class StoreDTO {
+    /**
+	 * Attribute storeID.
+	 */
+	private Long storeID;
+
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute address.
+	 */
+	private String address;
+
+	/**
+	 * Attribute region
+	 */
+	 private String region;
+
+	/**
+	 * Attribute account
+	 */
+    private Long accountID;
+
+	 private String account;
+
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Double gpsLatitude;
+
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Double gpsLongtitude;
+
+    private List<ProductDTO> productDTOs;
+
+    public StoreDTO(Store s) {
+        setAccountID(s.getAccount().getAccountID());
+        setAccount(s.getAccount().getName());
+        setAddress(s.getAddress());
+        setCode(s.getCode());
+        try {
+            setGpsLatitude(s.getGpsLatitude().doubleValue());
+            setGpsLongtitude(s.getGpsLongtitude().doubleValue());
+        } catch (Exception e) {
+            // nothing
+        }
+        setName(s.getName());
+        setRegion(s.getRegion().getName());
+        setStoreID(s.getStoreID());
+    }
+
+    public StoreDTO() {
+
+    }
+
+    public List<ProductDTO> getProductDTOs() {
+        return productDTOs;
+    }
+
+    public void setProductDTOs(List<ProductDTO> productDTOs) {
+        this.productDTOs = productDTOs;
+    }
+
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public Double getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Double gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Double getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Double gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setName(o.getString("name"));
+        setAccountID(o.getLong("accountID"));
+        setAccount(o.getString("account"));
+        setAddress(o.getString("address"));
+        setCode(o.getString("code"));
+        try {
+            setGpsLatitude(o.getDouble("gpsLatitude"));
+            setGpsLongtitude(o.getDouble("gpsLongtitude"));
+        } catch (Exception e) {
+            //nothing
+        }
+        setRegion(o.getString("region"));
+        setStoreID(o.getLong("storeID"));
+        updateProductDTOs(o.getJSONArray("productDTOs"));
+    }
+
+    private void updateProductDTOs(JSONArray a) throws JSONException {
+        if (productDTOs == null) {
+            productDTOs = new ArrayList<ProductDTO>();
+        } else {
+            productDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            ProductDTO bean = new ProductDTO();
+            bean.unserializeJSON(o);
+            productDTOs.add(bean);
+        }
+    }
+
+    public Long getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(Long accountID) {
+        this.accountID = accountID;
+    }
+}

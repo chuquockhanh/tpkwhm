@@ -1,0 +1,55 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.dto.SosbrandBean;
+import com.banvien.fcv.core.service.SosbrandService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit sosbrand form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class SosbrandValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(SosbrandValidator.class);
+
+    private SosbrandService sosbrandService;
+    @Autowired
+    public void setSosbrandService(SosbrandService sosbrandService) {
+        this.sosbrandService = sosbrandService;
+    }
+
+    public boolean supports(Class<?> aClass) {
+        return SosbrandBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        SosbrandBean cmd = (SosbrandBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+    }
+
+    private void validateRequiredValues(SosbrandBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.sosbrand.form.name")}, "non-empty value required.");
+
+    }
+
+    private void trimingField(SosbrandBean cmd) {
+        if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+
+    }
+
+
+}

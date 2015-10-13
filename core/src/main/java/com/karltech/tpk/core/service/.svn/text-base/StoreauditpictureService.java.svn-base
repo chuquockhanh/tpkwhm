@@ -1,0 +1,10 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storeauditpicture;
+import com.banvien.fcv.core.dto.StorePictureBean;
+
+
+public interface StoreauditpictureService extends GenericService<Storeauditpicture,Long> {
+
+    Object[] find4Report(StorePictureBean storePictureBean, boolean flagAll);
+}

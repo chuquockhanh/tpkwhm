@@ -1,0 +1,40 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/22/12
+ * Time: 11:28 AM
+ */
+public class SarshareofshelfDTO {
+
+    private Long packinggroupID;
+
+	/**
+	 * Attribute quatity.
+	 */
+	private Integer quatity;
+
+    public Long getPackinggroupID() {
+        return packinggroupID;
+    }
+
+    public void setPackinggroupID(Long packinggroupID) {
+        this.packinggroupID = packinggroupID;
+    }
+
+    public Integer getQuatity() {
+        return quatity;
+    }
+
+    public void setQuatity(Integer quatity) {
+        this.quatity = quatity;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setPackinggroupID(o.getLong("packinggroupID"));
+        setQuatity(o.getInt("quatity"));
+    }
+}

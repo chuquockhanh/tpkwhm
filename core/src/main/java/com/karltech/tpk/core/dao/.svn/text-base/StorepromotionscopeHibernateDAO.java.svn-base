@@ -1,0 +1,40 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.domain.Storepromotionscope;
+
+
+/**
+ * <p>Hibernate DAO layer for Storepromotionscopes</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class StorepromotionscopeHibernateDAO extends
+		AbstractHibernateDAO<Storepromotionscope, Long> implements
+		StorepromotionscopeDAO {
+
+    public StorepromotionscopeHibernateDAO() {
+		super(Storepromotionscope.class);
+	}
+
+    @Override
+    public void deleteByStorePromotionID(final Long storepromotionID) {
+         getHibernateTemplate().execute(
+            new HibernateCallback<Integer>() {
+                public Integer doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM Storepromotionscope WHERE storepromotion.storePromotionID = :storepromotionID");
+                    query.setParameter("storepromotionID", storepromotionID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+}

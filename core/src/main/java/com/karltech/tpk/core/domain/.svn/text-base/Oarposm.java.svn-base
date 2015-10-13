@@ -1,0 +1,104 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE OARPosm</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Oarposm implements Serializable {
+
+	/**
+	 * Attribute oarPosmID.
+	 */
+	private Long oarPosmID;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute outletposm
+	 */
+	 private Outletposm outletposm;	
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+	/**
+	 * Attribute statusPosm.
+	 */
+	private String statusPosm;	
+
+
+    public Long getOarPosmID() {
+        return oarPosmID;
+    }
+
+    public void setOarPosmID(Long oarPosmID) {
+        this.oarPosmID = oarPosmID;
+    }
+
+    /**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * get outletposm
+	 */
+	public Outletposm getOutletposm() {
+		return this.outletposm;
+	}
+	
+	/**
+	 * set outletposm
+	 */
+	public void setOutletposm(Outletposm outletposm) {
+		this.outletposm = outletposm;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return has
+	 */
+	public Byte getHas() {
+		return has;
+	}
+
+	/**
+	 * @param has new value for has 
+	 */
+	public void setHas(Byte has) {
+		this.has = has;
+	}
+	
+	public String getStatusPosm() {
+		return statusPosm;
+	}
+
+	public void setStatusPosm(String statusPosm) {
+		this.statusPosm = statusPosm;
+	}
+
+}

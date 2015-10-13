@@ -1,0 +1,11 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+
+import java.util.List;
+
+
+public interface OutletdistributionregisteredService extends GenericService<Outletdistributionregistered,Long> {
+
+    List<Outletdistributionregistered> findByOutletIds(List<Long> outletIds);
+}

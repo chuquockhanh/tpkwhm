@@ -1,0 +1,55 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Product;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Products</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class ProductHibernateDAO extends
+		AbstractHibernateDAO<Product, Long> implements
+		ProductDAO {
+
+    public ProductHibernateDAO() {
+		super(Product.class);
+	}
+
+    @Override
+    public List<Product> findRegisteredProductByStoreID(final Long storeID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Product>>() {
+                public List<Product> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("SELECT sp.product FROM Storeregisteredproduct sp WHERE sp.store.storeID = :storeID");
+                    query.setParameter("storeID", storeID);
+                    return (List<Product>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public Product findByNameAndProductBrand(final String name, final Long productBrandID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Product>() {
+                public Product doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("SELECT p FROM Product p WHERE p.name = :name AND p.productbrand.productBrandID = :productBrandID");
+                    query.setParameter("name", name);
+                    query.setParameter("productBrandID", productBrandID);
+                    return (Product) query.uniqueResult();
+                }
+            });    }
+}

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dcs/!svn/ver/127/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/exception
+END
+ServiceException.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/127/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/exception/ServiceException.java
+END
+DuplicateException.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/127/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/exception/DuplicateException.java
+END
+ObjectNotFoundException.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/127/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/exception/ObjectNotFoundException.java
+END

@@ -1,0 +1,114 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.util.CalendarUtil;
+import junit.framework.TestCase;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * User: BAN
+ * Date: 6/20/12
+ * Time: 11:26 AM
+ */
+public class OutletAuditResultServiceTest extends TestCase {
+	@Autowired
+	private OutletauditresultService outletauditresultService;
+
+
+    private OutletService outletService;
+
+    protected void setUp() {
+        try
+        {
+            super.setUp();
+            System.out.println("BEGIN TESTCASE");
+            ApplicationContext ctx =  new ClassPathXmlApplicationContext(
+                    new String[] {
+                "classpath:/applicationContext-resources.xml",
+                "classpath:/applicationContext-dao.xml",
+                "classpath:/applicationContext-service.xml"
+            });
+            outletauditresultService = (OutletauditresultService) ctx.getBean("outletauditresultService");
+            outletService = (OutletService)ctx.getBean("outletService");
+        } catch (Exception ex)
+        {
+        	ex.printStackTrace();
+        }
+    }
+
+
+    @Test
+	public void testAddOutletAuditResult() {
+        OutletAuditResultDTO dto = new OutletAuditResultDTO();
+        dto.setAuditDate("30/06/2012 12:00:02");
+        dto.setAuditorCode("GT_1001");
+        dto.setGpsLatitude(123213D);
+        dto.setGpsLongtitude(2311231D);
+        dto.setOutletID(8261L);
+        dto.setSubmittedDate("27/07/2012 11:10:22");
+        List<OarfacingiftdisplayDTO> oarfacingiftdisplayDTOs = new ArrayList<OarfacingiftdisplayDTO>();
+        OarfacingiftdisplayDTO o = new OarfacingiftdisplayDTO();
+        o.setHas(new Byte("1"));
+        o.setIftdisplaylocation(1L);
+        o.setOutletbrand(1L);
+        oarfacingiftdisplayDTOs.add(o);
+        dto.setOarfacingiftdisplayDTOs(oarfacingiftdisplayDTOs);
+        List<OarfullrangeskuDTO> oarfullrangeskuDTOs = new ArrayList<OarfullrangeskuDTO>();
+        dto.setOarfullrangeskuDTOs(oarfullrangeskuDTOs);
+        List<OarnofacingDTO> oarnofacingDTOs = new ArrayList<OarnofacingDTO>();
+        dto.setOarnofacingDTOs(oarnofacingDTOs);
+        List<OarposmDTO> oarposmDTOs = new ArrayList<OarposmDTO>();
+        dto.setOarposmDTOs(oarposmDTOs);
+        List<OarpowerskuDTO> oarpowerskuDTOs = new ArrayList<OarpowerskuDTO>();
+        List<OarpromotionDTO> oarpromotionDTOs = new ArrayList<OarpromotionDTO>();
+        OarpromotionDTO promo =  new OarpromotionDTO();
+        promo.setGetQuantity(4);
+        promo.setKnown((byte)1);
+        promo.setProductID(70L);
+        promo.setPromotionID(1L);
+        promo.setUnitID(2L);
+        oarpromotionDTOs.add(promo);
+        dto.setOarpromotionDTOs(oarpromotionDTOs);
+
+        List<OarfullrangefacingDTO> oarfullrangefacings = new ArrayList<OarfullrangefacingDTO>();
+        dto.setOarfullrangefacingDTOs(oarfullrangefacings);
+        try {
+            System.out.print(dto.serializeJSON().toString());
+            outletauditresultService.addOutletAuditResult(dto);
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            fail();
+        }
+    }
+
+
+
+    public void testReportInDetail() {
+        try {
+            Date startDate = CalendarUtil.stringToDate("28/06/2012 12:00:02");
+            Date endDate = CalendarUtil.stringToDate("30/07/2012 12:00:02");
+            List<OutletReportInfo> list = outletauditresultService.reportInDetail(startDate,endDate,1L,null,1L,0,20);
+            for (OutletReportInfo o: list) {
+                System.out.println(o.getDistributorName());
+            }
+        } catch (ObjectNotFoundException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+
+    public void setOutletauditresultService(OutletauditresultService outletauditresultService) {
+        this.outletauditresultService = outletauditresultService;
+    }
+}

@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Oarfacingiftdisplay;
+
+
+public interface OarfacingiftdisplayService extends GenericService<Oarfacingiftdisplay,Long> {
+
+}

@@ -1,0 +1,83 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.LevelRegisterDAO;
+import com.banvien.fcv.core.domain.LevelRegister;
+import com.banvien.fcv.core.dto.LevelRegisterBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class LevelRegisterServiceImpl extends GenericServiceImpl<LevelRegister,Long>
+                                                    implements LevelRegisterService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private LevelRegisterDAO levelRegisterDAO;
+
+    public void setLevelRegisterDAO(LevelRegisterDAO levelRegisterDAO) {
+        this.levelRegisterDAO = levelRegisterDAO;
+    }
+
+    @Override
+	protected GenericDAO<LevelRegister, Long> getGenericDAO() {
+		return levelRegisterDAO;
+	}
+
+    @Override
+    public void updateItem(LevelRegisterBean levelRegisterBean) throws ObjectNotFoundException, DuplicateException {
+        LevelRegister dbItem = this.levelRegisterDAO.findByIdNoAutoCommit(levelRegisterBean.getPojo().getLevelID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + levelRegisterBean.getPojo().getLevelID());
+
+        LevelRegister pojo = levelRegisterBean.getPojo();
+
+        this.levelRegisterDAO.detach(dbItem);
+        this.levelRegisterDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(LevelRegisterBean levelRegisterBean) throws DuplicateException {
+        LevelRegister pojo = levelRegisterBean.getPojo();
+        pojo = this.levelRegisterDAO.save(pojo);
+        levelRegisterBean.setPojo(pojo);
+
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                levelRegisterDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(LevelRegisterBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(LevelRegister.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.levelRegisterDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public LevelRegister findByCode(String code) throws ObjectNotFoundException{
+        LevelRegister level = levelRegisterDAO.findByCode(code);
+        if(level == null) {
+        	throw new ObjectNotFoundException("NOT found level register " + code);
+        }
+        return level;
+    }
+
+}

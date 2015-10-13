@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dcs/!svn/ver/983/trunk/outlet-audit/web/src/main/webapp/decorators
+END
+login.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/web/src/main/webapp/decorators/login.jsp
+END
+admin.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/983/trunk/outlet-audit/web/src/main/webapp/decorators/admin.jsp
+END
+default.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/983/trunk/outlet-audit/web/src/main/webapp/decorators/default.jsp
+END
+report.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dcs/!svn/ver/983/trunk/outlet-audit/web/src/main/webapp/decorators/report.jsp
+END

@@ -1,0 +1,286 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Promotion;
+import com.banvien.fcv.core.util.CalendarUtil;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:55 PM
+ */
+public class PromotionDTO {
+    /**
+	 * Attribute promotionID.
+	 */
+	private Long promotionID;
+
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute promotiontype
+	 */
+	 private String promotiontype;
+
+	/**
+	 * Attribute effectiveDate.
+	 */
+	private String effectiveDate;
+
+	/**
+	 * Attribute expireDate.
+	 */
+	private String expireDate;
+
+	/**
+	 * Attribute buyQuantity.
+	 */
+	private Integer buyQuantity;
+
+	/**
+	 * Attribute unit
+	 */
+	 private String buyUnit;
+
+	/**
+	 * Attribute product
+	 */
+	 private String buyProduct;
+
+	/**
+	 * Attribute getQuantity.
+	 */
+	private Long getQuantity;
+
+	/**
+	 * Attribute unit
+	 */
+	 private String getUnit;
+
+    private String outletbrand;
+
+    private Long outletbrandID;
+
+    private String outletBrandCode;
+
+    private String brandGroupName;
+
+	/**
+	 * Attribute product
+	 */
+	 private String getProduct;
+
+    public PromotionDTO(Promotion o) {
+        setName(o.getName());
+        setBuyProduct(o.getBuyProduct());
+        setEffectiveDate(CalendarUtil.dateToString(o.getEffectiveDate()));
+        setExpireDate(CalendarUtil.dateToString(o.getExpireDate()));
+        setBuyQuantity(o.getBuyQuantity());
+        setBuyUnit(o.getBuyUnit().getUnit());
+        setCode(o.getCode());
+        setPromotionID(o.getPromotionID());
+        setPromotiontype(o.getPromotiontype().getType());
+        setOutletbrand(o.getOutletbrand().getName());
+        setOutletbrandID(o.getOutletbrand().getOutletBrandID());
+        setOutletBrandCode(o.getOutletbrand().getCode());
+        setBrandGroupName(o.getOutletbrand().getOutletBrandGroup().getName());
+    }
+
+    public PromotionDTO() {
+
+    }
+
+    public String getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(String outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Long getOutletbrandID() {
+        return outletbrandID;
+    }
+
+    public void setOutletbrandID(Long outletbrandID) {
+        this.outletbrandID = outletbrandID;
+    }
+
+    public String getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return promotionID
+	 */
+	public Long getPromotionID() {
+		return promotionID;
+	}
+
+	/**
+	 * @param promotionID new value for promotionID
+	 */
+	public void setPromotionID(Long promotionID) {
+		this.promotionID = promotionID;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return buyQuantity
+	 */
+	public Integer getBuyQuantity() {
+		return buyQuantity;
+	}
+
+	/**
+	 * @param buyQuantity new value for buyQuantity
+	 */
+	public void setBuyQuantity(Integer buyQuantity) {
+		this.buyQuantity = buyQuantity;
+	}
+
+    public String getBuyProduct() {
+        return buyProduct;
+    }
+
+    public void setBuyProduct(String buyProduct) {
+        this.buyProduct = buyProduct;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return getQuantity
+	 */
+	public Long getGetQuantity() {
+		return getQuantity;
+	}
+
+	/**
+	 * @param getQuantity new value for getQuantity
+	 */
+	public void setGetQuantity(Long getQuantity) {
+		this.getQuantity = getQuantity;
+	}
+
+    public String getPromotiontype() {
+        return promotiontype;
+    }
+
+    public void setPromotiontype(String promotiontype) {
+        this.promotiontype = promotiontype;
+    }
+
+    public String getBuyUnit() {
+        return buyUnit;
+    }
+
+    public void setBuyUnit(String buyUnit) {
+        this.buyUnit = buyUnit;
+    }
+
+    public String getGetUnit() {
+        return getUnit;
+    }
+
+    public void setGetUnit(String getUnit) {
+        this.getUnit = getUnit;
+    }
+
+    public String getGetProduct() {
+        return getProduct;
+    }
+
+    public void setGetProduct(String getProduct) {
+        this.getProduct = getProduct;
+    }
+
+    public String getOutletBrandCode() {
+        return outletBrandCode;
+    }
+
+    public void setOutletBrandCode(String outletBrandCode) {
+        this.outletBrandCode = outletBrandCode;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setName(o.getString("name"));
+        setEffectiveDate(o.getString("effectiveDate"));
+        setExpireDate(o.getString("expireDate"));
+        setBuyProduct(o.getString("buyProduct"));
+        setBuyQuantity(o.getInt("buyQuantity"));
+        setBuyUnit(o.getString("buyUnit"));
+        setCode(o.getString("code"));
+        setPromotionID(o.getLong("promotionID"));
+        setPromotiontype(o.getString("promotiontype"));
+        setOutletbrand(o.getString("outletbrand"));
+        setOutletbrandID(o.getLong("outletbrandID"));
+        setOutletBrandCode(o.getString("outletBrandCode"));
+        setBrandGroupName(o.getString("brandGroupName"));
+    }
+
+    public String getBrandGroupName() {
+        return brandGroupName;
+    }
+
+    public void setBrandGroupName(String brandGroupName) {
+        this.brandGroupName = brandGroupName;
+    }
+}

@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.SarsbrandlocationDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Sarsbrandlocation;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class SarsbrandlocationServiceImpl extends GenericServiceImpl<Sarsbrandlocation,Long> 
+                                                    implements SarsbrandlocationService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private SarsbrandlocationDAO sarsbrandlocationDAO;
+
+    public void setSarsbrandlocationDAO(SarsbrandlocationDAO sarsbrandlocationDAO) {
+        this.sarsbrandlocationDAO = sarsbrandlocationDAO;
+    }
+
+    @Override
+	protected GenericDAO<Sarsbrandlocation, Long> getGenericDAO() {
+		return sarsbrandlocationDAO;
+	}
+
+}

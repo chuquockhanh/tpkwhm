@@ -1,0 +1,653 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.OutletAuditImportBean;
+import com.banvien.fcv.core.dto.OutletAuditImportDTO;
+import com.banvien.fcv.core.dto.OutletImportBean;
+import com.banvien.fcv.core.service.*;
+import com.banvien.fcv.core.util.CacheUtil;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.editor.PojoEditor;
+import com.banvien.fcv.webapp.util.*;
+import com.banvien.fcv.webapp.validator.OutletValidator;
+import jxl.*;
+import jxl.read.biff.BiffException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.*;
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:59 AM
+ */
+@Controller
+public class OutletAuditImportController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    // COLUM
+    private static final int COL_DISTRIBUTOR = 1;
+    private static final int COL_SAPCODE = 2;
+
+    private static final int COL_ADDRESS = 4;
+    private static final int COL_DMSCODE = 5;
+
+    // SHEET
+    private static final int FRISO_SHEET_INDEX = 0;
+
+    // ROW
+    private static final int ROW_OUTLET_BRAND = 9;
+
+    private static final int ROW_OUTLET_BRAND_MENSURAL = 10;
+
+    private static final String OUTLET_AUDIT_IMPORT_KEY = "OutletAuditImportKey";
+
+    private static final String OUTLET_AUDIT_PICTURE_IMPORT_KEY = "OutletAuditPictureImportKey";
+
+
+    @Autowired
+    private OutletService outletService;
+
+    @Autowired
+    private OutletValidator outletValidator;
+
+    @Autowired
+    private AuditscheduleService auditscheduleService;
+
+    @Autowired
+    private AuditorService auditorService;
+
+    @Autowired
+    private FullrangeskuService fullrangeskuService;
+
+    @Autowired
+    private PowerskuService powerskuService;
+
+    @Autowired
+    private PromotionService promotionService;
+
+    @Autowired
+    private OutletposmService outletposmService;
+
+    @Autowired
+    private OutletbrandService outletbrandService;
+
+    @Autowired
+    private IftdisplaylocationService iftdisplaylocationService;
+
+    @Autowired
+    private LevelRegisterService levelService;
+
+    @Autowired
+    private OutletauditresultService outletauditresultService;
+
+    @Autowired
+    private OutletauditpictureService outletauditpictureService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+        binder.registerCustomEditor(Auditor.class, new PojoEditor(Auditor.class, "auditorID", Long.class));
+        binder.registerCustomEditor(Auditschedule.class, new PojoEditor(Auditschedule.class, "auditScheduleID", Long.class));
+	}
+    
+    
+    @RequestMapping(value={"/support/outletaudit/import.html"})
+    public ModelAndView importData(OutletAuditImportBean bean, HttpServletRequest request) throws IOException, ServletException {
+        ModelAndView mav = new ModelAndView("/support/outletaudit/import");
+        mav.addObject(Constants.FORM_MODEL_KEY, bean);
+        Auditschedule auditschedule = new Auditschedule();
+        if (RequestMethod.GET.toString().equals(request.getMethod())) {
+			//Clear cache
+			CacheUtil.getInstance().remove(request.getSession().getId() + OUTLET_AUDIT_IMPORT_KEY);
+		} else if (RequestMethod.POST.toString().equals(request.getMethod())) {
+            try{
+                if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_IMPORT)) {
+                    if(bean.getPojo().getAuditSchedule() != null)
+                    {
+                        auditschedule = auditscheduleService.findById(bean.getPojo().getAuditSchedule().getAuditScheduleID());
+                    }
+                    String destFolder = CommonUtil.getBaseFolder() + CommonUtil.getTempFolderName();
+                    MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+                    Map<String, MultipartFile> map = mRequest.getFileMap();
+                    MultipartFile csvfile = (MultipartFile) map.get("dataFile");
+                    String fileName = FileUtils.upload(mRequest, destFolder, csvfile);
+                    String destFileName = request.getSession().getServletContext().getRealPath(destFolder + "/" + fileName);
+                    MultipartFile picturefile = (MultipartFile) map.get("dataFilePicture");
+
+                    String fileNamePicture = FileUtils.upload(mRequest, destFolder, picturefile);
+                    String destFileNamePicture = request.getSession().getServletContext().getRealPath(destFolder + "/" + fileNamePicture);
+                    ZipUtil.unzip(destFileNamePicture);
+                    File fileNameDirZip = ZipUtil.getUnzipDir(destFileNamePicture);
+
+                    File folders = new File(fileNameDirZip.getPath());
+                    File files[] = folders.listFiles();
+                    List<OutletAuditImportDTO> importedOutletAudits = new ArrayList<OutletAuditImportDTO>();
+
+                    //Prepare data reference for import :
+
+                    List<Powersku> powerskus = powerskuService.findAll();
+                    List<Fullrangesku> fullrangeskus = fullrangeskuService.findAll();
+
+                    Map<Long, List<Powersku>> powerskuMap = new HashMap<Long, List<Powersku>>();
+                    Map<Long, List<Fullrangesku>> fullrangeskuMap = new HashMap<Long, List<Fullrangesku>>();
+                    Map<Long, List<Outletposm>> posmMap = new HashMap<Long, List<Outletposm>>();
+                    Map<Long, List<Promotion>> promotionMap = new HashMap<Long, List<Promotion>>();
+                    Long oneMonth = (long) 1000.0 * 60 * 60 * 24 * 30;
+                    List<Promotion> promotions = promotionService.findAll();
+                    List<Outletposm> activePosms = outletposmService.findAll();
+                    List<Outletbrand> outletbrands = outletbrandService.findAll();
+                    List<Iftdisplaylocation> locations = iftdisplaylocationService.findAll();
+                    List<LevelRegister> levelRegisters = levelService.findAll();
+
+                    for (Powersku powersku : powerskus) {
+                        List<Powersku> list = powerskuMap.get(powersku.getOutletbrand().getOutletBrandID());
+                        if (list == null) {
+                            list = new ArrayList<Powersku>();
+                        }
+                        list.add(powersku);
+                        powerskuMap.put(powersku.getOutletbrand().getOutletBrandID(), list);
+                    }
+
+                    for (Fullrangesku fullrangesku : fullrangeskus) {
+                        List<Fullrangesku> list = fullrangeskuMap.get(fullrangesku.getOutletbrand().getOutletBrandID());
+                        if (list == null) {
+                            list = new ArrayList<Fullrangesku>();
+                        }
+                        list.add(fullrangesku);
+                        fullrangeskuMap.put(fullrangesku.getOutletbrand().getOutletBrandID(), list);
+                    }
+
+                    for (Outletposm outletposm : activePosms) {
+                        if(outletposm.getActive() > 0)
+                        {
+                            List<Outletposm> list = posmMap.get(outletposm.getOutletbrand().getOutletBrandID());
+                            if (list == null) {
+                                list = new ArrayList<Outletposm>();
+                            }
+                            list.add(outletposm);
+                            posmMap.put(outletposm.getOutletbrand().getOutletBrandID(), list);
+                        }
+                    }
+
+                    for (Promotion promotion : promotions) {
+                        if(promotion.getEffectiveDate().compareTo(new Timestamp(System.currentTimeMillis())) < 0 && promotion.getExpireDate().compareTo(new Timestamp(System.currentTimeMillis())) > 0)
+                        {
+                            List<Promotion> list = promotionMap.get(promotion.getOutletbrand().getOutletBrandID());
+                            if (list == null) {
+                                list= new ArrayList<Promotion>();
+                            }
+                            list.add(promotion);
+                            promotionMap.put(promotion.getOutletbrand().getOutletBrandID(), list);
+                        }
+                    }
+
+
+
+                    extractExcelData2Outlets(destFileName, importedOutletAudits, FRISO_SHEET_INDEX, powerskuMap, fullrangeskuMap, posmMap, promotionMap, locations, levelRegisters, outletbrands, bean.getPojo().getAuditor(), auditschedule);
+
+                    log.debug("Remove temp file: " + destFileName);
+                    try{
+                        FileUtils.remove(destFileName);
+                    }catch (Exception e) {
+                        log.debug("Temporary File could not be deleted" + e.getMessage());
+                    }
+
+                    String sessionId = request.getSession().getId();
+                    CacheUtil.getInstance().putValue(sessionId + OUTLET_AUDIT_IMPORT_KEY, importedOutletAudits);
+                    CacheUtil.getInstance().putValue(sessionId + OUTLET_AUDIT_PICTURE_IMPORT_KEY, files);
+                }
+                mav = new ModelAndView("redirect:/support/outletaudit/importlist.html");
+            }catch (Exception ex) {
+                mav = new ModelAndView("/support/outletaudit/import");
+                mav.addObject(Constants.FORM_MODEL_KEY, bean);
+                mav.addObject("messageResponse", "Could not extract excel data");
+            }
+        }
+        referenceData(mav);
+        return mav;
+    }
+
+    private void extractExcelData2Outlets(String dbFileName, List<OutletAuditImportDTO> importedOutletAudits, int sheetIndex, Map<Long, List<Powersku>> powerskuMap, Map<Long, List<Fullrangesku>> fullRangeSKUMap, Map<Long, List<Outletposm>> posmMap, Map<Long, List<Promotion>> promotionMap, List<Iftdisplaylocation> locations, List<LevelRegister> levelRegisters, List<Outletbrand> outletbrands, Auditor auditor, Auditschedule auditschedule) throws BiffException, IOException {
+        WorkbookSettings ws = null;
+		Workbook workbook = null;
+		Sheet s = null;
+		Cell rowData[] = null;
+		int rowCount = 0;
+		int columnCount = 0;
+		DateCell dc = null;
+		int totalSheet = 0;
+        FileInputStream fs = new FileInputStream(new File(dbFileName));
+        ws = new WorkbookSettings();
+        ExcelUtil.setEncoding4Workbook(ws);
+//        ws.setLocale(new Locale("en", "EN"));
+        workbook = Workbook.getWorkbook(fs, ws);
+        s = workbook.getSheet(sheetIndex);
+        rowCount = s.getRows();
+        columnCount = s.getColumns();
+        Cell rowHeader[] = s.getRow(ROW_OUTLET_BRAND);
+        Cell rowHeader_Mensural[] = s.getRow(ROW_OUTLET_BRAND_MENSURAL);
+        boolean beginParseOutletData = false;
+        for (int i = 0; i < rowCount; i++) {
+            rowData = s.getRow(i);
+            if (rowData.length == 0) {
+                continue;
+            }
+
+            //Identify column header
+            if (rowData[0].getContents().equals("Region")) {
+                beginParseOutletData = true;
+            }else if (beginParseOutletData) {
+                if (StringUtils.isNotBlank(rowData[COL_SAPCODE].getContents()) && StringUtils.isNotBlank(rowData[COL_DMSCODE].getContents())) {
+                    int index = -1;
+                    OutletAuditImportDTO outletAuditImportDTO = null;
+                    if (outletAuditImportDTO == null) {
+                        outletAuditImportDTO = new OutletAuditImportDTO();
+                    }
+
+                    outletAuditImportDTO.setDmsCode(rowData[COL_DMSCODE].getContents());
+                    outletAuditImportDTO.setSapCode(rowData[COL_SAPCODE].getContents());
+                    outletAuditImportDTO.setDistributor(rowData[COL_DISTRIBUTOR].getContents());
+                    try
+                    {
+//                        outletAuditImportDTO.setAuditor(auditorService.findById(auditor.getAuditorID()));
+                        outletAuditImportDTO.setAuditSchedule(auditscheduleService.findById(auditschedule.getAuditScheduleID()));
+                    }
+                    catch(Exception ex)
+                    {
+                        log.error(ex);
+                    }
+
+                    int totalColumn = 6;
+                    int currentTotalColumn = 6;
+                    int j = -1;
+                    for (Outletbrand outletbrand : outletbrands)
+                    {
+
+                        if(!outletbrand.getCode().equals(Constants.DBB))
+                        {
+                        // IFTLocation Display Actual :
+
+                        totalColumn += locations.size();
+                        if(outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()) == null)
+                        {
+                            outletAuditImportDTO.getHashIFTLocation().put(outletbrand.getOutletBrandID(), new HashMap<Long, Integer>());
+                        }
+
+                        for(j = currentTotalColumn; j < totalColumn; j ++)
+                        {
+                            if(!rowHeader[j].getContents().equals("Meet") && !rowHeader[j].getContents().equals("Fail"))
+                            {
+                                if(!rowData[j].getContents().equals(""))
+                                {
+                                    try
+                                    {
+                                        Iftdisplaylocation iftdisplaylocation = iftdisplaylocationService.findByName(rowHeader[j].getContents());
+                                        if(outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()) == null)
+                                        {
+                                            outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()).put(iftdisplaylocation.getIftDisplayLocationID(), -1);
+                                        }
+                                        outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()).put(iftdisplaylocation.getIftDisplayLocationID(), 1);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        log.error(ex);
+                                    }
+                                }
+                            }
+                        }
+
+                        currentTotalColumn = totalColumn;
+
+
+                        //Full Range SKU :
+                        totalColumn += fullRangeSKUMap.get(outletbrand.getOutletBrandID()) != null ? fullRangeSKUMap.get(outletbrand.getOutletBrandID()).size():0;
+
+                        if(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()) == null)
+                        {
+                            outletAuditImportDTO.getHashFullRangeSKU().put(outletbrand.getOutletBrandID(), new HashMap<Long, Integer>());
+                        }
+
+                        for(j = currentTotalColumn ; j < totalColumn ; j ++)
+                        {
+                            if(!rowHeader[j].getContents().equals("Meet") && !rowHeader[j].getContents().equals("Fail"))
+                            {
+                                if(!rowData[j].getContents().equals(""))
+                                {
+                                    try
+                                    {
+                                        String _space = rowHeader_Mensural[j].getContents().trim().equals("")?"":" ";
+                                        Fullrangesku fullrangesku = fullrangeskuService.findByName(rowHeader[j].getContents().trim() + _space + rowHeader_Mensural[j].getContents().trim());
+                                        if(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()) == null)
+                                        {
+                                            outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).put(fullrangesku.getFullRangeSKUID(), -1);
+                                        }
+                                        try
+                                        {
+                                            outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).put(fullrangesku.getFullRangeSKUID(), Integer.parseInt(rowData[j].getContents()));
+                                        }
+                                        catch(Exception ex)
+                                        {
+                                            log.error(ex);
+                                            int a = 1 + i;
+                                            outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).put(fullrangesku.getFullRangeSKUID(), 0);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        log.error(ex);
+                                    }
+                                }
+                            }
+                        }
+
+                        currentTotalColumn = totalColumn;
+
+                        // POSM Data :
+                        totalColumn += posmMap.get(outletbrand.getOutletBrandID()) != null ? posmMap.get(outletbrand.getOutletBrandID()).size():0;
+
+                        if(outletAuditImportDTO.getHashPOSM().get(outletbrand.getOutletBrandID()) == null)
+                        {
+                            outletAuditImportDTO.getHashPOSM().put(outletbrand.getOutletBrandID(), new HashMap<Long, Integer>());
+                        }
+
+                        for(j = currentTotalColumn ; j < totalColumn ; j ++)
+                        {
+                            if(!rowHeader[j].getContents().equals("Meet") && !rowHeader[j].getContents().equals("Fail"))
+                            {
+                                if(!rowData[j].getContents().equals(""))
+                                {
+                                    try
+                                    {
+                                        Outletposm outletposm = outletposmService.findByNameAndOutletBrand(rowHeader[j].getContents(), outletbrand.getOutletBrandID());
+                                        if(outletAuditImportDTO.getHashPOSM().get(outletbrand.getOutletBrandID()) == null)
+                                        {
+                                            outletAuditImportDTO.getHashPOSM().get(outletbrand.getOutletBrandID()).put(outletposm.getOutletPOSMID(), -1);
+                                        }
+                                        outletAuditImportDTO.getHashPOSM().get(outletbrand.getOutletBrandID()).put(outletposm.getOutletPOSMID(), 1);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        log.error(ex);
+                                    }
+                                }
+                            }
+                        }
+
+                        currentTotalColumn = totalColumn;
+
+
+                        // PROMOTION :
+                        totalColumn += promotionMap.get(outletbrand.getOutletBrandID()) != null ? promotionMap.get(outletbrand.getOutletBrandID()).size() * 2 : 0;
+
+                        if(outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()) == null)
+                        {
+                            outletAuditImportDTO.getHashPromotion().put(outletbrand.getOutletBrandID(), new HashMap<Long, HashMap<String, Integer>>());
+                        }
+
+                        for(j = currentTotalColumn ; j < totalColumn ; j += 2)
+                        {
+                            if(!rowHeader[j].getContents().equals("Meet") && !rowHeader[j].getContents().equals("Fail"))
+                            {
+                                try
+                                {
+                                    Promotion promotion = promotionService.findByName(rowHeader[j].getContents());
+                                    if(promotion != null)
+                                    {
+                                        if(outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()) == null)
+                                        {
+                                            outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).put(promotion.getPromotionID(), new HashMap<String, Integer>());
+                                        }
+                                        if(!rowHeader[j].getContents().equals(""))
+                                        {
+                                            if(!rowData[j].getContents().equals(""))
+                                            {
+                                                outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()).put("Awareness", 1);
+                                            }
+                                            else
+                                            {
+                                                outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()).put("Awareness", 0);
+                                            }
+                                            if(!rowData[j + 1].getContents().equals(""))
+                                            {
+                                                outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()).put("Compliance", 1);
+                                            }
+                                            else
+                                            {
+                                                outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()).put("Compliance", 0);
+                                            }
+
+                                        }
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    log.error(ex);
+                                }
+                            }
+                        }
+
+                        currentTotalColumn = totalColumn;
+
+
+                        //Commision :
+                        totalColumn += 1;
+
+                        OarLatestBonus oarLatestBonus = new OarLatestBonus();
+                        for(j = currentTotalColumn; j < totalColumn; j ++)
+                        {
+                            if(rowHeader[j].getContents().equals("Last Paid"))
+                            {
+                                if(!rowData[j].getContents().equals(""))
+                                {
+                                    try
+                                    {
+                                        oarLatestBonus.setEffectiveDate(Timestamp.valueOf(rowData[j].getContents()));
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        log.error(ex);
+                                        log.error("Don't cast to string");
+                                    }
+                                }
+                                else
+                                {
+                                    oarLatestBonus.setEffectiveDate(new Timestamp(System.currentTimeMillis()));
+                                }
+                            }
+                            if(rowHeader[j].getContents().equals("Meet"))
+                            {
+                                if(!rowData[j].getContents().equals(""))
+                                {
+                                    oarLatestBonus.setCorrect(1);
+                                }
+                                else
+                                {
+                                    oarLatestBonus.setCorrect(0);
+                                }
+                            }
+                        }
+                        outletAuditImportDTO.getOarLatestBonus().put(outletbrand.getOutletBrandID(), oarLatestBonus);
+
+                        currentTotalColumn = totalColumn;
+                        }
+                    }
+
+                        //Audit dates
+                    if(!rowData[totalColumn].getContents().equals(""))
+                    {
+                        outletAuditImportDTO.setAuditDate(rowData[totalColumn].getContents());
+                        Timestamp auditDateTimeStamp = DateUtils.string2TimeStamp(rowData[totalColumn].getContents(), "dd/MM/yyyy HH:mm", "yyyy-MM-dd HH:mm:ss.SSS");
+                        outletAuditImportDTO.setAuditedDate(new Date(auditDateTimeStamp.getTime()));
+                    }
+                    else
+                    {
+                        outletAuditImportDTO.setAuditDate(DateUtils.date2String(new Date(), "dd/MM/yyyy HH:mm"));
+                        outletAuditImportDTO.setAuditedDate(new Date());
+                    }
+                        //Submmitted dates
+                        //outletAuditImportDTO.setSubmittedDate(rowData[totalColumn + 1].getContents());
+
+                        //Outlet Status
+                        outletAuditImportDTO.setOutletStatus(1);
+                        if(rowData[totalColumn + 1].getContents() != null && !rowData[totalColumn + 2].getContents().equals(""))
+                        {
+                            outletAuditImportDTO.setOutletStatus(Integer.valueOf(rowData[totalColumn + 1].getContents().trim()));
+                        }
+
+
+                        //Notes
+                        outletAuditImportDTO.setNotes(rowData[totalColumn + 2].getContents());
+
+
+                    if(outletValidator.validateImportAudit(outletAuditImportDTO, DateUtils.date2String(auditschedule.getFromDate(), "yyyyMMdd"), DateUtils.date2String(auditschedule.getToDate(), "yyyyMMdd")) == 1)
+                    {
+                        outletAuditImportDTO.setSuccess("Success");
+                    }
+                    else
+                    {
+                        outletAuditImportDTO.setSuccess("Fail");
+                    }
+                    importedOutletAudits.add(outletAuditImportDTO);
+                }
+            }
+        }
+    }
+
+    private void extractPictureForOutletResult(File[] files, HttpServletRequest request)
+    {
+        for(File fileEntry : files)
+        {
+            try
+            {
+                String fileName = fileEntry.getName();
+                String fileNameAnalysis[] = fileName.split("_");
+                List<Outlet> dbOutlet = outletService.findListBySapCodeAndDmsCode(fileNameAnalysis[0], fileNameAnalysis[1]);
+                if(dbOutlet != null)
+                {
+                    Outletauditresult outletauditresult = outletauditresultService.findByOutletID(dbOutlet.get(0).getOutletID());
+                    //Copy to server
+                    String strFolder = "files/" + "outlet" + "/" +  dbOutlet.get(0).getDmsCode();
+                    File folder = new File(request.getSession().getServletContext().getRealPath(strFolder));
+                    if(folder.mkdir())
+                    {
+                        System.out.println("Multiple directories are created!");
+                    }
+                    else
+                    {
+                        System.out.println("Failed to create multiple directories!");
+                    }
+                    File srcFile = new File(fileEntry.getPath());
+                    FileUtil.copyFile(srcFile, folder);
+                    //Insert to database
+                    Outletauditpicture outletauditpicture = new Outletauditpicture();
+                    outletauditpicture.setPath(strFolder + "/"+ fileEntry.getName());
+                    outletauditpicture.setOutletauditresult(outletauditresult);
+                    outletauditpictureService.saveOrUpdate(outletauditpicture);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+                log.error("can't insert pictures", ex);
+            }
+        }
+    }
+
+
+    @RequestMapping(value="/support/outletaudit/importlist.html", method=RequestMethod.GET)
+    public ModelAndView importOutletList(HttpServletRequest request, OutletAuditImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<OutletAuditImportDTO> importedOutlets = (List<OutletAuditImportDTO>) CacheUtil.getInstance().getValue(sessionId + OUTLET_AUDIT_IMPORT_KEY);
+		if (importedOutlets == null || importedOutlets.size() == 0) {
+			return new ModelAndView("redirect:/support/outletaudit/import.html");
+		}
+
+		List<OutletAuditImportDTO> displayOutlets = importedOutlets;
+		RequestUtil.initSearchBean(request, bean);
+        if (displayOutlets.size() > 0) {
+	        Integer lastIndex = bean.getPage() * bean.getMaxPageItems();
+	        if (lastIndex > displayOutlets.size()) {
+	        	lastIndex = displayOutlets.size();
+	        }
+	        if (bean.getFirstItem() > displayOutlets.size()) {
+	        	bean.setFirstItem(0);
+	        }
+
+        	bean.setListResult((List<OutletAuditImportDTO>) displayOutlets.subList(bean.getFirstItem(), lastIndex));
+        }
+        bean.setTotalItems(displayOutlets.size());
+
+		return new ModelAndView("/support/outletaudit/importList", Constants.LIST_MODEL_KEY, bean);
+	}
+    
+    @RequestMapping(value="/support/outletaudit/importsave.html", method=RequestMethod.GET)
+    public ModelAndView importOutletSave(HttpServletRequest request, OutletImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<OutletAuditImportDTO> importedOutlets = (List<OutletAuditImportDTO>) CacheUtil.getInstance().getValue(sessionId + OUTLET_AUDIT_IMPORT_KEY);
+        File fileList[] = (File[]) CacheUtil.getInstance().getValue(sessionId + OUTLET_AUDIT_PICTURE_IMPORT_KEY);
+		if (importedOutlets == null || importedOutlets.size() == 0) {
+			return new ModelAndView("redirect:/support/outletaudit/import.html");
+		}
+
+		/**
+		 * Save/update outlets
+		 */
+		int totalSuccess = 0;
+        List<Long> outletIds = new ArrayList<Long>();
+		for (OutletAuditImportDTO outletAuditImport : importedOutlets) {
+            try{
+                Long outletAuditID = outletauditresultService.importOutletAudit(outletAuditImport);
+                outletIds.add(outletAuditID);
+                if(outletAuditID != null)
+                    totalSuccess++;
+            }catch (Exception ex) {
+                log.error("Could not import outlet " + outletAuditImport.getSapCode() + " - " + outletAuditImport.getDmsCode(), ex);
+            }
+
+		}
+        // Upload image for outletauditresult :
+        if(totalSuccess > 0)
+        {
+            extractPictureForOutletResult(fileList,request);
+        }
+
+        //Clear facing for outlet not specify in excel file
+        //outletService.clearFacingOfOutletExcept(outletIds);
+
+		CacheUtil.getInstance().remove(sessionId + OUTLET_AUDIT_IMPORT_KEY);
+		ModelAndView mav = new ModelAndView("/support/outletaudit/importReport");
+		mav.addObject("success", true);
+		mav.addObject("totalItems", importedOutlets.size());
+		mav.addObject("totalSuccess", Integer.valueOf(totalSuccess));
+
+		return mav;
+	}
+
+    private void referenceData(ModelAndView mav) {
+        mav.addObject("Auditors", auditorService.findAll());
+        mav.addObject("AuditorSchedule", auditscheduleService.findActiveAudit());
+    }
+
+}

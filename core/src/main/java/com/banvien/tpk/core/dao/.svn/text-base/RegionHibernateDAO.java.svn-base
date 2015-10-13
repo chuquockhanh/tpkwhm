@@ -1,0 +1,70 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Region;
+import com.banvien.fcv.core.dto.RegionWithOutletNumDTO;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Regions</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class RegionHibernateDAO extends
+		AbstractHibernateDAO<Region, Long> implements
+		RegionDAO {
+
+    public RegionHibernateDAO() {
+		super(Region.class);
+	}
+
+    @Override
+    public Region findRegionByName(final String name) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Region>() {
+                public Region doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Region d WHERE d.name = :name");
+                    query.setParameter("name", name);
+                    return (Region) query.uniqueResult();
+                }
+            });
+    }
+
+    @Override
+    public List<RegionWithOutletNumDTO> findRegionWithOutletNum(final List<Long> regionIDs, final String whereClause) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<RegionWithOutletNumDTO>>() {
+                public List<RegionWithOutletNumDTO> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuilder sqlQuery = new StringBuilder();
+                    sqlQuery.append("SELECT r as region, COUNT(*) as totalOutlet FROM Region r, Outlet o WHERE r.regionID = o.region.regionID");
+                    if (regionIDs != null && regionIDs.size() > 0) {
+                        sqlQuery.append(" and r.regionID IN (:regionIDs)");
+                    }
+                    if (StringUtils.isNotBlank(whereClause)) {
+                        sqlQuery.append(" AND ").append(whereClause);
+                    }
+                    sqlQuery.append(" GROUP BY r");
+                    Query query = session.createQuery(sqlQuery.toString());
+                    if (regionIDs != null && regionIDs.size() > 0) {
+                        query.setParameter("regionIDs", regionIDs);
+                    }
+                    query.setResultTransformer(Transformers.aliasToBean(RegionWithOutletNumDTO.class));
+                    return (List<RegionWithOutletNumDTO>) query.list();
+                }
+            });
+    }
+
+}

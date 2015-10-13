@@ -1,0 +1,74 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.BaseTestCase;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.ServiceException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * User: BAN
+ * Date: 6/22/12
+ * Time: 4:21 PM
+ */
+
+public class StoreAuditResultServiceTest extends BaseTestCase {
+	@Autowired
+	private StoreauditresultService storeauditresultService;
+
+    public void setStoreauditresultService(StoreauditresultService storeauditresultService) {
+        this.storeauditresultService = storeauditresultService;
+    }
+
+    @Test
+	public void testAddStoreAuditResult() {
+        StoreauditresultDTO dto = new StoreauditresultDTO();
+        dto.setAuditDate("06/20/2012 12:00:02");
+        dto.setAuditorCode("0001");
+        dto.setGpsLatitude(12323D);
+        dto.setGpsLongtitude(231231D);
+        dto.setStoreID(1L);
+        dto.setSubmittedDate("06/21/2012 11:10:22");
+        List<SarposmDTO> sarposmDTOs = new ArrayList<SarposmDTO>();
+        SarposmDTO o = new SarposmDTO();
+        o.setHas(new Byte("1"));
+        o.setStoreposmID(1L);
+        sarposmDTOs.add(o);
+        dto.setSarposmDTOs(sarposmDTOs);
+        List<SarregisterproductDTO> sarregisterproductDTOs = new ArrayList<SarregisterproductDTO>();
+        List<SarsbrandlocationDTO> sarsbrandlocationDTOs = new ArrayList<SarsbrandlocationDTO>();
+
+        List<SarshareofdisplayDTO> sarshareofdisplayDTOs = new ArrayList<SarshareofdisplayDTO>();
+
+        List<SarshareofshelfDTO> sarshareofshelfDTOs = new ArrayList<SarshareofshelfDTO>();
+        dto.setSarregisterproductDTOs(sarregisterproductDTOs);
+        dto.setSarsbrandlocationDTOs(sarsbrandlocationDTOs);
+        dto.setSarshareofdisplayDTOs(sarshareofdisplayDTOs);
+        dto.setSarshareofshelfDTOs(sarshareofshelfDTOs);
+        try {
+            storeauditresultService.addStoreAuditResult(dto);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    public void testAddAsString() throws JSONException {
+        String temp = "{\"auditDate\":\"06\\/30\\/2012 04:57:20\",\"auditorCode\":\"0001\",\"gpsLatitude\":0,\"gpsLongtitude\":0,\"sarposmDTOs\":[{\"has\":0,\"storeposmID\":1},{\"has\":0,\"storeposmID\":2},{\"has\":0,\"storeposmID\":3},{\"has\":0,\"storeposmID\":4},{\"has\":0,\"storeposmID\":5},{\"has\":0,\"storeposmID\":6},{\"has\":0,\"storeposmID\":7},{\"has\":0,\"storeposmID\":8},{\"has\":1,\"storeposmID\":9},{\"has\":0,\"storeposmID\":10},{\"has\":0,\"storeposmID\":11},{\"has\":0,\"storeposmID\":12},{\"has\":1,\"storeposmID\":13},{\"has\":0,\"storeposmID\":14},{\"has\":0,\"storeposmID\":15},{\"has\":0,\"storeposmID\":16},{\"has\":0,\"storeposmID\":17},{\"has\":0,\"storeposmID\":18}],\"submittedDate\":\"06\\/30\\/2012 04:57:20\",\"sarsbrandlocationDTOs\":[{\"brandID\":1,\"right\":1,\"has\":1},{\"brandID\":2,\"right\":0,\"has\":0},{\"brandID\":3,\"right\":0,\"has\":1},{\"brandID\":4,\"right\":0,\"has\":0},{\"brandID\":5,\"right\":0,\"has\":0},{\"brandID\":6,\"right\":0,\"has\":0}],\"sarshareofdisplayDTOs\":[{\"storeSS\":0,\"fcvOther\":0,\"storeOther\":0,\"storeGE\":0,\"fcvge\":0,\"brandgroupID\":2,\"fcvss\":0},{\"storeSS\":0,\"fcvOther\":0,\"storeOther\":0,\"storeGE\":0,\"fcvge\":0,\"brandgroupID\":1,\"fcvss\":0}],\"storeID\":1,\"sarregisterproductDTOs\":[{\"productID\":1,\"has\":0},{\"productID\":2,\"has\":0},{\"productID\":3,\"has\":0},{\"productID\":4,\"has\":0},{\"productID\":5,\"has\":0},{\"productID\":6,\"has\":0},{\"productID\":7,\"has\":0},{\"productID\":8,\"has\":0},{\"productID\":9,\"has\":0},{\"productID\":10,\"has\":0},{\"productID\":11,\"has\":0},{\"productID\":12,\"has\":0},{\"productID\":13,\"has\":1},{\"productID\":14,\"has\":0},{\"productID\":15,\"has\":1},{\"productID\":16,\"has\":1},{\"productID\":17,\"has\":0},{\"productID\":18,\"has\":0},{\"productID\":19,\"has\":0},{\"productID\":20,\"has\":0},{\"productID\":21,\"has\":0},{\"productID\":22,\"has\":0},{\"productID\":23,\"has\":0},{\"productID\":24,\"has\":0},{\"productID\":25,\"has\":0},{\"productID\":26,\"has\":0},{\"productID\":27,\"has\":0},{\"productID\":28,\"has\":0},{\"productID\":29,\"has\":0},{\"productID\":30,\"has\":0},{\"productID\":31,\"has\":0},{\"productID\":32,\"has\":0},{\"productID\":33,\"has\":0},{\"productID\":34,\"has\":0},{\"productID\":35,\"has\":0},{\"productID\":36,\"has\":0},{\"productID\":37,\"has\":0},{\"productID\":38,\"has\":0},{\"productID\":39,\"has\":0},{\"productID\":40,\"has\":0},{\"productID\":41,\"has\":0},{\"productID\":42,\"has\":0},{\"productID\":43,\"has\":0},{\"productID\":44,\"has\":0},{\"productID\":45,\"has\":0},{\"productID\":46,\"has\":0},{\"productID\":47,\"has\":0},{\"productID\":48,\"has\":0},{\"productID\":49,\"has\":0},{\"productID\":50,\"has\":0},{\"productID\":51,\"has\":0},{\"productID\":52,\"has\":0},{\"productID\":53,\"has\":0},{\"productID\":54,\"has\":0},{\"productID\":55,\"has\":0},{\"productID\":56,\"has\":0},{\"productID\":57,\"has\":0},{\"productID\":58,\"has\":0},{\"productID\":59,\"has\":0},{\"productID\":60,\"has\":0},{\"productID\":61,\"has\":0},{\"productID\":62,\"has\":0},{\"productID\":63,\"has\":0},{\"productID\":64,\"has\":0},{\"productID\":65,\"has\":0},{\"productID\":66,\"has\":0},{\"productID\":67,\"has\":0},{\"productID\":68,\"has\":0},{\"productID\":69,\"has\":0},{\"productID\":70,\"has\":0},{\"productID\":71,\"has\":0},{\"productID\":72,\"has\":0},{\"productID\":73,\"has\":0},{\"productID\":74,\"has\":0},{\"productID\":75,\"has\":0},{\"productID\":76,\"has\":0},{\"productID\":77,\"has\":0},{\"productID\":78,\"has\":0},{\"productID\":79,\"has\":0},{\"productID\":80,\"has\":0}],\"sarshareofshelfDTOs\":[{\"quatity\":0,\"packinggroupID\":17},{\"quatity\":0,\"packinggroupID\":18},{\"quatity\":0,\"packinggroupID\":19},{\"quatity\":0,\"packinggroupID\":20},{\"quatity\":0,\"packinggroupID\":21},{\"quatity\":0,\"packinggroupID\":22},{\"quatity\":0,\"packinggroupID\":1},{\"quatity\":0,\"packinggroupID\":2},{\"quatity\":0,\"packinggroupID\":3},{\"quatity\":0,\"packinggroupID\":4},{\"quatity\":0,\"packinggroupID\":5},{\"quatity\":0,\"packinggroupID\":6},{\"quatity\":0,\"packinggroupID\":7},{\"quatity\":0,\"packinggroupID\":8},{\"quatity\":0,\"packinggroupID\":9},{\"quatity\":0,\"packinggroupID\":10},{\"quatity\":0,\"packinggroupID\":11},{\"quatity\":0,\"packinggroupID\":12},{\"quatity\":0,\"packinggroupID\":13},{\"quatity\":0,\"packinggroupID\":14},{\"quatity\":32,\"packinggroupID\":15},{\"quatity\":0,\"packinggroupID\":16}]}";
+        JSONObject o = new JSONObject(temp);
+        StoreauditresultDTO dto = new StoreauditresultDTO();
+        dto.unserializeJSON(o);
+        try {
+            storeauditresultService.addStoreAuditResult(dto);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+    }
+}

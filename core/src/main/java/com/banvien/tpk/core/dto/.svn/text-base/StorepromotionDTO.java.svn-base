@@ -1,0 +1,258 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.banvien.fcv.core.domain.Storepromotion;
+import com.banvien.fcv.core.util.CalendarUtil;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:55 PM
+ */
+public class StorepromotionDTO {
+    /**
+	 * Attribute promotionID.
+	 */
+	private Long storePromotionID;
+
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute promotiontype
+	 */
+	 private String promotiontype;
+
+	/**
+	 * Attribute effectiveDate.
+	 */
+	private String effectiveDate;
+
+	/**
+	 * Attribute expireDate.
+	 */
+	private String expireDate;
+
+	/**
+	 * Attribute buyQuantity.
+	 */
+	private Integer buyQuantity;
+
+	/**
+	 * Attribute unit
+	 */
+	 private String buyUnit;
+
+	/**
+	 * Attribute product
+	 */
+	 private String buyProduct;
+
+	/**
+	 * Attribute getQuantity.
+	 */
+	private Long getQuantity;
+
+	/**
+	 * Attribute unit
+	 */
+	 private String getUnit;
+
+    private String sosbrand;
+
+    private Long sosBrandID;
+
+	/**
+	 * Attribute product
+	 */
+	 private String getProduct;
+
+    public StorepromotionDTO(Storepromotion o) {
+        setName(o.getName());
+        setBuyProduct(o.getBuyProduct());
+        setEffectiveDate(CalendarUtil.dateToString(o.getEffectiveDate()));
+        setExpireDate(CalendarUtil.dateToString(o.getExpireDate()));
+        setBuyQuantity(o.getBuyQuantity());
+        setBuyUnit(o.getBuyUnit().getUnit());
+        setCode(o.getCode());
+        setStorePromotionID(o.getStorePromotionID());
+        setPromotiontype(o.getStorepromotiontype().getType());
+        setSosbrand(o.getSosbrand().getName());
+        setSosBrandID(o.getSosbrand().getSosBrandID());
+    }
+
+    public StorepromotionDTO() {
+
+    }
+
+    
+    public String getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public String getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(String expireDate) {
+        this.expireDate = expireDate;
+    }
+
+   
+	/**
+	 * <p>
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return buyQuantity
+	 */
+	public Integer getBuyQuantity() {
+		return buyQuantity;
+	}
+
+	/**
+	 * @param buyQuantity new value for buyQuantity
+	 */
+	public void setBuyQuantity(Integer buyQuantity) {
+		this.buyQuantity = buyQuantity;
+	}
+
+    public String getBuyProduct() {
+        return buyProduct;
+    }
+
+    public void setBuyProduct(String buyProduct) {
+        this.buyProduct = buyProduct;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return getQuantity
+	 */
+	public Long getGetQuantity() {
+		return getQuantity;
+	}
+
+	/**
+	 * @param getQuantity new value for getQuantity
+	 */
+	public void setGetQuantity(Long getQuantity) {
+		this.getQuantity = getQuantity;
+	}
+
+    public String getPromotiontype() {
+        return promotiontype;
+    }
+
+    public void setPromotiontype(String promotiontype) {
+        this.promotiontype = promotiontype;
+    }
+
+    public String getBuyUnit() {
+        return buyUnit;
+    }
+
+    public void setBuyUnit(String buyUnit) {
+        this.buyUnit = buyUnit;
+    }
+
+    public String getGetUnit() {
+        return getUnit;
+    }
+
+    public void setGetUnit(String getUnit) {
+        this.getUnit = getUnit;
+    }
+
+    public String getGetProduct() {
+        return getProduct;
+    }
+
+    public void setGetProduct(String getProduct) {
+        this.getProduct = getProduct;
+    }
+
+
+    public Long getStorePromotionID() {
+		return storePromotionID;
+	}
+
+	public void setStorePromotionID(Long storePromotionID) {
+		this.storePromotionID = storePromotionID;
+	}
+
+	public String getSosbrand() {
+		return sosbrand;
+	}
+
+	public void setSosbrand(String sosbrand) {
+		this.sosbrand = sosbrand;
+	}
+
+	public Long getSosBrandID() {
+		return sosBrandID;
+	}
+
+	public void setSosBrandID(Long sosBrandID) {
+		this.sosBrandID = sosBrandID;
+	}
+
+	public void unserializeJSON(JSONObject o) throws JSONException {
+        setName(o.getString("name"));
+        setEffectiveDate(o.getString("effectiveDate"));
+        setExpireDate(o.getString("expireDate"));
+        setBuyProduct(o.getString("buyProduct"));
+        setBuyQuantity(o.getInt("buyQuantity"));
+        setBuyUnit(o.getString("buyUnit"));
+        setCode(o.getString("code"));
+        setStorePromotionID(o.getLong("storePromotionID"));
+        setPromotiontype(o.getString("promotiontype"));
+        setSosbrand(o.getString("sosbrand"));
+        setSosBrandID(o.getLong("sosBrandID"));
+    }
+}

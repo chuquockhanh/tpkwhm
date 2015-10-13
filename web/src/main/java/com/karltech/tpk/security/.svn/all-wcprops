@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/security
+END
+MyLogoutSuccessHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/security/MyLogoutSuccessHandler.java
+END
+AuthenticationProcessingFilterExtends.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/security/AuthenticationProcessingFilterExtends.java
+END
+MyPasswordEncoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/security/MyPasswordEncoder.java
+END

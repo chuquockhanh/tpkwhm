@@ -1,0 +1,50 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE Product</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Promotionproduct implements Serializable {
+    public static final String FIELD_NAME = "name";
+	/**
+	 * Attribute promotionProductID.
+	 */
+	private Long promotionProductID;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+    public Long getPromotionProductID() {
+        return promotionProductID;
+    }
+
+    public void setPromotionProductID(Long promotionProductID) {
+        this.promotionProductID = promotionProductID;
+    }
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+}

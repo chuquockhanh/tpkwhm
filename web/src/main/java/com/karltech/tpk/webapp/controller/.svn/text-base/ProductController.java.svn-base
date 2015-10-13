@@ -1,0 +1,142 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Productbrand;
+import com.banvien.fcv.core.domain.Productgroup;
+import com.banvien.fcv.core.dto.ProductBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.ProductService;
+import com.banvien.fcv.core.service.ProductbrandService;
+import com.banvien.fcv.core.service.ProductgroupService;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.editor.PojoEditor;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.ProductValidator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:59 AM
+ */
+@Controller
+public class ProductController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private ProductValidator productValidator;
+
+    @Autowired
+    private ProductgroupService productgroupService;
+
+    @Autowired
+    private ProductbrandService productbrandService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+        binder.registerCustomEditor(Productgroup.class, new PojoEditor(Productgroup.class, "productGroupID", Long.class));
+        binder.registerCustomEditor(Productbrand.class, new PojoEditor(Productbrand.class, "productBrandID", Long.class));
+	}
+    
+    @RequestMapping("/support/product/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) ProductBean productBean, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("/support/product/edit");
+
+		String crudaction = productBean.getCrudaction();
+		Product pojo = productBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				productValidator.validate(productBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getProductID() != null && pojo.getProductID() > 0) {
+						this.productService.updateItem(productBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.productService.addNew(productBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& productBean.getPojo().getProductID() != null && productBean.getPojo().getProductID() > 0) {
+			try {
+				Product itemObj = this.productService.findById(pojo.getProductID());
+				productBean.setPojo(itemObj);
+			}
+			catch (Exception e) {
+				logger.error("Could not found news " + productBean.getPojo().getProductID(), e);
+			}
+		}
+        referenceData(mav);
+		mav.addObject(Constants.FORM_MODEL_KEY, productBean);
+		return mav;
+	}
+
+    private void referenceData(ModelAndView mav) {
+        mav.addObject("productgroups", productgroupService.findAll());
+        mav.addObject("productBrands", productbrandService.findAll());
+    }
+
+
+    @RequestMapping(value={"/support/product/list.html"})
+    public ModelAndView list(ProductBean bean, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/support/product/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = productService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+        executeSearch(bean, request);
+        referenceData(mav);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        return mav;
+    }
+
+    private void executeSearch(ProductBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.productService.search(bean);
+        bean.setListResult((List<Product>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+}

@@ -1,0 +1,143 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Fullrangesku;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:41 PM
+ */
+public class FullrangeskuDTO {
+    /**
+	 * Attribute fullRangeSKUID.
+	 */
+	private Long fullRangeSKUID;
+
+	/**
+	 * Attribute outletbrand
+	 */
+	private String outletbrand;
+
+    private Long  outletbrandID;
+
+    private String outletBrandCode;
+
+    private String brandGroupName;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+    public FullrangeskuDTO(Fullrangesku o) {
+        setOutletbrand(o.getOutletbrand().getName());
+        setOutletbrandID(o.getOutletbrand().getOutletBrandID());
+        setOutletBrandCode(o.getOutletbrand().getCode());
+        setDisplayOrder(o.getDisplayOrder());
+        setName(o.getName());
+        setFullRangeSKUID(o.getFullRangeSKUID());
+        setBrandGroupName(o.getOutletbrand().getOutletBrandGroup().getName());
+    }
+
+    public FullrangeskuDTO() {
+
+    }
+
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return fullRangeSKUID
+	 */
+	public Long getFullRangeSKUID() {
+		return fullRangeSKUID;
+	}
+
+	/**
+	 * @param fullRangeSKUID new value for fullRangeSKUID
+	 */
+	public void setFullRangeSKUID(Long fullRangeSKUID) {
+		this.fullRangeSKUID = fullRangeSKUID;
+	}
+
+    public String getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(String outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setDisplayOrder(o.getInt("displayOrder"));
+        setFullRangeSKUID(o.getLong("fullRangeSKUID"));
+        setName(o.getString("name"));
+        setOutletbrand(o.getString("outletbrand"));
+        setOutletbrandID(o.getLong("outletbrandID"));
+        setOutletBrandCode(o.getString("outletBrandCode"));
+        setBrandGroupName(o.getString("brandGroupName"));
+    }
+
+    public Long getOutletbrandID() {
+        return outletbrandID;
+    }
+
+    public void setOutletbrandID(Long outletbrandID) {
+        this.outletbrandID = outletbrandID;
+    }
+
+    public String getOutletBrandCode() {
+        return outletBrandCode;
+    }
+
+    public void setOutletBrandCode(String outletBrandCode) {
+        this.outletBrandCode = outletBrandCode;
+    }
+
+    public String getBrandGroupName() {
+        return brandGroupName;
+    }
+
+    public void setBrandGroupName(String brandGroupName) {
+        this.brandGroupName = brandGroupName;
+    }
+}

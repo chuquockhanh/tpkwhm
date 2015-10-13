@@ -1,0 +1,73 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletauditpictureDAO;
+import com.banvien.fcv.core.domain.Outletauditpicture;
+import com.banvien.fcv.core.dto.OutletPictureBean;
+import com.banvien.fcv.security.SecurityUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class OutletauditpictureServiceImpl extends GenericServiceImpl<Outletauditpicture,Long> 
+                                                    implements OutletauditpictureService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletauditpictureDAO outletauditpictureDAO;
+
+    public void setOutletauditpictureDAO(OutletauditpictureDAO outletauditpictureDAO) {
+        this.outletauditpictureDAO = outletauditpictureDAO;
+    }
+
+    @Override
+	protected GenericDAO<Outletauditpicture, Long> getGenericDAO() {
+		return outletauditpictureDAO;
+	}
+
+    @Override
+    public Object[] find4Report(OutletPictureBean outletPictureBean, boolean flagAll) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        StringBuffer whereClause = new StringBuffer(" 1 = 1 ");
+
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE) && !SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE)) {
+            properties.put("outletauditresult.auditoroutlettask.outlet.createdBy.userID", SecurityUtils.getLoginUserId());
+        }
+
+        if (outletPictureBean.getRegionID() != null) {
+            properties.put("outletauditresult.auditoroutlettask.outlet.region.regionID", outletPictureBean.getRegionID());
+        }
+        if (outletPictureBean.getDistributorID() != null) {
+            properties.put("outletauditresult.auditoroutlettask.outlet.distributor.distributorID", outletPictureBean.getDistributorID());
+        }
+
+        if (outletPictureBean.getFromDate() != null) {
+            whereClause.append(" AND outletauditresult.submittedDate >= '").append(outletPictureBean.getFromDate()).append("'");
+        }
+        if (outletPictureBean.getToDate() != null) {
+            whereClause.append(" AND outletauditresult.submittedDate <= '").append(outletPictureBean.getToDate()).append("'");
+        }
+
+        if (StringUtils.isNotBlank(outletPictureBean.getOutletCode())) {
+            properties.put("outletauditresult.auditoroutlettask.outlet.dmsCode", outletPictureBean.getOutletCode().trim());
+        }
+        //return outletauditpictureDAO.findByProperties(properties, "outletauditresult.submittedDate", Constants.SORT_DESC, true, whereClause.toString());
+
+
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE) && outletPictureBean.getDistributorID() == null && outletPictureBean.getRegionID() == null) {
+            Long userID = SecurityUtils.getLoginUserId();
+            whereClause.append(" AND outletauditresult.auditoroutlettask.outlet.distributor.distributorID IN (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = ").append(userID).append(")");
+            whereClause.append(" AND outletauditresult.auditoroutlettask.outlet.region.regionID IN (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(userID).append(")");
+        }
+
+        if(flagAll == true)
+        {
+            return outletauditpictureDAO.searchByProperties(properties, outletPictureBean.getFirstItem(), -1 , "outletauditresult.submittedDate",Constants.SORT_DESC ,true, whereClause.toString());
+        }
+        return outletauditpictureDAO.searchByProperties(properties, outletPictureBean.getFirstItem(), outletPictureBean.getMaxPageItems() , "outletauditresult.submittedDate",Constants.SORT_DESC ,true, whereClause.toString());
+    }
+}

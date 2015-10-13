@@ -1,0 +1,27 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 3:36 PM
+ */
+public class OutletBean extends AbstractBean<Outlet> {
+    private Map<String, Outletdistributionregistered> outletFacingsMap;
+    public OutletBean() {
+        this.pojo = new Outlet();
+    }
+
+    public Map<String, Outletdistributionregistered> getOutletFacingsMap() {
+        return outletFacingsMap;
+    }
+
+    public void setOutletFacingsMap(Map<String, Outletdistributionregistered> outletFacingsMap) {
+        this.outletFacingsMap = outletFacingsMap;
+    }
+}

@@ -1,0 +1,100 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Outletdistributionregistereds</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OutletdistributionregisteredHibernateDAO extends
+		AbstractHibernateDAO<Outletdistributionregistered, Long> implements
+		OutletdistributionregisteredDAO {
+
+    public OutletdistributionregisteredHibernateDAO() {
+		super(Outletdistributionregistered.class);
+	}
+
+    @Override
+    public Outletdistributionregistered findByOutletIDAndOutletBrandAndLevel(final Long outletID, final Long outletBrandID, final Long levelID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Outletdistributionregistered>() {
+                public Outletdistributionregistered doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                	StringBuffer buff = new StringBuffer("FROM Outletdistributionregistered o WHERE o.outlet.outletID = :outletID AND o.outletBrand.outletBrandID = :outletBrandID");
+                	 if(levelID != null) {
+                       	 buff.append(" AND o.levelRegister.levelID = :levelID");
+                      }
+                    Query query = session
+                            .createQuery(buff.toString());
+                    query.setParameter("outletID", outletID);
+                    query.setParameter("outletBrandID", outletBrandID);
+                    if(levelID != null) {
+                    	 query.setParameter("levelID", levelID);
+                    }
+                    try
+                    {
+                        return (Outletdistributionregistered) query.uniqueResult();
+                    }
+                    catch(Exception ex)
+                    {
+                        return null;
+                    }
+                }
+            });
+    }
+
+    @Override
+    public List<Outletdistributionregistered> findByOutletIDs(final List<Long> outletIds) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outletdistributionregistered>>() {
+                public List<Outletdistributionregistered> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outletdistributionregistered o WHERE o.outlet.outletID IN (:outletIDs)");
+                    query.setParameterList("outletIDs", outletIds);
+                    return (List<Outletdistributionregistered>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<Outletdistributionregistered> findByOutletIDAndBrand(final Long outletId, final Long outletBrandID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outletdistributionregistered>>() {
+                public List<Outletdistributionregistered> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outletdistributionregistered o WHERE o.outlet.outletID = :outletId and o.outletBrand.outletBrandID = :outletBrandID");
+                    query.setParameter("outletId", outletId);
+                    query.setParameter("outletBrandID", outletBrandID);
+                    return (List<Outletdistributionregistered>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public void clearOutletFacingExcept(final List<Long> outletIds) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Object>() {
+                public Object doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("UPDATE Outletdistributionregistered o SET friso = 0, dutchLady = 0 WHERE o.outlet.outletID NOT IN (:outletIDs)");
+                    query.setParameterList("outletIDs", outletIds);
+                    return query.executeUpdate();
+                }
+            });
+    }
+}

@@ -1,0 +1,50 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+use FCVAuditData;
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`ProductBrand`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`ProductBrand` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`ProductBrand` (
+  `ProductBrandID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  PRIMARY KEY (`ProductBrandID`),
+  UNIQUE INDEX `UQ_ProductBrand`(`Name` ASC),
+  CONSTRAINT `FK_ProductBrand_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Product`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Product` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Product` (
+  `ProductID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `Size` VARCHAR(45) NOT NULL ,
+  `ProductGroupID` BIGINT NULL ,
+  `ProductBrandID` BIGINT NOT NULL ,
+
+  PRIMARY KEY (`ProductID`) ,
+  INDEX `FK_Product_ProductGroup` (`ProductGroupID` ASC) ,
+  CONSTRAINT `FK_Product_ProductGroup`
+    FOREIGN KEY (`ProductGroupID` )
+    REFERENCES `FCVAuditData`.`ProductGroup` (`ProductGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Product_ProductBrand`
+    FOREIGN KEY (`ProductBrandID` )
+    REFERENCES `FCVAuditData`.`ProductBrand` (`ProductBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

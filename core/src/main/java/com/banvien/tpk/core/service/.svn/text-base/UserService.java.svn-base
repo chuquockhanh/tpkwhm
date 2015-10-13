@@ -1,0 +1,31 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.User;
+import com.banvien.fcv.core.dto.UserBean;
+import com.banvien.fcv.core.dto.UserDTO;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface UserService extends GenericService<User,Long> {
+
+    User findByEmail(String email) throws ObjectNotFoundException;
+
+    User findByUsername(String userName) throws ObjectNotFoundException;
+
+    void updateItem(UserBean userBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(UserBean userBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(UserBean bean);
+
+    Object[] searchDistributor4User(UserBean bean);
+
+    Long importUser(UserDTO userDTO);
+
+    void updateItemImport(UserDTO userDTO) throws ObjectNotFoundException, DuplicateException;
+
+    void updateProfile(UserBean userBean) throws ObjectNotFoundException, DuplicateException;
+}

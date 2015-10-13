@@ -1,0 +1,89 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.IftdisplaylocationDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Iftdisplaylocation;
+import com.banvien.fcv.core.dto.IFTDisplayLocationBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class IftdisplaylocationServiceImpl extends GenericServiceImpl<Iftdisplaylocation,Long> 
+                                                    implements IftdisplaylocationService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private IftdisplaylocationDAO iftdisplaylocationDAO;
+
+    public void setIftdisplaylocationDAO(IftdisplaylocationDAO iftdisplaylocationDAO) {
+        this.iftdisplaylocationDAO = iftdisplaylocationDAO;
+    }
+
+    @Override
+	protected GenericDAO<Iftdisplaylocation, Long> getGenericDAO() {
+		return iftdisplaylocationDAO;
+	}
+
+    @Override
+    public Iftdisplaylocation findByCode(String code) throws ObjectNotFoundException {
+        Iftdisplaylocation res = this.iftdisplaylocationDAO.findEqualUnique(Iftdisplaylocation.FIELD_CODE, code);
+        if (res == null) throw new ObjectNotFoundException("Not found iftdisplaylocation with code " + code);
+        return res;
+    }
+
+    @Override
+    public Iftdisplaylocation findByName(String name) throws ObjectNotFoundException {
+        Iftdisplaylocation res = this.iftdisplaylocationDAO.findByName(name);
+        if (res == null) throw new ObjectNotFoundException("Not found iftdisplaylocation with name " + name);
+        return res;
+    }
+
+    @Override
+    public void updateItem(IFTDisplayLocationBean iftdisplaylocationBean) throws ObjectNotFoundException, DuplicateException {
+        Iftdisplaylocation dbItem = this.iftdisplaylocationDAO.findByIdNoAutoCommit(iftdisplaylocationBean.getPojo().getIftDisplayLocationID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found iftdisplaylocation " + iftdisplaylocationBean.getPojo().getIftDisplayLocationID());
+
+        Iftdisplaylocation pojo = iftdisplaylocationBean.getPojo();
+
+        this.iftdisplaylocationDAO.detach(dbItem);
+        this.iftdisplaylocationDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(IFTDisplayLocationBean iftdisplaylocationBean) throws DuplicateException {
+        Iftdisplaylocation pojo = iftdisplaylocationBean.getPojo();
+        pojo = this.iftdisplaylocationDAO.save(pojo);
+        iftdisplaylocationBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                iftdisplaylocationDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(IFTDisplayLocationBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Iftdisplaylocation.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Iftdisplaylocation.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.iftdisplaylocationDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+}

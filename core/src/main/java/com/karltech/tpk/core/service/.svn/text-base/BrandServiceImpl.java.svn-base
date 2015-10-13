@@ -1,0 +1,79 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.BrandDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.dto.BrandBean;
+import com.banvien.fcv.core.dto.BrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class BrandServiceImpl extends GenericServiceImpl<Brand,Long> 
+                                                    implements BrandService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private BrandDAO brandDAO;
+
+    public void setBrandDAO(BrandDAO brandDAO) {
+        this.brandDAO = brandDAO;
+    }
+
+    @Override
+	protected GenericDAO<Brand, Long> getGenericDAO() {
+		return brandDAO;
+	}
+
+    @Override
+    public void updateItem(BrandBean brandBean) throws ObjectNotFoundException, DuplicateException {
+        Brand dbItem = this.brandDAO.findByIdNoAutoCommit(brandBean.getPojo().getBrandID());
+        if (dbItem == null) throw new com.banvien.fcv.core.exception.ObjectNotFoundException("Not found brand " + brandBean.getPojo().getBrandID());
+
+        Brand pojo = brandBean.getPojo();
+
+        this.brandDAO.detach(dbItem);
+        this.brandDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(BrandBean
+        brandBean) throws DuplicateException {
+        Brand pojo = brandBean.getPojo();
+        pojo = this.brandDAO.save(pojo);
+        brandBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                brandDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(BrandBean
+        bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Brand.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getBrandgroup() != null && bean.getPojo().getBrandgroup().getBrandGroupID() != null && bean.getPojo().getBrandgroup().getBrandGroupID()> 0) {
+            properties.put("brandgroup.brandGroupID", bean.getPojo().getBrandgroup().getBrandGroupID());
+        }
+
+        return this.brandDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+}

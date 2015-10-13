@@ -1,0 +1,18 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.OarLatestBonus;
+import com.banvien.fcv.core.dto.OarLatestBonusBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface OarLatestBonusService extends GenericService<OarLatestBonus,Long> {
+
+    void updateItem(OarLatestBonusBean oarLastedBonusBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(OarLatestBonusBean oarLastedBonusBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(OarLatestBonusBean bean);
+}

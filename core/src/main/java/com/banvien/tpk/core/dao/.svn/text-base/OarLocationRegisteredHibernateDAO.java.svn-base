@@ -1,0 +1,34 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.OarLocationRegistered;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 2/26/13
+ * Time: 3:04 PM
+ */
+public class OarLocationRegisteredHibernateDAO extends AbstractHibernateDAO<OarLocationRegistered, Long> implements OarLocationRegisteredDAO {
+
+	@Override
+	public void deleteByOutletAuditResult(final Long outletAuditResultID) {
+		 getHibernateTemplate().execute(
+		            new HibernateCallback<Integer>() {
+		                public Integer doInHibernate(Session session)
+		                        throws HibernateException, SQLException {
+		                    Query query = session
+		                            .createQuery("DELETE FROM OarLocationRegistered WHERE outletauditresult.outletAuditResultID = :outletAuditResultID");
+		                    query.setParameter("outletAuditResultID", outletAuditResultID);
+		                    return query.executeUpdate();
+		                }
+		            });
+		
+	}
+}

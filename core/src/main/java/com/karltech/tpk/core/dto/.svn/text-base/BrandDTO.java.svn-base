@@ -1,0 +1,91 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Brand;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 12:19 PM
+ */
+public class BrandDTO {
+    private Long brandID;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute brandgroup
+	 */
+	 private String brandgroup;
+
+	/**
+	 * Attribute rightLocation.
+	 */
+	private String rightLocation;
+
+    private String products;
+
+    public BrandDTO(Brand b) {
+        setName(b.getName());
+        setBrandgroup(b.getBrandgroup().getName());
+        setBrandID(b.getBrandID());
+        setProducts(b.getProducts());
+        setRightLocation(b.getRightLocation());
+    }
+
+    public BrandDTO() {
+
+    }
+
+    public Long getBrandID() {
+        return brandID;
+    }
+
+    public void setBrandID(Long brandID) {
+        this.brandID = brandID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBrandgroup() {
+        return brandgroup;
+    }
+
+    public void setBrandgroup(String brandgroup) {
+        this.brandgroup = brandgroup;
+    }
+
+    public String getRightLocation() {
+        return rightLocation;
+    }
+
+    public void setRightLocation(String rightLocation) {
+        this.rightLocation = rightLocation;
+    }
+
+    public String getProducts() {
+        return products;
+    }
+
+    public void setProducts(String products) {
+        this.products = products;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setBrandgroup(o.getString("brandgroup"));
+        setBrandID(o.getLong("brandID"));
+        setProducts(o.getString("products"));
+        setRightLocation(o.getString("rightLocation"));
+        setName(o.getString("name"));
+    }
+}

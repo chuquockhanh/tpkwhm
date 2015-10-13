@@ -1,0 +1,95 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.FullrangeskuDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Fullrangesku;
+import com.banvien.fcv.core.dto.FullRangeSKUBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class FullrangeskuServiceImpl extends GenericServiceImpl<Fullrangesku,Long> 
+                                                    implements FullrangeskuService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private FullrangeskuDAO fullrangeskuDAO;
+
+    public void setFullrangeskuDAO(FullrangeskuDAO fullrangeskuDAO) {
+        this.fullrangeskuDAO = fullrangeskuDAO;
+    }
+
+    @Override
+	protected GenericDAO<Fullrangesku, Long> getGenericDAO() {
+		return fullrangeskuDAO;
+	}
+
+     @Override
+    public void updateItem(FullRangeSKUBean fullrangeskuBean) throws ObjectNotFoundException, DuplicateException {
+        Fullrangesku dbItem = this.fullrangeskuDAO.findByIdNoAutoCommit(fullrangeskuBean.getPojo().getFullRangeSKUID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found fullrangesku " + fullrangeskuBean.getPojo().getFullRangeSKUID());
+
+        Fullrangesku pojo = fullrangeskuBean.getPojo();
+
+        this.fullrangeskuDAO.detach(dbItem);
+        this.fullrangeskuDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(FullRangeSKUBean fullrangeskuBean) throws DuplicateException {
+        Fullrangesku pojo = fullrangeskuBean.getPojo();
+        pojo = this.fullrangeskuDAO.save(pojo);
+        fullrangeskuBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                fullrangeskuDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(FullRangeSKUBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Fullrangesku.FIELD_NAME, bean.getPojo().getName());
+        }
+        if (bean.getPojo().getOutletbrand() != null && bean.getPojo().getOutletbrand().getOutletBrandID() != null && bean.getPojo().getOutletbrand().getOutletBrandID() > 0) {
+            properties.put("outletbrand.outletBrandID", bean.getPojo().getOutletbrand().getOutletBrandID());
+        }
+
+        return this.fullrangeskuDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    public List<Fullrangesku> findAll() {
+        return this.fullrangeskuDAO.findByProperties(new HashMap<String, Object>(), "displayOrder", Constants.SORT_ASC, true, true);
+    }
+
+    @Override
+    public Fullrangesku findByName(String name) throws ObjectNotFoundException {
+        Fullrangesku res = this.fullrangeskuDAO.findEqualUnique(Fullrangesku.FIELD_NAME, name);
+        if (res == null) throw new ObjectNotFoundException("Not found fullrange with name " + name);
+        return res;
+    }
+
+    @Override
+    public List<Fullrangesku> findBySubFullRangeBrand(Long subFullRangeBrandID) throws ObjectNotFoundException {
+        List<Fullrangesku> res = this.fullrangeskuDAO.findBySubFullRangeBrand(subFullRangeBrandID);
+        if (res == null) throw new ObjectNotFoundException("Not found fullrange with subbrand : " + subFullRangeBrandID);
+        return res;
+    }
+
+}

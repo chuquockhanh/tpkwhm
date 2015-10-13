@@ -1,0 +1,20 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.LevelRegister;
+import com.banvien.fcv.core.dto.LevelRegisterBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface LevelRegisterService extends GenericService<LevelRegister,Long> {
+
+    void updateItem(LevelRegisterBean levelRegisterBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(LevelRegisterBean levelRegisterBean) throws ObjectNotFoundException, DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(LevelRegisterBean bean);
+
+    LevelRegister findByCode(String code) throws ObjectNotFoundException;
+}

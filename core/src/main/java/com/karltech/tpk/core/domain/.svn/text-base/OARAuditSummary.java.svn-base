@@ -1,0 +1,111 @@
+/*
+ * Copyright (c) 2013 by Ban Vien Co., Ltd.
+ */
+
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE District</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class OARAuditSummary implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+    private Long oarAuditSummaryID;
+
+    private Outletauditresult outletauditresult;
+
+    private Outletbrand outletbrand;
+
+    private Integer locationMeet;
+
+    private Integer powerSKUMeet;
+
+    private Integer fullRangeMeet;
+
+    private Integer nofacingMeet;
+
+    private Integer posmMeet;
+
+    private Integer commisionMeet;
+
+    public Long getOarAuditSummaryID() {
+        return oarAuditSummaryID;
+    }
+
+    public void setOarAuditSummaryID(Long oarAuditSummaryID) {
+        this.oarAuditSummaryID = oarAuditSummaryID;
+    }
+
+    public Outletauditresult getOutletauditresult() {
+        return outletauditresult;
+    }
+
+    public void setOutletauditresult(Outletauditresult outletauditresult) {
+        this.outletauditresult = outletauditresult;
+    }
+
+    public Outletbrand getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Outletbrand outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Integer getLocationMeet() {
+        return locationMeet;
+    }
+
+    public void setLocationMeet(Integer locationMeet) {
+        this.locationMeet = locationMeet;
+    }
+
+    public Integer getPowerSKUMeet() {
+        return powerSKUMeet;
+    }
+
+    public void setPowerSKUMeet(Integer powerSKUMeet) {
+        this.powerSKUMeet = powerSKUMeet;
+    }
+
+    public Integer getFullRangeMeet() {
+        return fullRangeMeet;
+    }
+
+    public void setFullRangeMeet(Integer fullRangeMeet) {
+        this.fullRangeMeet = fullRangeMeet;
+    }
+
+    public Integer getNofacingMeet() {
+        return nofacingMeet;
+    }
+
+    public void setNofacingMeet(Integer nofacingMeet) {
+        this.nofacingMeet = nofacingMeet;
+    }
+
+    public Integer getPosmMeet() {
+        return posmMeet;
+    }
+
+    public void setPosmMeet(Integer posmMeet) {
+        this.posmMeet = posmMeet;
+    }
+
+    public Integer getCommisionMeet() {
+        return commisionMeet;
+    }
+
+    public void setCommisionMeet(Integer commisionMeet) {
+        this.commisionMeet = commisionMeet;
+    }
+
+}

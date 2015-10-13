@@ -1,0 +1,20 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storeposm;
+import com.banvien.fcv.core.dto.StorePOSMBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface StoreposmService extends GenericService<Storeposm,Long> {
+
+    Storeposm findByCode(String code) throws ObjectNotFoundException;
+
+    void updateItem(StorePOSMBean storeposmBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(StorePOSMBean storeposmBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(StorePOSMBean bean);
+}

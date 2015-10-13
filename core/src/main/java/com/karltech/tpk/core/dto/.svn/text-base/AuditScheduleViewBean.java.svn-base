@@ -1,0 +1,35 @@
+package com.banvien.fcv.core.dto;
+
+public class AuditScheduleViewBean extends AbstractBean<OutletTaskDTO>{
+	private Long auditscheduleID;
+	private Long distributorID;
+	private Long auditorID;
+	private Integer statusID;
+	public Long getDistributorID() {
+		return distributorID;
+	}
+	public void setDistributorID(Long distributorID) {
+		this.distributorID = distributorID;
+	}
+	public Long getAuditorID() {
+		return auditorID;
+	}
+	public void setAuditorID(Long auditorID) {
+		this.auditorID = auditorID;
+	}
+	public Integer getStatusID() {
+		return statusID;
+	}
+	public void setStatusID(Integer statusID) {
+		this.statusID = statusID;
+	}
+	public Long getAuditscheduleID() {
+		return auditscheduleID;
+	}
+	public void setAuditscheduleID(Long auditscheduleID) {
+		this.auditscheduleID = auditscheduleID;
+	}
+	
+	
+	
+}

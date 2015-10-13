@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.OarpowerskuDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Oarpowersku;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class OarpowerskuServiceImpl extends GenericServiceImpl<Oarpowersku,Long> 
+                                                    implements OarpowerskuService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OarpowerskuDAO oarpowerskuDAO;
+
+    public void setOarpowerskuDAO(OarpowerskuDAO oarpowerskuDAO) {
+        this.oarpowerskuDAO = oarpowerskuDAO;
+    }
+
+    @Override
+	protected GenericDAO<Oarpowersku, Long> getGenericDAO() {
+		return oarpowerskuDAO;
+	}
+
+}

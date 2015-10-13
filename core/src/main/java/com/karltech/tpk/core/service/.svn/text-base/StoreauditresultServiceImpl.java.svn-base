@@ -1,0 +1,244 @@
+package com.banvien.fcv.core.service;
+import java.sql.Timestamp;
+import java.util.List;
+
+import com.banvien.fcv.core.dto.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.dao.AuditorstoretaskDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OarStorepromotionDAO;
+import com.banvien.fcv.core.dao.SarposmDAO;
+import com.banvien.fcv.core.dao.SarregisterproductDAO;
+import com.banvien.fcv.core.dao.SarsbrandlocationDAO;
+import com.banvien.fcv.core.dao.SarshareofdisplayDAO;
+import com.banvien.fcv.core.dao.SarshareofshelfDAO;
+import com.banvien.fcv.core.dao.StoreauditresultDAO;
+import com.banvien.fcv.core.dao.StorepromotionDAO;
+import com.banvien.fcv.core.domain.Auditorstoretask;
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.domain.OarStorepromotion;
+import com.banvien.fcv.core.domain.Packinggroup;
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Sarposm;
+import com.banvien.fcv.core.domain.Sarregisterproduct;
+import com.banvien.fcv.core.domain.Sarsbrandlocation;
+import com.banvien.fcv.core.domain.Sarshareofdisplay;
+import com.banvien.fcv.core.domain.Sarshareofshelf;
+import com.banvien.fcv.core.domain.Sosbrand;
+import com.banvien.fcv.core.domain.Storeauditresult;
+import com.banvien.fcv.core.domain.Storeposm;
+import com.banvien.fcv.core.domain.Storepromotion;
+import com.banvien.fcv.core.exception.ServiceException;
+import com.banvien.fcv.core.util.CalendarUtil;
+
+public class StoreauditresultServiceImpl extends GenericServiceImpl<Storeauditresult,Long> 
+                                                    implements StoreauditresultService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StoreauditresultDAO storeauditresultDAO;
+
+    private AuditorstoretaskDAO auditorstoretaskDAO;
+
+    private StorepromotionDAO storepromotionDAO;
+    
+    private OarStorepromotionDAO oarstorepromotionDAO;
+    
+    private SarposmDAO sarposmDAO;
+
+    private SarregisterproductDAO sarregisterproductDAO;
+
+    private SarsbrandlocationDAO sarsbrandlocationDAO;
+
+    private SarshareofdisplayDAO sarshareofdisplayDAO;
+
+    private SarshareofshelfDAO sarshareofshelfDAO;
+    
+
+    public void setOarstorepromotionDAO(OarStorepromotionDAO oarstorepromotionDAO) {
+		this.oarstorepromotionDAO = oarstorepromotionDAO;
+	}
+
+	public void setStorepromotionDAO(StorepromotionDAO storepromotionDAO) {
+		this.storepromotionDAO = storepromotionDAO;
+	}
+
+	public void setStoreauditresultDAO(StoreauditresultDAO storeauditresultDAO) {
+        this.storeauditresultDAO = storeauditresultDAO;
+    }
+
+    @Override
+	protected GenericDAO<Storeauditresult, Long> getGenericDAO() {
+		return storeauditresultDAO;
+	}
+
+    @Override
+    public Long addStoreAuditResult(StoreauditresultDTO dto) throws ServiceException {
+        Auditorstoretask auditorstoretask = auditorstoretaskDAO.findByStoreIDandAuditorCode(dto.getStoreID(), dto.getAuditorCode());
+        if (auditorstoretask == null) {
+            throw new ServiceException("NOT FOUND Auditorstoretask from StoreID="+dto.getStoreID()+" and AuditorCode="+dto.getAuditorCode());
+        }
+        Storeauditresult result =  createStoreauditresult(auditorstoretask, dto);
+        createSarposms(result,dto.getSarposmDTOs());
+        createSarregisterproduct(result,dto.getSarregisterproductDTOs());
+        createSarsbrandlocation(result,dto.getSarsbrandlocationDTOs());
+        createSarshareofdisplay(result,dto.getSarshareofdisplayDTOs());
+        createSarshareofshelf(result,dto.getSarshareofshelfDTOs());
+        createOarStoreOarpromotions(result, dto.getOarstorepromotionDTOs());
+        auditorstoretask.setStatus(0);
+        auditorstoretaskDAO.update(auditorstoretask);
+        return result.getStoreAuditResultID();
+    }
+
+    @Override
+    public List<MTReportDTO> reportByAccount(MTReportBean mtReportBean) {
+        return storeauditresultDAO.reportByAccount(mtReportBean.getAccountID(), mtReportBean.getFromDate(), mtReportBean.getToDate());
+    }
+
+    @Override
+    public List<MTReportDTO> reportByStore(MTReportBean mtReportBean) {
+        return storeauditresultDAO.reportByStore(mtReportBean.getAccountID(), mtReportBean.getFromDate(), mtReportBean.getToDate());
+    }
+
+    @Override
+    public List<OutOfStockDTO> reportOutOfStockDaily(MTOutOfStockReportBean mtReportBean) {
+        return storeauditresultDAO.reportOutOfStockDaily(mtReportBean.getAccountID(), mtReportBean.getFromDate(), mtReportBean.getToDate());
+    }
+
+    @Override
+    public List<MTSODDTO> reportSODDaily(MTSODReportBean mtReportBean) {
+        return storeauditresultDAO.reportSODDaily(mtReportBean.getAccountID(), mtReportBean.getFromDate(), mtReportBean.getToDate());
+    }
+
+    @Override
+    public List<MTPromotionReportInfo> promotionReport(MTPromotionReportBean mtReportBean) {
+        return storeauditresultDAO.promotionReport(mtReportBean.getAccountID(), mtReportBean.getFromDate(), mtReportBean.getToDate());
+    }
+
+    private void createOarStoreOarpromotions(Storeauditresult result, List<OarStorepromotionDTO> oarstorepromotionDTOs) {
+        for (OarStorepromotionDTO dto: oarstorepromotionDTOs) {
+            OarStorepromotion domain = new OarStorepromotion();
+            domain.setGetQuantity(dto.getGetQuantity());
+            domain.setKnown(dto.getKnown());
+            domain.setOarStorePromotionID(dto.getStorePromotionID());
+            domain.setStoreauditresult(result);
+            domain.setProductID(dto.getProductID());
+            Storepromotion promotion = storepromotionDAO.findById(dto.getStorePromotionID(),true);
+            domain.setCorrect((byte)0);
+            if (dto.getKnown() > 0) {
+                if (dto.getGetQuantity() == promotion.getGetQuantity().intValue()) {
+                    if (dto.getProductID().longValue() == promotion.getGetProduct().getStorePromotionProductID()) {
+                        if (dto.getUnitID().longValue() == promotion.getGetUnit().getUnitID()) {
+                            domain.setCorrect((byte)1);
+                        }
+                    }
+                }
+            }
+            domain.setStorepromotion(promotion);
+            domain.setUnitID(dto.getUnitID());
+            oarstorepromotionDAO.save(domain);
+        }
+    }
+    
+    private void createSarshareofshelf(Storeauditresult result, List<SarshareofshelfDTO> sarshareofshelfDTOs) {
+        for (SarshareofshelfDTO dto: sarshareofshelfDTOs) {
+             Sarshareofshelf o = new Sarshareofshelf();
+            Packinggroup p = new Packinggroup();
+            p.setPackingGroupID(dto.getPackinggroupID());
+            o.setPackinggroup(p);
+            o.setQuatity(dto.getQuatity());
+            o.setStoreauditresult(result);
+            sarshareofshelfDAO.save(o);
+        }
+    }
+
+    private void createSarshareofdisplay(Storeauditresult result, List<SarshareofdisplayDTO> sarshareofdisplayDTOs) {
+        for (SarshareofdisplayDTO dto: sarshareofdisplayDTOs) {
+             Sarshareofdisplay o = new Sarshareofdisplay();
+            Sosbrand b = new Sosbrand();
+            b.setSosBrandID(dto.getBrandID());
+            o.setSosbrand(b);
+            o.setFcvge(dto.getFcvge());
+            o.setFcvOther(dto.getFcvOther());
+            o.setFcvss(dto.getFcvss());
+            o.setStoreauditresult(result);
+            o.setStoreGE(dto.getStoreGE());
+            o.setStoreOther(dto.getStoreOther());
+            o.setStoreSS(dto.getStoreSS());
+            sarshareofdisplayDAO.save(o);
+        }
+    }
+
+    private void createSarsbrandlocation(Storeauditresult result, List<SarsbrandlocationDTO> sarsbrandlocationDTOs) {
+        for (SarsbrandlocationDTO dto: sarsbrandlocationDTOs) {
+            Sarsbrandlocation o = new Sarsbrandlocation();
+            Brand b = new Brand();
+            b.setBrandID(dto.getBrandID());
+            o.setBrand(b);
+            o.setHas(dto.getHas());
+            o.setRight(dto.getRight());
+            o.setStoreauditresult(result);
+            sarsbrandlocationDAO.save(o);
+        }
+    }
+
+    private void createSarregisterproduct(Storeauditresult result, List<SarregisterproductDTO> sarregisterproductDTOs) {
+        for (SarregisterproductDTO dto: sarregisterproductDTOs) {
+            Sarregisterproduct o = new Sarregisterproduct();
+            o.setHas(dto.getHas());
+            Product p = new Product();
+            p.setProductID(dto.getProductID());
+            o.setProduct(p);
+            o.setStoreauditresult(result);
+            sarregisterproductDAO.save(o);
+        }
+    }
+
+    private void createSarposms(Storeauditresult result, List<SarposmDTO> sarposmDTOs) {
+        for (SarposmDTO dto: sarposmDTOs) {
+            Sarposm o = new Sarposm();
+            o.setHas(dto.getHas());
+            o.setStoreauditresult(result);
+            Storeposm s = new Storeposm();
+            s.setStorePOSMID(dto.getStoreposmID());
+            o.setStoreposm(s);
+            sarposmDAO.save(o);
+        }
+    }
+
+    private Storeauditresult createStoreauditresult(Auditorstoretask auditorstoretask, StoreauditresultDTO dto) {
+        Storeauditresult result = new Storeauditresult();
+        result.setAuditedDate(new Timestamp(CalendarUtil.stringToDate(dto.getAuditDate()).getTime()));
+        result.setAuditorstoretask(auditorstoretask);
+        result.setGpsLatitude(dto.getGpsLatitude().floatValue());
+        result.setGpsLongtitude(dto.getGpsLongtitude().floatValue());
+        result.setSubmittedDate(new Timestamp(CalendarUtil.stringToDate(dto.getSubmittedDate()).getTime()));
+        return storeauditresultDAO.save(result);
+    }
+
+    public void setAuditorstoretaskDAO(AuditorstoretaskDAO auditorstoretaskDAO) {
+        this.auditorstoretaskDAO = auditorstoretaskDAO;
+    }
+
+    public void setSarposmDAO(SarposmDAO sarposmDAO) {
+        this.sarposmDAO = sarposmDAO;
+    }
+
+    public void setSarregisterproductDAO(SarregisterproductDAO sarregisterproductDAO) {
+        this.sarregisterproductDAO = sarregisterproductDAO;
+    }
+
+    public void setSarsbrandlocationDAO(SarsbrandlocationDAO sarsbrandlocationDAO) {
+        this.sarsbrandlocationDAO = sarsbrandlocationDAO;
+    }
+
+    public void setSarshareofdisplayDAO(SarshareofdisplayDAO sarshareofdisplayDAO) {
+        this.sarshareofdisplayDAO = sarshareofdisplayDAO;
+    }
+
+    public void setSarshareofshelfDAO(SarshareofshelfDAO sarshareofshelfDAO) {
+        this.sarshareofshelfDAO = sarshareofshelfDAO;
+    }
+}

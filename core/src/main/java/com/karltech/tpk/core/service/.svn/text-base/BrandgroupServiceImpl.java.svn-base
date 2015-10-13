@@ -1,0 +1,103 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.BrandgroupDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Brandgroup;
+import com.banvien.fcv.core.domain.Brandgroup;
+import com.banvien.fcv.core.dto.BrandGroupImportDTO;
+import com.banvien.fcv.core.dto.BrandgroupBean;
+import com.banvien.fcv.core.dto.BrandgroupBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class BrandgroupServiceImpl extends GenericServiceImpl<Brandgroup,Long> 
+                                                    implements BrandgroupService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private BrandgroupDAO brandgroupDAO;
+
+    public void setBrandgroupDAO(BrandgroupDAO brandgroupDAO) {
+        this.brandgroupDAO = brandgroupDAO;
+    }
+
+    @Override
+	protected GenericDAO<Brandgroup, Long> getGenericDAO() {
+		return brandgroupDAO;
+	}
+
+    @Override
+    public Brandgroup findByCode(String code) throws ObjectNotFoundException {
+        Brandgroup res = this.brandgroupDAO.findEqualUnique(Brandgroup.FIELD_CODE, code);
+        if (res == null) throw new com.banvien.fcv.core.exception.ObjectNotFoundException("Not found brandgroup with code " + code);
+        return res;
+    }
+
+    @Override
+    public void updateItem(BrandgroupBean brandgroupBean) throws ObjectNotFoundException, DuplicateException {
+        Brandgroup dbItem = this.brandgroupDAO.findByIdNoAutoCommit(brandgroupBean.getPojo().getBrandGroupID());
+        if (dbItem == null) throw new com.banvien.fcv.core.exception.ObjectNotFoundException("Not found brandgroup " + brandgroupBean.getPojo().getBrandGroupID());
+
+        Brandgroup pojo = brandgroupBean.getPojo();
+
+        this.brandgroupDAO.detach(dbItem);
+        this.brandgroupDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(BrandgroupBean brandgroupBean) throws DuplicateException {
+        Brandgroup pojo = brandgroupBean.getPojo();
+        pojo = this.brandgroupDAO.save(pojo);
+        brandgroupBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                brandgroupDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(BrandgroupBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Brandgroup.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Brandgroup.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.brandgroupDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public Map<String, Brandgroup> importBrandGroup(List<BrandGroupImportDTO> brandGroupImportDTOs) {
+        Map<String, Brandgroup> res = new HashMap<String, Brandgroup>();
+        for (BrandGroupImportDTO brandGroupImportDTO : brandGroupImportDTOs) {
+            Brandgroup brandgroup = brandgroupDAO.findEqualUnique(Brandgroup.FIELD_CODE, brandGroupImportDTO.getBrandGroup());
+            if (brandgroup == null) {
+                brandgroup = new Brandgroup();
+                brandgroup.setCode(brandGroupImportDTO.getBrandGroup());
+                brandgroup.setName(brandGroupImportDTO.getBrandGroup());
+
+                brandgroup = brandgroupDAO.save(brandgroup);
+            }
+            res.put(brandGroupImportDTO.getBrandGroup(), brandgroup);
+        }
+        return res;
+    }
+}

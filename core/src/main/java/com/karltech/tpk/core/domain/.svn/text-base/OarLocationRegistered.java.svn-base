@@ -1,0 +1,53 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 2/26/13
+ * Time: 2:55 PM
+ */
+public class OarLocationRegistered implements Serializable {
+    private Long oarLocationRegisteredID;
+
+    private Outletbrand outletbrand;
+
+
+    private Iftdisplaylocation iftdisplaylocation;
+
+    private Outletauditresult outletauditresult;
+
+    public Long getOarLocationRegisteredID() {
+        return oarLocationRegisteredID;
+    }
+
+    public void setOarLocationRegisteredID(Long oarLocationRegisteredID) {
+        this.oarLocationRegisteredID = oarLocationRegisteredID;
+    }
+
+    public Outletbrand getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Outletbrand outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Iftdisplaylocation getIftdisplaylocation() {
+        return iftdisplaylocation;
+    }
+
+    public void setIftdisplaylocation(Iftdisplaylocation iftdisplaylocation) {
+        this.iftdisplaylocation = iftdisplaylocation;
+    }
+
+    public Outletauditresult getOutletauditresult() {
+        return outletauditresult;
+    }
+
+    public void setOutletauditresult(Outletauditresult outletauditresult) {
+        this.outletauditresult = outletauditresult;
+    }
+}

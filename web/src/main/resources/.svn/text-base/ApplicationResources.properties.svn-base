@@ -1,0 +1,100 @@
+# The block of messages below are only found in this file. If you'd
+# like to override them for other languages, simply add the keys
+# to the other resource bundles.
+webapp.name=Outlet Audit Data Application
+webapp.tagline=Ban Vien
+webapp.version=Version ${webapp.version}
+company.name=Ban Vien Co., Ltd
+company.url=http://www.banvien.com/
+copyright.year=2012
+copyright.text=Copyright &copy; 2012 FrieslandCampina, All rights reserved.
+
+# -- validator errors --
+errors.invalid={0} is invalid.
+errors.maxlength={0} can not be greater than {1} characters.
+errors.minlength={0} can not be less than {1} characters.
+errors.range={0} is not in the range {1} through {2}.
+errors.required={0} is a required field.
+errors.byte={0} must be an byte.
+errors.date={0} is not a date.
+errors.double={0} must be an double.
+errors.float={0} must be an float.
+errors.integer={0} must be a number.
+errors.long={0} must be an long.
+errors.short={0} must be an short.
+errors.creditcard={0} is not a valid credit card number.
+errors.email={0} is an invalid e-mail address.
+errors.phone={0} is an invalid phone number.
+errors.zip={0} is an invalid zip code.
+errors.duplicate = {0} is duplicated
+errors.invalid.format = {0} is in invalid format
+error.value.required=Required field
+error.duplicated= {0} is duplicated
+error.invalid.format=Invalid format
+
+
+# -- error page messages --
+errorPage.title=An error has occurred
+errorPage.heading=Unexpected Error
+errorPage.unexpectedMessage=An unexpected error has occurred. You might try returning to the <a href="javascript:history.go(-1)">previous page</a> or contact your system administrator for more details.
+404.title=Page Not Found
+404.message=The page you requested was not found.  You might try returning to the <a href="{0}">Home Page</a>.
+403.title=Access Denied
+403.message=Your current role does not allow you to view this page.  Please contact your system administrator if you believe you should have access.
+
+#--Common Message
+database.delete.exception=Item(s) has NOT been deleted. Please try again.
+database.multipledelete.exception=Item(s) has not been deleted. You have to remove all reference(s) to these item(s) first.
+database.items.deleted=There are {0} item(s) has been deleted successfully.
+database.items.updated=There are {0} item(s) has been updated successfully.
+database.exception.keynotfound=No items found
+general.exception.msg=An Exception occurred
+database.delete.successful=Item(s) deleted successfully.
+database.update.successful=Item has been updated successfully.
+database.add.successful=Item has been added successfully
+
+#--Label
+label.all=All
+label.status=Status
+label.active=Active
+label.inactive=Inactive
+label.options=Actions
+
+#--Buttons
+button.add=New
+button.delete=Delete
+button.search=Search
+button.save=Save
+button.update=Update
+button.back=Back
+button.import=Import
+button.importSE=Import SE User
+button.applyFilter=Apply Filter
+button.report=Report
+button.export=Export to Excel
+button.exportDBB=Export DBB to Excel
+button.exportzip=Export to Zip
+button.reaudit=Re-Audit
+#Login
+login.title=Login
+
+#User
+admin.user.form.fullname=Fullname
+admin.user.form.username=Username
+admin.user.form.password=Password
+admin.user.form.email=Email
+
+profile.update.successful=Your profile has been updated successfully.
+profile.update.duplicate=Your profile updated failure. Please try again.
+
+support.saleman.form.name=Name
+support.saleman.form.code=Code
+
+support.levelregister.form.minimumValue = Minimum Value
+support.levelregister.form.name = Name
+support.levelregister.form.register = Register
+support.levelregister.form.completeMinimumValue = Complete Minimum Register
+support.fullrange.form.subFullRangeBrand = Sub FullRangeSKU
+support.fullrange.form.name = Name
+support.subfullrange.form.outletBrand = Outlet Brand
+

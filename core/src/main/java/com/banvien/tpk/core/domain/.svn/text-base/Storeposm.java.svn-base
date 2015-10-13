@@ -1,0 +1,129 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE StorePOSM</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storeposm implements Serializable {
+    public static final String FIELD_CODE = "code";
+
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_ACTIVE = "active";
+	/**
+	 * Attribute storePOSMID.
+	 */
+	private Long storePOSMID;
+	
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute active.
+	 */
+	private Boolean active;
+	
+	/**
+	 * Attribute brandgroup
+	 */
+	 private Brandgroup brandgroup;
+
+
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return storePOSMID
+	 */
+	public Long getStorePOSMID() {
+		return storePOSMID;
+	}
+
+	/**
+	 * @param storePOSMID new value for storePOSMID 
+	 */
+	public void setStorePOSMID(Long storePOSMID) {
+		this.storePOSMID = storePOSMID;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code 
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return active
+	 */
+	public Boolean getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active new value for active 
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+	
+	/**
+	 * get brandgroup
+	 */
+	public Brandgroup getBrandgroup() {
+		return this.brandgroup;
+	}
+	
+	/**
+	 * set brandgroup
+	 */
+	public void setBrandgroup(Brandgroup brandgroup) {
+		this.brandgroup = brandgroup;
+	}
+
+
+
+}

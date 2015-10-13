@@ -1,0 +1,55 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE PromotionScope</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storepromotionscope implements Serializable {
+
+	/**
+	 * Attribute promotionScopeID.
+	 */
+	private Long storePromotionScopeID;
+	
+	/**
+	 * Attribute promotion
+	 */
+	 private Storepromotion storepromotion;	
+
+	/**
+	 * Attribute region
+	 */
+	 private Account account;
+
+	public Long getStorePromotionScopeID() {
+		return storePromotionScopeID;
+	}
+
+	public void setStorePromotionScopeID(Long storePromotionScopeID) {
+		this.storePromotionScopeID = storePromotionScopeID;
+	}
+
+	public Storepromotion getStorepromotion() {
+		return storepromotion;
+	}
+
+	public void setStorepromotion(Storepromotion storepromotion) {
+		this.storepromotion = storepromotion;
+	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}	
+
+}

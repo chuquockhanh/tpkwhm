@@ -1,0 +1,70 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+import java.util.List;
+
+
+/**
+ * <p>Pojo mapping TABLE District</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class DBBPosmRegistered implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+    /**
+	 * Attribute dbbPosmRegisteredID.
+	 */
+	private Long dbbPosmRegisteredID;
+
+    /**
+     * Attribute outlet.
+     */
+    private Outlet outlet;
+
+    /**
+     * Attribute outletPosm.
+     */
+    private Outletposm outletPosm;
+
+    /**
+     * Attribute outletBrand.
+     */
+    private Outletbrand outletBrand;
+
+    public Long getDbbPosmRegisteredID() {
+        return dbbPosmRegisteredID;
+    }
+
+    public void setDbbPosmRegisteredID(Long dbbPosmRegisteredID) {
+        this.dbbPosmRegisteredID = dbbPosmRegisteredID;
+    }
+
+    public Outlet getOutlet() {
+        return outlet;
+    }
+
+    public void setOutlet(Outlet outlet) {
+        this.outlet = outlet;
+    }
+
+    public Outletposm getOutletPosm() {
+        return outletPosm;
+    }
+
+    public void setOutletPosm(Outletposm outletPosm) {
+        this.outletPosm = outletPosm;
+    }
+
+    public Outletbrand getOutletBrand() {
+        return outletBrand;
+    }
+
+    public void setOutletBrand(Outletbrand outletBrand) {
+        this.outletBrand = outletBrand;
+    }
+
+}

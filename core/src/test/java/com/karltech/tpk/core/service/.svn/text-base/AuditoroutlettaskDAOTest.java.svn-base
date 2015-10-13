@@ -1,0 +1,31 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.BaseTestCase;
+import com.banvien.fcv.core.dao.AuditoroutlettaskDAO;
+import com.banvien.fcv.core.domain.Auditoroutlettask;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 9/17/12
+ * Time: 11:15 PM
+ */
+public class AuditoroutlettaskDAOTest extends BaseTestCase {
+    @Autowired
+    private AuditoroutlettaskDAO auditoroutlettaskDAO;
+
+    public void setAuditoroutlettaskDAO(AuditoroutlettaskDAO auditoroutlettaskDAO) {
+        this.auditoroutlettaskDAO = auditoroutlettaskDAO;
+    }
+
+    public void testFindByOutletIDandAuditorCode() {
+
+        Auditoroutlettask auditoroutlettask = auditoroutlettaskDAO.findByOutletIDandAuditorCode(7020L, "1002");
+        if (auditoroutlettask == null) {
+            fail();
+        }
+        System.out.println(auditoroutlettask.getAuditorOutletTaskID());
+
+    }
+}

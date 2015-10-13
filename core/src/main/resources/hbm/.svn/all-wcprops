@@ -1,0 +1,485 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm
+END
+Storepromotionscope.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/resources/hbm/Storepromotionscope.hbm.xml
+END
+Saleman.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/1006/trunk/outlet-audit/core/src/main/resources/hbm/Saleman.hbm.xml
+END
+Region.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Region.hbm.xml
+END
+Packinggroup.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/core/src/main/resources/hbm/Packinggroup.hbm.xml
+END
+Powersku.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Powersku.hbm.xml
+END
+Storesosmaster.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Storesosmaster.hbm.xml
+END
+Productbrand.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/resources/hbm/Productbrand.hbm.xml
+END
+Oarnofacing.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dcs/!svn/ver/112/trunk/outlet-audit/core/src/main/resources/hbm/Oarnofacing.hbm.xml
+END
+Ward.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/463/trunk/outlet-audit/core/src/main/resources/hbm/Ward.hbm.xml
+END
+Userregion.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/resources/hbm/Userregion.hbm.xml
+END
+DBBPosmRegistered.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/DBBPosmRegistered.hbm.xml
+END
+Unit.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Unit.hbm.xml
+END
+LevelRegister.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/core/src/main/resources/hbm/LevelRegister.hbm.xml
+END
+Brandproduct.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Brandproduct.hbm.xml
+END
+Sarregisterproduct.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Sarregisterproduct.hbm.xml
+END
+Oarfullrangefacing.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/744/trunk/outlet-audit/core/src/main/resources/hbm/Oarfullrangefacing.hbm.xml
+END
+Promotionproducttohandheld.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/resources/hbm/Promotionproducttohandheld.hbm.xml
+END
+OARAuditSummary.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/resources/hbm/OARAuditSummary.hbm.xml
+END
+Outlet.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/Outlet.hbm.xml
+END
+Storepromotionproduct.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/resources/hbm/Storepromotionproduct.hbm.xml
+END
+District.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/District.hbm.xml
+END
+Setting.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/459/trunk/outlet-audit/core/src/main/resources/hbm/Setting.hbm.xml
+END
+Promotionscope.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Promotionscope.hbm.xml
+END
+OarMiniValuePosm.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/OarMiniValuePosm.hbm.xml
+END
+Oarpowersku.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Oarpowersku.hbm.xml
+END
+Sarshareofshelf.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Sarshareofshelf.hbm.xml
+END
+AgentRegion.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/resources/hbm/AgentRegion.hbm.xml
+END
+Storepromotiontype.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/resources/hbm/Storepromotiontype.hbm.xml
+END
+Promotiontype.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Promotiontype.hbm.xml
+END
+Iftdisplaylocation.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/Iftdisplaylocation.hbm.xml
+END
+Store.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Store.hbm.xml
+END
+POSMMiniValue.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/POSMMiniValue.hbm.xml
+END
+OarStorepromotion.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/resources/hbm/OarStorepromotion.hbm.xml
+END
+OutletLocationRegister.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dcs/!svn/ver/919/trunk/outlet-audit/core/src/main/resources/hbm/OutletLocationRegister.hbm.xml
+END
+Outletbrandgroup.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/916/trunk/outlet-audit/core/src/main/resources/hbm/Outletbrandgroup.hbm.xml
+END
+Outletposm.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dcs/!svn/ver/137/trunk/outlet-audit/core/src/main/resources/hbm/Outletposm.hbm.xml
+END
+OutletSaleman.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dcs/!svn/ver/924/trunk/outlet-audit/core/src/main/resources/hbm/OutletSaleman.hbm.xml
+END
+Distributor.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/resources/hbm/Distributor.hbm.xml
+END
+Auditorstoretask.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/113/trunk/outlet-audit/core/src/main/resources/hbm/Auditorstoretask.hbm.xml
+END
+Product.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/resources/hbm/Product.hbm.xml
+END
+Sarshareofdisplay.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/473/trunk/outlet-audit/core/src/main/resources/hbm/Sarshareofdisplay.hbm.xml
+END
+Auditschedule.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/resources/hbm/Auditschedule.hbm.xml
+END
+Storeauditresult.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Storeauditresult.hbm.xml
+END
+Oarposm.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/Oarposm.hbm.xml
+END
+Storeposm.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Storeposm.hbm.xml
+END
+OarFacingRegistered.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/dcs/!svn/ver/913/trunk/outlet-audit/core/src/main/resources/hbm/OarFacingRegistered.hbm.xml
+END
+Sarposm.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Sarposm.hbm.xml
+END
+Auditor.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/resources/hbm/Auditor.hbm.xml
+END
+OARDbbPosmRegistered.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/OARDbbPosmRegistered.hbm.xml
+END
+OarPosmMiniValue.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/OarPosmMiniValue.hbm.xml
+END
+Oarpromotion.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Oarpromotion.hbm.xml
+END
+Agent.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/resources/hbm/Agent.hbm.xml
+END
+Brand.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/dcs/!svn/ver/172/trunk/outlet-audit/core/src/main/resources/hbm/Brand.hbm.xml
+END
+Outletauditresult.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/Outletauditresult.hbm.xml
+END
+User.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/core/src/main/resources/hbm/User.hbm.xml
+END
+Sarsbrandlocation.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/315/trunk/outlet-audit/core/src/main/resources/hbm/Sarsbrandlocation.hbm.xml
+END
+Fullrangesku.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/resources/hbm/Fullrangesku.hbm.xml
+END
+Auditoroutlettask.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/113/trunk/outlet-audit/core/src/main/resources/hbm/Auditoroutlettask.hbm.xml
+END
+Outletauditpicture.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Outletauditpicture.hbm.xml
+END
+Sosbrand.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Sosbrand.hbm.xml
+END
+Outletdistributionregistered.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/908/trunk/outlet-audit/core/src/main/resources/hbm/Outletdistributionregistered.hbm.xml
+END
+OarLocationRegistered.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/951/trunk/outlet-audit/core/src/main/resources/hbm/OarLocationRegistered.hbm.xml
+END
+Brandgroup.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/resources/hbm/Brandgroup.hbm.xml
+END
+OarLatestBonus.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/974/trunk/outlet-audit/core/src/main/resources/hbm/OarLatestBonus.hbm.xml
+END
+SubFullRangeBrand.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/resources/hbm/SubFullRangeBrand.hbm.xml
+END
+Outletbrand.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/dcs/!svn/ver/919/trunk/outlet-audit/core/src/main/resources/hbm/Outletbrand.hbm.xml
+END
+Storeposmhistory.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Storeposmhistory.hbm.xml
+END
+UserDistributor.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dcs/!svn/ver/813/trunk/outlet-audit/core/src/main/resources/hbm/UserDistributor.hbm.xml
+END
+MTReportNameQuery.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/569/trunk/outlet-audit/core/src/main/resources/hbm/MTReportNameQuery.hbm.xml
+END
+Storepromotion.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/resources/hbm/Storepromotion.hbm.xml
+END
+Promotion.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/dcs/!svn/ver/433/trunk/outlet-audit/core/src/main/resources/hbm/Promotion.hbm.xml
+END
+Storeauditpicture.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/237/trunk/outlet-audit/core/src/main/resources/hbm/Storeauditpicture.hbm.xml
+END
+Oarfacingiftdisplay.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/Oarfacingiftdisplay.hbm.xml
+END
+Storeregisteredproduct.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Storeregisteredproduct.hbm.xml
+END
+Promotionproduct.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/resources/hbm/Promotionproduct.hbm.xml
+END
+Storepromotionproducttohandheld.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/resources/hbm/Storepromotionproducttohandheld.hbm.xml
+END
+Account.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Account.hbm.xml
+END
+Outletposmhistory.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/dcs/!svn/ver/106/trunk/outlet-audit/core/src/main/resources/hbm/Outletposmhistory.hbm.xml
+END
+Oarfullrangesku.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/resources/hbm/Oarfullrangesku.hbm.xml
+END
+Productgroup.hbm.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/resources/hbm/Productgroup.hbm.xml
+END

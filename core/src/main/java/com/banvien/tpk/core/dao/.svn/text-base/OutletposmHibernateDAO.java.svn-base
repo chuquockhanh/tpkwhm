@@ -1,0 +1,95 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Outletposm;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Outletposms</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OutletposmHibernateDAO extends
+		AbstractHibernateDAO<Outletposm, Long> implements
+		OutletposmDAO {
+
+    public OutletposmHibernateDAO() {
+		super(Outletposm.class);
+	}
+
+    @Override
+    public List<Outletposm> findAllActive() {
+        return getHibernateTemplate().execute(
+                new HibernateCallback<List<Outletposm>>() {
+                    public List<Outletposm> doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        Query query = session
+                                .createQuery("FROM Outletposm o WHERE o.active= 1");
+                        return (List<Outletposm>) query.list();
+                    }
+                });
+    }
+
+    @Override
+    public List<Outletposm> findActivePOSM(final Timestamp fromDate, final Timestamp toDate) {
+        return (List<Outletposm>)getHibernateTemplate().execute(
+               new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                        StringBuffer buffer = new StringBuffer();
+                        buffer.append("SELECT distinct o.outletposm FROM Oarposm o WHERE ");
+                        buffer.append(" o.outletauditresult.auditDate >= :fromDate AND o.outletauditresult.auditDate <= :toDate");
+
+                        buffer.append(" ORDER BY o.outletposm.outletbrand.name ASC, o.outletposm.name ASC");
+                        Query query = session.createQuery(buffer.toString());
+                        query.setParameter("fromDate", fromDate);
+                        query.setParameter("toDate", toDate);
+
+
+                        return query.list();
+                    }
+               });
+    }
+
+
+    @Override
+    public List<Outletposm> findByOutletBrand(final Long outletBrandID) {
+        return getHibernateTemplate().execute(
+                new HibernateCallback<List<Outletposm>>() {
+                    public List<Outletposm> doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        Query query = session
+                                .createQuery("FROM Outletposm o WHERE o.outletbrand.outletBrandID = :outletBrandID");
+                        query.setParameter("outletBrandID", outletBrandID);
+                        return (List<Outletposm>) query.list();
+                    }
+                });
+    }
+
+
+    @Override
+    public Outletposm findByNameAndOutletBrand(final String name, final Long outletBrandID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Outletposm>() {
+                public Outletposm doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outletposm  WHERE name = ? and outletbrand.outletBrandID = ?");
+                    query.setParameter(0, name);
+                    query.setParameter(1, outletBrandID);
+                    return (Outletposm) query.uniqueResult();
+                }
+            });
+    }
+
+
+}

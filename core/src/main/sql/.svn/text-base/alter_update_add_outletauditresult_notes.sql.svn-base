@@ -1,0 +1,2 @@
+use FCVAuditData;
+ALTER TABLE OutletAuditResult ADD COLUMN `Notes` VARCHAR(1024) NULL;

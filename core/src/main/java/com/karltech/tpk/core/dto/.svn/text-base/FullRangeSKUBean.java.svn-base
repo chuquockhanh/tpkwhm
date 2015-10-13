@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Fullrangesku;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 12:32 PM
+ */
+public class FullRangeSKUBean extends AbstractBean<Fullrangesku> {
+    public FullRangeSKUBean() {
+        this.pojo = new Fullrangesku();
+    }
+}

@@ -1,0 +1,16 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Iftdisplaylocation;
+import com.banvien.fcv.core.domain.Powersku;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:58 AM
+ */
+public class IFTDisplayLocationBean extends AbstractBean<Iftdisplaylocation> {
+    public IFTDisplayLocationBean() {
+        this.pojo = new Iftdisplaylocation();
+    }
+}

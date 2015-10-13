@@ -1,0 +1,11 @@
+package com.banvien.fcv.core.dto;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/19/12
+ * Time: 5:03 PM
+ */
+public class OutletAuditSummaryImportBean extends AbstractBean<OutletAuditSummaryImportDTO> {
+
+}

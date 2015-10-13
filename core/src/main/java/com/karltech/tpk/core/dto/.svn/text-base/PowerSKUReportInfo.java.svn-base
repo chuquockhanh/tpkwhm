@@ -1,0 +1,70 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Oarpowersku;
+import com.banvien.fcv.core.domain.Outletbrand;
+import com.banvien.fcv.core.Constants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: BAN
+ * Date: 7/1/12
+ * Time: 2:31 PM
+ */
+public class PowerSKUReportInfo {
+    private List<Oarpowersku> oarpowerskus;
+    private boolean meet;
+
+    private Map<Long, Boolean> powerMeetMap;
+
+    public PowerSKUReportInfo(List<Oarpowersku> oarpowerskus, List<Outletbrand> outletbrands) {
+        setOarpowerskus(oarpowerskus);
+        setPowerMeetMap(new HashMap<Long, Boolean>());
+        if (oarpowerskus.size() <=0) {
+            return;
+        }
+
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            powerMeetMap.put(outletbrand.getOutletBrandID(), true);
+        }
+
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            for (Oarpowersku o: oarpowerskus) {
+                if (o.getPowersku().getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID() && o.getHas() == 0) {
+                    powerMeetMap.put(outletbrand.getOutletBrandID(), false);
+                    meet = false;
+                }
+
+            }
+        }
+
+    }
+
+    public boolean isMeet() {
+        return meet;
+    }
+
+    public List<Oarpowersku> getOarpowerskus() {
+        return oarpowerskus;
+    }
+
+    public void setOarpowerskus(List<Oarpowersku> oarpowerskus) {
+        this.oarpowerskus = oarpowerskus;
+    }
+
+
+    public Map<Long, Boolean> getPowerMeetMap() {
+        return powerMeetMap;
+    }
+
+    public void setPowerMeetMap(Map<Long, Boolean> powerMeetMap) {
+        this.powerMeetMap = powerMeetMap;
+    }
+
+
+
+}

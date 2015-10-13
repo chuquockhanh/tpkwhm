@@ -1,0 +1,106 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE PackingGroup</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Packinggroup implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+	/**
+	 * Attribute packingGroupID.
+	 */
+	private Long packingGroupID;
+	
+	/**
+	 * Attribute sosbrand
+	 */
+	 private Sosbrand sosbrand;	
+
+
+	/**
+	 * Attribute size.
+	 */
+	private Float size;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return packingGroupID
+	 */
+	public Long getPackingGroupID() {
+		return packingGroupID;
+	}
+
+	/**
+	 * @param packingGroupID new value for packingGroupID 
+	 */
+	public void setPackingGroupID(Long packingGroupID) {
+		this.packingGroupID = packingGroupID;
+	}
+	
+	/**
+	 * get sosbrand
+	 */
+	public Sosbrand getSosbrand() {
+		return this.sosbrand;
+	}
+	
+	/**
+	 * set sosbrand
+	 */
+	public void setSosbrand(Sosbrand sosbrand) {
+		this.sosbrand = sosbrand;
+	}
+
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return size
+	 */
+	public Float getSize() {
+		return size;
+	}
+
+	/**
+	 * @param size new value for size 
+	 */
+	public void setSize(Float size) {
+		this.size = size;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+
+
+}

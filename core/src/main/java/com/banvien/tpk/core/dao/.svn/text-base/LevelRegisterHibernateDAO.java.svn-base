@@ -1,0 +1,48 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.LevelRegister;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+
+
+/**
+ * <p>Hibernate DAO layer for Districts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class LevelRegisterHibernateDAO extends
+		AbstractHibernateDAO<LevelRegister, Long> implements
+		LevelRegisterDAO {
+
+    public LevelRegisterHibernateDAO() {
+		super(LevelRegister.class);
+	}
+
+    @Override
+    public LevelRegister findByCode(final String Name) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<LevelRegister>() {
+                public LevelRegister doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM LevelRegister d WHERE d.name = :name");
+                    query.setParameter("name", Name);
+                    try
+                    {
+                        return (LevelRegister) query.uniqueResult();
+                    }
+                    catch (Exception ex)
+                    {
+                        return null;
+                    }
+
+                }
+            });
+    }
+
+}

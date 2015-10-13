@@ -1,0 +1,12 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Auditoroutlettask;
+
+
+public interface AuditoroutlettaskService extends GenericService<Auditoroutlettask,Long> {
+	public Object[] findTaskByAuditScheduleID(Long auditScheduleID, Long distributorID, Long auditorID, Integer statusID, Integer firstIItem, Integer maxItems, String sortExpression, String sortDirection);
+
+    public Auditoroutlettask findByOutletAndAuditorAndSchedule(Long outletID, Long auditorID, Long auditscheduleID);
+
+    public Auditoroutlettask findByOutletAndSchedule(Long outletID, Long auditscheduleID);
+}

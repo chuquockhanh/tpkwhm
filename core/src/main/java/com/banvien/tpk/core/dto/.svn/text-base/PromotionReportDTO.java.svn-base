@@ -1,0 +1,51 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 8/13/12
+ * Time: 2:19 PM
+ */
+public class PromotionReportDTO implements Serializable {
+    private Long promotionID;
+
+    private Boolean mechanism;
+
+    private Boolean awareness;
+
+    public PromotionReportDTO() {
+
+    }
+
+    public PromotionReportDTO(Long promotionID, Boolean awareness, Boolean mechanism) {
+        this.promotionID = promotionID;
+        this.awareness = awareness;
+        this.mechanism = mechanism;
+    }
+
+    public Long getPromotionID() {
+        return promotionID;
+    }
+
+    public void setPromotionID(Long promotionID) {
+        this.promotionID = promotionID;
+    }
+
+    public Boolean getMechanism() {
+        return mechanism;
+    }
+
+    public void setMechanism(Boolean mechanism) {
+        this.mechanism = mechanism;
+    }
+
+    public Boolean getAwareness() {
+        return awareness;
+    }
+
+    public void setAwareness(Boolean awareness) {
+        this.awareness = awareness;
+    }
+}

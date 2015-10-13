@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Brand;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 1:55 PM
+ */
+public class BrandBean extends AbstractBean<Brand> {
+    public BrandBean() {
+        this.pojo = new Brand();
+    }
+}

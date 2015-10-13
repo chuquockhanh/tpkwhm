@@ -1,0 +1,272 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE Promotion</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Promotion implements Serializable {
+
+    public static final String FIELD_CODE = "code";
+    public static final String FIELD_NAME = "name";
+
+
+	/**
+	 * Attribute promotionID.
+	 */
+	private Long promotionID;
+	
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+    /**
+     * Attribute outlet brand
+     */
+    private Outletbrand outletbrand;
+
+	/**
+	 * Attribute promotiontype
+	 */
+	 private Promotiontype promotiontype;	
+
+	/**
+	 * Attribute effectiveDate.
+	 */
+	private Timestamp effectiveDate;
+	
+	/**
+	 * Attribute expireDate.
+	 */
+	private Timestamp expireDate;
+	
+	/**
+	 * Attribute buyQuantity.
+	 */
+	private Integer buyQuantity;
+	
+	/**
+	 * Attribute unit
+	 */
+	 private Unit buyUnit;
+
+	/**
+	 * Attribute buyProduct
+	 */
+	 private String buyProduct;
+
+	/**
+	 * Attribute getQuantity.
+	 */
+	private Long getQuantity;
+	
+	/**
+	 * Attribute unit
+	 */
+	 private Unit getUnit;
+
+	/**
+	 * Attribute product
+	 */
+	 private Promotionproduct getProduct;
+
+    private List<Region> scopes;
+
+    private List<Promotionproduct> productsToHandheld;
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return promotionID
+	 */
+	public Long getPromotionID() {
+		return promotionID;
+	}
+
+	/**
+	 * @param promotionID new value for promotionID 
+	 */
+	public void setPromotionID(Long promotionID) {
+		this.promotionID = promotionID;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code 
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+    public Outletbrand getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Outletbrand outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    /**
+	 * get promotiontype
+	 */
+	public Promotiontype getPromotiontype() {
+		return this.promotiontype;
+	}
+	
+	/**
+	 * set promotiontype
+	 */
+	public void setPromotiontype(Promotiontype promotiontype) {
+		this.promotiontype = promotiontype;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return effectiveDate
+	 */
+	public Timestamp getEffectiveDate() {
+		return effectiveDate;
+	}
+
+	/**
+	 * @param effectiveDate new value for effectiveDate 
+	 */
+	public void setEffectiveDate(Timestamp effectiveDate) {
+		this.effectiveDate = effectiveDate;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return expireDate
+	 */
+	public Timestamp getExpireDate() {
+		return expireDate;
+	}
+
+	/**
+	 * @param expireDate new value for expireDate 
+	 */
+	public void setExpireDate(Timestamp expireDate) {
+		this.expireDate = expireDate;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return buyQuantity
+	 */
+	public Integer getBuyQuantity() {
+		return buyQuantity;
+	}
+
+	/**
+	 * @param buyQuantity new value for buyQuantity 
+	 */
+	public void setBuyQuantity(Integer buyQuantity) {
+		this.buyQuantity = buyQuantity;
+	}
+
+    public Unit getBuyUnit() {
+        return buyUnit;
+    }
+
+    public void setBuyUnit(Unit buyUnit) {
+        this.buyUnit = buyUnit;
+    }
+
+    public String getBuyProduct() {
+        return buyProduct;
+    }
+
+    public void setBuyProduct(String buyProduct) {
+        this.buyProduct = buyProduct;
+    }
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return getQuantity
+	 */
+	public Long getGetQuantity() {
+		return getQuantity;
+	}
+
+	/**
+	 * @param getQuantity new value for getQuantity 
+	 */
+	public void setGetQuantity(Long getQuantity) {
+		this.getQuantity = getQuantity;
+	}
+
+    public Unit getGetUnit() {
+        return getUnit;
+    }
+
+    public void setGetUnit(Unit getUnit) {
+        this.getUnit = getUnit;
+    }
+
+    public Promotionproduct getGetProduct() {
+        return getProduct;
+    }
+
+    public void setGetProduct(Promotionproduct getProduct) {
+        this.getProduct = getProduct;
+    }
+
+    public List<Region> getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(List<Region> scopes) {
+        this.scopes = scopes;
+    }
+
+    public List<Promotionproduct> getProductsToHandheld() {
+        return productsToHandheld;
+    }
+
+    public void setProductsToHandheld(List<Promotionproduct> productsToHandheld) {
+        this.productsToHandheld = productsToHandheld;
+    }
+}

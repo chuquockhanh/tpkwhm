@@ -1,0 +1,146 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE District</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Saleman implements Serializable {
+
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_CODE = "code";
+
+    /**
+	 * Attribute agentID.
+	 */
+	private Long salemanID;
+
+    /**
+	 * Attribute code.
+	 */
+	private String code;
+	
+    /**
+	 * Attribute name.
+	 */
+	private String name;
+
+    /**
+	 * Attribute email.
+	 */
+	private String email;
+
+    /**
+	 * Attribute type.
+	 */
+	private String type;
+
+    /**
+	 * Attribute telephone.
+	 */
+	private String telephone;
+
+    /**
+	 * Attribute manager.
+	 */
+	private Saleman manager;
+
+
+    /**
+	 * Attribute codeManage.
+	 */
+	private String codeManager;
+
+    public Long getSalemanID() {
+        return salemanID;
+    }
+
+    public void setSalemanID(Long salemanID) {
+        this.salemanID = salemanID;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    private String validate;
+
+    private String rootCause;
+
+    public String getValidate() {
+        return validate;
+    }
+
+    public void setValidate(String validate) {
+        this.validate = validate;
+    }
+
+    public String getRootCause() {
+        return rootCause;
+    }
+
+    public void setRootCause(String rootCause) {
+        this.rootCause = rootCause;
+    }
+
+    public Saleman getManager() {
+        return manager;
+    }
+
+    public void setManager(Saleman manager) {
+        this.manager = manager;
+    }
+
+    public String getCodeManager() {
+        return codeManager;
+    }
+
+    public void setCodeManager(String codeManager) {
+        this.codeManager = codeManager;
+    }
+
+
+}

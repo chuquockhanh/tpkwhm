@@ -1,0 +1,48 @@
+package com.banvien.fcv.core.dto;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/2/12
+ * Time: 4:48 PM
+ */
+public class PerformanceBean extends AbstractBean<OutletReportInfo> {
+    private Long regionID;
+    private Timestamp fromDate;
+    private Timestamp toDate;
+    private Integer performed;
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public Integer getPerformed() {
+        return performed;
+    }
+
+    public void setPerformed(Integer performed) {
+        this.performed = performed;
+    }
+}

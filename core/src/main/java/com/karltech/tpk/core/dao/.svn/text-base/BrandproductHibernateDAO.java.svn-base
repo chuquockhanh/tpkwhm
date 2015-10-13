@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Brandproduct;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Brandproducts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class BrandproductHibernateDAO extends
+		AbstractHibernateDAO<Brandproduct, Long> implements
+		BrandproductDAO {
+
+    public BrandproductHibernateDAO() {
+		super(Brandproduct.class);
+	}
+
+}

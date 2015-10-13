@@ -1,0 +1,314 @@
+package com.banvien.fcv.core.domain;
+
+import com.banvien.fcv.core.dao.OARPosmMiniValueDAO;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+
+
+/**
+ * <p>Pojo mapping TABLE OutletAuditResult</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Outletauditresult implements Serializable {
+
+	/**
+	 * Attribute outletAuditResultID.
+	 */
+	private Long outletAuditResultID;
+	
+	/**
+	 * Attribute auditoroutlettask
+	 */
+	 private Auditoroutlettask auditoroutlettask;	
+
+	/**
+	 * Attribute auditDate.
+	 */
+	private Timestamp auditDate;
+	
+	/**
+	 * Attribute submittedDate.
+	 */
+	private Timestamp submittedDate;
+	
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Float gpsLatitude;
+	
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Float gpsLongtitude;
+
+    /**
+     * Attribute activeStatus
+     */
+    private Integer activeStatus;
+
+    private Integer Import;
+
+    private String notes;
+
+    public Integer getImport() {
+        return Import;
+    }
+
+    public void setImport(Integer anImport) {
+        Import = anImport;
+    }
+
+    /**
+	 * List of Oarfacingiftdisplay
+	 */
+	private List<Oarfacingiftdisplay> oarfacingiftdisplays = null;
+
+	/**
+	 * List of Oarfullrangesku
+	 */
+	private List<Oarfullrangesku> oarfullrangeskus = null;
+
+	/**
+	 * List of Oarnofacing
+	 */
+	private List<Oarnofacing> oarnofacings = null;
+
+	/**
+	 * List of Oarposm
+	 */
+	private List<Oarposm> oarposms = null;
+
+	/**
+	 * List of Oarpowersku
+	 */
+	private List<Oarpowersku> oarpowerskus = null;
+
+	/**
+	 * List of Oarpromotion
+	 */
+	private List<Oarpromotion> oarpromotions = null;
+
+	/**
+	 * List of Outletauditpicture
+	 */
+	private List<Outletauditpicture> outletauditpictures = null;
+
+    private List<Oarfullrangefacing> oarfullrangefacings = null;
+
+
+
+    private List<OarFacingRegistered> oarfacingregistereds = null;
+
+    private List<OarLocationRegistered> oarlocationregistereds = null;
+
+    private List<OarLatestBonus> oarlatestbonuses = null;
+
+    private List<OARAuditSummary> oarAuditSummaries = null;
+
+    private List<OarMiniValuePosm> oarMiniValuePosms = null;
+
+    public List<OarMiniValuePosm> getOarMiniValuePosms() {
+        return oarMiniValuePosms;
+    }
+
+    public void setOarMiniValuePosms(List<OarMiniValuePosm> oarMiniValuePosms) {
+        this.oarMiniValuePosms = oarMiniValuePosms;
+    }
+
+    public List<Oarfacingiftdisplay> getOarfacingiftdisplays() {
+        return oarfacingiftdisplays;
+    }
+
+    public void setOarfacingiftdisplays(List<Oarfacingiftdisplay> oarfacingiftdisplays) {
+        this.oarfacingiftdisplays = oarfacingiftdisplays;
+    }
+
+    public List<Oarfullrangesku> getOarfullrangeskus() {
+        return oarfullrangeskus;
+    }
+
+    public void setOarfullrangeskus(List<Oarfullrangesku> oarfullrangeskus) {
+        this.oarfullrangeskus = oarfullrangeskus;
+    }
+
+    public List<Oarnofacing> getOarnofacings() {
+        return oarnofacings;
+    }
+
+    public void setOarnofacings(List<Oarnofacing> oarnofacings) {
+        this.oarnofacings = oarnofacings;
+    }
+
+    public List<Oarposm> getOarposms() {
+        return oarposms;
+    }
+
+    public void setOarposms(List<Oarposm> oarposms) {
+        this.oarposms = oarposms;
+    }
+
+    public List<Oarpowersku> getOarpowerskus() {
+        return oarpowerskus;
+    }
+
+    public void setOarpowerskus(List<Oarpowersku> oarpowerskus) {
+        this.oarpowerskus = oarpowerskus;
+    }
+
+    public List<Oarpromotion> getOarpromotions() {
+        return oarpromotions;
+    }
+
+    public void setOarpromotions(List<Oarpromotion> oarpromotions) {
+        this.oarpromotions = oarpromotions;
+    }
+
+    public List<Outletauditpicture> getOutletauditpictures() {
+        return outletauditpictures;
+    }
+
+    public void setOutletauditpictures(List<Outletauditpicture> outletauditpictures) {
+        this.outletauditpictures = outletauditpictures;
+    }
+
+    public List<Oarfullrangefacing> getOarfullrangefacings() {
+        return oarfullrangefacings;
+    }
+
+    public void setOarfullrangefacings(List<Oarfullrangefacing> oarfullrangefacings) {
+        this.oarfullrangefacings = oarfullrangefacings;
+    }
+
+    public List<OarLocationRegistered> getOarlocationregistereds() {
+        return oarlocationregistereds;
+    }
+
+    public void setOarlocationregistereds(List<OarLocationRegistered> oarlocationregistereds) {
+        this.oarlocationregistereds = oarlocationregistereds;
+    }
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return outletAuditResultID
+	 */
+	public Long getOutletAuditResultID() {
+		return outletAuditResultID;
+	}
+
+	/**
+	 * @param outletAuditResultID new value for outletAuditResultID 
+	 */
+	public void setOutletAuditResultID(Long outletAuditResultID) {
+		this.outletAuditResultID = outletAuditResultID;
+	}
+	
+	/**
+	 * get auditoroutlettask
+	 */
+	public Auditoroutlettask getAuditoroutlettask() {
+		return this.auditoroutlettask;
+	}
+	
+	/**
+	 * set auditoroutlettask
+	 */
+	public void setAuditoroutlettask(Auditoroutlettask auditoroutlettask) {
+		this.auditoroutlettask = auditoroutlettask;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return auditDate
+	 */
+	public Timestamp getAuditDate() {
+		return auditDate;
+	}
+
+	/**
+	 * @param auditDate new value for auditDate 
+	 */
+	public void setAuditDate(Timestamp auditDate) {
+		this.auditDate = auditDate;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return submittedDate
+	 */
+	public Timestamp getSubmittedDate() {
+		return submittedDate;
+	}
+
+	/**
+	 * @param submittedDate new value for submittedDate 
+	 */
+	public void setSubmittedDate(Timestamp submittedDate) {
+		this.submittedDate = submittedDate;
+	}
+
+    public Float getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Float gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Float getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Float gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+    public List<OarFacingRegistered> getOarfacingregistereds() {
+        return oarfacingregistereds;
+    }
+
+    public void setOarfacingregistereds(List<OarFacingRegistered> oarfacingregistereds) {
+        this.oarfacingregistereds = oarfacingregistereds;
+    }
+
+    public List<OarLatestBonus> getOarlatestbonuses() {
+        return oarlatestbonuses;
+    }
+
+    public void setOarlatestbonuses(List<OarLatestBonus> oarlatestbonuses) {
+        this.oarlatestbonuses = oarlatestbonuses;
+    }
+
+    public List<OARAuditSummary> getOarAuditSummaries() {
+        return oarAuditSummaries;
+    }
+
+    public void setOarAuditSummaries(List<OARAuditSummary> oarAuditSummaries) {
+        this.oarAuditSummaries = oarAuditSummaries;
+    }
+
+}

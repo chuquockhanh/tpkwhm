@@ -1,0 +1,56 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.domain.DBBPosmRegistered;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 12:19 PM
+ */
+public class DBBPosmRegisteredDTO implements Serializable {
+
+	/**
+	 * Attribute posmID
+	 */
+	 private Long posmID;
+
+	/**
+	 * Attribute outletBrandID.
+	 */
+	private Long outletBrandID;
+
+    public DBBPosmRegisteredDTO(DBBPosmRegistered b) {
+        setOutletBrandID(b.getOutletBrand().getOutletBrandID());
+        setPosmID(b.getOutletPosm().getOutletPOSMID());
+    }
+
+    public DBBPosmRegisteredDTO() {
+
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setOutletBrandID(o.getLong("outletBrandID"));
+        setPosmID(o.getLong("outletPosmID"));
+    }
+
+    public Long getPosmID() {
+        return posmID;
+    }
+
+    public void setPosmID(Long posmID) {
+        this.posmID = posmID;
+    }
+
+    public Long getOutletBrandID() {
+        return outletBrandID;
+    }
+
+    public void setOutletBrandID(Long outletBrandID) {
+        this.outletBrandID = outletBrandID;
+    }
+}

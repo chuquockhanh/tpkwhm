@@ -1,0 +1,33 @@
+package com.banvien.fcv.core.dto;
+
+import java.util.List;
+
+public class OutletSummaryReportInfoByMonth {
+
+    /**
+	 * Attribute month.
+	 */
+	private String month;
+
+    /**
+   	 * Attribute List OutletSummaryReportInfo.
+   	 */
+   	private List<OutletSummaryReportInfo> outletSummaryReportInfoList;
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public List<OutletSummaryReportInfo> getOutletSummaryReportInfoList() {
+        return outletSummaryReportInfoList;
+    }
+
+    public void setOutletSummaryReportInfoList(List<OutletSummaryReportInfo> outletSummaryReportInfoList) {
+        this.outletSummaryReportInfoList = outletSummaryReportInfoList;
+    }
+
+}

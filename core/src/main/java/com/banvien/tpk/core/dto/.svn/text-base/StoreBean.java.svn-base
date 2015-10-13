@@ -1,0 +1,37 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Store;
+import com.banvien.fcv.core.domain.Storesosmaster;
+
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 3:31 PM
+ */
+public class StoreBean extends AbstractBean<Store> {
+    private List<Storesosmaster> storeSOSMasters;
+    private Long[] registeredProducts;
+
+    public StoreBean() {
+        this.pojo = new Store();
+    }
+
+    public List<Storesosmaster> getStoreSOSMasters() {
+        return storeSOSMasters;
+    }
+
+    public void setStoreSOSMasters(List<Storesosmaster> storeSOSMasters) {
+        this.storeSOSMasters = storeSOSMasters;
+    }
+
+    public Long[] getRegisteredProducts() {
+        return registeredProducts;
+    }
+
+    public void setRegisteredProducts(Long[] registeredProducts) {
+        this.registeredProducts = registeredProducts;
+    }
+}

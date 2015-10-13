@@ -1,0 +1,19 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storepromotionproduct;
+import com.banvien.fcv.core.dto.StorepromotionproductBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface StorepromotionproductService extends GenericService<Storepromotionproduct,Long> {
+
+    void updateItem(StorepromotionproductBean storepromotionproductBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(StorepromotionproductBean storepromotionproductBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(StorepromotionproductBean bean);
+
+}

@@ -1,0 +1,285 @@
+package com.banvien.fcv.core.dto;
+
+import com.opensymphony.oscache.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/3/12
+ * Time: 6:07 AM
+ */
+public class MTReportDTO implements Serializable {
+    private Long accountID;
+    private String account;
+    private String storeName;
+    private Integer numberStore;
+    private Integer numberOoSDBBSKUs;
+    private Integer numberDBBSKUs;
+    private Integer numberOoSIFTSKUs;
+    private Integer numberIFTSKUs;
+    private Double sodDBB;
+    private Double sodIFT;
+    private Double sodTotal;
+    private Double sosDBB;
+    private Double sosIFT;
+    private Double sosTotal;
+    private Double brandLocDBB;
+    private Double brandLocIFT;
+    private Double posmDBB;
+    private Double posmIFT;
+    private String sosDetailIds;
+    private String sosDetailValues;
+    private String sodDetailIds;
+    private String sodFCVDetailValues;
+    private String sodStoreDetailValues;
+    private Double sosMaster;
+
+    private Map<Long, Double> sosDetailMap;
+    private Map<Long, Double> sodDetailMap;
+
+    public Long getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(Long accountID) {
+        this.accountID = accountID;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public Integer getNumberStore() {
+        return numberStore;
+    }
+
+    public void setNumberStore(Integer numberStore) {
+        this.numberStore = numberStore;
+    }
+
+    public Integer getNumberOoSDBBSKUs() {
+        return numberOoSDBBSKUs;
+    }
+
+    public void setNumberOoSDBBSKUs(Integer numberOoSDBBSKUs) {
+        this.numberOoSDBBSKUs = numberOoSDBBSKUs;
+    }
+
+    public Integer getNumberDBBSKUs() {
+        return numberDBBSKUs;
+    }
+
+    public void setNumberDBBSKUs(Integer numberDBBSKUs) {
+        this.numberDBBSKUs = numberDBBSKUs;
+    }
+
+    public Integer getNumberOoSIFTSKUs() {
+        return numberOoSIFTSKUs;
+    }
+
+    public void setNumberOoSIFTSKUs(Integer numberOoSIFTSKUs) {
+        this.numberOoSIFTSKUs = numberOoSIFTSKUs;
+    }
+
+    public Integer getNumberIFTSKUs() {
+        return numberIFTSKUs;
+    }
+
+    public void setNumberIFTSKUs(Integer numberIFTSKUs) {
+        this.numberIFTSKUs = numberIFTSKUs;
+    }
+
+    public Double getSodDBB() {
+        return sodDBB;
+    }
+
+    public void setSodDBB(Double sodDBB) {
+        this.sodDBB = sodDBB;
+    }
+
+    public Double getSodIFT() {
+        return sodIFT;
+    }
+
+    public void setSodIFT(Double sodIFT) {
+        this.sodIFT = sodIFT;
+    }
+
+    public Double getSodTotal() {
+        return sodTotal;
+    }
+
+    public void setSodTotal(Double sodTotal) {
+        this.sodTotal = sodTotal;
+    }
+
+    public Double getSosDBB() {
+        return sosDBB;
+    }
+
+    public void setSosDBB(Double sosDBB) {
+        this.sosDBB = sosDBB;
+    }
+
+    public Double getSosIFT() {
+        return sosIFT;
+    }
+
+    public void setSosIFT(Double sosIFT) {
+        this.sosIFT = sosIFT;
+    }
+
+    public Double getSosTotal() {
+        return sosTotal;
+    }
+
+    public void setSosTotal(Double sosTotal) {
+        this.sosTotal = sosTotal;
+    }
+
+    public Double getBrandLocDBB() {
+        return brandLocDBB;
+    }
+
+    public void setBrandLocDBB(Double brandLocDBB) {
+        this.brandLocDBB = brandLocDBB;
+    }
+
+    public Double getBrandLocIFT() {
+        return brandLocIFT;
+    }
+
+    public void setBrandLocIFT(Double brandLocIFT) {
+        this.brandLocIFT = brandLocIFT;
+    }
+
+    public Double getPosmDBB() {
+        return posmDBB;
+    }
+
+    public void setPosmDBB(Double posmDBB) {
+        this.posmDBB = posmDBB;
+    }
+
+    public Double getPosmIFT() {
+        return posmIFT;
+    }
+
+    public void setPosmIFT(Double posmIFT) {
+        this.posmIFT = posmIFT;
+    }
+
+    public String getSosDetailIds() {
+        return sosDetailIds;
+    }
+
+    public void setSosDetailIds(String sosDetailIds) {
+        this.sosDetailIds = sosDetailIds;
+    }
+
+    public String getSosDetailValues() {
+        return sosDetailValues;
+    }
+
+    public void setSosDetailValues(String sosDetailValues) {
+        this.sosDetailValues = sosDetailValues;
+    }
+
+    public String getSodDetailIds() {
+        return sodDetailIds;
+    }
+
+    public void setSodDetailIds(String sodDetailIds) {
+        this.sodDetailIds = sodDetailIds;
+    }
+
+    public String getSodFCVDetailValues() {
+        return sodFCVDetailValues;
+    }
+
+    public void setSodFCVDetailValues(String sodFCVDetailValues) {
+        this.sodFCVDetailValues = sodFCVDetailValues;
+    }
+
+    public String getSodStoreDetailValues() {
+        return sodStoreDetailValues;
+    }
+
+    public void setSodStoreDetailValues(String sodStoreDetailValues) {
+        this.sodStoreDetailValues = sodStoreDetailValues;
+    }
+
+    public Map<Long, Double> getSosDetailMap() {
+        if (this.sosDetailMap == null || this.sosDetailMap.size() == 0) {
+            this.sosDetailMap = new HashMap<Long, Double>();
+            if (StringUtils.isNotBlank(this.sosDetailIds) && StringUtils.isNotBlank(this.sosDetailValues)) {
+                String[] ids = this.sosDetailIds.split(",");
+                String[] values = this.sosDetailValues.split(",");
+
+                for (int  i = 0; i < ids.length; i++) {
+                    Long id = Long.parseLong(ids[i]);
+                    Double value = Double.parseDouble(values[i]);
+                    if (this.sosDetailMap.containsKey(id)) {
+                        value += this.sosDetailMap.get(id);
+                        this.sosDetailMap.put(id, value);
+                    }else{
+                        this.sosDetailMap.put(id, value);
+                    }
+                }
+            }
+        }
+        return sosDetailMap;
+    }
+
+    public void setSosDetailMap(Map<Long, Double> sosDetailMap) {
+        this.sosDetailMap = sosDetailMap;
+    }
+
+    public Double getSosMaster() {
+        return sosMaster;
+    }
+
+    public void setSosMaster(Double sosMaster) {
+        this.sosMaster = sosMaster;
+    }
+
+    public Map<Long, Double> getSodDetailMap() {
+        if (sodDetailMap == null || sodDetailMap.size() == 0) {
+            sodDetailMap = new HashMap<Long, Double>();
+            if (StringUtils.isNotBlank(this.sodDetailIds) && StringUtils.isNotBlank(this.sodFCVDetailValues) && StringUtils.isNotBlank(this.sodStoreDetailValues)) {
+                String[] ids = this.sodDetailIds.split(",");
+                String[] fcvValues = this.sodFCVDetailValues.split(",");
+                String[] storeValues = this.sodStoreDetailValues.split(",");
+
+                for (int i = 0; i < ids.length; i++) {
+                    Long id = Long.parseLong(ids[i]);
+                    Double fcv = Double.parseDouble(fcvValues[i]);
+                    Double store = Double.parseDouble(storeValues[i]);
+                    this.sodDetailMap.put(id, store > 0 ? fcv / store : 0d);
+                }
+            }
+        }
+        return sodDetailMap;
+    }
+
+    public void setSodDetailMap(Map<Long, Double> sodDetailMap) {
+        this.sodDetailMap = sodDetailMap;
+    }
+}

@@ -1,0 +1,109 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE AuditorOutletTask</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Auditoroutlettask implements Serializable {
+
+	/**
+	 * Attribute auditorOutletTaskID.
+	 */
+	private Long auditorOutletTaskID;
+	
+	/**
+	 * Attribute auditschedule
+	 */
+	 private Auditschedule auditschedule;	
+
+	/**
+	 * Attribute auditor
+	 */
+	 private Auditor auditor;	
+
+	/**
+	 * Attribute outlet
+	 */
+	 private Outlet outlet;
+
+    /**
+     * Attribute status
+     */
+    private Integer status;
+
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return auditorOutletTaskID
+	 */
+	public Long getAuditorOutletTaskID() {
+		return auditorOutletTaskID;
+	}
+
+	/**
+	 * @param auditorOutletTaskID new value for auditorOutletTaskID 
+	 */
+	public void setAuditorOutletTaskID(Long auditorOutletTaskID) {
+		this.auditorOutletTaskID = auditorOutletTaskID;
+	}
+	
+	/**
+	 * get auditschedule
+	 */
+	public Auditschedule getAuditschedule() {
+		return this.auditschedule;
+	}
+	
+	/**
+	 * set auditschedule
+	 */
+	public void setAuditschedule(Auditschedule auditschedule) {
+		this.auditschedule = auditschedule;
+	}
+
+	/**
+	 * get auditor
+	 */
+	public Auditor getAuditor() {
+		return this.auditor;
+	}
+	
+	/**
+	 * set auditor
+	 */
+	public void setAuditor(Auditor auditor) {
+		this.auditor = auditor;
+	}
+
+	/**
+	 * get outlet
+	 */
+	public Outlet getOutlet() {
+		return this.outlet;
+	}
+	
+	/**
+	 * set outlet
+	 */
+	public void setOutlet(Outlet outlet) {
+		this.outlet = outlet;
+	}
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+}

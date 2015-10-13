@@ -1,0 +1,26 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.District;
+import com.banvien.fcv.core.dto.DistrictBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+
+public interface DistrictService extends GenericService<District,Long> {
+
+    void updateItem(DistrictBean districtBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(DistrictBean districtBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(DistrictBean bean);
+
+    List<District> findByRegionID(Long regionID);
+
+    List<District> findAllByOnlineAgent();
+
+
+}

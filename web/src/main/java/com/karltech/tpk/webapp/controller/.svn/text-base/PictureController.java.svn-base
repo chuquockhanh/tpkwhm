@@ -1,0 +1,331 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Outletauditpicture;
+import com.banvien.fcv.core.domain.Storeauditpicture;
+import com.banvien.fcv.core.dto.OutletPictureBean;
+import com.banvien.fcv.core.dto.StorePictureBean;
+import com.banvien.fcv.core.service.*;
+import com.banvien.fcv.security.SecurityUtils;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.util.DateUtils;
+import com.banvien.fcv.webapp.util.ZipUtil;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.aspectj.util.FileUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/2/12
+ * Time: 2:20 PM
+ */
+@Controller
+public class PictureController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+    @Autowired
+    private RegionService regionService;
+    @Autowired
+    private DistributorService distributorService;
+    @Autowired
+    private OutletauditpictureService outletauditpictureService;
+
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private StoreauditpictureService storeauditpictureService;
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Timestamp.class, new CustomDateEditor("dd/MM/yyyy"));
+    }
+
+
+    @RequestMapping("/report/gt/picture/outlet.html")
+    public ModelAndView outlet(@ModelAttribute(Constants.LIST_MODEL_KEY) OutletPictureBean outletPictureBean, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/admin/picture/outlet");
+        if (outletPictureBean.getFromDate() == null) {
+            outletPictureBean.setFromDate(new Timestamp(DateUtils.addDate(new Date(), -7).getTime()));
+        }
+        if (StringUtils.isNotBlank(outletPictureBean.getCrudaction())) {
+            Object[] items = outletauditpictureService.find4Report(outletPictureBean, false);
+            int totalSize = Integer.valueOf(items[0].toString());
+            int totalPage = (totalSize + outletPictureBean.getMaxPageItems() - 1)/ outletPictureBean.getMaxPageItems();
+            if((totalSize/outletPictureBean.getMaxPageItems()) - totalPage > 0)
+            {
+                totalPage = totalPage + 1;
+            }
+
+            mav.addObject("currPage", outletPictureBean.getFirstItem() / outletPictureBean.getMaxPageItems() + 1);
+            mav.addObject("numPage", totalPage);
+            mav.addObject("pageSize", outletPictureBean.getMaxPageItems());
+            outletPictureBean.setListResult((List<Outletauditpicture>)items[1]);
+            outletPictureBean.setTotalItems(totalSize);
+        }
+
+
+        referenceData(mav);
+        mav.addObject(Constants.LIST_MODEL_KEY, outletPictureBean);
+        return  mav;
+    }
+
+    @RequestMapping("/report/gt/picture/export/outlet.html")
+    public void exportOutletPicture(OutletPictureBean outletPictureBean, HttpServletRequest request, HttpServletResponse response) {
+        if (outletPictureBean.getFromDate() == null) {
+            outletPictureBean.setFromDate(new Timestamp(DateUtils.addDate(new Date(), -7).getTime()));
+        }
+        try{
+                String fileName = "/files/OutletPicture"  + System.currentTimeMillis() + ".zip";
+                String path = request.getSession().getServletContext().getRealPath(fileName);
+
+                String fileTemp = "/files/TempO"  + System.currentTimeMillis();
+                String pathTemp = request.getSession().getServletContext().getRealPath(fileTemp);
+
+                List<Outletauditpicture> lst = new ArrayList<Outletauditpicture>();
+                Object objs[] = outletauditpictureService.find4Report(outletPictureBean, true);
+                lst = (List<Outletauditpicture>)objs[1];
+
+                // Create Directories Temp
+                File dirTemp = new File(pathTemp);
+                if(dirTemp.mkdir())
+                {
+                    System.out.println("Multiple directories are created!");
+                }
+                else
+                {
+                    System.out.println("Failed to create multiple directories!");
+                }
+
+                // Copy all items to directories Temp
+                for(Outletauditpicture dto : lst)
+                {
+                    String realPath = request.getSession().getServletContext().getRealPath(dto.getPath());
+                    File src = new File(realPath);
+                    try{
+                        FileUtil.copyFile(src, dirTemp);
+                    }
+                    catch (Exception e)
+                    {
+                       //todo
+                    }
+                }
+
+            // Zip Directories Temps for User :
+            ZipUtil.zip(dirTemp.getPath(), path);
+            response.sendRedirect(request.getSession().getServletContext().getContextPath() + fileName);
+
+            // Delete Directories Temp
+            removeDirectory(dirTemp);
+        }
+        catch (Exception e)
+        {
+            log.error("Could not query ", e);
+        }
+
+
+}
+
+
+
+    @RequestMapping("/report/gt/picture/export/store.html")
+    public void exportStorePicture(StorePictureBean storePictureBean, HttpServletRequest request, HttpServletResponse response) {
+        if (storePictureBean.getFromDate() == null) {
+            storePictureBean.setFromDate(new Timestamp(DateUtils.addDate(new Date(), -7).getTime()));
+        }
+        try{
+                String fileName = "/files/StorePicture"  + System.currentTimeMillis() + ".zip";
+                String path = request.getSession().getServletContext().getRealPath(fileName);
+
+                String fileTemp = "/files/TempS"  + System.currentTimeMillis();
+                String pathTemp = request.getSession().getServletContext().getRealPath(fileTemp);
+
+                List<Storeauditpicture> lst = new ArrayList<Storeauditpicture>();
+                Object objs[] = storeauditpictureService.find4Report(storePictureBean, true);
+                lst = (List<Storeauditpicture>)objs[1];
+
+                // Create Directories Temp
+                File dirTemp = new File(pathTemp);
+                if(dirTemp.mkdir())
+                {
+                    System.out.println("Multiple directories are created!");
+                }
+                else
+                {
+                    System.out.println("Failed to create multiple directories!");
+                }
+
+                // Copy all items to directories Temp
+                for(Storeauditpicture dto : lst)
+                {
+                    String realPath = request.getSession().getServletContext().getRealPath(dto.getPath());
+                    File src = new File(realPath);
+                    try{
+                        FileUtil.copyFile(src, dirTemp);
+                    }
+                    catch (Exception e)
+                    {
+                       //todo
+                    }
+                }
+
+            // Zip Directories Temps for User :
+            ZipUtil.zip(dirTemp.getPath(), path);
+            response.sendRedirect(request.getSession().getServletContext().getContextPath() + fileName);
+
+            // Delete Directories Temp
+            removeDirectory(dirTemp);
+        }
+        catch (Exception e)
+        {
+            log.error("Could not query ", e);
+        }
+
+
+}
+
+
+
+    public static boolean removeDirectory(File directory) {
+        if (directory == null)
+            return false;
+        if (!directory.exists())
+            return true;
+        if (!directory.isDirectory())
+            return false;
+
+        String[] list = directory.list();
+
+
+        if (list != null) {
+            for (int i = 0; i < list.length; i++) {
+                File entry = new File(directory, list[i]);
+
+                if (entry.isDirectory())
+                {
+                    if (!removeDirectory(entry))
+                        return false;
+                }
+                else
+                {
+                    if (!entry.delete())
+                        return false;
+                }
+            }
+        }
+
+      return directory.delete();
+    }
+
+
+
+
+
+
+
+    private void referenceData(ModelAndView mav) {
+        mav.addObject("regions", regionService.findAllSortAsc());
+        mav.addObject("distributors", distributorService.findByOnlineAgent());
+        if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+        {
+            mav.addObject("distributors", distributorService.findAllSortAsc());
+        }
+    }
+
+    @RequestMapping("/report/mt/picture/store.html")
+	public ModelAndView store(@ModelAttribute(Constants.LIST_MODEL_KEY) StorePictureBean storePictureBean) {
+		ModelAndView mav = new ModelAndView("/admin/picture/store");
+        if (storePictureBean.getFromDate() == null) {
+            storePictureBean.setFromDate(new Timestamp(DateUtils.addDate(new Date(), -10).getTime()));
+        }
+        Object[] items = storeauditpictureService.find4Report(storePictureBean,false);
+        int totalSize = Integer.valueOf(items[0].toString());
+        int totalPage = (totalSize + storePictureBean.getMaxPageItems() - 1)/ storePictureBean.getMaxPageItems();
+        if((totalSize/storePictureBean.getMaxPageItems()) - totalPage > 0)
+        {
+            totalPage = totalPage + 1;
+        }
+        mav.addObject("currPage", storePictureBean.getFirstItem() / storePictureBean.getMaxPageItems() + 1);
+        mav.addObject("numPage", totalPage);
+        mav.addObject("pageSize", storePictureBean.getMaxPageItems());
+        storePictureBean.setListResult((List<Storeauditpicture>)items[1]);
+        storePictureBean.setTotalItems(totalSize);
+
+        referenceData4Store(mav);
+        mav.addObject(Constants.LIST_MODEL_KEY, storePictureBean);
+        return  mav;
+    }
+
+    private static final String SMTP_HOST_NAME = "smtp.gmail.com";
+    private static final int SMTP_HOST_PORT = 587;
+    private static final String SMTP_AUTH_USER = "tmtmvnforum@gmail.com";
+    private static final String SMTP_AUTH_PWD  = "12345678@X";
+
+    @RequestMapping("/report/gt/picture/sendmail.html")
+	public void store() throws Exception{
+        String host = "mail.lmitconsulting.com";
+         String from = "khang.nguyen@lmitconsulting.com";
+         String pass = "sf33d!";
+         Properties props = System.getProperties();
+         //props.put("mail.smtp.starttls.enable", "true"); // added this line
+         //props.put("mail.smtp.ssl.enable", "true"); // added this line
+         props.put("mail.smtp.host", host);
+         props.put("mail.smtp.user", from);
+         props.put("mail.smtp.password", pass);
+         props.put("mail.smtp.port", "25");
+         props.put("mail.smtp.auth", "true");
+
+         String[] to = {"to@gmail.com"}; // added this line
+
+         Session session = Session.getDefaultInstance(props, null);
+         MimeMessage message = new MimeMessage(session);
+         message.setFrom(new InternetAddress(from));
+
+//         InternetAddress[] toAddress = new InternetAddress[to.length];
+//
+//         // To get the array of addresses
+//         for( int i=0; i < to.length; i++ ) { // changed from a while loop
+//             toAddress[i] = new InternetAddress(to[i]);
+//         }
+//         System.out.println(Message.RecipientType.TO);
+
+         //for( int i=0; i < toAddress.length; i++) { // changed from a while loop
+         message.addRecipient(Message.RecipientType.TO, new InternetAddress("mvnforumtest.1@gmail.com"));
+
+         //}
+         message.setSubject("sending in a group");
+         message.setText("Welcome to JavaMail");
+         Transport transport = session.getTransport("smtp");
+         transport.connect(host, from, pass);
+         transport.sendMessage(message, message.getAllRecipients());
+         transport.close();
+    }
+
+    private void referenceData4Store(ModelAndView mav) {
+        mav.addObject("regions", regionService.findAll());
+        mav.addObject("accounts", accountService.findAll());
+    }
+}

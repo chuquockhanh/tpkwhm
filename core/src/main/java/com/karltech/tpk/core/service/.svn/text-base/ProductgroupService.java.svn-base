@@ -1,0 +1,20 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Productgroup;
+import com.banvien.fcv.core.dto.ProductGroupBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface ProductgroupService extends GenericService<Productgroup,Long> {
+
+    void updateItem(ProductGroupBean productgroupBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(ProductGroupBean productgroupBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(ProductGroupBean bean);
+
+    Productgroup findByCode(String code) throws ObjectNotFoundException;
+}

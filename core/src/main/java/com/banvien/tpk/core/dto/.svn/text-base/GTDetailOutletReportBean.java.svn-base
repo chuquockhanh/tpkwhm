@@ -1,0 +1,126 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.*;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/2/12
+ * Time: 5:06 PM
+ */
+public class GTDetailOutletReportBean extends AbstractBean<OutletReportInfo> {
+    private Long regionID;
+
+    private Long distributorID;
+
+    private Long productGroupID;
+
+    private Timestamp fromDate;
+
+    private Timestamp toDate;
+
+    private Long auditScheduleID;
+
+    private Outletbrand productGroup;
+
+    private Map<Long, List<Powersku>> powerSkuMaps;
+
+    private Map<Long, List<Fullrangesku>> fullRangeSkuMaps;
+
+    private Map<Long, List<Promotion>> promotionMaps;
+
+    private Map<Long, List<Outletposm>> posmMaps;
+
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public Long getDistributorID() {
+        return distributorID;
+    }
+
+    public void setDistributorID(Long distributorID) {
+        this.distributorID = distributorID;
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public Long getProductGroupID() {
+        return productGroupID;
+    }
+
+    public void setProductGroupID(Long productGroupID) {
+        this.productGroupID = productGroupID;
+    }
+
+    public Long getAuditScheduleID() {
+        return auditScheduleID;
+    }
+
+    public void setAuditScheduleID(Long auditScheduleID) {
+        this.auditScheduleID = auditScheduleID;
+    }
+
+    public Outletbrand getProductGroup() {
+        return productGroup;
+    }
+
+    public void setProductGroup(Outletbrand productGroup) {
+        this.productGroup = productGroup;
+    }
+
+    public Map<Long, List<Powersku>> getPowerSkuMaps() {
+        return powerSkuMaps;
+    }
+
+    public void setPowerSkuMaps(Map<Long, List<Powersku>> powerSkuMaps) {
+        this.powerSkuMaps = powerSkuMaps;
+    }
+
+    public Map<Long, List<Fullrangesku>> getFullRangeSkuMaps() {
+        return fullRangeSkuMaps;
+    }
+
+    public void setFullRangeSkuMaps(Map<Long, List<Fullrangesku>> fullRangeSkuMaps) {
+        this.fullRangeSkuMaps = fullRangeSkuMaps;
+    }
+
+    public Map<Long, List<Promotion>> getPromotionMaps() {
+        return promotionMaps;
+    }
+
+    public void setPromotionMaps(Map<Long, List<Promotion>> promotionMaps) {
+        this.promotionMaps = promotionMaps;
+    }
+
+    public Map<Long, List<Outletposm>> getPosmMaps() {
+        return posmMaps;
+    }
+
+    public void setPosmMaps(Map<Long, List<Outletposm>> posmMaps) {
+        this.posmMaps = posmMaps;
+    }
+}

@@ -1,0 +1,88 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.PowerskuDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Powersku;
+import com.banvien.fcv.core.dto.PowerSKUBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class PowerskuServiceImpl extends GenericServiceImpl<Powersku,Long> 
+                                                    implements PowerskuService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private PowerskuDAO powerskuDAO;
+
+    public void setPowerskuDAO(PowerskuDAO powerskuDAO) {
+        this.powerskuDAO = powerskuDAO;
+    }
+
+    @Override
+	protected GenericDAO<Powersku, Long> getGenericDAO() {
+		return powerskuDAO;
+	}
+
+    @Override
+    public void updateItem(PowerSKUBean powerskuBean) throws ObjectNotFoundException, DuplicateException {
+        Powersku dbItem = this.powerskuDAO.findByIdNoAutoCommit(powerskuBean.getPojo().getPowerSKUID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found powersku " + powerskuBean.getPojo().getPowerSKUID());
+
+        Powersku pojo = powerskuBean.getPojo();
+
+        this.powerskuDAO.detach(dbItem);
+        this.powerskuDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(PowerSKUBean powerskuBean) throws DuplicateException {
+        Powersku pojo = powerskuBean.getPojo();
+        pojo = this.powerskuDAO.save(pojo);
+        powerskuBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                powerskuDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(PowerSKUBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Powersku.FIELD_NAME, bean.getPojo().getName());
+        }
+        if (bean.getPojo().getOutletbrand() != null && bean.getPojo().getOutletbrand().getOutletBrandID() != null && bean.getPojo().getOutletbrand().getOutletBrandID() > 0) {
+            properties.put("outletbrand.outletBrandID", bean.getPojo().getOutletbrand().getOutletBrandID());
+        }
+
+        return this.powerskuDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    public List<Powersku> findAll() {
+        return  this.powerskuDAO.findByProperties(new HashMap<String, Object>(), "displayOrder", Constants.SORT_ASC, true, true);
+    }
+
+    @Override
+    public Powersku findByName(String name) throws ObjectNotFoundException {
+        Powersku res = this.powerskuDAO.findEqualUnique(Powersku.FIELD_NAME, name);
+        if (res == null) throw new ObjectNotFoundException("Not found powerSKU with code " + name);
+        return res;
+    }
+
+}

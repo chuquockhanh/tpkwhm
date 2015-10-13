@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Region;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 2:47 PM
+ */
+public class RegionBean extends AbstractBean<Region> {
+    public RegionBean() {
+        this.pojo = new Region();
+    }
+}

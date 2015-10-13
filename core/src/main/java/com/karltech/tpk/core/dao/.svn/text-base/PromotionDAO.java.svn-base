@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Promotion;
+import com.banvien.fcv.core.domain.Promotionproducttohandheld;
+import com.banvien.fcv.core.domain.Promotionscope;
+
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * <p>Generic DAO layer for Promotions</p>
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface PromotionDAO extends GenericDAO<Promotion,Long> {
+
+    List<Promotionscope> findPromotionscopeByRegions(Set<Long> regionIDs);
+
+    List<Promotionproducttohandheld> findPromotionproducttohandhelds(Set<Long> promotionIDs);
+
+    List<Promotion> findActivePromotions(Timestamp fromDate, Timestamp toDate);
+}

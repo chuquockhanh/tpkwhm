@@ -1,0 +1,63 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outletauditpicture;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Timestamp: 7/2/12
+ * Time: 2:00 PM
+ */
+public class OutletPictureBean extends AbstractBean<Outletauditpicture> {
+    private Long regionID;
+
+    private Long distributorID;
+
+    private Timestamp fromDate;
+
+    private Timestamp toDate;
+
+    private String outletCode;
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public Long getDistributorID() {
+        return distributorID;
+    }
+
+    public void setDistributorID(Long distributorID) {
+        this.distributorID = distributorID;
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getOutletCode() {
+        return outletCode;
+    }
+
+    public void setOutletCode(String outletCode) {
+        this.outletCode = outletCode;
+    }
+}

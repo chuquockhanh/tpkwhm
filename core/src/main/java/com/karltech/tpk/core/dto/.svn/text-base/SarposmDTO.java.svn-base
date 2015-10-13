@@ -1,0 +1,40 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/22/12
+ * Time: 10:51 AM
+ */
+public class SarposmDTO {
+
+    private Long storeposmID;
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+    public Long getStoreposmID() {
+        return storeposmID;
+    }
+
+    public void setStoreposmID(Long storeposmID) {
+        this.storeposmID = storeposmID;
+    }
+
+    public Byte getHas() {
+        return has;
+    }
+
+    public void setHas(Byte has) {
+        this.has = has;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setHas(Byte.valueOf(o.getString("has")));
+        setStoreposmID(o.getLong("storeposmID"));
+    }
+}

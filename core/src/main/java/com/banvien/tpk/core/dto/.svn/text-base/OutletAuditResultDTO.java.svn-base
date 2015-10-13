@@ -1,0 +1,420 @@
+package com.banvien.fcv.core.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:10 AM
+ */
+public class OutletAuditResultDTO {
+
+    private String auditorCode;
+
+    private Long outletID;
+
+    private String auditDate;
+
+	/**
+	 * Attribute submittedDate.
+	 */
+	private String submittedDate;
+
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Double gpsLatitude;
+
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Double gpsLongtitude;
+
+    /**
+   	 * Attribute dutchLady.
+   	 */
+    private Integer activeStatus;
+    
+    private String notes;
+
+    private List<OarfacingiftdisplayDTO> oarfacingiftdisplayDTOs;
+
+    private List<OarfullrangeskuDTO> oarfullrangeskuDTOs;
+
+    private List<OarnofacingDTO> oarnofacingDTOs;
+
+    private List<OarposmDTO> oarposmDTOs;
+
+    private List<OarpromotionDTO> oarpromotionDTOs;
+    
+    private List<OarfullrangefacingDTO> oarfullrangefacingDTOs;
+    
+    private List<OarFacingRegisteredDTO> oarfacingregisteredDTOs;
+
+    private List<OarLocationRegisteredDTO> oarlocationregisteredDTOs;
+    
+    private List<OarLatestBonusDTO> oarLatestBonusDTOs;
+    
+	private List<OarPosmMiniValueDTO> oarPosmMiniValueDTOs;
+
+    private List<OarDBBPosmRegisteredDTO> oarDBBPosmRegisteredDTOs;
+
+
+    public String getAuditorCode() {
+        return auditorCode;
+    }
+
+    public void setAuditorCode(String auditorCode) {
+        this.auditorCode = auditorCode;
+    }
+
+    public Long getOutletID() {
+        return outletID;
+    }
+
+    public void setOutletID(Long outletID) {
+        this.outletID = outletID;
+    }
+
+    public String getAuditDate() {
+        return auditDate;
+    }
+
+    public void setAuditDate(String auditDate) {
+        this.auditDate = auditDate;
+    }
+
+    public String getSubmittedDate() {
+        return submittedDate;
+    }
+
+    public void setSubmittedDate(String submittedDate) {
+        this.submittedDate = submittedDate;
+    }
+
+    public Double getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Double gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Double getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
+    public void setGpsLongtitude(Double gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public List<OarfacingiftdisplayDTO> getOarfacingiftdisplayDTOs() {
+        return oarfacingiftdisplayDTOs;
+    }
+
+    public void setOarfacingiftdisplayDTOs(List<OarfacingiftdisplayDTO> oarfacingiftdisplayDTOs) {
+        this.oarfacingiftdisplayDTOs = oarfacingiftdisplayDTOs;
+    }
+
+    public List<OarfullrangeskuDTO> getOarfullrangeskuDTOs() {
+        return oarfullrangeskuDTOs;
+    }
+
+    public void setOarfullrangeskuDTOs(List<OarfullrangeskuDTO> oarfullrangeskuDTOs) {
+        this.oarfullrangeskuDTOs = oarfullrangeskuDTOs;
+    }
+
+    public List<OarnofacingDTO> getOarnofacingDTOs() {
+        return oarnofacingDTOs;
+    }
+
+    public void setOarnofacingDTOs(List<OarnofacingDTO> oarnofacingDTOs) {
+        this.oarnofacingDTOs = oarnofacingDTOs;
+    }
+
+    public List<OarposmDTO> getOarposmDTOs() {
+        return oarposmDTOs;
+    }
+
+    public void setOarposmDTOs(List<OarposmDTO> oarposmDTOs) {
+        this.oarposmDTOs = oarposmDTOs;
+    }
+
+    public List<OarpromotionDTO> getOarpromotionDTOs() {
+        return oarpromotionDTOs;
+    }
+
+    public void setOarpromotionDTOs(List<OarpromotionDTO> oarpromotionDTOs) {
+        this.oarpromotionDTOs = oarpromotionDTOs;
+    }
+
+    public List<OarfullrangefacingDTO> getOarfullrangefacingDTOs() {
+		return oarfullrangefacingDTOs;
+	}
+
+	public void setOarfullrangefacingDTOs(
+			List<OarfullrangefacingDTO> oarfullrangefacingDTOs) {
+		this.oarfullrangefacingDTOs = oarfullrangefacingDTOs;
+	}
+
+    public List<OarLocationRegisteredDTO> getOarlocationregisteredDTOs() {
+        return oarlocationregisteredDTOs;
+    }
+
+    public void setOarlocationregisteredDTOs(List<OarLocationRegisteredDTO> oarlocationregisteredDTOs) {
+        this.oarlocationregisteredDTOs = oarlocationregisteredDTOs;
+    }
+
+    public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	
+	public List<OarLatestBonusDTO> getOarLatestBonusDTOs() {
+		return oarLatestBonusDTOs;
+	}
+
+	public void setOarLatestBonusDTOs(List<OarLatestBonusDTO> oarLatestBonusDTOs) {
+		this.oarLatestBonusDTOs = oarLatestBonusDTOs;
+	}
+
+	public List<OarFacingRegisteredDTO> getOarfacingregisteredDTOs() {
+		return oarfacingregisteredDTOs;
+	}
+
+	public void setOarfacingregisteredDTOs(
+			List<OarFacingRegisteredDTO> oarfacingregisteredDTOs) {
+		this.oarfacingregisteredDTOs = oarfacingregisteredDTOs;
+	}
+	
+    public List<OarPosmMiniValueDTO> getOarPosmMiniValues() {
+		return oarPosmMiniValueDTOs;
+	}
+
+	public void setOarPosmMiniValues(List<OarPosmMiniValueDTO> oarPosmMiniValues) {
+		this.oarPosmMiniValueDTOs = oarPosmMiniValues;
+	}
+
+    public List<OarDBBPosmRegisteredDTO> getOarDBBPosmRegisteredDTOs() {
+        return oarDBBPosmRegisteredDTOs;
+    }
+
+    public void setOarDBBPosmRegisteredDTOs(List<OarDBBPosmRegisteredDTO> oarDBBPosmRegisteredDTOs) {
+        this.oarDBBPosmRegisteredDTOs = oarDBBPosmRegisteredDTOs;
+    }
+
+	public JSONObject serializeJSON() throws JSONException {
+        JSONObject o = new JSONObject();
+        o.put("auditorCode", auditorCode);
+        o.put("outletID", outletID);
+        o.put("auditDate", auditDate);
+        o.put("submittedDate", submittedDate);
+        o.put("gpsLatitude", gpsLatitude);
+        o.put("gpsLongtitude", gpsLongtitude);
+        o.put("activeStatus", activeStatus);
+        o.put("notes", notes);
+        o.put("oarfacingiftdisplayDTOs", toJSONArray(oarfacingiftdisplayDTOs));
+        o.put("oarfullrangeskuDTOs", toJSONArray(oarfullrangeskuDTOs));
+        o.put("oarposmDTOs", toJSONArray(oarposmDTOs));
+        o.put("oarpromotionDTOs", toJSONArray(oarpromotionDTOs));
+        o.put("oarfullrangefacingDTOs", toJSONArray(oarfullrangefacingDTOs));
+        o.put("oarlocationregisteredDTOs", toJSONArray(oarlocationregisteredDTOs));
+        o.put("oarLatestBonusDTOs", toJSONArray(oarLatestBonusDTOs));
+        o.put("oarPosmMiniValues", toJSONArray(oarPosmMiniValueDTOs));
+        o.put("oarDBBPosmRegisteredDTOs", toJSONArray(oarDBBPosmRegisteredDTOs));
+        return o;
+    }
+
+    private JSONArray toJSONArray(List objects) {
+        JSONArray a = new JSONArray();
+        for (Object o: objects) {
+            a.put(new JSONObject(o));
+        }
+        return a;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setAuditorCode(o.getString("auditorCode"));
+        setOutletID(o.getLong("outletID"));
+        setAuditDate(o.getString("auditDate"));
+        setGpsLatitude(o.getDouble("gpsLatitude"));
+        setGpsLongtitude(o.getDouble("gpsLongtitude"));
+        setSubmittedDate(o.getString("submittedDate"));
+        setActiveStatus(o.getInt("activeStatus"));
+        try {
+        	setNotes(o.getString("notes"));
+        }catch (JSONException e) {
+		}
+        updateOarfacingiftdisplayDTOs(o.getJSONArray("oarfacingiftdisplayDTOs"));
+
+        updateOarfullrangeskuDTOs(o.getJSONArray("oarfullrangeskuDTOs"));
+        updateOarposmDTOs(o.getJSONArray("oarposmDTOs"));
+        updateOarpromotionDTOs(o.getJSONArray("oarpromotionDTOs"));
+        updateOarfacingregisteredDTOs(o.getJSONArray("oarfacingregisteredDTOs"));
+        updateOarlocationregisteredDTOs(o.getJSONArray("oarLocationRegisteredDTOs"));
+        updateOarLatestBonusDTOs(o.getJSONArray("oarLastestBonusDTOs"));
+        updatePosmMiniValueDTOs(o.getJSONArray("oarPosmMiniValueDTOs"));
+        updateDBBPosmRegisteredDTOs(o.getJSONArray("oarDBBPosmRegisteredDTOs"));
+        try{
+            updateOarfullrangefacingDTOs(o.getJSONArray("oarfullrangefacingDTOs"));
+        }catch (Exception e) {
+            System.out.println("Auditor code " + auditorCode);
+        }
+    }
+    
+    private void updateOarfullrangefacingDTOs(JSONArray a) throws JSONException {
+        if (oarfullrangefacingDTOs == null) {
+        	oarfullrangefacingDTOs = new ArrayList<OarfullrangefacingDTO>();
+        } else {
+        	oarfullrangefacingDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarfullrangefacingDTO bean = new OarfullrangefacingDTO();
+            bean.unserializeJSON(o);
+            oarfullrangefacingDTOs.add(bean);
+        }
+    }
+    
+    private void updateOarpromotionDTOs(JSONArray a) throws JSONException {
+        if (oarpromotionDTOs == null) {
+            oarpromotionDTOs = new ArrayList<OarpromotionDTO>();
+        } else {
+            oarpromotionDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarpromotionDTO bean = new OarpromotionDTO();
+            bean.unserializeJSON(o);
+            oarpromotionDTOs.add(bean);
+        }
+    }
+
+    private void updateOarposmDTOs(JSONArray a) throws JSONException {
+        if (oarposmDTOs == null) {
+            oarposmDTOs = new ArrayList<OarposmDTO>();
+        } else {
+            oarposmDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarposmDTO bean = new OarposmDTO();
+            bean.unserializeJSON(o);
+            oarposmDTOs.add(bean);
+        }
+    }
+
+
+    private void updateOarfullrangeskuDTOs(JSONArray a) throws JSONException {
+        if (oarfullrangeskuDTOs == null) {
+            oarfullrangeskuDTOs = new ArrayList<OarfullrangeskuDTO>();
+        } else {
+            oarfullrangeskuDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarfullrangeskuDTO bean = new OarfullrangeskuDTO();
+            bean.unserializeJSON(o);
+            oarfullrangeskuDTOs.add(bean);
+        }
+    }
+
+    private void updateOarfacingiftdisplayDTOs(JSONArray a) throws JSONException {
+        if (oarfacingiftdisplayDTOs == null) {
+            oarfacingiftdisplayDTOs = new ArrayList<OarfacingiftdisplayDTO>();
+        } else {
+            oarfacingiftdisplayDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarfacingiftdisplayDTO bean = new OarfacingiftdisplayDTO();
+            bean.unserializeJSON(o);
+            oarfacingiftdisplayDTOs.add(bean);
+        }
+    }
+    private void updateOarfacingregisteredDTOs(JSONArray a) throws JSONException {
+        if (oarfacingregisteredDTOs == null) {
+        	oarfacingregisteredDTOs = new ArrayList<OarFacingRegisteredDTO>();
+        } else {
+        	oarfacingregisteredDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarFacingRegisteredDTO bean = new OarFacingRegisteredDTO();
+            bean.unserializeJSON(o);
+            oarfacingregisteredDTOs.add(bean);
+        }
+    }
+
+    private void updateOarlocationregisteredDTOs(JSONArray a) throws JSONException {
+        if (oarlocationregisteredDTOs == null) {
+        	oarlocationregisteredDTOs = new ArrayList<OarLocationRegisteredDTO>();
+        } else {
+        	oarlocationregisteredDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarLocationRegisteredDTO bean = new OarLocationRegisteredDTO();
+            bean.unserializeJSON(o);
+            oarlocationregisteredDTOs.add(bean);
+        }
+    }
+    
+    private void updateOarLatestBonusDTOs(JSONArray a) throws JSONException {
+        if (oarLatestBonusDTOs == null) {
+        	oarLatestBonusDTOs = new ArrayList<OarLatestBonusDTO>();
+        } else {
+        	oarLatestBonusDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarLatestBonusDTO bean = new OarLatestBonusDTO();
+            bean.unserializeJSON(o);
+            oarLatestBonusDTOs.add(bean);
+        }
+    }
+    
+    private void updatePosmMiniValueDTOs(JSONArray a) throws JSONException {
+        if (oarPosmMiniValueDTOs == null) {
+        	oarPosmMiniValueDTOs = new ArrayList<OarPosmMiniValueDTO>();
+        } else {
+        	oarPosmMiniValueDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarPosmMiniValueDTO bean = new OarPosmMiniValueDTO();
+            bean.unserializeJSON(o);
+            oarPosmMiniValueDTOs.add(bean);
+        }
+    }
+
+    private void updateDBBPosmRegisteredDTOs(JSONArray a) throws JSONException {
+        if (oarDBBPosmRegisteredDTOs == null) {
+            oarDBBPosmRegisteredDTOs = new ArrayList<OarDBBPosmRegisteredDTO>();
+        } else {
+            oarDBBPosmRegisteredDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarDBBPosmRegisteredDTO bean = new OarDBBPosmRegisteredDTO();
+            bean.unserializeJSON(o);
+            oarDBBPosmRegisteredDTOs.add(bean);
+        }
+    }
+}

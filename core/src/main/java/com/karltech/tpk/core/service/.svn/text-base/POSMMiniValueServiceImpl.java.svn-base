@@ -1,0 +1,60 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.POSMMiniValueDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.POSMMiniValue;
+import com.banvien.fcv.core.domain.Region;
+import com.banvien.fcv.core.dto.POSMMiniValueBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class POSMMiniValueServiceImpl extends GenericServiceImpl<POSMMiniValue,Long>
+                                                    implements POSMMiniValueService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private POSMMiniValueDAO posmMiniValueDAO;
+
+    public POSMMiniValueDAO getPosmMiniValueDAO() {
+        return posmMiniValueDAO;
+    }
+
+    public void setPosmMiniValueDAO(POSMMiniValueDAO posmMiniValueDAO) {
+        this.posmMiniValueDAO = posmMiniValueDAO;
+    }
+
+    @Override
+	protected GenericDAO<POSMMiniValue, Long> getGenericDAO() {
+		return posmMiniValueDAO;
+	}
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                posmMiniValueDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(POSMMiniValueBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getOutletPosm().getName())) {
+            properties.put(POSMMiniValue.FIELD_NAME, bean.getPojo().getMiniValue());
+        }
+
+        return this.posmMiniValueDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+}

@@ -1,0 +1,20 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+
+import com.banvien.fcv.core.domain.Auditorstoretask;
+import com.banvien.fcv.core.dto.StoreTaskDTO;
+/**
+ * <p>Generic DAO layer for Auditorstoretasks</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface AuditorstoretaskDAO extends GenericDAO<Auditorstoretask,Long> {
+
+    List<Auditorstoretask> findByAuditorOfSchedule(Long auditorID, Long auditScheduleID);
+
+    Auditorstoretask findByStoreIDandAuditorCode(Long storeID, String auditorCode);
+    
+    public List<StoreTaskDTO> findTaskByAuditScheduleID(Long auditScheduleID);
+}

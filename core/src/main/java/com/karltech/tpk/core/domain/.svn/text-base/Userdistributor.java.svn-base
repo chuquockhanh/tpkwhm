@@ -1,0 +1,44 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 9/16/12
+ * Time: 10:06 PM
+ */
+public class Userdistributor implements Serializable {
+
+    public static final String FIELD_USERID = "user.userID";
+
+    public Long getUserDistributorID() {
+        return userDistributorID;
+    }
+
+    public void setUserDistributorID(Long userDistributorID) {
+        this.userDistributorID = userDistributorID;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Distributor getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(Distributor distributor) {
+        this.distributor = distributor;
+    }
+
+    private Long userDistributorID;
+
+    private User user;
+
+    private Distributor distributor;
+}

@@ -1,0 +1,86 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Distributor;
+import com.banvien.fcv.core.domain.Distributor;
+import com.banvien.fcv.core.dto.DistributorWithOutletNumDTO;
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Distributors</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class DistributorHibernateDAO extends
+		AbstractHibernateDAO<Distributor, Long> implements
+		DistributorDAO {
+
+    public DistributorHibernateDAO() {
+		super(Distributor.class);
+	}
+
+    @Override
+    public Distributor findBySapCodeAndName(final String sapCode, final String name) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Distributor>() {
+                public Distributor doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Distributor d WHERE d.sapCode = :sapCode AND d.name like :name");
+                    query.setParameter("sapCode", sapCode);
+                    query.setParameter("name", name);
+                    return (Distributor) query.uniqueResult();
+                }
+            });
+    }
+
+    @Override
+    public List<Distributor> findBySapCode(final String sapCode) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Distributor>>() {
+                public List<Distributor> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Distributor d WHERE d.sapCode = :sapCode");
+                    query.setParameter("sapCode", sapCode);
+                    return (List<Distributor>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<DistributorWithOutletNumDTO> findDistributorWithOutletNum(final List<Long> distributorIDs, final String whereClause) {
+        return getHibernateTemplate().execute(
+                    new HibernateCallback<List<DistributorWithOutletNumDTO>>() {
+                        public List<DistributorWithOutletNumDTO> doInHibernate(Session session)
+                                throws HibernateException, SQLException {
+                            StringBuilder sqlQuery = new StringBuilder();
+                            sqlQuery.append("SELECT d as distributor, COUNT(*) as totalOutlet FROM Distributor d, Outlet o WHERE d.distributorID = o.distributor.distributorID");
+                            if (distributorIDs != null && distributorIDs.size() > 0) {
+                                sqlQuery.append(" and d.distributorID IN (:distributorIDs)");
+                            }
+                            if (StringUtils.isNotBlank(whereClause)) {
+                                sqlQuery.append(" AND ").append(whereClause);
+                            }
+                            sqlQuery.append(" GROUP BY d");
+                            Query query = session.createQuery(sqlQuery.toString());
+                            if (distributorIDs != null && distributorIDs.size() > 0) {
+                                query.setParameterList("distributorIDs", distributorIDs);
+                            }
+                            query.setResultTransformer(Transformers.aliasToBean(DistributorWithOutletNumDTO.class));
+                            return (List<DistributorWithOutletNumDTO>) query.list();
+                        }
+                    });
+    }
+
+}

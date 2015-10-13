@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outletposm;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 1:18 PM
+ */
+public class OutletPOSMBean extends AbstractBean<Outletposm> {
+    public OutletPOSMBean() {
+        this.pojo = new Outletposm();
+    }
+}

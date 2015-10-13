@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.OarStorepromotion;
+
+
+public interface OarStorepromotionService extends GenericService<OarStorepromotion,Long> {
+
+}

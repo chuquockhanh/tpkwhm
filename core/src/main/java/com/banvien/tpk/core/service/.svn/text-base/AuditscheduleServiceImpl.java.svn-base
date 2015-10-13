@@ -1,0 +1,272 @@
+package com.banvien.fcv.core.service;
+import java.util.List;
+
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.security.SecurityUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.AuditorDAO;
+import com.banvien.fcv.core.dao.AuditoroutlettaskDAO;
+import com.banvien.fcv.core.dao.AuditorstoretaskDAO;
+import com.banvien.fcv.core.dao.AuditscheduleDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletDAO;
+import com.banvien.fcv.core.dao.StoreDAO;
+import com.banvien.fcv.core.dto.AuditScheduleBean;
+import com.banvien.fcv.core.dto.AuditorTaskDTO;
+import com.banvien.fcv.core.dto.OutletTaskImportDTO;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+public class AuditscheduleServiceImpl extends GenericServiceImpl<Auditschedule,Long> 
+                                                    implements AuditscheduleService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private AuditscheduleDAO auditscheduleDAO;
+
+    private AuditorstoretaskDAO auditorstoretaskDAO;
+
+    private AuditoroutlettaskDAO auditoroutlettaskDAO;
+
+    private StoreDAO storeDAO;
+
+    private OutletDAO outletDAO;
+    
+    private AuditorDAO auditorDAO;
+
+    public void setAuditscheduleDAO(AuditscheduleDAO auditscheduleDAO) {
+        this.auditscheduleDAO = auditscheduleDAO;
+    }
+
+    public void setAuditorstoretaskDAO(AuditorstoretaskDAO auditorstoretaskDAO) {
+        this.auditorstoretaskDAO = auditorstoretaskDAO;
+    }
+
+    public void setAuditoroutlettaskDAO(AuditoroutlettaskDAO auditoroutlettaskDAO) {
+        this.auditoroutlettaskDAO = auditoroutlettaskDAO;
+    }
+
+    public void setStoreDAO(StoreDAO storeDAO) {
+        this.storeDAO = storeDAO;
+    }
+
+    public void setOutletDAO(OutletDAO outletDAO) {
+        this.outletDAO = outletDAO;
+    }
+    
+    
+    public void setAuditorDAO(AuditorDAO auditorDAO) {
+		this.auditorDAO = auditorDAO;
+	}
+
+	@Override
+	protected GenericDAO<Auditschedule, Long> getGenericDAO() {
+		return auditscheduleDAO;
+	}
+
+    @Override
+    public void updateItem(AuditScheduleBean auditscheduleBean) throws ObjectNotFoundException, DuplicateException {
+        Auditschedule dbItem = this.auditscheduleDAO.findByIdNoAutoCommit(auditscheduleBean.getPojo().getAuditScheduleID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found auditschedule " + auditscheduleBean.getPojo().getAuditScheduleID());
+
+        Auditschedule pojo = auditscheduleBean.getPojo();
+
+        pojo.setCreatedBy(dbItem.getCreatedBy());
+        this.auditscheduleDAO.detach(dbItem);
+        this.auditscheduleDAO.update(pojo);
+
+        //Save task for current auditor
+        if (auditscheduleBean.getAuditorID() != null && auditscheduleBean.getAuditorID() > 0) {
+            Long[] assignedItems = auditscheduleBean.getAssignedItems();
+            List<Auditorstoretask> storeTasks = auditorstoretaskDAO.findByAuditorOfSchedule(auditscheduleBean.getAuditorID(), pojo.getAuditScheduleID());
+            List<Auditoroutlettask> outletTasks = auditoroutlettaskDAO.findByAuditorOfSchedule(auditscheduleBean.getAuditorID(), pojo.getAuditScheduleID());
+            if (assignedItems != null) {
+                if (AuditScheduleBean.SEARCH_STORE.equals(auditscheduleBean.getSearchType())) {
+                    for (Long storeID : assignedItems) {
+                        Auditorstoretask auditorstoretask = null;
+                        for (int i = storeTasks.size() - 1; i >= 0; i--) {
+                            if (storeTasks.get(i).getStore().getStoreID().equals(storeID)) {
+                                auditorstoretask = storeTasks.get(i);
+                                storeTasks.remove(i);
+                                break;
+                            }
+                        }
+                        if (auditorstoretask == null) {
+                            auditorstoretask = new Auditorstoretask();
+                            auditorstoretask.setStatus(Constants.AUDIT_NOT_YET);
+                        }
+                        auditorstoretask.setAuditschedule(pojo);
+                        Store store = storeDAO.findByIdNoAutoCommit(storeID);
+                        auditorstoretask.setStore(store);
+                        Auditor auditor = new Auditor();
+                        auditor.setAuditorID(auditscheduleBean.getAuditorID());
+                        auditorstoretask.setAuditor(auditor);
+
+                        auditorstoretaskDAO.saveOrUpdate(auditorstoretask);
+                        auditscheduleBean.getAssignedStores().add(store);
+                    }
+                }else{
+                    for (Long outletID : assignedItems) {
+                        Auditoroutlettask auditoroutlettask = null;
+                        for (int i = outletTasks.size() - 1; i >= 0; i--) {
+                            if (outletTasks.get(i).getOutlet().getOutletID().equals(outletID)) {
+                                auditoroutlettask = outletTasks.get(i);
+                                outletTasks.remove(i);
+                                break;
+                            }
+                        }
+                        if (auditoroutlettask == null) {
+                            auditoroutlettask = new Auditoroutlettask();
+                            auditoroutlettask.setStatus(Constants.AUDIT_NOT_YET);
+                        }
+                        auditoroutlettask.setAuditschedule(pojo);
+                        Outlet outlet = outletDAO.findByIdNoAutoCommit(outletID);
+                        auditoroutlettask.setOutlet(outlet);
+                        Auditor auditor = new Auditor();
+                        auditor.setAuditorID(auditscheduleBean.getAuditorID());
+                        auditoroutlettask.setAuditor(auditor);
+
+                        auditoroutlettaskDAO.saveOrUpdate(auditoroutlettask);
+                        auditscheduleBean.getAssignedOutlets().add(outlet);
+                    }
+                }
+            }
+            if (storeTasks.size() > 0) {
+                for (Auditorstoretask auditorstoretask : storeTasks) {
+                    auditorstoretaskDAO.delete(auditorstoretask);
+                }
+            }
+
+            if (outletTasks.size() > 0) {
+                for (Auditoroutlettask auditoroutlettask : outletTasks) {
+                    auditoroutlettaskDAO.delete(auditoroutlettask);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void addNew(AuditScheduleBean auditscheduleBean) throws DuplicateException {
+        Auditschedule pojo = auditscheduleBean.getPojo();
+        User user = new User();
+        user.setUserID(SecurityUtils.getLoginUserId());
+        pojo.setCreatedBy(user);
+        Auditschedule dbitem = this.auditscheduleDAO.save(pojo);
+
+
+        //Save task for first auditor
+        if (auditscheduleBean.getAuditorID() != null && auditscheduleBean.getAuditorID() > 0) {
+            Long[] assignedItems = auditscheduleBean.getAssignedItems();
+            if (assignedItems != null) {
+                if (AuditScheduleBean.SEARCH_STORE.equals(auditscheduleBean.getSearchType())) {
+                    for (Long storeID : assignedItems) {
+                        Auditorstoretask auditorstoretask = new Auditorstoretask();
+                        auditorstoretask.setAuditschedule(dbitem);
+                        Store store = new Store();
+                        store.setStoreID(storeID);
+                        auditorstoretask.setStore(store);
+                        auditorstoretask.setStatus(Constants.AUDIT_NOT_YET);
+                        Auditor auditor = new Auditor();
+                        auditor.setAuditorID(auditscheduleBean.getAuditorID());
+                        auditorstoretask.setAuditor(auditor);
+
+                        auditorstoretaskDAO.save(auditorstoretask);
+                    }
+                }else{
+                    for (Long outletID : assignedItems) {
+                        Auditoroutlettask auditoroutlettask = new Auditoroutlettask();
+                        auditoroutlettask.setAuditschedule(dbitem);
+                        Outlet outlet = new Outlet();
+                        outlet.setOutletID(outletID);
+                        auditoroutlettask.setOutlet(outlet);
+
+                        Auditor auditor = new Auditor();
+                        auditor.setAuditorID(auditscheduleBean.getAuditorID());
+                        auditoroutlettask.setAuditor(auditor);
+
+                        auditoroutlettask.setStatus(Constants.AUDIT_NOT_YET);
+                        auditoroutlettaskDAO.save(auditoroutlettask);
+                    }
+                }
+            }
+        }
+        auditscheduleBean.setPojo(dbitem);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                auditscheduleDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(AuditScheduleBean bean) {
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+            bean.setCreatedBy(SecurityUtils.getLoginUserId());
+        }
+        return this.auditscheduleDAO.searchAndGetAssignedInfo(bean);
+    }
+
+    @Override
+    public Auditschedule findByCode(String code) throws ObjectNotFoundException {
+        Auditschedule res = auditscheduleDAO.findEqualUnique(Auditschedule.FIELD_CODE, code);
+        if (res == null) throw new ObjectNotFoundException("Not found auditschedule with code " + code);
+        return res;
+    }
+
+	@Override
+	public List<AuditorTaskDTO> findAuditorTaskByID(Long auditScheduleID) {
+        Long createdBy = null;
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+            createdBy = SecurityUtils.getLoginUserId();
+        }
+		return auditscheduleDAO.findAuditorTaskByID(auditScheduleID, createdBy);
+	}
+
+	@Override
+	public List<Auditschedule> findActiveAuditNotAuditID(Long auditID) {
+        Long createdBy = null;
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+            createdBy = SecurityUtils.getLoginUserId();
+        }
+
+		return auditscheduleDAO.findActiveAuditNotAuditID( auditID, createdBy);
+	}
+
+
+    @Override
+   	public List<Auditschedule> findActiveAudit() {
+           Long createdBy = null;
+           if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+               createdBy = SecurityUtils.getLoginUserId();
+           }
+
+   		return auditscheduleDAO.findActiveAudit(createdBy);
+   	}
+
+	@Override
+	public void importOutletTask(OutletTaskImportDTO outletTaskImportDTO, Long auditScheduleID) throws DuplicateException{
+       Auditoroutlettask outletTask = auditoroutlettaskDAO.findByAuditorIDAndOutletID(outletTaskImportDTO.getAuditor().getAuditorID(), outletTaskImportDTO.getOutlet().getOutletID(), auditScheduleID);
+       if(outletTask == null || outletTask.getAuditorOutletTaskID() == null) {
+    	   Auditoroutlettask newOutletTask = new Auditoroutlettask();
+    	   newOutletTask.setOutlet(outletTaskImportDTO.getOutlet());
+    	   newOutletTask.setAuditor(outletTaskImportDTO.getAuditor());
+    	   Auditschedule auditSchedule = new Auditschedule();
+    	   auditSchedule.setAuditScheduleID(auditScheduleID);
+    	   newOutletTask.setAuditschedule(auditSchedule);
+    	   newOutletTask.setStatus(Constants.AUDIT_NOT_YET);
+    	   auditoroutlettaskDAO.save(newOutletTask);
+    	   
+       }
+       
+	}
+}

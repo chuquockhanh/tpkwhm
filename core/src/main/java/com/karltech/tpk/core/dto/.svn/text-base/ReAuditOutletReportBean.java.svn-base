@@ -1,0 +1,43 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outletauditresult;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/2/12
+ * Time: 3:47 PM
+ */
+public class ReAuditOutletReportBean extends AbstractBean<Outletauditresult>{
+    private Long regionID;
+
+    private Timestamp fromDate;
+
+    private Timestamp toDate;
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+}

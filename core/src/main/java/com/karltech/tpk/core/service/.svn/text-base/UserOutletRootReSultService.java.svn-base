@@ -1,0 +1,40 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outletauditresult;
+import com.banvien.fcv.core.dto.*;
+
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import com.banvien.fcv.core.exception.ServiceException;
+
+import java.util.Date;
+import java.util.List;
+
+
+public interface OutletauditresultService extends GenericService<Outletauditresult,Long> {
+
+    public Long addOutletAuditResult(OutletAuditResultDTO outletAuditResultDTO) throws ServiceException;
+
+    public List<OutletReportInfo> reportInDetail(Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroup, int startRow, int pageSize) throws ObjectNotFoundException;
+
+    public Integer getCountReportInDetail(Date startDate, Date endDate, final Long regionID, final Long distributorID, Long productGroup);
+
+    public List<OutletSummaryReportInfo> summaryDistributorReport(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException;
+
+    public List<OutletSummaryReportInfo> summaryRegionReport(Date startDate, Date endDate, Long regionID, Long productGroup) throws ObjectNotFoundException;
+
+    public List<OutletReportInfo> reAuditReport(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException;
+
+    public List<OutletReportInfo> perfectReport(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException;
+
+    public List<OutletSummaryReportInfo> performanceReport(Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroup) throws ObjectNotFoundException;
+
+    public List<OutletSummaryReportInfoByMonth> summaryReportByYear(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException;
+
+    public Long importOutletAudit(OutletAuditImportDTO outletAuditImportDTO) throws ObjectNotFoundException;
+
+    public void importOutletAuditSummary(OutletAuditSummaryImportDTO outletAuditSummaryImportDTO) throws ObjectNotFoundException;
+
+    public Outletauditresult findByOutletID(Long outletID);
+
+}

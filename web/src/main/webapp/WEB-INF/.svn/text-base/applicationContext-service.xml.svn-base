@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
+       default-lazy-init="true">
+
+    <!-- =================================================================== -->
+    <!-- AOP: Configuration and Aspects                                      -->
+    <!-- =================================================================== -->
+    <aop:config>
+        <aop:advisor id="userManagerTx" advice-ref="userManagerTxAdvice" pointcut="execution(* *..service.UserService.*(..))" order="0"/>
+        <aop:advisor id="userManagerSecurity" advice-ref="userSecurityAdvice" pointcut="execution(* *..service.UserService.saveUser(..))" order="1"/>
+        <aop:advisor id="managerSaveTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.save*(..))" order="2"/>
+        <aop:advisor id="managerAddTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.add*(..))" order="2"/>
+        <aop:advisor id="managerUpdateTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.update*(..))" order="2"/>
+        <aop:advisor id="managerDeleteTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.delete*(..))" order="2"/>
+        <aop:advisor id="managerImportTx" advice-ref="txAdvice" pointcut="execution(* *..service.*Service.import*(..))" order="2"/>
+    </aop:config>
+    
+    <!-- Enable @Transactional support -->
+    <tx:annotation-driven/>
+    
+    <!-- Enable @AspectJ support -->
+    <aop:aspectj-autoproxy/>
+
+    <bean id="userService" class="com.banvien.fcv.core.service.UserServiceImpl">
+        <property name="userDAO" ref="userDAO"/>
+        <property name="userregionDAO" ref="userregionDAO"/>
+        <property name="userdistributorDAO" ref="userdistributorDAO"/>
+        <property name="distributorDAO" ref="distributorDAO"/>
+        <property name="regionDAO" ref="regionDAO"/>
+        <property name="agentDAO" ref="agentDAO"/>
+    </bean>
+
+    <bean id="wardService" class="com.banvien.fcv.core.service.WardServiceImpl">
+		<property name="wardDAO" ref="wardDAO" />
+	</bean>
+
+	<bean id="brandService" class="com.banvien.fcv.core.service.BrandServiceImpl">
+		<property name="brandDAO" ref="brandDAO" />
+	</bean>
+
+	<bean id="auditorService" class="com.banvien.fcv.core.service.AuditorServiceImpl">
+		<property name="auditorDAO" ref="auditorDAO" />
+	</bean>
+
+    <bean id="promotionproductService" class="com.banvien.fcv.core.service.PromotionproductServiceImpl">
+		<property name="promotionproductDAO" ref="promotionproductDAO" />
+	</bean>
+
+	<bean id="promotionService" class="com.banvien.fcv.core.service.PromotionServiceImpl">
+		<property name="promotionDAO" ref="promotionDAO" />
+        <property name="promotionscopeDAO" ref="promotionscopeDAO"/>
+        <property name="promotionproducttohandheldDAO" ref="promotionproducttohandheldDAO"/>
+	</bean>
+
+	<bean id="sarposmService" class="com.banvien.fcv.core.service.SarposmServiceImpl">
+		<property name="sarposmDAO" ref="sarposmDAO" />
+	</bean>
+
+	<bean id="brandproductService" class="com.banvien.fcv.core.service.BrandproductServiceImpl">
+		<property name="brandproductDAO" ref="brandproductDAO" />
+	</bean>
+
+	<bean id="promotiontypeService" class="com.banvien.fcv.core.service.PromotiontypeServiceImpl">
+		<property name="promotiontypeDAO" ref="promotiontypeDAO" />
+	</bean>
+
+	<bean id="sarshareofdisplayService" class="com.banvien.fcv.core.service.SarshareofdisplayServiceImpl">
+		<property name="sarshareofdisplayDAO" ref="sarshareofdisplayDAO" />
+	</bean>
+
+	<bean id="brandgroupService" class="com.banvien.fcv.core.service.BrandgroupServiceImpl">
+		<property name="brandgroupDAO" ref="brandgroupDAO" />
+	</bean>
+
+	<bean id="outletauditresultService" class="com.banvien.fcv.core.service.OutletauditresultServiceImpl">
+		<property name="outletauditresultDAO" ref="outletauditresultDAO" />
+        <property name="auditoroutlettaskDAO" ref="auditoroutlettaskDAO"/>
+        <property name="oarfacingiftdisplayDAO" ref="oarfacingiftdisplayDAO"/>
+        <property name="oarfullrangeskuDAO" ref="oarfullrangeskuDAO"/>
+        <property name="oarposmDAO" ref="oarposmDAO"/>
+        <property name="oarnofacingDAO" ref="oarnofacingDAO"/>
+        <property name="oarpowerskuDAO" ref="oarpowerskuDAO"/>
+        <property name="oarpromotionDAO" ref="oarpromotionDAO"/>
+        <property name="regionDAO" ref="regionDAO" />
+        <property name="outletbrandDAO" ref="outletbrandDAO" />
+        <property name="promotionDAO" ref="promotionDAO"/>
+        <property name="oarfullrangefacingDAO" ref="oarfullrangefacingDAO"/>
+        <property name="distributorDAO" ref="distributorDAO"/>
+        <property name="fullrangeskuDAO" ref="fullrangeskuDAO"/>
+        <property name="levelRegisterDAO" ref="levelRegisterDAO"/>
+        <property name="oarFacingRegisteredDAO" ref="oarFacingRegisteredDAO"/>
+        <property name="powerskuDAO"  ref="powerskuDAO"/>
+        <property name="oarLocationRegisteredDAO"  ref="oarLocationRegisteredDAO"/>
+        <property name="oarLatestBonusDAO"  ref="oarLastestBonusDAO"/>
+        <property name="iftdisplaylocationDAO"  ref="iftdisplaylocationDAO"/>
+        <property name="outletposmDAO"  ref="outletposmDAO"/>
+        <property name="oarAuditSummaryDAO"  ref="oarAuditSummaryDAO"/>
+        <property name="outletLocationRegisterDAO"  ref="outletLocationRegisterDAO"/>
+        <property name="outletdistributionregisteredDAO"  ref="outletdistributionregisteredDAO"/>
+        <property name="posmMiniValueDAO"  ref="posmMiniValueDAO"/>
+        <property name="oarPosmMiniValueDAO" ref="oarPosmMiniValueDAO"/>
+        <property name="oarMiniValuePosmDAO" ref="oarMiniValuePosmDAO" />
+        <property name="oarDbbPosmRegisteredDAO" ref="oarDbbPosmRegisteredDAO" />
+	</bean>
+    <bean id="storeauditpictureService" class="com.banvien.fcv.core.service.StoreauditpictureServiceImpl">
+		<property name="storeauditpictureDAO" ref="storeauditpictureDAO" />
+	</bean>
+	<bean id="sarsbrandlocationService" class="com.banvien.fcv.core.service.SarsbrandlocationServiceImpl">
+		<property name="sarsbrandlocationDAO" ref="sarsbrandlocationDAO" />
+	</bean>
+
+	<bean id="storeposmhistoryService" class="com.banvien.fcv.core.service.StoreposmhistoryServiceImpl">
+		<property name="storeposmhistoryDAO" ref="storeposmhistoryDAO" />
+	</bean>
+
+	<bean id="oarpromotionService" class="com.banvien.fcv.core.service.OarpromotionServiceImpl">
+		<property name="oarpromotionDAO" ref="oarpromotionDAO" />
+	</bean>
+
+	<bean id="storeposmService" class="com.banvien.fcv.core.service.StoreposmServiceImpl">
+		<property name="storeposmDAO" ref="storeposmDAO" />
+	</bean>
+
+	<bean id="productService" class="com.banvien.fcv.core.service.ProductServiceImpl">
+		<property name="productDAO" ref="productDAO" />
+	</bean>
+
+	<bean id="distributorService" class="com.banvien.fcv.core.service.DistributorServiceImpl">
+		<property name="distributorDAO" ref="distributorDAO" />
+	</bean>
+
+	<bean id="iftdisplaylocationService" class="com.banvien.fcv.core.service.IftdisplaylocationServiceImpl">
+		<property name="iftdisplaylocationDAO" ref="iftdisplaylocationDAO" />
+	</bean>
+
+	<bean id="storeauditresultService" class="com.banvien.fcv.core.service.StoreauditresultServiceImpl">
+		<property name="storeauditresultDAO" ref="storeauditresultDAO" />
+        <property name="sarposmDAO" ref="sarposmDAO"/>
+        <property name="auditorstoretaskDAO" ref="auditorstoretaskDAO" />
+        <property name="sarregisterproductDAO" ref="sarregisterproductDAO"/>
+        <property name="sarshareofdisplayDAO" ref="sarshareofdisplayDAO" />
+        <property name="sarshareofshelfDAO" ref="sarshareofshelfDAO" />
+        <property name="sarsbrandlocationDAO" ref="sarsbrandlocationDAO"/>
+        <property name="storepromotionDAO" ref="storepromotionDAO"/>
+        <property name="oarstorepromotionDAO" ref="oarstorepromotionDAO"/>
+	</bean>
+
+	<bean id="powerskuService" class="com.banvien.fcv.core.service.PowerskuServiceImpl">
+		<property name="powerskuDAO" ref="powerskuDAO" />
+	</bean>
+
+	<bean id="promotionproducttohandheldService" class="com.banvien.fcv.core.service.PromotionproducttohandheldServiceImpl">
+		<property name="promotionproducttohandheldDAO" ref="promotionproducttohandheldDAO" />
+	</bean>
+
+	<bean id="productgroupService" class="com.banvien.fcv.core.service.ProductgroupServiceImpl">
+		<property name="productgroupDAO" ref="productgroupDAO" />
+	</bean>
+
+    <bean id="productbrandService" class="com.banvien.fcv.core.service.ProductbrandServiceImpl">
+		<property name="productbrandDAO" ref="productbrandDAO" />
+	</bean>
+
+	<bean id="districtService" class="com.banvien.fcv.core.service.DistrictServiceImpl">
+		<property name="districtDAO" ref="districtDAO" />
+	</bean>
+
+	<bean id="outletauditpictureService" class="com.banvien.fcv.core.service.OutletauditpictureServiceImpl">
+		<property name="outletauditpictureDAO" ref="outletauditpictureDAO" />
+	</bean>
+
+	<bean id="oarfullrangeskuService" class="com.banvien.fcv.core.service.OarfullrangeskuServiceImpl">
+		<property name="oarfullrangeskuDAO" ref="oarfullrangeskuDAO" />
+	</bean>
+
+	<bean id="auditoroutlettaskService" class="com.banvien.fcv.core.service.AuditoroutlettaskServiceImpl">
+		<property name="auditoroutlettaskDAO" ref="auditoroutlettaskDAO" />
+	</bean>
+
+	<bean id="sosbrandService" class="com.banvien.fcv.core.service.SosbrandServiceImpl">
+		<property name="sosbrandDAO" ref="sosbrandDAO" />
+	</bean>
+
+	<bean id="storeService" class="com.banvien.fcv.core.service.StoreServiceImpl">
+		<property name="storeDAO" ref="storeDAO" />
+        <property name="accountDAO" ref="accountDAO"/>
+        <property name="brandDAO" ref="brandDAO"/>
+        <property name="packinggroupDAO" ref="packinggroupDAO"/>
+        <property name="productDAO" ref="productDAO"/>
+        <property name="sosbrandDAO" ref="sosbrandDAO"/>
+        <property name="storeposmDAO" ref="storeposmDAO"/>
+        <property name="storeregisteredproductDAO" ref="storeregisteredproductDAO"/>
+        <property name="storesosmasterDAO" ref="storesosmasterDAO" />
+        <property name="unitDAO" ref="unitDAO" />
+        <property name="storepromotionDAO" ref="storepromotionDAO" />
+	</bean>
+
+	<bean id="storesosmasterService" class="com.banvien.fcv.core.service.StoresosmasterServiceImpl">
+		<property name="storesosmasterDAO" ref="storesosmasterDAO" />
+	</bean>
+
+	<bean id="outletService" class="com.banvien.fcv.core.service.OutletServiceImpl">
+		<property name="outletDAO" ref="outletDAO" />
+        <property name="fullrangeskuDAO" ref="fullrangeskuDAO" />
+        <property name="iftdisplaylocationDAO" ref="iftdisplaylocationDAO" />
+        <property name="outletposmDAO" ref="outletposmDAO"/>
+        <property name="powerskuDAO" ref="powerskuDAO" />
+        <property name="promotionDAO" ref="promotionDAO"/>
+        <property name="distributorDAO" ref="distributorDAO"/>
+        <property name="districtDAO" ref="districtDAO"/>
+        <property name="unitDAO" ref="unitDAO" />
+        <property name="outletdistributionregisteredDAO"  ref="outletdistributionregisteredDAO"/>
+        <property name="wardDAO" ref="wardDAO"/>
+        <property name="agentDAO" ref="agentDAO"/>
+        <property name="levelRegisterDAO" ref="levelRegisterDAO"/>
+        <property name="outletLocationRegisterDAO" ref="outletLocationRegisterDAO"/>
+        <property name="salemanDAO" ref="salemanDAO"/>
+        <property name="outletSalemanDAO" ref="outletSalemanDAO"/>
+        <property name="outletbrandDAO" ref="outletbrandDAO"/>
+        <property name="auditoroutlettaskDAO" ref="auditoroutlettaskDAO"/>
+        <property name="posmMiniValueDAO" ref="posmMiniValueDAO"/>
+	</bean>
+
+	<bean id="accountService" class="com.banvien.fcv.core.service.AccountServiceImpl">
+		<property name="accountDAO" ref="accountDAO" />
+	</bean>
+
+	<bean id="packinggroupService" class="com.banvien.fcv.core.service.PackinggroupServiceImpl">
+		<property name="packinggroupDAO" ref="packinggroupDAO" />
+	</bean>
+
+	<bean id="sarshareofshelfService" class="com.banvien.fcv.core.service.SarshareofshelfServiceImpl">
+		<property name="sarshareofshelfDAO" ref="sarshareofshelfDAO" />
+	</bean>
+
+	<bean id="unitService" class="com.banvien.fcv.core.service.UnitServiceImpl">
+		<property name="unitDAO" ref="unitDAO" />
+	</bean>
+
+	<bean id="outletposmService" class="com.banvien.fcv.core.service.OutletposmServiceImpl">
+		<property name="outletposmDAO" ref="outletposmDAO" />
+	</bean>
+
+	<bean id="outletposmhistoryService" class="com.banvien.fcv.core.service.OutletposmhistoryServiceImpl">
+		<property name="outletposmhistoryDAO" ref="outletposmhistoryDAO" />
+	</bean>
+
+	<bean id="regionService" class="com.banvien.fcv.core.service.RegionServiceImpl">
+		<property name="regionDAO" ref="regionDAO" />
+        <property name="userDAO" ref="userDAO" />
+	</bean>
+
+	<bean id="oarposmService" class="com.banvien.fcv.core.service.OarposmServiceImpl">
+		<property name="oarposmDAO" ref="oarposmDAO" />
+	</bean>
+
+	<bean id="outletdistributionregisteredService" class="com.banvien.fcv.core.service.OutletdistributionregisteredServiceImpl">
+		<property name="outletdistributionregisteredDAO" ref="outletdistributionregisteredDAO" />
+	</bean>
+
+	<bean id="outletbrandService" class="com.banvien.fcv.core.service.OutletbrandServiceImpl">
+		<property name="outletbrandDAO" ref="outletbrandDAO" />
+	</bean>
+
+
+    <bean id="outletBrandGroupService" class="com.banvien.fcv.core.service.OutletBrandGroupServiceImpl">
+   		<property name="outletBrandGroupDAO" ref="outletBrandGroupDAO" />
+   	</bean>
+
+
+	<bean id="oarfacingiftdisplayService" class="com.banvien.fcv.core.service.OarfacingiftdisplayServiceImpl">
+		<property name="oarfacingiftdisplayDAO" ref="oarfacingiftdisplayDAO" />
+	</bean>
+
+	<bean id="auditorstoretaskService" class="com.banvien.fcv.core.service.AuditorstoretaskServiceImpl">
+		<property name="auditorstoretaskDAO" ref="auditorstoretaskDAO" />
+	</bean>
+
+
+	<bean id="auditscheduleService" class="com.banvien.fcv.core.service.AuditscheduleServiceImpl">
+		<property name="auditscheduleDAO" ref="auditscheduleDAO" />
+        <property name="auditoroutlettaskDAO" ref="auditoroutlettaskDAO"/>
+        <property name="auditorstoretaskDAO" ref="auditorstoretaskDAO"/>
+        <property name="storeDAO" ref="storeDAO"/>
+        <property name="outletDAO" ref="outletDAO"/>
+	</bean>
+
+	<bean id="oarpowerskuService" class="com.banvien.fcv.core.service.OarpowerskuServiceImpl">
+		<property name="oarpowerskuDAO" ref="oarpowerskuDAO" />
+	</bean>
+
+	<bean id="oarnofacingService" class="com.banvien.fcv.core.service.OarnofacingServiceImpl">
+		<property name="oarnofacingDAO" ref="oarnofacingDAO" />
+	</bean>
+
+	<bean id="promotionscopeService" class="com.banvien.fcv.core.service.PromotionscopeServiceImpl">
+		<property name="promotionscopeDAO" ref="promotionscopeDAO" />
+	</bean>
+
+	<bean id="sarregisterproductService" class="com.banvien.fcv.core.service.SarregisterproductServiceImpl">
+		<property name="sarregisterproductDAO" ref="sarregisterproductDAO" />
+	</bean>
+
+	<bean id="fullrangeskuService" class="com.banvien.fcv.core.service.FullrangeskuServiceImpl">
+		<property name="fullrangeskuDAO" ref="fullrangeskuDAO" />
+	</bean>
+
+	<bean id="storeregisteredproductService" class="com.banvien.fcv.core.service.StoreregisteredproductServiceImpl">
+		<property name="storeregisteredproductDAO" ref="storeregisteredproductDAO" />
+	</bean>
+
+    <bean id="settingService" class="com.banvien.fcv.core.service.SettingServiceImpl">
+		<property name="settingDAO" ref="settingDAO" />
+	</bean>
+	<bean id="storepromotionService" class="com.banvien.fcv.core.service.StorepromotionServiceImpl">
+		<property name="storepromotionDAO" ref="storepromotionDAO" />
+        <property name="storepromotionscopeDAO" ref="storepromotionscopeDAO"/>
+        <property name="storepromotionproducttohandheldDAO" ref="storepromotionproducttohandheldDAO"/>
+	</bean>
+	<bean id="storepromotiontypeService" class="com.banvien.fcv.core.service.StorepromotiontypeServiceImpl">
+		<property name="storepromotiontypeDAO" ref="storepromotiontypeDAO" />
+	</bean>
+	<bean id="storepromotionscopeService" class="com.banvien.fcv.core.service.StorepromotionscopeServiceImpl">
+		<property name="storepromotionscopeDAO" ref="storepromotionscopeDAO" />
+	</bean>
+	<bean id="storepromotionproductService" class="com.banvien.fcv.core.service.StorepromotionproductServiceImpl">
+		<property name="storepromotionproductDAO" ref="storepromotionproductDAO" />
+	</bean>
+	<bean id="storepromotionproducttohandheldService" class="com.banvien.fcv.core.service.StorepromotionproducttohandheldServiceImpl">
+		<property name="storepromotionproducttohandheldDAO" ref="storepromotionproducttohandheldDAO" />
+	</bean>
+	<bean id="oarstorepromotionService" class="com.banvien.fcv.core.service.OarStorepromotionServiceImpl">
+		<property name="oarstorepromotionDAO" ref="oarstorepromotionDAO" />
+	</bean>
+
+    <bean id="agentService" class="com.banvien.fcv.core.service.AgentServiceImpl">
+   		<property name="agentDAO" ref="agentDAO" />
+        <property name="agentRegionDAO" ref="agentRegionDAO" />
+   	</bean>
+
+    <bean id="agentRegionService" class="com.banvien.fcv.core.service.AgentRegionServiceImpl">
+   		<property name="agentRegionDAO" ref="agentRegionDAO" />
+   	</bean>
+
+    <bean id="levelRegisterService" class="com.banvien.fcv.core.service.LevelRegisterServiceImpl">
+   		<property name="levelRegisterDAO" ref="levelRegisterDAO" />
+   	</bean>
+
+    <bean id="outletLocationRegisterService" class="com.banvien.fcv.core.service.OutletLocationRegisterServiceImpl">
+   		<property name="outletLocationRegisterDAO" ref="outletLocationRegisterDAO" />
+   	</bean>
+
+    <bean id="outletLastestBonus" class="com.banvien.fcv.core.service.OarLatestBonusServiceImpl">
+   		<property name="oarLatestBonusDAO" ref="oarLastestBonusDAO" />
+   	</bean>
+
+    <bean id="saleManService" class="com.banvien.fcv.core.service.SalemanServiceImpl">
+   		<property name="salemanDAO" ref="salemanDAO" />
+   	</bean>
+
+    <bean id="outletSalemanService" class="com.banvien.fcv.core.service.OutletSalemanServiceImpl">
+   		<property name="outletSalemanDAO" ref="outletSalemanDAO" />
+   	</bean>
+
+    <bean id="subFullRangeBrand" class="com.banvien.fcv.core.service.SubFullRangeBrandServiceImpl">
+   		<property name="subFullRangeBrandDAO" ref="subFullRangeBrandDAO" />
+   	</bean>
+
+    <bean id="posmMiniValue" class="com.banvien.fcv.core.service.POSMMiniValueServiceImpl">
+        <property name="posmMiniValueDAO" ref="posmMiniValueDAO" />
+    </bean>
+
+    <bean id="oarMiniValuePosm" class="com.banvien.fcv.core.service.OarMiniValuePosmServiceImpl">
+        <property name="oarMiniValuePosmDAO" ref="oarMiniValuePosmDAO" />
+    </bean>
+	
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <!-- Read-only commented out to make things easier for end-users -->
+            <!-- http://issues.appfuse.org/browse/APF-556 -->
+            <!--tx:method name="get*" read-only="true"/-->
+            <tx:method name="*" rollback-for="com.banvien.fcv.core.exception.DuplicateException"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <tx:advice id="userManagerTxAdvice">
+        <tx:attributes>
+            <tx:method name="save*" rollback-for="UserExistsException"/>
+        </tx:attributes>
+    </tx:advice>
+    
+    <bean id="userSecurityAdvice" class="com.banvien.fcv.security.MyUserDetailsService">
+    	<property name="userDAO" ref="userDAO"/>
+    </bean>
+
+</beans>

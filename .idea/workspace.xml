@@ -1,0 +1,1106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/test/java/com/karltech" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/AbstractBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/AbstractBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/AbstractBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/AbstractBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/AbstractHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/AbstractHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/AbstractHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/AbstractHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/java/com/banvien/tpk/core/BaseTestCase.java" afterPath="$PROJECT_DIR$/core/src/test/java/com/banvien/tpk/core/BaseTestCase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/java/com/karltech/tpk/core/BaseTestCase.java" afterPath="$PROJECT_DIR$/core/src/test/java/com/karltech/tpk/core/BaseTestCase.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/CacheUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/CacheUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/CacheUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/CacheUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/CalendarUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/CalendarUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/CalendarUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/CalendarUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/Constants.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/Constants.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/DesEncrypterUtils.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/DesEncrypterUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/DesEncrypterUtils.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/DesEncrypterUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/java/DesEncrypterUtilsTest.java" afterPath="$PROJECT_DIR$/core/src/test/java/DesEncrypterUtilsTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/exception/DuplicateException.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/exception/DuplicateException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/DuplicateException.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/DuplicateException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/GenericDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/GenericDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/GenericDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/GenericDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/GenericService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/GenericService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/GenericService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/GenericService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/GenericServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/GenericServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/GenericServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/GenericServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/GpsUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/GpsUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/GpsUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/GpsUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/HibernateUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/HibernateUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/HibernateUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/HibernateUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/MD5Utils.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/MD5Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/MD5Utils.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/MD5Utils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/MyUserDetail.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/MyUserDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/MyUserDetail.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/MyUserDetail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/MyUserDetailsService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/MyUserDetailsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/MyUserDetailsService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/MyUserDetailsService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/exception/ObjectNotFoundException.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/exception/ObjectNotFoundException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/ObjectNotFoundException.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/ObjectNotFoundException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/hbm/Product.hbm.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/hbm/Product.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Product.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Product.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Product.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Product.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/ProductBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/ProductBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProductBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProductBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/ProductDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/ProductDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/ProductHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/ProductHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/ProductService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/ProductService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/ProductServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/ProductServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/hbm/Region.hbm.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/hbm/Region.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Region.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Region.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Region.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Region.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/RegionBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/RegionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/RegionBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/RegionBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/RegionDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/RegionDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/RegionDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/RegionDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/RegionHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/RegionHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/RegionHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/RegionHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/RegionService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/RegionService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/RegionService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/RegionService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/RegionServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/RegionServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/RegionServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/RegionServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/SecurityUtils.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/security/SecurityUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/SecurityUtils.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/security/SecurityUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/exception/ServiceException.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/exception/ServiceException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/ServiceException.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/ServiceException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/hbm/Setting.hbm.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/hbm/Setting.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Setting.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Setting.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Setting.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Setting.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/SettingBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/SettingBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SettingBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SettingBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/SettingDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/SettingDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SettingDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SettingDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/SettingHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/SettingHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SettingHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SettingHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/SettingService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/SettingService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SettingService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SettingService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/SettingServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/SettingServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SettingServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SettingServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/StringUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/util/StringUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/StringUtil.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/StringUtil.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/hbm/Unit.hbm.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/hbm/Unit.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Unit.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/Unit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Unit.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Unit.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UnitBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UnitBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UnitBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UnitBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UnitDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UnitDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UnitDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UnitDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UnitHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UnitHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UnitHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UnitHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UnitService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UnitService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UnitService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UnitService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UnitServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UnitServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UnitServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UnitServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/resources/hbm/User.hbm.xml" afterPath="$PROJECT_DIR$/core/src/main/resources/hbm/User.hbm.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/User.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/domain/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/User.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UserBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UserBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UserDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UserDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UserDTO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UserDTO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserDTO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserDTO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UserHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dao/UserHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserHibernateDAO.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserHibernateDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UserImportBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/dto/UserImportBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserImportBean.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserImportBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UserService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserService.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UserServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/banvien/tpk/core/service/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserServiceImpl.java" afterPath="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/resources/applicationContext-dao.xml" afterPath="$PROJECT_DIR$/core/src/test/resources/applicationContext-dao.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/test/resources/applicationContext-service.xml" afterPath="$PROJECT_DIR$/core/src/test/resources/applicationContext-service.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/pom.xml" afterPath="$PROJECT_DIR$/core/pom.xml" />
+    </list>
+    <ignored path="warehouse.management.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/Dummy.txt" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750241059" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/applicationContext.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603562" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/security.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603562" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/dispatcher-servlet.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603562" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/applicationContext-service.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603563" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/applicationContext-dao.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603563" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/tpk-taglibs.tld" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603563" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/web.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603563" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/used/material.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603564" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/user/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603564" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/sold.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603565" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/liability.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603566" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/sellreport.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603566" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/byoverlay.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603566" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/summaryproduction.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603567" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportMaterialBillLogDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603567" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/contract/import.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603567" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/material/export.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603567" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/OweLogDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603568" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/material/product.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603568" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/PriceBankDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603568" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/report/production/product.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603568" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/TeamHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603569" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ThicknessHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603569" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/booking/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603569" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportMaterialBillLogHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603570" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/booking/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603570" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachinecomponentHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603570" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportmaterialHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603570" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportmaterialbillDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603571" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/booking/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603571" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/CustomerDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603571" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/booking/phieugiaohang.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603571" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportProductBillLogHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603572" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/booking/addPrice.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603572" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialMeasurementDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603572" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/instock/suggestprice.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603572" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserCustomerHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603712" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/instock/materiallocation.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603573" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ArrangementDetailDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603573" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/instock/material.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603573" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/QualityDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603712" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/instock/product.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603574" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/instock/productlocation.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603574" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialMeasurementHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603575" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/instock/booking.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603575" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExporttypeDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603712" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machine/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603575" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ColourHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603576" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machine/viewdetail.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603576" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialAndCategoryHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603576" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machine/machineContent.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603576" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportmaterialDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603577" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportproductHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603577" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ArrangementDetailHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603577" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportproductDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603577" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machine/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603578" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ModuleDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603578" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExporttypeHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603712" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SizeHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603713" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/product/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603579" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductqualityHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603713" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/product/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603579" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/PriceBankHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603579" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/WarehouseMapDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603580" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/TeamDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603580" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BookProductBillDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603580" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportmaterialDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603580" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportproductbillHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603581" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/customer/liability.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603581" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportmaterialbillDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603581" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/FixExpenseHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603581" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserModuleDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603582" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProvinceDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603714" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/customer/owelog.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603582" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ColourDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603714" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/customer/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603583" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MarketHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603715" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportproductHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603583" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProvinceHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603715" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportProductBillLogHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603584" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportProductBillLogDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603584" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/customer/editlog.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603584" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/CustomerHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603715" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/location/history.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603585" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportmaterialbillHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603585" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ArrangementHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603716" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachineComponentPictureHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603586" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/HibernateUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603716" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportproductbillDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603586" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/OverlaytypeDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603717" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ShiftHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603587" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/LocationHistoryHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603587" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/pricebank/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603587" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductionPlanHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603588" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BookProductBillHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603588" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportmaterialHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603588" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/StiffnessHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603718" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductnameHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603718" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/WarehousemachinecomponentHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603718" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BookBillSaleReasonDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603589" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductnameDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603718" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportMaterialBillLogDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603590" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SaleReasonDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603590" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/production/cost.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603590" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/FixExpenseDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603590" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SizeDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603718" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportProductBillLogDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603591" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/viewbyplan/importproduct.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603591" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/OriginHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603719" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/viewbyplan/importBackProduct.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603592" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/viewbyplan/exportmaterial.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603592" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductqualityDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603719" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/viewbyplan/exportproduct.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603593" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BuyContractDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603593" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BuyContractHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603593" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachineComponentPictureDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603593" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/maintenance/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603594" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserCustomerDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603594" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/maintenance/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603594" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachineDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603594" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ArrangementDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603595" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ProductionPlanDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603595" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ExportproductDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603720" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/WarehouseDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603720" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportmaterialbillHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603596" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ModuleHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603596" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportMaterialBillLogHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603596" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MarketDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603721" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/OweLogHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603721" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachinePictureDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603598" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machinecomponent/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603598" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaintenancehistoryDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603598" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machinecomponent/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603599" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserMaterialCateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603599" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/machinecomponent/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603599" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BookProductHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603599" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/WarehousemachinecomponentDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603721" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaintenancehistoryHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603721" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportproductbill/editbook.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603600" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ThicknessDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603722" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/reimportview.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603601" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportproductbillDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603601" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603601" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserMaterialCateHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603601" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/importBackBill.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603602" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/reimportlist.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603602" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/WarehouseHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603722" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/QualityHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603722" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/viewNew.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603603" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/reimport.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603604" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialcategoryHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603722" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603604" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603604" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/reimportnew.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603605" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/WarehouseMapHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603605" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importproductbill/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603605" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/OriginDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603723" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportmaterialbill/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603606" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachinecomponentDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603606" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportmaterialbill/editbylist.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603606" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/SaleReasonHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603723" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportmaterialbill/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603607" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ImportproductbillHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603607" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportmaterialbill/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603607" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/UserModuleHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603607" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importmaterialbill/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603608" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachineHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603723" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importmaterialbill/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603608" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialcategoryDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603723" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importmaterialbill/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603609" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BookBillSaleReasonHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603609" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/materialmeasurement/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603609" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/OverlaytypeHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603724" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/ShiftDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603610" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MachinePictureHibernateDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603610" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportrootmaterialbill/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603610" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603724" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportrootmaterialbill/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603611" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/LocationHistoryDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603611" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/exportrootmaterialbill/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603611" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/MaterialAndCategoryDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603612" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importrootmaterialbill/list.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603612" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/StiffnessDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603724" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importrootmaterialbill/mergeview.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603612" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dao/BookProductDAO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603613" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importrootmaterialbill/view.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603613" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SizeBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603613" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/pages/whm/importrootmaterialbill/edit.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603613" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UpdateLiabilityDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603614" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportMaterialReportDetailDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603614" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportCustomerDataBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603614" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProductqualityBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603615" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserModuleBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603615" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportProductDataDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603615" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportCustomerDataDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603703" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportBackDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603616" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UsedMaterialDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603616" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportmaterialbillBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603616" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/CustomerBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603616" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/StiffnessBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603617" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryCostDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603703" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/OriginQuantityDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603704" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportmaterialBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603617" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportproductbillBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603618" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MaintenancehistoryBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603618" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ThicknessBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603618" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProducedProductBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603618" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportproductbillBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603619" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MaterialBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603619" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/OverlaytypeBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603619" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExporttypeBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603619" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ModuleBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603620" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportMaterialDataBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603620" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ReportByContractBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603620" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ColourBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603621" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SearchUsedMaterialBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603621" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SuggestPriceDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603621" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SaleReasonBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603621" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProducedProductDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603705" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryDetailByOverlayDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603705" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/TeamBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603622" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportProductDataBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603622" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ArrangementBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603623" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportCustomerOweBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603623" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/QualityBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603623" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SelectedItemDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603624" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/OweLogBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603624" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/FixExpenseBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603624" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportProductBillLogBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603624" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/WarehouseBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603625" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportMaterialBillLogBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603625" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/PriceBankBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603625" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MainMaterialInfoDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603706" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/OriginBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603626" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryCostByProductDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603706" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportCustomerOweDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603626" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryContractDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603706" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/BuyContractBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603627" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MaterialMeasurementBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603706" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ShiftBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603627" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserCustomerBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603628" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportMaterialBillLogBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603628" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MaterialcategoryBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603628" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SearchProductionCostBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603629" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SellSummaryDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603707" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/PriceUpdateDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603629" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryByOverlayDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603707" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportProductBillLogBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603630" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MachinecomponentBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603630" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserMaterialCateBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603630" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/WarehousemachinecomponentBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603631" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MeasurementDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603708" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProductionPlanBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603631" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryProductionDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603631" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/LocationHistoryBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603632" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportproductBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603632" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/BuyContractDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603709" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProductnameBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603632" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/UserImportDcdtDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603633" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MarketBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603633" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportmaterialBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603633" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/BookProductBillBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603710" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MachineBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603634" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ReportBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603710" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryUsedMaterialDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603710" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/MaterialAndCategoryBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603710" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryProductionDetailDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603711" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SummaryLiabilityDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603711" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/WarehouseMapBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603636" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ReImportProductDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603636" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportproductBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603636" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SearchMaterialBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603637" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ItemInfoDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603637" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/SearchProductBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603637" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportMaterialReportDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603637" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ImportMaterialDataDTO.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603638" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ProvinceBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603638" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportMaterialReportBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603638" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/dto/ExportmaterialbillBean.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603712" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/ZipUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603639" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/XmlUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603639" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/MailUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603639" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/ResourceUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603640" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/DateUtils.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603643" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/HTMLGeneratorUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603643" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/MailConfig.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603643" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/GeneratorUtils.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603644" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/util/MyMimeMessagePreparator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603644" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/MachineComponentPicture.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603644" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Province.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603713" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Exportproduct.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603713" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Colour.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603713" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Warehouse.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603713" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/LocationHistory.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603645" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Overlaytype.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603714" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Stiffness.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603714" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/MachinePicture.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603646" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Machinecomponent.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603646" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/MaterialAndCategory.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603646" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Size.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603715" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/ExportMaterialBillLog.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603646" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Quality.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603715" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Arrangement.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603647" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Origin.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603715" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/ExportProductBillLog.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603647" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Exportmaterial.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603716" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/PriceBank.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603716" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Productname.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603716" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Customer.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603648" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/MaterialMeasurement.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603648" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Materialcategory.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603717" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Market.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603717" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Productquality.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603717" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Thickness.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603717" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/ImportProductBillLog.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603649" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Importmaterialbill.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603649" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/BookProduct.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603649" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Exportmaterialbill.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603649" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Shift.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603650" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Module.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603650" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/ImportMaterialBillLog.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603650" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Team.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603650" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/BookProductBill.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603650" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/UserCustomer.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603651" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Exportproductbill.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603651" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/SaleReason.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603651" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/BookBillSaleReason.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603651" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Importproductbill.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603652" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Importproduct.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603652" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Material.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603719" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/BuyContract.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603652" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Importmaterial.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603719" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Machine.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603652" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/WarehouseMap.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603719" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Maintenancehistory.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603653" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/FixExpense.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603653" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/ArrangementDetail.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603719" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/UserMaterialCate.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603653" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Exporttype.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603720" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/UserModule.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603654" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/Warehousemachinecomponent.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603720" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/ProductionPlan.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603654" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/domain/OweLog.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603654" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SaleReasonServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603655" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/BuyContractService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603655" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/WarehouseService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603655" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/QualityService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603655" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachinecomponentServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603656" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/WarehouseMapServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603656" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaintenanceHistoryService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603721" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportProductBillLogService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603656" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603656" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachinePictureServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603656" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/OverlaytypeServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603657" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603657" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ColourServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603657" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MarketServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603657" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/BookProductBillServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603657" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportproductServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603657" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialAndCategoryService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603658" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachineService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603722" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportproductbillServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603658" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportProductBillLogServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603723" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportMaterialBillLogServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603723" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/CustomerService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603659" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/LocationHistoryService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603659" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ArrangementService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603724" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachinecomponentService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603659" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProvinceServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603660" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/OriginService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603660" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/WarehouseServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603660" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MailEngine.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603660" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ColourService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603661" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MarketService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603661" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/PriceBankService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603661" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialcategoryService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603661" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportmaterialService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603661" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/WarehouseMapService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603662" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/LocationHistoryServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603703" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportmaterialServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603662" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportProductBillLogServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603703" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/BuyContractServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603662" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/OweLogService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603662" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ModuleServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603663" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachineComponentPictureService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603663" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ThicknessServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603663" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaintenanceHistoryServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603704" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachineServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603663" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportMaterialBillLogServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603704" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachineComponentPictureServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603664" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ThicknessService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603664" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialcategoryServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603664" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/FixExpenseServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603664" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialMeasurementServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603704" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportmaterialServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603665" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExporttypeServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603665" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/BookProductServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603665" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportmaterialbillServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603665" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserMaterialCateServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603665" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserModuleServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603666" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialMeasurementService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603704" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportproductbillService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603666" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/TeamService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603666" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/BookProductBillService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603666" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ShiftServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603667" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportProductBillLogService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603667" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ModuleService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603667" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserMaterialCateService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603667" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SizeService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603667" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductionPlanService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603668" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserCustomerService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603668" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportproductServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603668" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/OweLogServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603706" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductionPlanServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603668" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/BookProductService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603668" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportMaterialBillLogService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603669" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportmaterialService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603706" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserCustomerServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603669" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MachinePictureService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603669" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SaleReasonService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603669" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/TeamServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603669" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportproductbillService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603670" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductnameServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603670" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportmaterialbillServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603670" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/OverlaytypeService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603671" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProvinceService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603671" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/SizeServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603671" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/OriginServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603671" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/MaterialAndCategoryServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603707" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ArrangementServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603708" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportproductService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603672" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/StiffnessService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603672" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/StiffnessServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603672" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportmaterialbillService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603672" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportproductService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603672" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/PriceBankServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603708" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/FixExpenseService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603673" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportmaterialbillService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603673" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ProductnameService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603673" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExporttypeService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603673" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/CustomerServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603673" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/QualityServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603674" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/UserModuleService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603674" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ImportMaterialBillLogService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603674" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ShiftService.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603674" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/service/ExportproductbillServiceImpl.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603674" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/java/com/karltech/tpk/core/exception/SendEmailException.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603675" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/LocationHistory.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603676" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Stiffness.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603676" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Province.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603676" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/MachinePicture.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603676" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Quality.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603677" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Exportmaterial.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603677" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/BuyContract.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603677" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Size.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603677" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Importmaterial.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603677" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Team.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603678" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/BookProductBill.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603678" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Thickness.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603678" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/BookBillSaleReason.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603678" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Importproduct.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603678" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Module.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603679" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/ImportProductBillLog.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603679" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Shift.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603679" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Warehousemachinecomponent.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603679" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/ArrangementDetail.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603679" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/ImportMaterialBillLog.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603679" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Origin.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603680" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Exportproductbill.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603680" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/ProductionPlan.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603680" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Material.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603680" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/OweLog.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603680" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Maintenancehistory.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603681" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Importproductbill.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603681" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Warehouse.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603681" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/FixExpense.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603681" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Importmaterialbill.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603682" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/MaterialAndCategory.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603682" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Machinecomponent.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603682" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Market.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603682" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Colour.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603682" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/PriceBank.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603683" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/BookProduct.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603683" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/MachineComponentPicture.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603683" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Arrangement.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603683" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/UserModule.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603683" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Exportproduct.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603683" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/SaleReason.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603684" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/UserCustomer.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603684" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Materialcategory.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603684" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/WarehouseMap.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603684" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Customer.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603684" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Overlaytype.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603684" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/UserMaterialCate.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603685" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/ExportProductBillLog.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603685" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Exporttype.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603685" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Exportmaterialbill.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603685" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Machine.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603685" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Productquality.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603686" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/MaterialMeasurement.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603686" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/Productname.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603686" ignored="false" />
+    <file path="$PROJECT_DIR$/core/src/main/resources/hbm/ExportMaterialBillLog.hbm.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603686" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/core/context/AppContext.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603687" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/dto/CellValue.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603687" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/dto/CellDataType.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603688" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/dcdt/Config.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603688" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/CommonUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603688" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/WebCommonUtils.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603688" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/CsvReader.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603688" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/ExcelUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603689" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/DateUtils.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603689" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/RequestUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603689" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/ValidationUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603689" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/ZipUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603689" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/ResourceUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603689" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/GlobalDataUtil.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603704" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/FileUtils.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603690" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/util/ReadNumber.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603690" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/editor/CustomDateEditor.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603690" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/editor/PojoEditor.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603690" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/editor/CustomTimestampEditor.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603705" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/editor/CustomCurrencyFormatEditor.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603691" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/filter/LocaleFilter.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603691" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/filter/LocaleRequestWrapper.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603691" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/listener/StartupListener.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603705" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/ProductionPlanValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603691" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/ImportProductValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603705" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/ProvinceValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603692" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/MyProfileValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603692" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/SettingValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603692" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/RegionValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603692" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/UnitValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603693" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/validator/UserValidator.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603693" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/MyProfileController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603693" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/BookingController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603693" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/PriceBankController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603693" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MachineController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603693" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ArrangementController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603694" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ProductionPlanController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603694" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MarketController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603694" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ColorController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603707" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ThicknessController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603694" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/WarehouseController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603695" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/WarehouseMapController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603695" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportUsedMaterialController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603695" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/OverlayTypeController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603695" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/UnitController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603707" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ImportMaterialDataController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603695" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/SystemSettingController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603696" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportSummaryProductionController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603708" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/InStockController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603696" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/FixExpenseController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603696" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ProvinceController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603708" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/OriginController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603696" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportProductionCostController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603708" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ImportProductBillController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603697" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/BuyContractController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603697" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ExportProductBillController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603697" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MachineComponentController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603709" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportLiabilityController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603709" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ImportMaterialBillController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603698" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ShiftController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603698" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportImportByContractController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603709" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/SoldReportController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603698" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportByOverlayController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603709" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MaintenanceController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603698" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/HomeController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603710" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MeasureMaterialController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603710" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/StiffnessController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603699" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MaterialCategoryController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603699" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/SaleReasonController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603699" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ImportProductDataController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603700" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/LocationHistoryController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603711" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/RegionController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603711" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportProductionController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603711" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/QualityController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603700" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ExportMaterialBillController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603700" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/SizeController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603701" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ReportExportMaterialController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603701" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/TeamController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603701" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/MaterialController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603711" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/CustomerController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603701" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/WhmUserController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603701" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/webapp/controller/whm/ProductNameController.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603702" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/security/AuthenticationProcessingFilterExtends.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603702" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/security/MyLogoutSuccessHandler.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603702" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/java/com/karltech/tpk/security/MyPasswordEncoder.java" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603702" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/common/whm_header.jsp" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603702" ignored="false" />
+    <file path="$PROJECT_DIR$/web/src/main/webapp/WEB-INF/validator-rules-custom.xml" changelist="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" time="1444750603703" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint>
+        <option name="NOTIFY_CAUGHT" value="true" />
+        <option name="NOTIFY_UNCAUGHT" value="true" />
+        <option name="ENABLED" value="false" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </breakpoint_any>
+    <breakpoint_rules />
+    <ui_properties />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="warehouse.management" />
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <OptionsSetting value="true" id="Undo Check Out" />
+    <OptionsSetting value="true" id="Get Latest Version" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages ProjectPane="false" />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages ProjectPane="false" />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="warehouse.management" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="warehouse.management" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tpkwhm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="com.genymobile.genymotion.ide.idea.GdmSettings" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="last_opened_file_path" value="E:/Work Space/BVWorkSpace/SadlierNew" />
+    <property name="MemberChooser.showClasses" value="true" />
+    <property name="GoToClass.includeLibraries" value="false" />
+    <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <list size="0" />
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="true" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="false">C:\Users\khanhcq\AppData\Roaming\Subversion</configuration>
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+          <option name="myCopyRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+          <option name="myCopyRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core\src\main\java\com\banvien\tpk" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+          <option name="myCopyRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core\src\test\java\com\banvien\tpk" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+          <option name="myCopyRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+          <option name="myCopyRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core\src\main\java\com\banvien\tpk" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core" />
+          <option name="myCopyRoot" value="E:\WorkSpace\PersonalWS\TPK2015\tpkwhm\core\src\test\java\com\banvien\tpk" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9f2b88e6-56f6-47c6-906c-32ea3a56d52d" name="Default" comment="" />
+      <created>1444750229489</created>
+      <updated>1444750229489</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4909091" sideWeight="0.67058825" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+</project>
+

@@ -1,0 +1,18 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Account;
+import com.banvien.fcv.core.dto.AccountBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface AccountService extends GenericService<Account,Long> {
+
+    void updateItem(AccountBean accountBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(AccountBean accountBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(AccountBean bean);
+}

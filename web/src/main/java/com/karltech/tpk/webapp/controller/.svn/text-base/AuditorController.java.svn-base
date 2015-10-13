@@ -1,0 +1,123 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Auditor;
+import com.banvien.fcv.core.dto.AuditorBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.AuditorService;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.AuditorValidator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:59 AM
+ */
+@Controller
+public class AuditorController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    @Autowired
+    private AuditorService auditorService;
+
+    @Autowired
+    private AuditorValidator auditorValidator;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+	}
+    
+    @RequestMapping("/support/auditor/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) AuditorBean auditorBean, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("/support/auditor/edit");
+
+		String crudaction = auditorBean.getCrudaction();
+		Auditor pojo = auditorBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				auditorValidator.validate(auditorBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getAuditorID() != null && pojo.getAuditorID() > 0) {
+						this.auditorService.updateItem(auditorBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.auditorService.addNew(auditorBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& auditorBean.getPojo().getAuditorID() != null && auditorBean.getPojo().getAuditorID() > 0) {
+			try {
+				Auditor itemObj = this.auditorService.findById(pojo.getAuditorID());
+				auditorBean.setPojo(itemObj);
+			}
+			catch (Exception e) {
+				logger.error("Could not found news " + auditorBean.getPojo().getAuditorID(), e);
+			}
+		}
+
+		mav.addObject(Constants.FORM_MODEL_KEY, auditorBean);
+		return mav;
+	}
+
+
+    @RequestMapping(value={"/support/auditor/list.html"})
+    public ModelAndView list(AuditorBean bean, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/support/auditor/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = auditorService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+        executeSearch(bean, request);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        return mav;
+    }
+
+    private void executeSearch(AuditorBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.auditorService.search(bean);
+        bean.setListResult((List<Auditor>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+}

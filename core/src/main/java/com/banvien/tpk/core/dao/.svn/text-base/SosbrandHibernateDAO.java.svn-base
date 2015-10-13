@@ -1,0 +1,27 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Sosbrand;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Sosbrands</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class SosbrandHibernateDAO extends
+		AbstractHibernateDAO<Sosbrand, Long> implements
+		SosbrandDAO {
+
+    public SosbrandHibernateDAO() {
+		super(Sosbrand.class);
+	}
+
+    public List<Sosbrand> findAndFetch() {
+        return getHibernateTemplate().find("select s from Sosbrand s inner join fetch s.brandgroup order by displayOrder asc");
+    }
+}

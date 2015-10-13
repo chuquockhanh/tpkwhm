@@ -1,0 +1,57 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.AgentRegionDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.AgentRegion;
+import com.banvien.fcv.core.dto.AgentRegionBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class AgentRegionServiceImpl extends GenericServiceImpl<AgentRegion,Long>
+                                                    implements AgentRegionService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private AgentRegionDAO agentRegionDAO;
+
+    public void setAgentRegionDAO(AgentRegionDAO agentRegionDAO) {
+        this.agentRegionDAO = agentRegionDAO;
+    }
+
+    @Override
+	protected GenericDAO<AgentRegion, Long> getGenericDAO() {
+		return agentRegionDAO;
+	}
+
+    @Override
+    public void updateItem(AgentRegionBean agentRegionBean) throws ObjectNotFoundException, DuplicateException {
+        AgentRegion dbItem = this.agentRegionDAO.findByIdNoAutoCommit(agentRegionBean.getPojo().getAgentRegionID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + agentRegionBean.getPojo().getAgentRegionID());
+
+        AgentRegion pojo = agentRegionBean.getPojo();
+
+        this.agentRegionDAO.detach(dbItem);
+        this.agentRegionDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(AgentRegionBean agentRegionBean) throws DuplicateException {
+        AgentRegion pojo = agentRegionBean.getPojo();
+        pojo = this.agentRegionDAO.save(pojo);
+        agentRegionBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                agentRegionDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+}

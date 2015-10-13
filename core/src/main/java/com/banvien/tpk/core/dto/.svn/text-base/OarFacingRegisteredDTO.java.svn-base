@@ -1,0 +1,38 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class OarFacingRegisteredDTO implements Serializable{
+	 private Long outletbrand;
+	 private Integer facing;
+	 private Long levelregister;
+	 
+	public Long getOutletbrand() {
+		return outletbrand;
+	}
+	public void setOutletbrand(Long outletbrand) {
+		this.outletbrand = outletbrand;
+	}
+	public Integer getFacing() {
+		return facing;
+	}
+	public void setFacing(Integer facing) {
+		this.facing = facing;
+	}
+	public Long getLevelregister() {
+		return levelregister;
+	}
+	public void setLevelregister(Long levelregister) {
+		this.levelregister = levelregister;
+	}
+	 
+	public void unserializeJSON(JSONObject o) throws JSONException {
+        setFacing(o.getInt("facing"));
+        setOutletbrand(o.getLong("outletbrand"));
+        setLevelregister(o.getLong("levelregister"));
+    }
+
+}

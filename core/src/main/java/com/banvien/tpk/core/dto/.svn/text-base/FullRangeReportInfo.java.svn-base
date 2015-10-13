@@ -1,0 +1,232 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.Constants;
+
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * User: BAN
+ * Date: 7/1/12
+ * Time: 2:39 PM
+ */
+public class FullRangeReportInfo {
+
+    private Map<Long, Integer> hashMapFullRangeSKUDBB;
+    private Map<Long, Integer> hashMiniValuePOSM;
+    private Map<Long, Boolean> hashMapFullRangeSKUDBBMeetMap;
+    private List<Oarfullrangesku> oarfullrangeskus;
+    private List<Oarfullrangefacing> oarfullrangefacings;
+    private boolean meet;
+
+    private Map<Long, Boolean> fullRangeMeetMap;
+
+    Map<Long, Integer> fullRangeTotalMap;
+    Map<Long, Integer> fullRangeHasMap;
+
+    public FullRangeReportInfo(List<Oarfullrangesku> oarfullrangeskus, List<Oarfullrangefacing> oarfullrangefacings,  List<Outletbrand> outletbrands, NoOfFacingsReportInfo noOfFacingsReportInfo, List<Oarpowersku> oarpowerskus, List<OarMiniValuePosm> oarMiniValuePosms,  List<Oarposm> oarPosms) {
+        setOarfullrangeskus(oarfullrangeskus);
+        setOarfullrangefacings(oarfullrangefacings);
+        setFullRangeMeetMap(new HashMap<Long, Boolean>());
+        setHashMapFullRangeSKUDBB(new HashMap<Long, Integer>());
+        setHashMapFullRangeSKUDBBMeetMap(new HashMap<Long, Boolean>());
+        setHashMiniValuePOSM(new HashMap<Long, Integer>());
+        fullRangeTotalMap = new HashMap<Long, Integer>();
+        fullRangeHasMap = new HashMap<Long, Integer>();
+        if (oarfullrangeskus.size() <=0 ) { //|| oarfullrangefacings.size() <= 0
+            return;
+        }
+
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            fullRangeMeetMap.put(outletbrand.getOutletBrandID(), false);
+            fullRangeTotalMap.put(outletbrand.getOutletBrandID(), 0);
+            fullRangeHasMap.put(outletbrand.getOutletBrandID(), 0);
+        }
+        meet = true;
+
+        HashMap<Long,HashMap<Long,Integer>> hashMapPowerSummary = new HashMap<Long, HashMap<Long, Integer>>();
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            if(!outletbrand.getCode().equals(Constants.DBB))
+            {
+                hashMapPowerSummary.put(outletbrand.getOutletBrandID(), new HashMap<Long, Integer>());
+                HashMap<Long, Integer> mapPowerSKUSumMap = new HashMap<Long, Integer>();
+                for(Oarpowersku oarpowersku : oarpowerskus)
+                {
+                    if(oarpowersku.getPowersku().getOutletbrand().getOutletBrandID().equals(outletbrand.getOutletBrandID()))
+                    {
+                        mapPowerSKUSumMap.put(oarpowersku.getPowersku().getPowerSKUID(), 0);
+                    }
+                }
+                LevelRegister currentLevelRegister = noOfFacingsReportInfo.getLevelRegisteredMap().get(outletbrand.getOutletBrandID());
+                if(currentLevelRegister != null)
+                {
+                    for (Oarfullrangesku o : oarfullrangeskus)
+                    {
+                        if (o.getFullrangesku().getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID())
+                        {
+                            if(o.getFullrangesku().getPowersku() != null)
+                            {
+                                if(!o.getFullrangesku().getPowersku().getName().equals("Complete"))
+                                {
+                                    if (o.getFacing() >= currentLevelRegister.getMinimumValue())
+                                    {
+                                        mapPowerSKUSumMap.put(o.getFullrangesku().getPowersku().getPowerSKUID(), mapPowerSKUSumMap.get(o.getFullrangesku().getPowersku().getPowerSKUID()) + 1);
+                                    }
+                                }
+                                else
+                                {
+                                    if (o.getFacing() >= currentLevelRegister.getCompleteMinimumValue())
+                                    {
+                                        mapPowerSKUSumMap.put(o.getFullrangesku().getPowersku().getPowerSKUID(), mapPowerSKUSumMap.get(o.getFullrangesku().getPowersku().getPowerSKUID()) + 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                hashMapPowerSummary.put(outletbrand.getOutletBrandID(), mapPowerSKUSumMap);
+            }
+            else
+            {
+                for (Oarfullrangesku o : oarfullrangeskus)
+                {
+                    if(o.getFullrangesku().getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID())
+                    {
+                        if(hashMapFullRangeSKUDBB.get(o.getOutletPosm().getOutletPOSMID()) == null)
+                        {
+                            hashMapFullRangeSKUDBB.put(o.getOutletPosm().getOutletPOSMID(), o.getFacing());
+                        }
+                        else
+                        {
+                            hashMapFullRangeSKUDBB.put(o.getOutletPosm().getOutletPOSMID(), hashMapFullRangeSKUDBB.get(o.getOutletPosm().getOutletPOSMID()) + o.getFacing());
+                        }
+                    }
+                }
+            }
+        }
+
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            fullRangeMeetMap.put(outletbrand.getOutletBrandID(), true);
+            if(!outletbrand.getCode().equals(Constants.DBB))
+            {
+                Set<Long> keys = hashMapPowerSummary.get(outletbrand.getOutletBrandID()).keySet();
+                HashMap<Long, Integer> hashMapTemp = hashMapPowerSummary.get(outletbrand.getOutletBrandID());
+                for(Long powerSKUID : keys)
+                {
+                    if(hashMapTemp.get(powerSKUID) == 0)
+                    {
+                        fullRangeMeetMap.put(outletbrand.getOutletBrandID(), false);
+                    }
+                }
+            }
+            else
+            {
+                Set<Long> keyPOSMDBBs = hashMapFullRangeSKUDBB.keySet();
+                for(Long outletPOSM : keyPOSMDBBs)
+                {
+                    hashMapFullRangeSKUDBBMeetMap.put(outletPOSM,true);
+                    for(OarMiniValuePosm oarPosmMiniValue : oarMiniValuePosms)
+                    {
+                        if(oarPosmMiniValue.getOutletPosm().getOutletPOSMID() == outletPOSM)
+                        {
+                            hashMiniValuePOSM.put(outletPOSM, oarPosmMiniValue.getValue());
+                            if(hashMapFullRangeSKUDBB.get(outletPOSM) < oarPosmMiniValue.getValue())
+                            {
+                                hashMapFullRangeSKUDBBMeetMap.put(outletPOSM, false);
+                                //fullRangeMeetMap.put(outletbrand.getOutletBrandID(), false);
+                            }
+                        }
+                    }
+                }
+                int flag = 0;
+                for(Long outletPosm : keyPOSMDBBs)
+                {
+                    for(Oarposm oarposm : oarPosms)
+                    {
+                        if(oarposm.getOutletposm().getOutletbrand().getCode().equals(Constants.DBB))
+                        {
+                            if(oarposm.getOutletposm().getOutletPOSMID().equals(outletPosm))
+                            {
+                                if(oarposm.getHas() > 0)
+                                {
+                                    flag ++;
+                                    if(hashMapFullRangeSKUDBBMeetMap.get(outletPosm) == false)
+                                    {
+                                        fullRangeMeetMap.put(outletbrand.getOutletBrandID(), false);
+                                    }
+                                }
+//                                else
+//                                {
+//                                    fullRangeMeetMap.put(outletbrand.getOutletBrandID(), false);
+//                                }
+                            }
+                        }
+                    }
+                }
+                if(flag == 0)
+                {
+                    fullRangeMeetMap.put(outletbrand.getOutletBrandID(), false);
+                }
+            }
+        }
+    }
+
+    public List<Oarfullrangesku> getOarfullrangeskus() {
+        return oarfullrangeskus;
+    }
+
+    public void setOarfullrangeskus(List<Oarfullrangesku> oarfullrangeskus) {
+        this.oarfullrangeskus = oarfullrangeskus;
+    }
+
+
+    public boolean isMeet() {
+        return meet;
+    }
+
+    public List<Oarfullrangefacing> getOarfullrangefacings() {
+        return oarfullrangefacings;
+    }
+
+    public void setOarfullrangefacings(List<Oarfullrangefacing> oarfullrangefacings) {
+        this.oarfullrangefacings = oarfullrangefacings;
+    }
+
+    public Map<Long, Boolean> getFullRangeMeetMap() {
+        return fullRangeMeetMap;
+    }
+
+    public void setFullRangeMeetMap(Map<Long, Boolean> fullRangeMeetMap) {
+        this.fullRangeMeetMap = fullRangeMeetMap;
+    }
+
+    public Map<Long, Integer> getHashMapFullRangeSKUDBB() {
+        return hashMapFullRangeSKUDBB;
+    }
+
+    public void setHashMapFullRangeSKUDBB(Map<Long, Integer> hashMapFullRangeSKUDBB) {
+        this.hashMapFullRangeSKUDBB = hashMapFullRangeSKUDBB;
+    }
+    public Map<Long, Boolean> getHashMapFullRangeSKUDBBMeetMap() {
+        return hashMapFullRangeSKUDBBMeetMap;
+    }
+
+    public void setHashMapFullRangeSKUDBBMeetMap(Map<Long, Boolean> hashMapFullRangeSKUDBBMeetMap) {
+        this.hashMapFullRangeSKUDBBMeetMap = hashMapFullRangeSKUDBBMeetMap;
+    }
+
+    public Map<Long, Integer> getHashMiniValuePOSM() {
+        return hashMiniValuePOSM;
+    }
+
+    public void setHashMiniValuePOSM(Map<Long, Integer> hashMiniValuePOSM) {
+        this.hashMiniValuePOSM = hashMiniValuePOSM;
+    }
+}

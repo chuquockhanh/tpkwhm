@@ -1,0 +1,645 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.*;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.security.SecurityUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Timestamp;
+import java.util.*;
+
+public class OutletServiceImpl extends GenericServiceImpl<Outlet,Long> 
+                                                    implements OutletService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletDAO outletDAO;
+
+    private IftdisplaylocationDAO iftdisplaylocationDAO;
+
+    private OutletposmDAO outletposmDAO;
+
+    private PowerskuDAO powerskuDAO;
+
+    private FullrangeskuDAO fullrangeskuDAO;
+
+    private PromotionDAO promotionDAO;
+
+    private DistributorDAO distributorDAO;
+
+    private RegionDAO regionDAO;
+
+    private DistrictDAO districtDAO;
+
+    private WardDAO wardDAO;
+
+    private UnitDAO unitDAO;
+
+    private AgentDAO agentDAO;
+
+    private OutletdistributionregisteredDAO outletdistributionregisteredDAO;
+
+
+    private LevelRegisterDAO levelRegisterDAO;
+
+    private OutletLocationRegisterDAO outletLocationRegisterDAO;
+
+    private OutletSalemanDAO outletSalemanDAO;
+
+    private OutletbrandDAO outletbrandDAO;
+
+    private SalemanDAO salemanDAO;
+
+    private AuditoroutlettaskDAO auditoroutlettaskDAO;
+
+    private POSMMiniValueDAO posmMiniValueDAO;
+
+    public AuditoroutlettaskDAO getAuditoroutlettaskDAO() {
+        return auditoroutlettaskDAO;
+    }
+
+    public void setAuditoroutlettaskDAO(AuditoroutlettaskDAO auditoroutlettaskDAO) {
+        this.auditoroutlettaskDAO = auditoroutlettaskDAO;
+    }
+
+    public IftdisplaylocationDAO getIftdisplaylocationDAO() {
+        return iftdisplaylocationDAO;
+    }
+
+    public void setOutletdistributionregisteredDAO(OutletdistributionregisteredDAO outletdistributionregisteredDAO) {
+        this.outletdistributionregisteredDAO = outletdistributionregisteredDAO;
+    }
+
+
+    public void setDistrictDAO(DistrictDAO districtDAO) {
+        this.districtDAO = districtDAO;
+    }
+
+    public void setDistributorDAO(DistributorDAO distributorDAO) {
+        this.distributorDAO = distributorDAO;
+    }
+
+    public void setOutletDAO(OutletDAO outletDAO) {
+        this.outletDAO = outletDAO;
+    }
+
+    public void setWardDAO(WardDAO wardDAO) {
+        this.wardDAO = wardDAO;
+    }
+
+    public RegionDAO getRegionDAO() {
+        return regionDAO;
+    }
+
+    public void setRegionDAO(RegionDAO regionDAO) {
+        this.regionDAO = regionDAO;
+    }
+
+    public AgentDAO getAgentDAO() {
+        return agentDAO;
+    }
+
+    public void setAgentDAO(AgentDAO agentDAO) {
+        this.agentDAO = agentDAO;
+    }
+
+    public OutletbrandDAO getOutletbrandDAO() {
+        return outletbrandDAO;
+    }
+
+    public void setOutletbrandDAO(OutletbrandDAO outletbrandDAO) {
+        this.outletbrandDAO = outletbrandDAO;
+    }
+
+    public POSMMiniValueDAO getPosmMiniValueDAO() {
+        return posmMiniValueDAO;
+    }
+
+    public void setPosmMiniValueDAO(POSMMiniValueDAO posmMiniValueDAO) {
+        this.posmMiniValueDAO = posmMiniValueDAO;
+    }
+
+    @Override
+	protected GenericDAO<Outlet, Long> getGenericDAO() {
+		return outletDAO;
+	}
+
+    public LevelRegisterDAO getLevelRegisterDAO() {
+        return levelRegisterDAO;
+    }
+
+    public void setLevelRegisterDAO(LevelRegisterDAO levelRegisterDAO) {
+        this.levelRegisterDAO = levelRegisterDAO;
+    }
+
+    public OutletLocationRegisterDAO getOutletLocationRegisterDAO() {
+        return outletLocationRegisterDAO;
+    }
+
+    public void setOutletLocationRegisterDAO(OutletLocationRegisterDAO outletLocationRegisterDAO) {
+        this.outletLocationRegisterDAO = outletLocationRegisterDAO;
+    }
+
+    public OutletSalemanDAO getOutletSalemanDAO() {
+        return outletSalemanDAO;
+    }
+
+    public void setOutletSalemanDAO(OutletSalemanDAO outletSalemanDAO) {
+        this.outletSalemanDAO = outletSalemanDAO;
+    }
+
+    public SalemanDAO getSalemanDAO() {
+        return salemanDAO;
+    }
+
+    public void setSalemanDAO(SalemanDAO salemanDAO) {
+        this.salemanDAO = salemanDAO;
+    }
+
+    @Override
+    public OutletInfoList getOutletInfoListByAuditorCode(String auditorCode, Integer firstItem, Integer maxItems) throws ObjectNotFoundException {
+    	Object[] results = outletDAO.getOutletListByAuditorCode(auditorCode, firstItem, maxItems);
+        List<Outlet> outlets = (List<Outlet>)results[0]; 
+        if (outlets == null || outlets.size() == 0) {
+            throw  new ObjectNotFoundException("NOT FOUND any Outlet tasks for auditor:"+auditorCode);
+        }
+        // building OutletDTOs and set of regionIDs from list of outlets
+        Set<Long> regionIDs = new HashSet<Long>();
+        List<OutletDTO> outletDTOs = new ArrayList<OutletDTO>();
+        for(Outlet outlet: outlets) {
+            regionIDs.add(outlet.getRegion().getRegionID());
+            outletDTOs.add(new OutletDTO(outlet));
+        }
+        // build list of IftdisplaylocationDTO
+        List<Iftdisplaylocation> iftdisplaylocations = iftdisplaylocationDAO.findAll();
+        List<IftdisplaylocationDTO> iftdisplaylocationDTOs = new ArrayList<IftdisplaylocationDTO>();
+        for (Iftdisplaylocation ift: iftdisplaylocations) {
+             iftdisplaylocationDTOs.add(new IftdisplaylocationDTO(ift));
+        }
+        // build list of OutletposmDTO
+        List<Outletposm> outletposms = outletposmDAO.findAllActive();
+        List<OutletposmDTO> outletposmDTOs = new ArrayList<OutletposmDTO>();
+        for (Outletposm o: outletposms) {
+             outletposmDTOs.add(new OutletposmDTO(o));
+        }
+        // build list of Powersku
+        List<Powersku> powerskus = powerskuDAO.findAndFetchAll();
+        List<PowerskuDTO> powerskuDTOs = new ArrayList<PowerskuDTO>();
+        for (Powersku o: powerskus) {
+             powerskuDTOs.add(new PowerskuDTO(o));
+        }
+        //build list of FullrangeskuDTOs
+        List<Fullrangesku> fullrangeskus = fullrangeskuDAO.findAndFetchAll();
+        List<FullrangeskuDTO> fullrangeskuDTOs = new ArrayList<FullrangeskuDTO>();
+        for (Fullrangesku o: fullrangeskus) {
+             fullrangeskuDTOs.add(new FullrangeskuDTO(o));
+        }
+        // build list of PromotionDTO
+        List<Promotionscope> promotionscopes = promotionDAO.findPromotionscopeByRegions(regionIDs);
+        Set<Long> promotionIDs = new HashSet<Long>();
+        List<PromotionDTO> promotionDTOs = new ArrayList<PromotionDTO>();
+        Map<Long,List<Long>> regionPromotions = new HashMap<Long, List<Long>>();
+        for (Promotionscope ps : promotionscopes) {
+            if(promotionIDs.add(ps.getPromotion().getPromotionID())) {
+                promotionDTOs.add(new PromotionDTO(ps.getPromotion()));
+            }
+            Long regionID = ps.getRegion().getRegionID();
+            if (!regionPromotions.containsKey(regionID)) {
+                regionPromotions.put(regionID, new ArrayList<Long>());
+            }
+            regionPromotions.get(regionID).add(ps.getPromotion().getPromotionID());
+        }
+        // build list of ProductDTO
+        Map<Long,List<Long>> promotionProductToHandheld = new HashMap<Long, List<Long>>();
+        List<PromotionproductDTO> promotionproductDTOs = new ArrayList<PromotionproductDTO>();
+        List<Promotionproducttohandheld> promotionproducttohandhelds = promotionDAO.findPromotionproducttohandhelds(promotionIDs);
+        Set<Long> productIDs = new HashSet<Long>();
+        for (Promotionproducttohandheld h: promotionproducttohandhelds) {
+            Long promotionID = h.getPromotion().getPromotionID();
+            if (!promotionProductToHandheld.containsKey(promotionID)) {
+                 promotionProductToHandheld.put(promotionID, new ArrayList<Long>());
+            }
+            promotionProductToHandheld.get(promotionID).add(h.getPromotionproduct().getPromotionProductID());
+            if (productIDs.add(h.getPromotionproduct().getPromotionProductID())) {
+                promotionproductDTOs.add(new PromotionproductDTO(h.getPromotionproduct()));
+            }
+        }
+        // build UnitDTOs
+        List<Unit> units = unitDAO.findAll();
+        List<UnitDTO> unitDTOs = new ArrayList<UnitDTO>();
+        for (Unit u: units) {
+            unitDTOs.add(new UnitDTO(u));
+        }
+
+        //build list of FullrangeskuDTOs
+        List<POSMMiniValue> posmMiniValues = posmMiniValueDAO.findAll();
+        List<POSMMiniValueDTO> posmMiniValueDTOs = new ArrayList<POSMMiniValueDTO>();
+        for (POSMMiniValue o: posmMiniValues) {
+            posmMiniValueDTOs.add(new POSMMiniValueDTO(o));
+        }
+
+        OutletInfoList result = new OutletInfoList();
+        result.setAuditorCode(auditorCode);
+        result.setFullrangeskuDTOs(fullrangeskuDTOs);
+        result.setIftdisplaylocationDTOs(iftdisplaylocationDTOs);
+        result.setOutletDTOs(outletDTOs);
+        result.setOutletposmDTOs(outletposmDTOs);
+        result.setPowerskuDTOs(powerskuDTOs);
+        result.setPromotionproductDTOs(promotionproductDTOs);
+        result.setPromotionDTOs(promotionDTOs);
+        result.setPromotionProductToHandheld(promotionProductToHandheld);
+        result.setRegionPromotions(regionPromotions);
+        result.setUnitDTOs(unitDTOs);
+        result.setPosmMiniValueDTOs(posmMiniValueDTOs);
+        result.setTotalItems((Integer)results[1]);
+        return result;
+    }
+
+    @Override
+    public Outlet findByDmsCodeAndDistributor(String dmsCode, Long distributorID) throws ObjectNotFoundException {
+        Outlet res = this.outletDAO.findByDmsCodeAndDistributor(dmsCode, distributorID);
+        if (res == null) throw new ObjectNotFoundException("Not found outlet with dmsCode " + dmsCode + " and distributor " + distributorID);
+        return res;
+    }
+
+    @Override
+    public void updateItem(OutletBean outletBean) throws ObjectNotFoundException, DuplicateException {
+        Outlet dbItem = this.outletDAO.findByIdNoAutoCommit(outletBean.getPojo().getOutletID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found outlet " + outletBean.getPojo().getOutletID());
+
+        Outlet pojo = outletBean.getPojo();
+        pojo.setCreatedBy(dbItem.getCreatedBy());
+
+        this.outletDAO.detach(dbItem);
+        this.outletDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OutletBean outletBean) throws DuplicateException {
+        Outlet pojo = outletBean.getPojo();
+        User createdBy = new User();
+        createdBy.setUserID(SecurityUtils.getLoginUserId());
+        pojo.setCreatedBy(createdBy);
+        pojo = this.outletDAO.save(pojo);
+        outletBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                outletDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OutletBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        StringBuffer whereClause = new StringBuffer(" 1 = 1 ");
+
+        if (StringUtils.isNotBlank(bean.getPojo().getDmsCode())) {
+            properties.put(Outlet.FIELD_DMSCODE, bean.getPojo().getDmsCode());
+        }
+        
+        if (StringUtils.isNotBlank(bean.getPojo().getOutletName())) {
+            properties.put(Outlet.FIELD_OUTLET_NAME, bean.getPojo().getOutletName());
+        }
+        
+        if (StringUtils.isNotBlank(bean.getPojo().getAddress())) {
+            properties.put(Outlet.FIELD_ADDRESS, bean.getPojo().getAddress());
+        }
+
+        if (bean.getPojo().getRegion() != null && bean.getPojo().getRegion().getRegionID() != null) {
+            properties.put("region.regionID", bean.getPojo().getRegion().getRegionID());
+        }
+
+        if (bean.getPojo().getDistrict() != null && bean.getPojo().getDistrict().getDistrictID() != null) {
+            properties.put("district.districtID", bean.getPojo().getDistrict().getDistrictID());
+        }
+
+        if (bean.getPojo().getDistributor() != null && bean.getPojo().getDistributor().getDistributorID() != null) {
+            properties.put("distributor.distributorID", bean.getPojo().getDistributor().getDistributorID());
+        }
+
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+            //properties.put("createdBy.userID", SecurityUtils.getLoginUserId());
+            Long userID = SecurityUtils.getLoginUserId();
+            whereClause.append(" AND agent.agentID IN (SELECT agent.agentID FROM User WHERE userID = ").append(userID).append(")");
+            whereClause.append(" AND region.regionID IN (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(userID).append(")");
+            return  this.outletDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true, whereClause.toString());
+        }
+
+
+        if (SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE)) {
+            Long userID = SecurityUtils.getLoginUserId();
+            whereClause.append(" AND distributor.distributorID IN (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = ").append(userID).append(")");
+            whereClause.append(" AND region.regionID IN (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(userID).append(")");
+            return  this.outletDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true, whereClause.toString());
+        }
+        else
+        {
+            return this.outletDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+        }
+    }
+
+    @Override
+    public List<Outlet> findAvailableOutlet(AuditScheduleBean auditscheduleBean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+            properties.put("createdBy.userID", SecurityUtils.getLoginUserId());
+        }
+
+        if (auditscheduleBean.getRegionID() != null && auditscheduleBean.getRegionID() > 0) {
+            properties.put("region.regionID", auditscheduleBean.getRegionID());
+        }
+
+        if (auditscheduleBean.getDistrictID() != null && auditscheduleBean.getDistrictID() > 0) {
+            properties.put("district.districtID", auditscheduleBean.getDistrictID());
+        }
+        if (auditscheduleBean.getWardID() != null && auditscheduleBean.getWardID() > 0) {
+            properties.put("ward.wardID", auditscheduleBean.getWardID());
+        }
+
+        if (StringUtils.isNotBlank(auditscheduleBean.getAddress())) {
+            properties.put(Store.FIELD_ADDRESS, auditscheduleBean.getAddress());
+        }
+        StringBuffer whereClause = new StringBuffer();
+        whereClause.append(" outletID IN (SELECT odg.outlet.outletID FROM Outletdistributionregistered odg WHERE 1 = 1)");
+        if (auditscheduleBean.getPojo().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditScheduleID() > 0) {
+            whereClause.append(" AND outletID NOT IN (SELECT ast.outlet.outletID FROM Auditoroutlettask ast WHERE ast.auditschedule.auditScheduleID = ")
+                    .append(auditscheduleBean.getPojo().getAuditScheduleID());
+
+            whereClause.append(")");
+        }
+        return outletDAO.findByProperties(properties, Outlet.FIELD_ADDRESS, Constants.SORT_ASC, true, whereClause.toString());
+    }
+
+    @Override
+    public void importOutlet(OutletImportDTO outletImport, User onlineUser) {
+        Distributor distributor = distributorDAO.findBySapCodeAndName(outletImport.getSapCode(), outletImport.getDistributor());
+        if (distributor == null) {
+            distributor = new Distributor();
+            distributor.setSapCode(outletImport.getSapCode());
+            distributor.setName(outletImport.getDistributor());
+            User createdBy = new User();
+            createdBy.setUserID(SecurityUtils.getLoginUserId());
+            distributor.setCreatedBy(createdBy);
+            distributor = distributorDAO.save(distributor);
+        }
+
+        District district = districtDAO.findByNameAndRegion(outletImport.getDistrict(), outletImport.getRegion().getRegionID());
+        if (district == null) {
+            district = new District();
+            district.setName(outletImport.getDistrict());
+            district.setRegion(outletImport.getRegion());
+
+            district = districtDAO.save(district);
+        }
+
+        Ward ward = null;
+        if (StringUtils.isNotBlank(outletImport.getWard())) {
+            ward = wardDAO.findByNameAndDistrict(outletImport.getWard(), district.getDistrictID());
+            if (ward == null) {
+                ward = new Ward();
+                ward.setDistrict(district);
+                ward.setName(outletImport.getWard());
+
+                ward = wardDAO.save(ward);
+            }
+        }
+
+        Outlet outlet = outletDAO.findByDmsCodeAndDistributor(outletImport.getDmsCode(), distributor.getDistributorID());
+        if (outlet == null) {
+            outlet = new Outlet();
+        }
+        User createdBy = new User();
+        createdBy.setUserID(SecurityUtils.getLoginUserId());
+        outlet.setCreatedBy(createdBy);
+
+
+        outlet.setDistributor(distributor);
+        outlet.setRegion(outletImport.getRegion());
+        outlet.setDistrict(district);
+        outlet.setWard(ward);
+        outlet.setOutletName(outletImport.getName());
+        outlet.setAddress(outletImport.getAddress());
+        outlet.setDmsCode(outletImport.getDmsCode());
+        outlet.setAgent(onlineUser.getAgent());
+        outlet = outletDAO.saveOrUpdate(outlet);
+
+
+    }
+
+    @Override
+    public List<Outlet> findAssignedItemsByAuditAndAuditor(Long auditScheduleID, Long auditorID) {
+        return outletDAO.findAssignedItemsByAuditAndAuditor(auditScheduleID, auditorID);
+    }
+    
+    @Override
+    public List<Outlet> findAssignedItemsByAuditBean(AuditScheduleBean auditscheduleBean) {
+        return outletDAO.findAssignedItemsByAuditIDRegionIDDistrictIDWardIDAddressAndNotAssigned(auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID(), auditscheduleBean.getPojo().getAuditScheduleID(),
+        		auditscheduleBean.getRegionID(), auditscheduleBean.getDistrictID(), auditscheduleBean.getWardID(), auditscheduleBean.getAddress());
+    }
+
+    @Override
+    public void clearFacingOfOutletExcept(List<Long> outletIds) {
+        outletdistributionregisteredDAO.clearOutletFacingExcept(outletIds);
+    }
+
+    @Override
+    public Long importOutletFacing(OutletImportDTO outletImport) throws ObjectNotFoundException {
+        Outlet outlet = outletImport.getDbOutlet();
+        if (outlet == null) {
+        	throw new ObjectNotFoundException("Not found outlet with sapCode " + outletImport.getSapCode() + " and DMS Code  " + outletImport.getDmsCode());
+        }
+
+        HashMap<Long, OutletImportSubDTO> outletFacingMap = outletImport.getOutletBrandFacingMap();
+
+        Set<Long> keys = outletFacingMap.keySet();
+        for(Long outletBrandId : keys)
+        {
+            Outletbrand outletBrand = outletbrandDAO.findById(outletBrandId, false);
+            if(outletBrand != null)
+            {
+            	LevelRegister levelRegister = outletFacingMap.get(outletBrandId).getDbLevelRegister();
+                if(levelRegister != null)
+                {
+                    Outletdistributionregistered outletdistributionregistered = outletdistributionregisteredDAO.findByOutletIDAndOutletBrandAndLevel(outlet.getOutletID(), outletBrand.getOutletBrandID(), null);
+                    if (outletdistributionregistered == null) {
+                        outletdistributionregistered = new Outletdistributionregistered();
+                        outletdistributionregistered.setOutlet(outlet);
+                        outletdistributionregistered.setOutletBrand(outletBrand);
+                        try
+                        {
+                            outletdistributionregistered.setFacing(Integer.parseInt(outletFacingMap.get(outletBrandId).getFacing()));
+                        }
+                        catch(Exception ex)
+                        {
+                            outletdistributionregistered.setFacing(0);
+                        }
+                        outletdistributionregistered.setLevelRegister(levelRegister);
+                        outletdistributionregisteredDAO.save(outletdistributionregistered);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            outletdistributionregistered.setFacing(Integer.parseInt(outletFacingMap.get(outletBrandId).getFacing()));
+                        }
+                        catch(Exception ex)
+                        {
+                            outletdistributionregistered.setFacing(0);
+                        }
+                        outletdistributionregistered.setLevelRegister(levelRegister);
+                        outletdistributionregisteredDAO.update(outletdistributionregistered);
+                    }
+                }
+
+
+                String locations[];
+                try
+                {
+                    locations = outletFacingMap.get(outletBrandId).getLocationRegistered().split(Constants.COMMA_SEP);
+                }
+                catch(Exception ex)
+                {
+                    locations = null;
+                }
+                if(locations != null) {
+	                for(String locationCode : locations)
+	                {
+	                    Iftdisplaylocation iftdisplaylocation = iftdisplaylocationDAO.findByCode(locationCode.trim());
+	                    if(iftdisplaylocation != null) {
+	                    	OutletLocationRegister outletLocationRegister = outletLocationRegisterDAO.findByOutletAndIFTLocationAndOutletBrand(outlet.getOutletID(), outletBrand.getOutletBrandID(), null);
+		                    if(outletLocationRegister == null)
+		                    {
+		                        OutletLocationRegister outletLocationRegister1 = new OutletLocationRegister();
+		                        outletLocationRegister1.setOutlet(outlet);
+		                        outletLocationRegister1.setLocation(iftdisplaylocation);
+		                        outletLocationRegister1.setOutletBrand(outletBrand);
+		                        outletLocationRegisterDAO.save(outletLocationRegister1);
+		                    }else {
+		                    	outletLocationRegister.setLocation(iftdisplaylocation);
+		                    	outletLocationRegisterDAO.update(outletLocationRegister);
+		                    }
+	                    }
+	                }
+                }
+            }
+        }
+
+        return outlet.getOutletID();
+    }
+
+
+    @Override
+    public Long importOutletSaleman(OutletImportDTO outletImport) throws ObjectNotFoundException {
+        Outlet outlet = outletDAO.findBySapCodeAndDmsCode(outletImport.getSapCode(), outletImport.getDmsCode());
+        if (outlet == null) throw new ObjectNotFoundException("Not found outlet with sapCode " + outletImport.getSapCode() + " and DMS Code  " + outletImport.getDmsCode());
+        OutletSaleman outletSaleman = outletSalemanDAO.findByOutletID(outlet.getOutletID());
+        if (outletSaleman == null) {
+            outletSaleman = new OutletSaleman();
+        }
+        Set<String> keys = outletImport.getHashSalemanOutletBrand().keySet();
+        String salemanCode = outletImport.getSalemans();
+
+        Saleman saleman = salemanDAO.findByCode(salemanCode);
+
+        for(String outletBrandCode : keys)
+        {
+            Outletbrand outletbrand = outletbrandDAO.findByCode(outletBrandCode);
+            if(outletbrand != null)
+            {
+                OutletSaleman outletSalemanValidate = outletSalemanDAO.findByOutletAndSalemanAndOutletBrand(outlet.getOutletID(), saleman.getSalemanID(), outletbrand.getOutletBrandID());
+                if(outletSalemanValidate != null)
+                {
+                    if(outletImport.getHashSalemanOutletBrand().get(outletBrandCode) == 0)
+                    {
+                        Long oneDay = (long) 1000.0 * 60 * 60 * 24;
+                        outletSalemanValidate.setToDate(new Timestamp(System.currentTimeMillis() - oneDay));
+                        OutletSaleman outletSaleman1 = outletSalemanValidate;
+                        outletSalemanDAO.detach(outletSalemanValidate);
+                        outletSalemanDAO.update(outletSaleman1);
+                    }
+                    else
+                    {
+                        outletSalemanValidate.setToDate(null);
+                        OutletSaleman outletSaleman1 = outletSalemanValidate;
+                        outletSalemanDAO.detach(outletSalemanValidate);
+                        outletSalemanDAO.update(outletSaleman1);
+                    }
+                }
+                else
+                {
+                    if(outletImport.getHashSalemanOutletBrand().get(outletBrandCode) != 0)
+                    {
+                        OutletSaleman outletSaleman1 = new OutletSaleman();
+                        outletSaleman1.setOutlet(outlet);
+                        outletSaleman1.setSaleman(saleman);
+                        outletSaleman1.setFromDate(new Timestamp(System.currentTimeMillis()));
+                        outletSaleman1.setOutletbrand(outletbrand);
+                        outletSaleman1.setStatus(1);
+                        outletSalemanDAO.save(outletSaleman1);
+                    }
+                }
+            }
+        }
+        return outlet.getOutletID();
+    }
+
+    public void setIftdisplaylocationDAO(IftdisplaylocationDAO iftdisplaylocationDAO) {
+        this.iftdisplaylocationDAO = iftdisplaylocationDAO;
+    }
+
+    public void setOutletposmDAO(OutletposmDAO outletposmDAO) {
+        this.outletposmDAO = outletposmDAO;
+    }
+
+    public void setPowerskuDAO(PowerskuDAO powerskuDAO) {
+        this.powerskuDAO = powerskuDAO;
+    }
+
+    public void setFullrangeskuDAO(FullrangeskuDAO fullrangeskuDAO) {
+        this.fullrangeskuDAO = fullrangeskuDAO;
+    }
+
+    public void setPromotionDAO(PromotionDAO promotionDAO) {
+        this.promotionDAO = promotionDAO;
+    }
+
+    public void setUnitDAO(UnitDAO unitDAO) {
+        this.unitDAO = unitDAO;
+    }
+
+	@Override
+	public Outlet findBySapCodeAndDmsCode(String sapCode, String dmsCode) {
+		return outletDAO.findBySapCodeAndDmsCode(sapCode, dmsCode);
+	}
+
+    @Override
+   	public List<Outlet> findListBySapCodeAndDmsCode(String sapCode, String dmsCode) {
+   		return outletDAO.findListBySapCodeAndDmsCode(sapCode, dmsCode);
+   	}
+
+    @Override
+   	public Outlet findBySapCodeAndDmsCodeAndName(String sapCode, String dmsCode, String name) {
+   		return outletDAO.findBySapCodeAndDmsCodeAndName(sapCode, dmsCode, name);
+   	}
+
+	@Override
+	public List<Outlet> findAssignedItemsByAuditBean(
+			AuditScheduleBean auditscheduleBean, List<Long> outletIDs) {
+		 return outletDAO.findAssignedItemsByRegionIDDistrictIDWardIDAddressOutletIDsAndNotAssigned( auditscheduleBean.getPojo().getAuditScheduleID(), outletIDs,
+	        		auditscheduleBean.getRegionID(), auditscheduleBean.getDistrictID(), auditscheduleBean.getWardID(), auditscheduleBean.getAddress());
+	}
+}

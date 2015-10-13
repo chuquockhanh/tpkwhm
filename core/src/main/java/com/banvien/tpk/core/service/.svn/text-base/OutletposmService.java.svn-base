@@ -1,0 +1,31 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outletposm;
+import com.banvien.fcv.core.dto.OutletPOSMBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+
+public interface OutletposmService extends GenericService<Outletposm,Long> {
+
+    Outletposm findByCode(String code) throws ObjectNotFoundException;
+
+    Outletposm findByNameAndOutletBrand(String name, Long outletbrandID) throws ObjectNotFoundException;
+
+    void updateItem(OutletPOSMBean ouletposmBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(OutletPOSMBean ouletposmBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(OutletPOSMBean bean);
+
+    List<Outletposm> findActivePOSM(Timestamp fromDate, Timestamp toDate);
+
+    List<Outletposm> findAllActive();
+
+    List<Outletposm> findByOutletBrand(Long outletBrandID) throws ObjectNotFoundException, DuplicateException;;
+}

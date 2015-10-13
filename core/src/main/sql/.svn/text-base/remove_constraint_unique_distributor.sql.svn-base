@@ -1,0 +1,3 @@
+USE FCVAuditData;
+alter table Distributor drop index `SapCode_UNIQUE`;
+alter table Distributor ADD  UNIQUE KEY `UQ_Distributor` (`SapCode` ASC, `Name` ASC);

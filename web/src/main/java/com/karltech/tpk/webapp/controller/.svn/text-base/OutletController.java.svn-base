@@ -1,0 +1,518 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.OutletBean;
+import com.banvien.fcv.core.dto.OutletImportBean;
+import com.banvien.fcv.core.dto.OutletImportDTO;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.*;
+import com.banvien.fcv.core.util.CacheUtil;
+import com.banvien.fcv.security.SecurityUtils;
+import com.banvien.fcv.webapp.dto.CellDataType;
+import com.banvien.fcv.webapp.dto.CellValue;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.editor.PojoEditor;
+import com.banvien.fcv.webapp.util.CommonUtil;
+import com.banvien.fcv.webapp.util.ExcelUtil;
+import com.banvien.fcv.webapp.util.FileUtils;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.OutletValidator;
+import jxl.*;
+import jxl.format.Colour;
+import jxl.read.biff.BiffException;
+import jxl.write.*;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:59 AM
+ */
+@Controller
+public class OutletController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    private static final int COL_DISTRIBUTOR = 1;
+    private static final int COL_SAPCODE = 2;
+    private static final int COL_DISTRICT= 3;
+    private static final int COL_WARD = 4;
+    private static final int COL_NAME = 5;
+    private static final int COL_ADDRESS = 6;
+    private static final int COL_DMSCODE = 7;
+//    private static final int COL_REG_FACING = 8;
+
+    private static final String OUTLET_IMPORT_KEY = "OutletImportKey";
+
+
+    @Autowired
+    private OutletService outletService;
+
+    @Autowired
+    private OutletValidator outletValidator;
+
+    @Autowired
+    private RegionService regionService;
+
+    @Autowired
+    private DistributorService distributorService;
+
+    @Autowired
+    private DistrictService districtService;
+
+    @Autowired
+    private OutletdistributionregisteredService outletdistributionregisteredService;
+
+    @Autowired
+    private AgentService agentService;
+
+    @Autowired
+    private OutletbrandService outletbrandService;
+
+    @Autowired
+    private OutletSalemanService outletSalemanService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private OutletauditresultService outletauditresultService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+        binder.registerCustomEditor(Region.class, new PojoEditor(Region.class, "regionID", Long.class));
+        binder.registerCustomEditor(District.class, new PojoEditor(District.class, "districtID", Long.class));
+        binder.registerCustomEditor(Distributor.class, new PojoEditor(Distributor.class, "distributorID", Long.class));
+        binder.registerCustomEditor(Agent.class, new PojoEditor(Agent.class, "agentID", Long.class));
+	}
+    
+    @RequestMapping("/support/outlet/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) OutletBean outletBean, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("/support/outlet/edit");
+
+		String crudaction = outletBean.getCrudaction();
+		Outlet pojo = outletBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				outletValidator.validate(outletBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getOutletID() != null && pojo.getOutletID() > 0) {
+						this.outletService.updateItem(outletBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.outletService.addNew(outletBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& outletBean.getPojo().getOutletID() != null && outletBean.getPojo().getOutletID() > 0) {
+			try {
+				Outlet itemObj = this.outletService.findById(pojo.getOutletID());
+				outletBean.setPojo(itemObj);
+			}
+			catch (Exception e) {
+				logger.error("Could not found news " + outletBean.getPojo().getOutletID(), e);
+			}
+		}
+        Long regionID = outletBean.getPojo().getRegion() != null ? outletBean.getPojo().getRegion().getRegionID() : null;
+
+        referenceData(mav, regionID);
+
+		mav.addObject(Constants.FORM_MODEL_KEY, outletBean);
+		return mav;
+	}
+
+    private void referenceData(ModelAndView mav, Long regionID) {
+        List<Region> regions = regionService.findAllSortAsc();
+        mav.addObject("regions", regions);
+        mav.addObject("agents", agentService.findAll());
+        mav.addObject("distributors", distributorService.findByOnlineAgent());
+        if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+        {
+            mav.addObject("distributors", distributorService.findAllSortAsc());
+        }
+        if (regionID == null && regions.size() > 0) {
+            regionID = regions.get(0).getRegionID();
+        }
+        if (regionID != null) {
+            List<District> districts = districtService.findByRegionID(regionID);
+            mav.addObject("districts", districts);
+        }
+    }
+
+
+    @RequestMapping(value={"/support/outlet/list.html"})
+    public ModelAndView list(OutletBean bean, HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mav = new ModelAndView("/support/outlet/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = outletService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+
+        executeSearch(bean, request);
+        Long regionID = bean.getPojo().getRegion() != null ? bean.getPojo().getRegion().getRegionID() : null;
+        referenceData(mav, regionID);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        mav.addObject("outletBrands", outletbrandService.findAll());
+
+        return mav;
+    }
+
+    @RequestMapping(value={"/support/outlet/export.html"})
+    public void export(OutletBean bean, HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+            bean.setFirstItem(0);
+            bean.setMaxPageItems(Integer.MAX_VALUE);
+            executeSearch(bean, request);
+            exportOutletData(bean, request, response);
+        }catch (Exception e) {
+            log.error(e.getMessage());
+        }
+
+    }
+
+    @RequestMapping(value={"/support/outlet/import.html"})
+    public ModelAndView importData(OutletImportBean bean, HttpServletRequest request) throws IOException, ServletException {
+        ModelAndView mav = new ModelAndView("/support/outlet/import");
+        mav.addObject(Constants.FORM_MODEL_KEY, bean);
+        if (RequestMethod.GET.toString().equals(request.getMethod())) {
+			//Clear cache
+			CacheUtil.getInstance().remove(request.getSession().getId() + OUTLET_IMPORT_KEY);
+            mav.addObject("regions", regionService.findAllSortAsc());
+		} else if (RequestMethod.POST.toString().equals(request.getMethod())) {
+            try{
+                if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_IMPORT)) {
+                    String destFolder = CommonUtil.getBaseFolder() + CommonUtil.getTempFolderName();
+                    MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+                    Map<String, MultipartFile> map = mRequest.getFileMap();
+                    MultipartFile csvfile = (MultipartFile) map.get("dataFile");
+                    String fileName = FileUtils.upload(mRequest, destFolder, csvfile);
+                    String destFileName = request.getSession().getServletContext().getRealPath(destFolder + "/" + fileName);
+
+                    Region region = regionService.findById(bean.getRegionID());
+                    List<OutletImportDTO> importedOutlets = new ArrayList<OutletImportDTO>();
+                    extractExcelData2Outlets(destFileName, importedOutlets, region);
+
+                    log.debug("Remove temp file: " + destFileName);
+                    try{
+                        FileUtils.remove(destFileName);
+                    }catch (Exception e) {
+                        log.debug("Temporary File could not be deleted" + e.getMessage());
+                    }
+                    String sessionId = request.getSession().getId();
+                    CacheUtil.getInstance().putValue(sessionId + OUTLET_IMPORT_KEY, importedOutlets);
+                }
+                mav = new ModelAndView("redirect:/support/outlet/importlist.html");
+            }catch (Exception ex) {
+                mav = new ModelAndView("/support/outlet/import");
+                mav.addObject("regions", regionService.findAllSortAsc());
+                mav.addObject(Constants.FORM_MODEL_KEY, bean);
+                mav.addObject("messageResponse", "Could not extract excel data");
+            }
+        }
+
+        return mav;
+    }
+
+    private void extractExcelData2Outlets(String dbFileName, List<OutletImportDTO> importedOutlets, Region region) throws BiffException, IOException {
+        WorkbookSettings ws = null;
+		Workbook workbook = null;
+		Sheet s = null;
+		Cell rowData[] = null;
+		int rowCount = 0;
+		int columnCount = 0;
+		DateCell dc = null;
+		int totalSheet = 0;
+        FileInputStream fs = new FileInputStream(new File(dbFileName));
+        ws = new WorkbookSettings();
+        ExcelUtil.setEncoding4Workbook(ws);
+//        ws.setLocale(new Locale("en", "EN"));
+        workbook = Workbook.getWorkbook(fs, ws);
+        s = workbook.getSheet(0);
+        rowCount = s.getRows();
+        boolean beginParseOutletData = false;
+        for (int i = 0; i < rowCount; i++) {
+            rowData = s.getRow(i);
+            if (rowData.length == 0 || rowData.length < 8) {
+                continue;
+            }
+
+            //Identify column header
+            if (rowData[0].getContents().equals("STT")) {
+                beginParseOutletData = true;
+            }else if (beginParseOutletData) {
+                if (StringUtils.isNotBlank(rowData[COL_SAPCODE].getContents()) && StringUtils.isNotBlank(rowData[COL_DMSCODE].getContents())) {
+                    OutletImportDTO outletImportDTO = new OutletImportDTO();
+
+                    outletImportDTO.setDistributor(StringUtils.trimToNull(rowData[COL_DISTRIBUTOR].getContents()));
+                    outletImportDTO.setSapCode(StringUtils.trimToNull(rowData[COL_SAPCODE].getContents()));
+                    outletImportDTO.setDistrict(StringUtils.trimToNull(rowData[COL_DISTRICT].getContents()));
+                    outletImportDTO.setWard(StringUtils.trimToNull(rowData[COL_WARD].getContents()));
+                    outletImportDTO.setName(StringUtils.trimToNull(rowData[COL_NAME].getContents()));
+                    outletImportDTO.setAddress(StringUtils.trimToNull(rowData[COL_ADDRESS].getContents()));
+                    outletImportDTO.setDmsCode(StringUtils.trimToNull(rowData[COL_DMSCODE].getContents()));
+//                    outletImportDTO.setRegisteredFacing(StringUtils.trimToNull(rowData[COL_REG_FACING].getContents()));
+                    outletImportDTO.setRegion(region);
+
+                    importedOutlets.add(outletImportDTO);
+                }
+            }
+        }
+    }
+
+    @RequestMapping(value="/support/outlet/importlist.html", method=RequestMethod.GET)
+    public ModelAndView importOutletList(HttpServletRequest request, OutletImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<OutletImportDTO> importedOutlets = (List<OutletImportDTO>) CacheUtil.getInstance().getValue(sessionId + OUTLET_IMPORT_KEY);
+		if (importedOutlets == null || importedOutlets.size() == 0) {
+			return new ModelAndView("redirect:/support/outlet/import.html");
+		}
+
+		List<OutletImportDTO> displayOutlets = importedOutlets;
+
+		RequestUtil.initSearchBean(request, bean);
+        if (displayOutlets.size() > 0) {
+	        Integer lastIndex = bean.getPage() * bean.getMaxPageItems();
+	        if (lastIndex > displayOutlets.size()) {
+	        	lastIndex = displayOutlets.size();
+	        }
+	        if (bean.getFirstItem() > displayOutlets.size()) {
+	        	bean.setFirstItem(0);
+	        }
+
+        	bean.setListResult((List<OutletImportDTO>) displayOutlets.subList(bean.getFirstItem(), lastIndex));
+        }
+        bean.setTotalItems(displayOutlets.size());
+
+		return new ModelAndView("/support/outlet/importList", Constants.LIST_MODEL_KEY, bean);
+	}
+    
+    @RequestMapping(value="/support/outlet/importsave.html", method=RequestMethod.GET)
+    public ModelAndView importOutletSave(HttpServletRequest request, OutletImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<OutletImportDTO> importedOutlets = (List<OutletImportDTO>) CacheUtil.getInstance().getValue(sessionId + OUTLET_IMPORT_KEY);
+		if (importedOutlets == null || importedOutlets.size() == 0) {
+			return new ModelAndView("redirect:/support/outlet/import.html");
+		}
+		
+		/**
+		 * Save/update outlets
+		 */
+		int totalSuccess = 0;
+
+        User onlineUser = userService.findById(SecurityUtils.getLoginUserId());
+
+		for (OutletImportDTO outletImport : importedOutlets) {
+            try{
+                outletService.importOutlet(outletImport, onlineUser);
+                totalSuccess++;
+            }catch (Exception ex) {
+                log.error("Could not import outlet " + outletImport.getSapCode() + " - " + outletImport.getDmsCode(), ex);
+            }
+
+		}
+	
+		CacheUtil.getInstance().remove(sessionId + OUTLET_IMPORT_KEY);
+		ModelAndView mav = new ModelAndView("/support/outlet/importReport");
+		mav.addObject("success", true);
+		mav.addObject("totalItems", importedOutlets.size());
+		mav.addObject("totalSuccess", Integer.valueOf(totalSuccess));
+
+		return mav;
+	}
+
+    private void executeSearch(OutletBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.outletService.search(bean);
+        List<Outlet> listResult = (List<Outlet>)results[1];
+        bean.setListResult(listResult);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+
+        List<Long> outletIds = new ArrayList<Long>();
+        for(Outlet outlet : listResult) {
+            outletIds.add(outlet.getOutletID());
+        }
+        if (outletIds.size() > 0) {
+            List<Outletdistributionregistered> outletFacings = outletdistributionregisteredService.findByOutletIds(outletIds);
+            Map<String, Outletdistributionregistered> outletFacingsMap = new HashMap<String, Outletdistributionregistered>();
+            for (Outletdistributionregistered outletdistributionregistered : outletFacings) {
+                outletFacingsMap.put(outletdistributionregistered.getOutlet().getOutletID() + "_" + outletdistributionregistered.getOutletBrand().getOutletBrandID(), outletdistributionregistered);
+            }
+            bean.setOutletFacingsMap(outletFacingsMap);
+        }
+    }
+
+	private void exportOutletData(OutletBean bean, HttpServletRequest request, HttpServletResponse response) {
+        try
+        {
+            String outputFileName = "/files/temp/outletdata" + System.currentTimeMillis() + ".xls";
+            String reportTemplate = request.getSession().getServletContext().getRealPath("/files/outlet/ExportOutletDataTemplate.xls");
+            String export2FileName = request.getSession().getServletContext().getRealPath(outputFileName);
+
+            Workbook templateWorkbook = Workbook.getWorkbook(new File(reportTemplate));
+            WritableWorkbook workbook = Workbook.createWorkbook(new File(export2FileName), templateWorkbook);
+            WritableSheet sheet = workbook.getSheet(0);
+
+            int startRow = 5;
+            int stt = 1;
+            List<Outletbrand> outletbrandList = outletbrandService.findAll();
+            buildHeaderSummaryReport4Promotion(sheet, outletbrandList, 10, 3);
+            for (Outlet outlet : bean.getListResult()) {
+                List<OutletSaleman> listOutletSaleman = outletSalemanService.findListByOutletID(outlet.getOutletID());
+                CellValue[] cellValues = toCellValue4SummaryReport(outlet, listOutletSaleman, bean.getOutletFacingsMap(), outletbrandList,  stt);
+                stt ++;
+                ExcelUtil.addRow(sheet,startRow, cellValues);
+                startRow++;
+            }
+
+            workbook.write();
+            workbook.close();
+
+            response.sendRedirect(request.getSession().getServletContext().getContextPath() + outputFileName);
+        }
+        catch(Exception ex)
+        {
+            log.error(ex);
+        }
+    }
+
+    private CellValue[] toCellValue4SummaryReport(Outlet outlet, List<OutletSaleman> listOutletSaleman, Map<String, Outletdistributionregistered> outletdistributionregisteredMap, List<Outletbrand>  outletbrandList,Integer STT) {
+        CellValue[] res = new CellValue[10 + 2*outletbrandList.size()];
+
+        res[0] =  new CellValue(CellDataType.INT, STT);
+        res[1] =    new CellValue(CellDataType.STRING, outlet.getDistributor().getName());
+        res[2] =    new CellValue(CellDataType.STRING, outlet.getDistributor().getSapCode());
+        res[3] =    new CellValue(CellDataType.STRING, outlet.getDistrict().getName());
+        res[4] =    new CellValue(CellDataType.STRING, outlet.getOutletName());
+        res[5] =    new CellValue(CellDataType.STRING, outlet.getAddress());
+        res[6] =    new CellValue(CellDataType.STRING, outlet.getDmsCode());
+
+        String MR = "";
+        String SA = "";
+        String NA = "";
+        for(int i = 0; i < listOutletSaleman.size(); i++)
+        {
+            OutletSaleman outletSaleman = listOutletSaleman.get(i);
+            int flag = 1;
+            if(i > 0)
+            {
+                for(int j = 0; j < listOutletSaleman.size() - 1; j ++)
+                {
+                    OutletSaleman outletSaleman1 = listOutletSaleman.get(j);
+                    if(outletSaleman.getSaleman().getSalemanID().equals(outletSaleman1.getSaleman().getSalemanID()))
+                    {
+                        flag = -1;
+                    }
+                }
+            }
+            if(flag == 1)
+            {
+                if(outletSaleman.getSaleman().getType().equals("MR"))
+                {
+                    MR += outletSaleman.getSaleman().getName() + ",";
+                }
+                if(outletSaleman.getSaleman().getType().equals("SA"))
+                {
+                    SA += outletSaleman.getSaleman().getName() + ",";
+                }
+                if(outletSaleman.getSaleman().getType().equals("NA"))
+                {
+                    NA += outletSaleman.getSaleman().getName() + ",";
+                }
+            }
+        }
+
+        res[7] =    new CellValue(CellDataType.STRING, MR);
+        res[8] =    new CellValue(CellDataType.STRING, SA);
+        res[9] =    new CellValue(CellDataType.STRING, NA);
+
+        int totalColumn = 0;
+        for(int i = 0; i < outletbrandList.size(); i ++)
+        {
+            String key = outlet.getOutletID().toString() + "_" + outletbrandList.get(i).getOutletBrandID().toString();
+            res[10 + totalColumn] = new CellValue(CellDataType.INT, 0);
+            res[10 + totalColumn + 1] = new CellValue(CellDataType.STRING, "");
+            if(outletdistributionregisteredMap.get(key) != null)
+            {
+                res[10 + totalColumn] = new CellValue(CellDataType.INT, outletdistributionregisteredMap.get(key).getFacing());
+                res[10 + totalColumn + 1] = new CellValue(CellDataType.STRING, outletdistributionregisteredMap.get(key).getLevelRegister().getName());
+            }
+            totalColumn = outletbrandList.size();
+        }
+
+        return res;
+    }
+
+    private void buildHeaderSummaryReport4Promotion(WritableSheet sheet, List<Outletbrand> listOutletBrand, int startCol, int startRow) throws WriteException {
+        if(listOutletBrand.size() > 0) {
+            WritableCellFormat cellFormat = new WritableCellFormat();
+            cellFormat.setWrap(true);
+            cellFormat.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
+            cellFormat.setBackground(Colour.BRIGHT_GREEN);
+
+            int totalColum = 0;
+            for (Outletbrand outletbrand : listOutletBrand) {
+                Label outletBrandLabel = new Label(startCol + totalColum, startRow, outletbrand.getName(), cellFormat);
+                sheet.addCell(outletBrandLabel);
+                sheet.mergeCells(startCol + totalColum , startRow, startCol + totalColum + listOutletBrand.size() - 1, startRow);
+
+                Label outletBrandLabelFacing = new Label(startCol + totalColum, startRow + 1, "Facing", cellFormat);
+                sheet.addCell(outletBrandLabelFacing);
+
+                Label outletBrandLabelLevelRegister = new Label(startCol + totalColum + 1, startRow + 1, "Level Register", cellFormat);
+                sheet.addCell(outletBrandLabelLevelRegister);
+
+                totalColum = listOutletBrand.size();
+            }
+
+        }
+    }
+
+}

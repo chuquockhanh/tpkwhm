@@ -1,0 +1,171 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Auditor;
+import com.banvien.fcv.core.domain.Auditschedule;
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.Outletauditresult;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/19/12
+ * Time: 4:42 PM
+ */
+public class OutletAuditSummaryImportDTO implements Serializable {
+
+    private Auditor auditor;
+
+    private Auditschedule auditSchedule;
+
+    private Outletauditresult outletauditresult;
+
+    private Outlet dbOutlet;
+
+    private String sapCode;
+
+    private String dmsCode;
+
+    private String distributor;
+
+    private String success;
+
+    private String rootCause;
+
+    private HashMap<Long, Integer> locationMeet = new HashMap<Long, Integer>();
+
+    private HashMap<Long, Integer> powerSKUMeet = new HashMap<Long, Integer>();
+
+    private HashMap<Long, Integer> fullRangeSKUMeet = new HashMap<Long, Integer>();
+
+    private HashMap<Long, Integer> noFacingMeet = new HashMap<Long, Integer>();
+
+    private HashMap<Long, Integer> posmMeet = new HashMap<Long, Integer>();
+
+    private HashMap<Long, Integer> commissionMeet = new HashMap<Long, Integer>();
+
+
+
+    public Auditor getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(Auditor auditor) {
+        this.auditor = auditor;
+    }
+
+    public Auditschedule getAuditSchedule() {
+        return auditSchedule;
+    }
+
+    public void setAuditSchedule(Auditschedule auditSchedule) {
+        this.auditSchedule = auditSchedule;
+    }
+
+    public Outletauditresult getOutletauditresult() {
+        return outletauditresult;
+    }
+
+    public void setOutletauditresult(Outletauditresult outletauditresult) {
+        this.outletauditresult = outletauditresult;
+    }
+
+    public Outlet getDbOutlet() {
+        return dbOutlet;
+    }
+
+    public void setDbOutlet(Outlet dbOutlet) {
+        this.dbOutlet = dbOutlet;
+    }
+
+    public String getSapCode() {
+        return sapCode;
+    }
+
+    public void setSapCode(String sapCode) {
+        this.sapCode = sapCode;
+    }
+
+    public String getDmsCode() {
+        return dmsCode;
+    }
+
+    public void setDmsCode(String dmsCode) {
+        this.dmsCode = dmsCode;
+    }
+
+    public String getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(String distributor) {
+        this.distributor = distributor;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
+
+    public String getRootCause() {
+        return rootCause;
+    }
+
+    public void setRootCause(String rootCause) {
+        this.rootCause = rootCause;
+    }
+
+    public HashMap<Long, Integer> getLocationMeet() {
+        return locationMeet;
+    }
+
+    public void setLocationMeet(HashMap<Long, Integer> locationMeet) {
+        this.locationMeet = locationMeet;
+    }
+
+    public HashMap<Long, Integer> getPowerSKUMeet() {
+        return powerSKUMeet;
+    }
+
+    public void setPowerSKUMeet(HashMap<Long, Integer> powerSKUMeet) {
+        this.powerSKUMeet = powerSKUMeet;
+    }
+
+    public HashMap<Long, Integer> getFullRangeSKUMeet() {
+        return fullRangeSKUMeet;
+    }
+
+    public void setFullRangeSKUMeet(HashMap<Long, Integer> fullRangeSKUMeet) {
+        this.fullRangeSKUMeet = fullRangeSKUMeet;
+    }
+
+    public HashMap<Long, Integer> getNoFacingMeet() {
+        return noFacingMeet;
+    }
+
+    public void setNoFacingMeet(HashMap<Long, Integer> noFacingMeet) {
+        this.noFacingMeet = noFacingMeet;
+    }
+
+    public HashMap<Long, Integer> getPosmMeet() {
+        return posmMeet;
+    }
+
+    public void setPosmMeet(HashMap<Long, Integer> posmMeet) {
+        this.posmMeet = posmMeet;
+    }
+
+    public HashMap<Long, Integer> getCommissionMeet() {
+        return commissionMeet;
+    }
+
+    public void setCommissionMeet(HashMap<Long, Integer> commissionMeet) {
+        this.commissionMeet = commissionMeet;
+    }
+
+}

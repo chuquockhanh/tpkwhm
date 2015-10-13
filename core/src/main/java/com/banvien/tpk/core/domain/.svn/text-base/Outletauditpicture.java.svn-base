@@ -1,0 +1,103 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE OutletAuditPicture</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Outletauditpicture implements Serializable {
+
+	/**
+	 * Attribute outletAuditPicture.
+	 */
+	private Long outletAuditPicture;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute description.
+	 */
+	private String description;
+	
+	/**
+	 * Attribute path.
+	 */
+	private String path;
+	
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return outletAuditPicture
+	 */
+	public Long getOutletAuditPicture() {
+		return outletAuditPicture;
+	}
+
+	/**
+	 * @param outletAuditPicture new value for outletAuditPicture 
+	 */
+	public void setOutletAuditPicture(Long outletAuditPicture) {
+		this.outletAuditPicture = outletAuditPicture;
+	}
+	
+	/**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description new value for description 
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return path
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * @param path new value for path 
+	 */
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+
+
+}

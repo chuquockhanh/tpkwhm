@@ -1,0 +1,105 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.domain.Store;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+/**
+ * <p>Hibernate DAO layer for Stores</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class StoreHibernateDAO extends
+		AbstractHibernateDAO<Store, Long> implements
+		StoreDAO {
+
+    public StoreHibernateDAO() {
+		super(Store.class);
+	}
+
+    @Override
+    public List<Store> findAssignedItemsByAuditAndAuditor(final Long auditScheduleID, final Long auditorID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Store>>() {
+                public List<Store> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("SELECT aot.store FROM Auditorstoretask aot WHERE aot.auditschedule.auditScheduleID = :auditScheduleID AND aot.auditor.auditorID = :auditorID");
+                    query.setParameter("auditScheduleID", auditScheduleID);
+                    query.setParameter("auditorID", auditorID);
+                    return (List<Store>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<Store> findAssignedItemsByAuditIDRegionIDAddressAndNotAssigned(final Long auditScheduleID, final Long notAssignedAuditScheduleID, final Long regionID, final String address) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Store>>() {
+                public List<Store> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                	StringBuffer buff = new StringBuffer("SELECT aot.store FROM Auditorstoretask aot WHERE aot.auditschedule.auditScheduleID = :auditScheduleID");
+                	if(notAssignedAuditScheduleID != null) {
+                		buff.append(" AND aot.store.id NOT IN(SELECT aot2.store.id FROM Auditorstoretask aot2 WHERE aot2.auditschedule.auditScheduleID = :notAssignedAuditScheduleID)");
+                	}
+                	if(regionID != null) {
+                		buff.append(" AND aot.store.region.id = :regionID");
+                	}
+                	if(StringUtils.isNotBlank(address)) {
+                		buff.append(" AND aot.store.address LIKE :address");
+                	}
+                    Query query = session
+                            .createQuery(buff.toString());
+                    
+                    query.setParameter("auditScheduleID", auditScheduleID);
+                    if(notAssignedAuditScheduleID != null) {
+                    	query.setParameter("notAssignedAuditScheduleID", notAssignedAuditScheduleID);
+                	}
+                    if(regionID != null) {
+                    	query.setParameter("regionID", regionID);
+                	}
+                	if(StringUtils.isNotBlank(address)) {
+                		query.setParameter("address", "%" + address + "%");
+                	}
+                    return (List<Store>) query.list();
+                }
+            });
+    }
+    @Override
+    public Store findByStoreNoAndAccount(final String storeNo, final String account) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Store>() {
+                public Store doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("SELECT s FROM Store s WHERE s.code = :code and s.account.name = :account");
+                    query.setParameter("code", storeNo);
+                    query.setParameter("account", account);
+                    return (Store) query.uniqueResult();
+                }
+            });
+    }
+
+    @Override
+    public List<Store> getStoresByAuditorCode(String auditorCode) throws ObjectNotFoundException {
+        final StringBuffer q = new StringBuffer();
+        q.append("select distinct s from Store s, Auditorstoretask at, Auditor a");
+        q.append(" inner join fetch s.region");
+        q.append(" inner join fetch s.account");
+        q.append(" where a.code = ? and ");
+        q.append(" at.status = 1 and ");
+        q.append(" s.storeID = at.store.storeID and ");
+        q.append(" at.auditor.auditorID = a.auditorID");
+        return getHibernateTemplate().find(q.toString(),auditorCode);
+    }
+}

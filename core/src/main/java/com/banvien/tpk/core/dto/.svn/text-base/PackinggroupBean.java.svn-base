@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Packinggroup;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 3:05 PM
+ */
+public class PackinggroupBean extends AbstractBean<Packinggroup> {
+    public PackinggroupBean() {
+        this.pojo = new Packinggroup();
+    }
+}

@@ -1,0 +1,36 @@
+package com.banvien.fcv.core.service;
+
+import java.util.List;
+
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Store;
+import com.banvien.fcv.core.dto.AuditScheduleBean;
+import com.banvien.fcv.core.dto.StoreBean;
+import com.banvien.fcv.core.dto.StoreImportDTO;
+import com.banvien.fcv.core.dto.StoreInfoList;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface StoreService extends GenericService<Store,Long> {
+
+    void updateItem(StoreBean storeBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(StoreBean storeBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(StoreBean bean);
+
+    List<Store> findAvailableStores(AuditScheduleBean auditscheduleBean);
+
+    List<Store> findAssignedItemsByAuditAndAuditor(Long auditScheduleID, Long auditorID);
+
+    void importStore(StoreImportDTO storeImport, List<Product> registeredProduct);
+
+    public StoreInfoList getStoreInfoListByAuditorCode(String auditorCode) throws ObjectNotFoundException;
+
+    List<Store> findByAccountID(Long accountID);
+    
+    public List<Store> findAssignedItemsByAuditBean(AuditScheduleBean auditscheduleBean) ;
+}

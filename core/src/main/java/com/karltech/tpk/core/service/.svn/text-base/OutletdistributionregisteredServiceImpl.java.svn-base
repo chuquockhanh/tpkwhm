@@ -1,0 +1,30 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.OutletdistributionregisteredDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.List;
+
+public class OutletdistributionregisteredServiceImpl extends GenericServiceImpl<Outletdistributionregistered,Long> 
+                                                    implements OutletdistributionregisteredService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletdistributionregisteredDAO outletdistributionregisteredDAO;
+
+    public void setOutletdistributionregisteredDAO(OutletdistributionregisteredDAO outletdistributionregisteredDAO) {
+        this.outletdistributionregisteredDAO = outletdistributionregisteredDAO;
+    }
+
+    @Override
+	protected GenericDAO<Outletdistributionregistered, Long> getGenericDAO() {
+		return outletdistributionregisteredDAO;
+	}
+
+    @Override
+    public List<Outletdistributionregistered> findByOutletIds(List<Long> outletIds) {
+        return this.outletdistributionregisteredDAO.findByOutletIDs(outletIds);
+    }
+}

@@ -1,0 +1,22 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Saleman;
+import com.banvien.fcv.core.dto.SalemanBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface SalemanService extends GenericService<Saleman,Long> {
+
+    void updateItem(SalemanBean salemanBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(SalemanBean salemanBean) throws ObjectNotFoundException, DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(SalemanBean bean);
+
+    Saleman findByCode(String code) throws ObjectNotFoundException;
+
+    Long importSaleman(Saleman saleman) throws ObjectNotFoundException;
+}

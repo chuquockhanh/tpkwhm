@@ -1,0 +1,115 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.OutletLocationRegister;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+import java.util.List;
+
+
+/**
+ * <p>Hibernate DAO layer for Districts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OutletLocationRegisterHibernateDAO extends
+		AbstractHibernateDAO<OutletLocationRegister, Long> implements
+		OutletLocationRegisterDAO {
+
+    public OutletLocationRegisterHibernateDAO() {
+		super(OutletLocationRegister.class);
+	}
+
+    @Override
+    public void deleteByOutlet(final Long outletID) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Object>() {
+                public Object doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM OutletLocationRegister WHERE outlet.outletID = :outletID");
+                    query.setParameter("outletID", outletID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+
+    @Override
+    public void deleteByOutletAndOutletBrand(final Long outletID, final Long outletBrandID) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Object>() {
+                public Object doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM OutletLocationRegister WHERE outlet.outletID = :outletID AND outletBrand.outletBrandID = :outletBrandID ");
+                    query.setParameter("outletID", outletID);
+                    query.setParameter("outletBrandID", outletBrandID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+
+    @Override
+    public OutletLocationRegister findByOutletAndIFTLocationAndOutletBrand(final Long outletID, final Long outletBrandID, final Long iftDisplayLocationID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<OutletLocationRegister>() {
+                public OutletLocationRegister doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                	StringBuffer buff = new StringBuffer("FROM OutletLocationRegister o WHERE o.outlet.outletID = :outletID AND o.outletBrand.outletBrandID = :outletBrandID");
+                	if(iftDisplayLocationID != null) {
+                		buff.append(" AND o.location.iftDisplayLocationID = :iftDisplayLocationID");
+                	}
+                    Query query = session
+                            .createQuery(buff.toString());
+                    query.setParameter("outletID", outletID);
+                    query.setParameter("outletBrandID", outletBrandID);
+                    if(iftDisplayLocationID != null) {
+                    	query.setParameter("iftDisplayLocationID", iftDisplayLocationID);
+                    }
+                    try
+                    {
+                        return (OutletLocationRegister) query.uniqueResult();
+                    }
+                    catch(Exception ex)
+                    {
+                        ex.printStackTrace();
+                        return null;
+                    }
+                }
+            });
+    }
+
+    public List<OutletLocationRegister> findByOutlet(final Long outletID)
+    {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<OutletLocationRegister>>() {
+                public List<OutletLocationRegister> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM OutletLocationRegister o WHERE o.outlet.outletID = :outletID ");
+                    query.setParameter("outletID", outletID);
+                    return (List<OutletLocationRegister>) query.list();
+                }
+            });
+    }
+
+    public List<OutletLocationRegister> findByOutletAndBrand(final Long outletID, final Long outletBrandID)
+    {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<OutletLocationRegister>>() {
+                public List<OutletLocationRegister> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM OutletLocationRegister o WHERE o.outlet.outletID = :outletID AND o.outletBrand.outletBrandID = :outletBrandID ");
+                    query.setParameter("outletID", outletID);
+                    query.setParameter("outletBrandID", outletBrandID);
+                    return (List<OutletLocationRegister>) query.list();
+                }
+            });
+    }
+
+}

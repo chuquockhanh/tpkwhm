@@ -1,0 +1,270 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.*;
+import com.banvien.fcv.webapp.util.DateUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Set;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit outlet form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class OutletValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(OutletValidator.class);
+
+    private OutletService outletService;
+    @Autowired
+    public void setOutletService(OutletService outletService) {
+        this.outletService = outletService;
+    }
+
+    @Autowired
+    private SalemanService salemanService;
+
+    @Autowired
+    private OutletbrandService outletBrandService;
+
+    @Autowired
+    private AuditoroutlettaskService auditoroutlettaskService;
+
+    @Autowired
+    private LevelRegisterService levelRegisterService;
+
+    @Autowired
+    private AuditscheduleService auditscheduleService;
+    
+    public boolean supports(Class<?> aClass) {
+        return OutletBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        OutletBean cmd = (OutletBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+        validateDuplicate(cmd, errors);
+    }
+
+    private void validateRequiredValues(OutletBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.dmsCode", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.outlet.form.dmscode")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.address", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.outlet.form.address")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.distributor", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.outlet.form.distributor")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.region", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.outlet.form.region")}, "non-empty value required.");
+
+    }
+
+    private void trimingField(OutletBean cmd) {
+        if(StringUtils.isNotEmpty(cmd.getPojo().getDmsCode())) {
+    		cmd.getPojo().setDmsCode(cmd.getPojo().getDmsCode().trim());
+    	}
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getAddress())) {
+    		cmd.getPojo().setAddress(cmd.getPojo().getAddress().trim());
+    	}
+
+    }
+
+    private void validateDuplicate(OutletBean cmd, Errors errors) {
+    	//SapCode
+    	if(StringUtils.isNotBlank(cmd.getPojo().getDmsCode()) && cmd.getPojo().getDistributor() != null && cmd.getPojo().getDistributor().getDistributorID() != null && cmd.getPojo().getDistributor().getDistributorID() > 0) {
+    		try {
+    			Outlet outlet = this.outletService.findByDmsCodeAndDistributor(cmd.getPojo().getDmsCode(), cmd.getPojo().getDistributor().getDistributorID());
+                if(outlet != null) {
+                    if(cmd.getPojo().getOutletID() != null &&
+                            !outlet.getOutletID().equals(cmd.getPojo().getOutletID()))
+                    errors.rejectValue("pojo.dmsCode", "error.duplicated", new String[] {this.getMessageSourceAccessor().getMessage("support.outlet.form.dmscode")}, "Value has been chosen.");
+                }
+    		} catch (ObjectNotFoundException ex) {
+    			// true
+    		}
+    	}
+    }
+
+    public int validateImportSaleman(OutletImportDTO outletImportDTO)
+    {
+        Outlet outletValidate = outletService.findBySapCodeAndDmsCode(outletImportDTO.getSapCode(), outletImportDTO.getDmsCode());
+        String[] salemans = null;
+        try{
+            salemans = StringUtils.split(outletImportDTO.getSalemans(), Constants.COMMA_SEP);
+        }
+        catch(Exception ex){
+            salemans = null;
+        }
+        Saleman salemanValidate = new Saleman();
+        for (String salemanCode : salemans)
+        {
+            try
+            {
+                salemanValidate = salemanService.findByCode(salemanCode);
+                break;
+            }
+            catch (ObjectNotFoundException ex)
+            {
+            	log.debug("Not found Sale Man Code " + salemanCode);
+            }
+
+        }
+        if(salemanValidate == null || outletValidate == null)
+        {
+            return -1;
+        }
+        return 1;
+    }
+
+    public int validateImportFacing(OutletImportDTO outletImportDTO)
+    {
+        Outlet outlet = outletService.findBySapCodeAndDmsCodeAndName(outletImportDTO.getSapCode(), outletImportDTO.getDmsCode(), outletImportDTO.getDistributor());
+        if(outlet == null)
+        {
+            outletImportDTO.setRootCause("Outlet not available ");
+            return -1;
+        }
+        outletImportDTO.setDbOutlet(outlet);
+        
+        HashMap<String, OutletImportSubDTO> outletBrandFacingMap = outletImportDTO.getHashOutletSubOutletBrand();
+        if(outletBrandFacingMap == null || outletBrandFacingMap.size() == 0) {
+        	outletImportDTO.setRootCause("Outlet has not any facing ");
+        	return -1;
+        }
+        Set<String> keys = outletBrandFacingMap.keySet();
+        for(String outletBrandCode : keys)
+        {
+            Outletbrand outletBrand = outletBrandService.findByCode(outletBrandCode);
+            if(outletBrand == null)
+            {
+                outletImportDTO.setRootCause("OutletBrand Code: " + outletBrandCode +" is not valid");
+                return -1;
+            }
+            OutletImportSubDTO facingInfoObj = outletBrandFacingMap.get(outletBrandCode);
+            outletImportDTO.getOutletBrandFacingMap().put(outletBrand.getOutletBrandID(), facingInfoObj);
+            if(facingInfoObj != null && StringUtils.isNotBlank(facingInfoObj.getLevelRegistered())) {
+            	try {
+            		LevelRegister levelRegister = levelRegisterService.findByCode(facingInfoObj.getLevelRegistered().trim());
+            		facingInfoObj.setDbLevelRegister(levelRegister);
+            	}catch (ObjectNotFoundException e) {
+            		outletImportDTO.setRootCause("Level register not found ");
+            		log.debug("NOT found level register " + facingInfoObj.getLevelRegistered());
+            		return -1;
+				}
+            	
+            }
+        }
+        return 1;
+    }
+
+    public int validateImportAudit(OutletAuditImportDTO outletAuditImportDTO, String from, String to)
+    {
+        String auditedDate = DateUtils.date2String(outletAuditImportDTO.getAuditedDate(), "yyyyMMdd");
+        if (!(auditedDate.compareTo(from) >= 0 && auditedDate.compareTo(to) <= 0)) {
+            outletAuditImportDTO.setRootCause("AuditDated was wrong !!!  ");
+            return -1;
+        }
+        Outlet outlet = outletService.findBySapCodeAndDmsCodeAndName(outletAuditImportDTO.getSapCode(), outletAuditImportDTO.getDmsCode(), outletAuditImportDTO.getDistributor());
+        if(outlet == null)
+        {
+            outletAuditImportDTO.setRootCause("Outlet not available ");
+            return -1;
+        }
+        outletAuditImportDTO.setDbOutlet(outlet);
+
+        Auditoroutlettask auditoroutlettask = auditoroutlettaskService.findByOutletAndSchedule(outlet.getOutletID(), outletAuditImportDTO.getAuditSchedule().getAuditScheduleID());
+
+        if(auditoroutlettask == null)
+        {
+            outletAuditImportDTO.setRootCause("Task not available ");
+            return -1;
+        }
+        else
+        {
+            if(auditoroutlettask.getStatus() == 0)
+            {
+                outletAuditImportDTO.setRootCause("Task is finished");
+                return -1;
+            }
+        }
+
+        Set<Long> keys = outletAuditImportDTO.getHashPromotion().keySet();
+        for(Long outletBrandCode : keys)
+        {
+            try
+            {
+                Outletbrand outletBrand = outletBrandService.findById(outletBrandCode);
+                if(outletBrand == null)
+                {
+                    outletAuditImportDTO.setRootCause("OutletBrand Code: " + outletBrandCode +" is not valid");
+                    return -1;
+                }
+            }
+            catch(Exception ex)
+            {
+                log.error(ex);
+            }
+        }
+        return 1;
+    }
+
+    public int validateImportAuditSummary(OutletAuditSummaryImportDTO outletAuditSummaryImportDTO)
+    {
+        Outlet outlet = outletService.findBySapCodeAndDmsCodeAndName(outletAuditSummaryImportDTO.getSapCode(), outletAuditSummaryImportDTO.getDmsCode(), outletAuditSummaryImportDTO.getDistributor());
+        if(outlet == null)
+        {
+            outletAuditSummaryImportDTO.setRootCause("Outlet not available ");
+            return -1;
+        }
+        outletAuditSummaryImportDTO.setDbOutlet(outlet);
+
+        Auditoroutlettask auditoroutlettask = auditoroutlettaskService.findByOutletAndSchedule(outlet.getOutletID(), outletAuditSummaryImportDTO.getAuditSchedule().getAuditScheduleID());
+
+        if(auditoroutlettask == null)
+        {
+            outletAuditSummaryImportDTO.setRootCause("Task not available ");
+            return -1;
+        }
+        else
+        {
+            if(auditoroutlettask.getStatus() == 0)
+            {
+                outletAuditSummaryImportDTO.setRootCause("Task is finished");
+                return -1;
+            }
+        }
+
+        Set<Long> keys = outletAuditSummaryImportDTO.getPosmMeet().keySet();
+        for(Long outletBrandCode : keys)
+        {
+            try
+            {
+                Outletbrand outletBrand = outletBrandService.findById(outletBrandCode);
+                if(outletBrand == null)
+                {
+                    outletAuditSummaryImportDTO.setRootCause("OutletBrand Code: " + outletBrandCode +" is not valid");
+                    return -1;
+                }
+            }
+            catch(Exception ex)
+            {
+                log.error(ex);
+            }
+        }
+        return 1;
+    }
+
+
+}

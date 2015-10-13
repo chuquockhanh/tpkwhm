@@ -1,0 +1,13 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Storeauditpicture;
+
+/**
+ * <p>Generic DAO layer for Storeauditpictures</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface StoreauditpictureDAO extends GenericDAO<Storeauditpicture,Long> {
+
+}

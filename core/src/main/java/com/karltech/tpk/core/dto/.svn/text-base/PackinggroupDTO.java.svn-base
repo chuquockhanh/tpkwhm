@@ -1,0 +1,80 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Packinggroup;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 11:43 AM
+ */
+public class PackinggroupDTO {
+
+    private Long packingGroupID;
+
+	/**
+	 * Attribute sosbrand
+	 */
+	 private Long sosbrandID;
+
+
+	/**
+	 * Attribute size.
+	 */
+	private Double size;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+    public PackinggroupDTO(Packinggroup p) {
+        setName(p.getName());
+        setPackingGroupID(p.getPackingGroupID());
+        setSize(p.getSize().doubleValue());
+    }
+
+    public PackinggroupDTO() {
+
+    }
+
+    public Long getPackingGroupID() {
+        return packingGroupID;
+    }
+
+    public void setPackingGroupID(Long packingGroupID) {
+        this.packingGroupID = packingGroupID;
+    }
+
+    public Long getSosbrandID() {
+        return sosbrandID;
+    }
+
+    public void setSosbrandID(Long sosbrandID) {
+        this.sosbrandID = sosbrandID;
+    }
+
+    public Double getSize() {
+        return size;
+    }
+
+    public void setSize(Double size) {
+        this.size = size;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setName(o.getString("name"));
+        setPackingGroupID(o.getLong("packingGroupID"));
+        setSize(o.getDouble("size"));
+        setSosbrandID(o.getLong("sosbrandID"));
+    }
+}

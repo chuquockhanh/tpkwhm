@@ -1,0 +1,26 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Fullrangesku;
+import com.banvien.fcv.core.dto.FullRangeSKUBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+
+public interface FullrangeskuService extends GenericService<Fullrangesku,Long> {
+
+    void updateItem(FullRangeSKUBean powerskuBean) throws ObjectNotFoundException, DuplicateException;
+
+    Fullrangesku findByName(String name) throws ObjectNotFoundException;
+
+    void addNew(FullRangeSKUBean powerskuBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(FullRangeSKUBean bean);
+
+    List<Fullrangesku> findAll();
+
+    List<Fullrangesku> findBySubFullRangeBrand(Long subFullRangeBrandID) throws ObjectNotFoundException;
+}

@@ -1,0 +1,131 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Powersku;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:40 PM
+ */
+public class PowerskuDTO {
+    /**
+	 * Attribute powerSKUID.
+	 */
+	private Long powerSKUID;
+
+	/**
+	 * Attribute outletbrand
+	 */
+	 private String outletbrand;
+
+    private String outletBrandCode;
+
+    private Long outletbrandID;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+    public PowerskuDTO(Powersku o) {
+        setName(o.getName());
+        setOutletBrandCode(o.getOutletbrand().getCode());
+        setOutletbrand(o.getOutletbrand().getName());
+        setDisplayOrder(o.getDisplayOrder());
+        setPowerSKUID(o.getPowerSKUID());
+        setOutletbrandID(o.getOutletbrand().getOutletBrandID());
+    }
+
+    public PowerskuDTO() {
+
+    }
+
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return powerSKUID
+	 */
+	public Long getPowerSKUID() {
+		return powerSKUID;
+	}
+
+	/**
+	 * @param powerSKUID new value for powerSKUID
+	 */
+	public void setPowerSKUID(Long powerSKUID) {
+		this.powerSKUID = powerSKUID;
+	}
+
+    public String getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(String outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public String getOutletBrandCode() {
+        return outletBrandCode;
+    }
+
+    public void setOutletBrandCode(String outletBrandCode) {
+        this.outletBrandCode = outletBrandCode;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setName(o.getString("name"));
+        setOutletbrand(o.getString("outletbrand"));
+        setDisplayOrder(o.getInt("displayOrder"));
+        setPowerSKUID(o.getLong("powerSKUID"));
+        setOutletbrandID(o.getLong("outletbrandID"));
+        setOutletBrandCode(o.getString("outletBrandCode"));
+    }
+
+    public Long getOutletbrandID() {
+        return outletbrandID;
+    }
+
+    public void setOutletbrandID(Long outletbrandID) {
+        this.outletbrandID = outletbrandID;
+    }
+}

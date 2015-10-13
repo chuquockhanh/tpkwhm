@@ -1,0 +1,124 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.HashMap;
+
+
+/**
+ * <p>Pojo mapping TABLE District</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class OutletSaleman implements Serializable {
+
+    /**
+	 * Attribute agentID.
+	 */
+	private Long outletSalemanID;
+
+    /**
+	 * Attribute outlet.
+	 */
+	private Outlet outlet;
+
+    /**
+	 * Attribute fromDate.
+	 */
+	private Timestamp fromDate;
+
+    /**
+	 * Attribute toDate.
+	 */
+	private Timestamp toDate;
+
+    /**
+	 * Attribute saleman.
+	 */
+	private Saleman saleman;
+
+    /**
+	 * Attribute status.
+	 */
+	private Integer status;
+
+    /**
+	 * Attribute OutletBrand.
+	 */
+	private Outletbrand outletbrand;
+
+
+    /**
+	 * Attribute hashMapOutletSalemanOutletBrand.
+	 */
+	private HashMap<String,String> hashSalemanOutletBrand;
+
+
+    public Long getOutletSalemanID() {
+        return outletSalemanID;
+    }
+
+    public void setOutletSalemanID(Long outletSalemanID) {
+        this.outletSalemanID = outletSalemanID;
+    }
+
+    public Saleman getSaleman() {
+        return saleman;
+    }
+
+    public void setSaleman(Saleman saleman) {
+        this.saleman = saleman;
+    }
+
+    public Outlet getOutlet() {
+        return outlet;
+    }
+
+    public void setOutlet(Outlet outlet) {
+        this.outlet = outlet;
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public Outletbrand getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Outletbrand outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public HashMap<String, String> getHashSalemanOutletBrand() {
+        return hashSalemanOutletBrand;
+    }
+
+    public void setHashSalemanOutletBrand(HashMap<String, String> hashSalemanOutletBrand) {
+        this.hashSalemanOutletBrand = hashSalemanOutletBrand;
+    }
+
+}

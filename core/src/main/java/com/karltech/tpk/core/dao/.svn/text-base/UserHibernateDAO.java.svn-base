@@ -1,0 +1,42 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.User;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Users</p>
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class UserHibernateDAO extends
+		AbstractHibernateDAO<User, Long> implements
+		UserDAO {
+
+    public UserHibernateDAO() {
+		super(User.class);
+	}
+
+    @Override
+    public User findByUsername(final String username) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<User>() {
+                public User doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM User u WHERE u.userName = ?");
+                    query.setParameter(0, username);
+                    return (User) query.uniqueResult();
+                }
+            });
+    }
+}

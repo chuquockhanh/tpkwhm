@@ -1,0 +1,85 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.domain.Productgroup;
+import com.banvien.fcv.core.dto.ProductGroupBean;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.ProductgroupService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit productgroup form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class ProductgroupValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(ProductgroupValidator.class);
+
+    public boolean supports(Class<?> aClass) {
+        return ProductGroupBean.class.isAssignableFrom(aClass);
+    }
+
+    private ProductgroupService productgroupService;
+
+    @Autowired
+    public void setProductgroupService(ProductgroupService productgroupService) {
+        this.productgroupService = productgroupService;
+    }
+
+
+
+
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        ProductGroupBean cmd = (ProductGroupBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+        validateDuplicate(cmd, errors);
+    }
+
+    private void validateRequiredValues(ProductGroupBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.code", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.productgroup.form.code")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.productgroup.form.name")}, "non-empty value required.");
+    }
+
+    private void trimingField(ProductGroupBean cmd) {
+        if(StringUtils.isNotEmpty(cmd.getPojo().getCode())) {
+    		cmd.getPojo().setCode(cmd.getPojo().getCode().trim());
+    	}
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+
+    }
+    
+    private void validateDuplicate(ProductGroupBean cmd, Errors errors) {
+    	//SapCode
+    	if(StringUtils.isNotBlank(cmd.getPojo().getCode())) {
+    		try {
+    			Productgroup productgroup = this.productgroupService.findByCode(cmd.getPojo().getCode());
+                if(productgroup != null) {
+                    if(cmd.getPojo().getProductGroupID() != null &&
+                            !productgroup.getProductGroupID().equals(cmd.getPojo().getProductGroupID()))
+                    errors.rejectValue("pojo.code", "error.duplicated", new String[] {this.getMessageSourceAccessor().getMessage("support.productgroup.form.code")}, "Value has been chosen.");
+                }
+    		} catch (ObjectNotFoundException ex) {
+    			// true
+    		}
+    	}
+
+    }
+
+
+
+
+}

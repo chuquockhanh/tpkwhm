@@ -1,0 +1,107 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.AgentDAO;
+import com.banvien.fcv.core.dao.AgentRegionDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OarMiniValuePosmDAO;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.AgentBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class AgentServiceImpl extends GenericServiceImpl<Agent,Long>
+                                                    implements AgentService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private AgentDAO agentDAO;
+
+    private AgentRegionDAO agentRegionDAO;
+
+    public void setAgentDAO(AgentDAO agentDAO) {
+        this.agentDAO = agentDAO;
+    }
+
+    public AgentRegionDAO getAgentRegionDAO() {
+        return agentRegionDAO;
+    }
+
+    public void setAgentRegionDAO(AgentRegionDAO agentRegionDAO) {
+        this.agentRegionDAO = agentRegionDAO;
+    }
+
+    @Override
+	protected GenericDAO<Agent, Long> getGenericDAO() {
+		return agentDAO;
+	}
+
+    @Override
+    public void updateItem(AgentBean agentBean) throws ObjectNotFoundException, DuplicateException {
+        Agent dbItem = this.agentDAO.findByIdNoAutoCommit(agentBean.getPojo().getAgentID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + agentBean.getPojo().getAgentID());
+
+        Long[] regions = agentBean.getRegions();
+        Agent pojo = agentBean.getPojo();
+
+        this.agentDAO.detach(dbItem);
+        this.agentDAO.update(pojo);
+
+        agentRegionDAO.deleteByAgent(pojo.getAgentID());
+        for (Long regionID : regions) {
+            AgentRegion agentRegion = new AgentRegion();
+            agentRegion.setAgent(pojo);
+            Region region = new Region();
+            region.setRegionID(regionID);
+            agentRegion.setRegion(region);
+            agentRegionDAO.save(agentRegion);
+        }
+
+    }
+
+    @Override
+    public void addNew(AgentBean agentBean) throws DuplicateException {
+        Agent pojo = agentBean.getPojo();
+        Long[] regions = agentBean.getRegions();
+        pojo = this.agentDAO.save(pojo);
+        agentBean.setPojo(pojo);
+
+        for (Long regionID : regions) {
+            AgentRegion agentRegion = new AgentRegion();
+            agentRegion.setAgent(pojo);
+            Region region = new Region();
+            region.setRegionID(regionID);
+            agentRegion.setRegion(region);
+            agentRegionDAO.save(agentRegion);
+        }
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                agentDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(AgentBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Agent.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.agentDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+}

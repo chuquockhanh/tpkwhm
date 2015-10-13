@@ -1,0 +1,23 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+
+import com.banvien.fcv.core.domain.Store;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+/**
+ * <p>Generic DAO layer for Stores</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface StoreDAO extends GenericDAO<Store,Long> {
+
+    List<Store> findAssignedItemsByAuditAndAuditor(Long auditScheduleID, Long auditorID);
+
+    Store findByStoreNoAndAccount(String storeNo, String account);
+
+    List<Store> getStoresByAuditorCode(String auditorCode) throws ObjectNotFoundException;
+    
+    public List<Store> findAssignedItemsByAuditIDRegionIDAddressAndNotAssigned(final Long auditScheduleID, final Long notAssignedAuditScheduleID, Long regionID, String address);
+}

@@ -1,0 +1,60 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+public class AuditorTaskDTO implements Serializable{
+	private Long auditorID;
+	private String auditorCode;
+	private String auditorName;
+	private Long outletAssigned;
+	private Long outletComleted;
+	private Long storeAssigned;
+	private Long storeComleted;
+	
+	public String getAuditorCode() {
+		return auditorCode;
+	}
+	public void setAuditorCode(String auditorCode) {
+		this.auditorCode = auditorCode;
+	}
+	public String getAuditorName() {
+		return auditorName;
+	}
+	public void setAuditorName(String auditorName) {
+		this.auditorName = auditorName;
+	}
+	public Long getOutletAssigned() {
+		return outletAssigned;
+	}
+	public void setOutletAssigned(Long outletAssigned) {
+		this.outletAssigned = outletAssigned;
+	}
+	
+	public Long getOutletComleted() {
+		return outletComleted;
+	}
+	public void setOutletComleted(Long outletComleted) {
+		this.outletComleted = outletComleted;
+	}
+	public Long getStoreAssigned() {
+		return storeAssigned;
+	}
+	public void setStoreAssigned(Long storeAssigned) {
+		this.storeAssigned = storeAssigned;
+	}
+	
+	public Long getStoreComleted() {
+		return storeComleted;
+	}
+	public void setStoreComleted(Long storeComleted) {
+		this.storeComleted = storeComleted;
+	}
+	public Long getAuditorID() {
+		return auditorID;
+	}
+	public void setAuditorID(Long auditorID) {
+		this.auditorID = auditorID;
+	}
+	
+	
+}

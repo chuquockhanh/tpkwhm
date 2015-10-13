@@ -1,0 +1,93 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE SARRegisterProduct</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Sarregisterproduct implements Serializable {
+
+	/**
+	 * Attribute sarRegisterProductID.
+	 */
+	private Long sarRegisterProductID;
+	
+	/**
+	 * Attribute storeauditresult
+	 */
+	 private Storeauditresult storeauditresult;	
+
+	/**
+	 * Attribute product
+	 */
+	 private Product product;	
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+
+    public Long getSarRegisterProductID() {
+        return sarRegisterProductID;
+    }
+
+    public void setSarRegisterProductID(Long sarRegisterProductID) {
+        this.sarRegisterProductID = sarRegisterProductID;
+    }
+
+    /**
+	 * get storeauditresult
+	 */
+	public Storeauditresult getStoreauditresult() {
+		return this.storeauditresult;
+	}
+	
+	/**
+	 * set storeauditresult
+	 */
+	public void setStoreauditresult(Storeauditresult storeauditresult) {
+		this.storeauditresult = storeauditresult;
+	}
+
+	/**
+	 * get product
+	 */
+	public Product getProduct() {
+		return this.product;
+	}
+	
+	/**
+	 * set product
+	 */
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return has
+	 */
+	public Byte getHas() {
+		return has;
+	}
+
+	/**
+	 * @param has new value for has 
+	 */
+	public void setHas(Byte has) {
+		this.has = has;
+	}
+	
+
+
+}

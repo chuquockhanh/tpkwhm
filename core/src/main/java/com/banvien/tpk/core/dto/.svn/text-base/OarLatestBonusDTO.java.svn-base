@@ -1,0 +1,33 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class OarLatestBonusDTO implements Serializable{
+	private Long outletbrandID;
+	private String dateBonus;
+	
+	
+	public Long getOutletbrandID() {
+		return outletbrandID;
+	}
+	public void setOutletbrandID(Long outletbrandID) {
+		this.outletbrandID = outletbrandID;
+	}
+	public String getDateBonus() {
+		return dateBonus;
+	}
+	public void setDateBonus(String dateBonus) {
+		this.dateBonus = dateBonus;
+	}
+	
+	public void unserializeJSON(JSONObject o) throws JSONException {
+		try{
+			setDateBonus(o.getString("datebonus"));
+		}catch (JSONException e) {
+		}
+        setOutletbrandID(o.getLong("outletbrand"));
+    }
+}

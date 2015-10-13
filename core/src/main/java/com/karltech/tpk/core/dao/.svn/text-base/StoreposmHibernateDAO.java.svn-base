@@ -1,0 +1,28 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Storeposm;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Storeposms</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class StoreposmHibernateDAO extends
+		AbstractHibernateDAO<Storeposm, Long> implements
+		StoreposmDAO {
+
+    public StoreposmHibernateDAO() {
+		super(Storeposm.class);
+	}
+
+    @Override
+    public List<Storeposm> findAllActive() {
+        return getHibernateTemplate().find("select s from Storeposm s inner join fetch s.brandgroup where active=1");
+    }
+}

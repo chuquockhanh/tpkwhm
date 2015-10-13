@@ -1,0 +1,43 @@
+package  com.banvien.fcv.core.service;
+import com.banvien.fcv.core.BaseTestCase;
+import com.banvien.fcv.core.dto.OutletInfoList;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+public class OutletServiceTest extends BaseTestCase {
+	@Autowired
+	private OutletService outletService;
+
+
+    @Test
+	public void testGetOutletInfoListByAuditorCode() {
+        OutletInfoList outletInfoList = null;
+        try {
+            outletInfoList = outletService.getOutletInfoListByAuditorCode("0002", 0, 10);
+        } catch (ObjectNotFoundException e) {
+            fail();
+        }
+        try {
+            OutletInfoList outletInfoList2 = new OutletInfoList();
+            System.out.println("outletInfoList:"+outletInfoList.serializeJSON());
+            JSONObject t = new JSONObject(outletInfoList.serializeJSON().toString());
+            outletInfoList2.unserializeJSON(t);
+            System.out.println("outletInfoList2:"+outletInfoList2.serializeJSON());
+        } catch (JSONException e) {
+            fail();
+            e.printStackTrace();
+        }
+    }
+
+    public OutletService getOutletService() {
+        return outletService;
+    }
+
+    public void setOutletService(OutletService outletService) {
+        this.outletService = outletService;
+    }
+}

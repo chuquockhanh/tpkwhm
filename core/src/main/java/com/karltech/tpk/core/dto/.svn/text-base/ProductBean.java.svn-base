@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Product;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/17/12
+ * Time: 3:10 PM
+ */
+public class ProductBean extends AbstractBean<Product> {
+    public ProductBean() {
+        this.pojo = new Product();
+    }
+}

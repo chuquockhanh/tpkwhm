@@ -1,0 +1,171 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE Store</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Store implements Serializable {
+    public static final String FIELD_CODE = "code";
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_ADDRESS = "address";
+
+
+	/**
+	 * Attribute storeID.
+	 */
+	private Long storeID;
+	
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute address.
+	 */
+	private String address;
+	
+	/**
+	 * Attribute region
+	 */
+	 private Region region;	
+
+	/**
+	 * Attribute account
+	 */
+	 private Account account;	
+
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Float gpsLatitude;
+	
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Float gpsLongtitude;
+
+
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return storeID
+	 */
+	public Long getStoreID() {
+		return storeID;
+	}
+
+	/**
+	 * @param storeID new value for storeID 
+	 */
+	public void setStoreID(Long storeID) {
+		this.storeID = storeID;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code 
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address new value for address 
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	/**
+	 * get region
+	 */
+	public Region getRegion() {
+		return this.region;
+	}
+	
+	/**
+	 * set region
+	 */
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	/**
+	 * get account
+	 */
+	public Account getAccount() {
+		return this.account;
+	}
+	
+	/**
+	 * set account
+	 */
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+    public Float getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Float gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Float getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Float gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+}

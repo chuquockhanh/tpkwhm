@@ -1,0 +1,31 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+/**
+ * <p>Generic DAO layer for Outlets</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface OutletDAO extends GenericDAO<Outlet,Long> {
+
+	public Object[] getOutletListByAuditorCode(final String auditorCode, final Integer firstItem, final Integer maxItems) throws ObjectNotFoundException;
+
+    Outlet findByDmsCodeAndDistributor(String dmsCode, Long distributorID);
+
+    List<Outlet> findAssignedItemsByAuditAndAuditor(Long auditScheduleID, Long auditorID);
+
+    Outlet findBySapCodeAndDmsCode(String sapCode, String dmsCode);
+    
+    public List<Outlet> findAssignedItemsByAuditIDRegionIDDistrictIDWardIDAddressAndNotAssigned(final Long auditScheduleID, final Long notAssignedAuditScheduleID, final Long regionID, final Long districtID, final Long wardID, final String address);
+    
+    public List<Outlet> findAssignedItemsByRegionIDDistrictIDWardIDAddressOutletIDsAndNotAssigned(final Long notAssignedAuditScheduleID, final List<Long> outletIDs, final Long regionID, final Long districtID, final Long wardID, final String address);
+
+    public Outlet findBySapCodeAndDmsCodeAndName(final String sapCode, final String dmsCode, final String name);
+
+    List<Outlet> findListBySapCodeAndDmsCode(String sapCode, String dmsCode);
+}

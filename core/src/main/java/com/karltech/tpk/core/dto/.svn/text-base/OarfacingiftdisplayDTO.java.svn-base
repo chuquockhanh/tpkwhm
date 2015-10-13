@@ -1,0 +1,54 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:25 AM
+ */
+public class OarfacingiftdisplayDTO {
+
+    private Long outletbrand;
+
+	/**
+	 * Attribute iftdisplaylocation
+	 */
+	 private Long iftdisplaylocation;
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+	
+    public Long getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Long outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Long getIftdisplaylocation() {
+        return iftdisplaylocation;
+    }
+
+    public void setIftdisplaylocation(Long iftdisplaylocation) {
+        this.iftdisplaylocation = iftdisplaylocation;
+    }
+
+    public Byte getHas() {
+        return has;
+    }
+
+    public void setHas(Byte has) {
+        this.has = has;
+    }
+    
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setHas(Byte.valueOf(o.getString("has")));
+        setIftdisplaylocation(o.getLong("iftdisplaylocation"));
+        setOutletbrand(o.getLong("outletbrand"));
+    }
+}

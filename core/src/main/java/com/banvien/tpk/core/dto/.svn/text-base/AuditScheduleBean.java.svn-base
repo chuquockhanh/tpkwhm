@@ -1,0 +1,160 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Auditschedule;
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.Store;
+
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 9:39 PM
+ */
+public class AuditScheduleBean extends AbstractBean<Auditschedule> {
+    public static final String SEARCH_STORE = "S";
+    public static final String SEARCH_OUTLET = "O";
+
+    private Timestamp fromDate;
+
+    private Timestamp toDate;
+
+    private String searchType;
+
+    private Long auditorID;
+
+    private Long regionID;
+
+    private Long districtID;
+
+    private Long wardID;
+
+    private String address;
+
+    private Long[] assignedItems;
+
+    private List<Store> assignedStores;
+
+    private List<Outlet> assignedOutlets;
+    
+    private Boolean isReAudit = false;
+
+    private Long createdBy;
+
+    public AuditScheduleBean() {
+        this.pojo = new Auditschedule();
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
+    }
+
+    public Long getAuditorID() {
+        return auditorID;
+    }
+
+    public void setAuditorID(Long auditorID) {
+        this.auditorID = auditorID;
+    }
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Long[] getAssignedItems() {
+        return assignedItems;
+    }
+
+    public void setAssignedItems(Long[] assignedItems) {
+        this.assignedItems = assignedItems;
+    }
+
+    public List<Store> getAssignedStores() {
+        if (assignedStores == null) {
+            assignedStores = new ArrayList<Store>();
+        }
+        return assignedStores;
+    }
+
+    public void setAssignedStores(List<Store> assignedStores) {
+        this.assignedStores = assignedStores;
+    }
+
+    public List<Outlet> getAssignedOutlets() {
+        if (assignedOutlets == null) {
+            assignedOutlets = new ArrayList<Outlet>();
+        }
+        return assignedOutlets;
+    }
+
+    public void setAssignedOutlets(List<Outlet> assignedOutlets) {
+        this.assignedOutlets = assignedOutlets;
+    }
+
+    public Long getDistrictID() {
+        return districtID;
+    }
+
+    public void setDistrictID(Long districtID) {
+        this.districtID = districtID;
+    }
+
+    public Long getWardID() {
+        return wardID;
+    }
+
+    public void setWardID(Long wardID) {
+        this.wardID = wardID;
+    }
+
+	public Boolean getIsReAudit() {
+		return isReAudit;
+	}
+
+	public void setIsReAudit(Boolean isReAudit) {
+		this.isReAudit = isReAudit;
+	}
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+}

@@ -1,0 +1,41 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 9/16/12
+ * Time: 10:06 PM
+ */
+public class Userregion implements Serializable {
+    private Long userRegionID;
+
+    private User user;
+
+    private Region region;
+
+    public Long getUserRegionID() {
+        return userRegionID;
+    }
+
+    public void setUserRegionID(Long userRegionID) {
+        this.userRegionID = userRegionID;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+}

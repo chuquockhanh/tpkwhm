@@ -1,0 +1,11 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storesosmaster;
+
+import java.util.List;
+
+
+public interface StoresosmasterService extends GenericService<Storesosmaster,Long> {
+
+    List<Storesosmaster> findByStoreID(Long storeID);
+}

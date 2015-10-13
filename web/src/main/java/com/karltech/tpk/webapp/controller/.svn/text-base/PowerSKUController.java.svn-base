@@ -1,0 +1,136 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Outletbrand;
+import com.banvien.fcv.core.domain.Powersku;
+import com.banvien.fcv.core.dto.PowerSKUBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.OutletbrandService;
+import com.banvien.fcv.core.service.PowerskuService;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.editor.PojoEditor;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.PowerskuValidator;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:59 AM
+ */
+@Controller
+public class PowerSKUController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    @Autowired
+    private PowerskuService powerskuService;
+
+    @Autowired
+    private OutletbrandService outletbrandService;
+
+    @Autowired
+    private PowerskuValidator powerskuValidator;
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+        binder.registerCustomEditor(Outletbrand.class, new PojoEditor(Outletbrand.class, "outletBrandID", Long.class));
+	}
+    
+    @RequestMapping("/support/powersku/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) PowerSKUBean powerskuBean, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("/support/powersku/edit");
+
+		String crudaction = powerskuBean.getCrudaction();
+		Powersku pojo = powerskuBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				powerskuValidator.validate(powerskuBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getPowerSKUID() != null && pojo.getPowerSKUID() > 0) {
+						this.powerskuService.updateItem(powerskuBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.powerskuService.addNew(powerskuBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& powerskuBean.getPojo().getPowerSKUID() != null && powerskuBean.getPojo().getPowerSKUID() > 0) {
+			try {
+				Powersku itemObj = this.powerskuService.findById(pojo.getPowerSKUID());
+				powerskuBean.setPojo(itemObj);
+			}
+			catch (Exception e) {
+				logger.error("Could not found news " + powerskuBean.getPojo().getPowerSKUID(), e);
+			}
+		}
+
+		mav.addObject(Constants.FORM_MODEL_KEY, powerskuBean);
+        referenceData(mav);
+		return mav;
+	}
+
+    private void referenceData(ModelAndView mav) {
+        mav.addObject("outletBrands", outletbrandService.findAll());
+    }
+
+
+    @RequestMapping(value={"/support/powersku/list.html"})
+    public ModelAndView list(PowerSKUBean bean, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/support/powersku/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = powerskuService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+        executeSearch(bean, request);
+        referenceData(mav);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        return mav;
+    }
+
+    private void executeSearch(PowerSKUBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.powerskuService.search(bean);
+        bean.setListResult((List<Powersku>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+}

@@ -1,0 +1,145 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE FullRangeSKU</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Fullrangesku implements Serializable {
+
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_DISPLAY_ORDER = "displayOrder";
+
+	/**
+	 * Attribute fullRangeSKUID.
+	 */
+	private Long fullRangeSKUID;
+	
+	/**
+	 * Attribute outletbrand
+	 */
+	 private Outletbrand outletbrand;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+    /**
+   	 * Attribute ratio.
+   	 */
+   	private Integer ratio;
+
+    private Powersku powersku;
+
+    private SubFullRangeBrand subFullRangeBrand;
+
+    private Integer mensural;
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return fullRangeSKUID
+	 */
+	public Long getFullRangeSKUID() {
+		return fullRangeSKUID;
+	}
+
+	/**
+	 * @param fullRangeSKUID new value for fullRangeSKUID 
+	 */
+	public void setFullRangeSKUID(Long fullRangeSKUID) {
+		this.fullRangeSKUID = fullRangeSKUID;
+	}
+	
+	/**
+	 * get outletbrand
+	 */
+	public Outletbrand getOutletbrand() {
+		return this.outletbrand;
+	}
+	
+	/**
+	 * set outletbrand
+	 */
+	public void setOutletbrand(Outletbrand outletbrand) {
+		this.outletbrand = outletbrand;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder 
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+	
+    public Integer getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(Integer ratio) {
+        this.ratio = ratio;
+    }
+
+    public Powersku getPowersku() {
+        return powersku;
+    }
+
+    public void setPowersku(Powersku powersku) {
+        this.powersku = powersku;
+    }
+
+
+    public SubFullRangeBrand getSubFullRangeBrand() {
+        return subFullRangeBrand;
+    }
+
+    public void setSubFullRangeBrand(SubFullRangeBrand subFullRangeBrand) {
+        this.subFullRangeBrand = subFullRangeBrand;
+    }
+
+    public Integer getMensural() {
+        return mensural;
+    }
+
+    public void setMensural(Integer mensural) {
+        this.mensural = mensural;
+    }
+}

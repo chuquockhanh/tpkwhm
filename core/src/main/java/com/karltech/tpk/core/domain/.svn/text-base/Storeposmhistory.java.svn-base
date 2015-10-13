@@ -1,0 +1,124 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE StorePOSMHistory</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storeposmhistory implements Serializable {
+
+	/**
+	 * Attribute storePOSMHistory.
+	 */
+	private Long storePOSMHistory;
+	
+	/**
+	 * Attribute storeposm
+	 */
+	 private Storeposm storeposm;	
+
+	/**
+	 * Attribute active.
+	 */
+	private Byte active;
+	
+	/**
+	 * Attribute effectiveDate.
+	 */
+	private Timestamp effectiveDate;
+	
+	/**
+	 * Attribute expiredDate.
+	 */
+	private Timestamp expiredDate;
+	
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storePOSMHistory
+	 */
+	public Long getStorePOSMHistory() {
+		return storePOSMHistory;
+	}
+
+	/**
+	 * @param storePOSMHistory new value for storePOSMHistory 
+	 */
+	public void setStorePOSMHistory(Long storePOSMHistory) {
+		this.storePOSMHistory = storePOSMHistory;
+	}
+	
+	/**
+	 * get storeposm
+	 */
+	public Storeposm getStoreposm() {
+		return this.storeposm;
+	}
+	
+	/**
+	 * set storeposm
+	 */
+	public void setStoreposm(Storeposm storeposm) {
+		this.storeposm = storeposm;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return active
+	 */
+	public Byte getActive() {
+		return active;
+	}
+
+	/**
+	 * @param active new value for active 
+	 */
+	public void setActive(Byte active) {
+		this.active = active;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return effectiveDate
+	 */
+	public Timestamp getEffectiveDate() {
+		return effectiveDate;
+	}
+
+	/**
+	 * @param effectiveDate new value for effectiveDate 
+	 */
+	public void setEffectiveDate(Timestamp effectiveDate) {
+		this.effectiveDate = effectiveDate;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return expiredDate
+	 */
+	public Timestamp getExpiredDate() {
+		return expiredDate;
+	}
+
+	/**
+	 * @param expiredDate new value for expiredDate 
+	 */
+	public void setExpiredDate(Timestamp expiredDate) {
+		this.expiredDate = expiredDate;
+	}
+	
+
+
+}

@@ -1,0 +1,79 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.SosbrandDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Sosbrand;
+import com.banvien.fcv.core.domain.Sosbrand;
+import com.banvien.fcv.core.dto.SosbrandBean;
+import com.banvien.fcv.core.dto.SosbrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SosbrandServiceImpl extends GenericServiceImpl<Sosbrand,Long> 
+                                                    implements SosbrandService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private SosbrandDAO sosbrandDAO;
+
+    public void setSosbrandDAO(SosbrandDAO sosbrandDAO) {
+        this.sosbrandDAO = sosbrandDAO;
+    }
+
+    @Override
+	protected GenericDAO<Sosbrand, Long> getGenericDAO() {
+		return sosbrandDAO;
+	}
+
+    @Override
+    public void updateItem(SosbrandBean sosbrandBean) throws ObjectNotFoundException, DuplicateException {
+        Sosbrand dbItem = this.sosbrandDAO.findByIdNoAutoCommit(sosbrandBean.getPojo().getSosBrandID());
+        if (dbItem == null) throw new com.banvien.fcv.core.exception.ObjectNotFoundException("Not found sosbrand " + sosbrandBean.getPojo().getSosBrandID());
+
+        Sosbrand pojo = sosbrandBean.getPojo();
+
+        this.sosbrandDAO.detach(dbItem);
+        this.sosbrandDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(SosbrandBean
+        sosbrandBean) throws DuplicateException {
+        Sosbrand pojo = sosbrandBean.getPojo();
+        pojo = this.sosbrandDAO.save(pojo);
+        sosbrandBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                sosbrandDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(SosbrandBean
+        bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Sosbrand.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getBrandgroup() != null && bean.getPojo().getBrandgroup().getBrandGroupID() != null && bean.getPojo().getBrandgroup().getBrandGroupID()> 0) {
+            properties.put("brandgroup.brandGroupID", bean.getPojo().getBrandgroup().getBrandGroupID());
+        }
+
+        return this.sosbrandDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+}

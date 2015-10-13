@@ -1,0 +1,102 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.ProductbrandDAO;
+import com.banvien.fcv.core.domain.Productbrand;
+import com.banvien.fcv.core.dto.BrandGroupImportDTO;
+import com.banvien.fcv.core.dto.BrandImportDTO;
+import com.banvien.fcv.core.dto.ProductBrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ProductbrandServiceImpl extends GenericServiceImpl<Productbrand,Long>
+                                                    implements ProductbrandService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private ProductbrandDAO productbrandDAO;
+
+    public void setProductbrandDAO(ProductbrandDAO productbrandDAO) {
+        this.productbrandDAO = productbrandDAO;
+    }
+
+    @Override
+	protected GenericDAO<Productbrand, Long> getGenericDAO() {
+		return productbrandDAO;
+	}
+
+    @Override
+    public void updateItem(ProductBrandBean productbrandBean) throws ObjectNotFoundException, DuplicateException {
+        Productbrand dbItem = this.productbrandDAO.findByIdNoAutoCommit(productbrandBean.getPojo().getProductBrandID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found productbrand " + productbrandBean.getPojo().getProductBrandID());
+
+        Productbrand pojo = productbrandBean.getPojo();
+
+        this.productbrandDAO.detach(dbItem);
+        this.productbrandDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(ProductBrandBean productbrandBean) throws DuplicateException {
+        Productbrand pojo = productbrandBean.getPojo();
+        pojo = this.productbrandDAO.save(pojo);
+        productbrandBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                productbrandDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(ProductBrandBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Productbrand.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getBrandgroup() != null && bean.getPojo().getBrandgroup().getBrandGroupID() != null && bean.getPojo().getBrandgroup().getBrandGroupID() > 0) {
+            properties.put("brandgroup.brandGroupID", bean.getPojo().getBrandgroup().getBrandGroupID());
+        }
+
+        return this.productbrandDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public Productbrand findByName(String name) throws ObjectNotFoundException {
+        Productbrand res = this.productbrandDAO.findEqualUnique(Productbrand.FIELD_NAME, name);
+        if (res == null) throw  new ObjectNotFoundException("Not found productbrand with name " + name);
+        return res;
+    }
+
+    @Override
+    public Map<String, Productbrand> importProductBrand(List<BrandImportDTO> brandImportDTOs) {
+        Map<String, Productbrand> res = new HashMap<String, Productbrand>();
+        for (BrandImportDTO brandImportDTO : brandImportDTOs) {
+            Productbrand productbrand = this.productbrandDAO.findEqualUnique(Productbrand.FIELD_NAME, brandImportDTO.getBrand());
+            if (productbrand == null) {
+                productbrand = new Productbrand();
+                productbrand.setName(brandImportDTO.getBrand());
+                productbrand.setBrandgroup(brandImportDTO.getBrandgroup());
+                this.productbrandDAO.save(productbrand);
+            }
+            res.put(brandImportDTO.getBrand(), productbrand);
+        }
+        return res;
+    }
+}

@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/sql
+END
+StoreProc_DeleteScript_2.sql
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dcs/!svn/ver/1030/trunk/outlet-audit/sql/StoreProc_DeleteScript_2.sql
+END
+StoreProc_DeleteScript_3.sql
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dcs/!svn/ver/1030/trunk/outlet-audit/sql/StoreProc_DeleteScript_3.sql
+END
+StoreProc_DeleteScript1.sql
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/dcs/!svn/ver/1030/trunk/outlet-audit/sql/StoreProc_DeleteScript1.sql
+END
+alter_bug_fix_10_04_2013.sql
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/sql/alter_bug_fix_10_04_2013.sql
+END
+script_for_DBB.sql
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/sql/script_for_DBB.sql
+END
+FCVAuditData.sql
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dcs/!svn/ver/866/trunk/outlet-audit/sql/FCVAuditData.sql
+END
+alter_bug_fix_2013.sql
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/sql/alter_bug_fix_2013.sql
+END

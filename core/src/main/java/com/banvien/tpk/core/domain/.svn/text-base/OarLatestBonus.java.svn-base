@@ -1,0 +1,87 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE Account</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class OarLatestBonus implements Serializable {
+    public static final String FIELD_OUTLETAUDITRESUTL = "outletauditresult.outletAuditResultID";
+
+    public static final String FIELD_OUTLETBRAND = "outletBrand.outletBrandID";
+
+    /**
+	 * Attribute oarLastedBonusID.
+	 */
+	private Long oarLatestBonusID;
+	
+	/**
+	 * Attribute outletauditresult.
+	 */
+	private Outletauditresult outletauditresult;
+
+    /**
+   	 * Attribute outletBrand.
+   	 */
+   	private Outletbrand outletBrand;
+
+    /**
+   	 * Attribute Correct.
+   	 */
+   	private Integer correct;
+
+    /**
+   	 * Attribute EffectiveDate.
+   	 */
+   	private Timestamp effectiveDate;
+
+    public Long getOarLatestBonusID() {
+        return oarLatestBonusID;
+    }
+
+    public void setOarLatestBonusID(Long oarLatestBonusID) {
+        this.oarLatestBonusID = oarLatestBonusID;
+    }
+
+    public Outletauditresult getOutletauditresult() {
+        return outletauditresult;
+    }
+
+    public void setOutletauditresult(Outletauditresult outletauditresult) {
+        this.outletauditresult = outletauditresult;
+    }
+
+    public Integer getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Integer correct) {
+        this.correct = correct;
+    }
+
+    public Timestamp getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Timestamp effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+
+    public Outletbrand getOutletBrand() {
+        return outletBrand;
+    }
+
+    public void setOutletBrand(Outletbrand outletBrand) {
+        this.outletBrand = outletBrand;
+    }
+
+
+}

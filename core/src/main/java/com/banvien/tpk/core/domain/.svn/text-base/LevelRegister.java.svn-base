@@ -1,0 +1,82 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE District</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class LevelRegister implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+    /**
+	 * Attribute agentID.
+	 */
+	private Long levelID;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+    /**
+   	 * Attribute register.
+   	 */
+   	private Integer register;
+
+    /**
+   	 * Attribute minimumValue.
+   	 */
+   	private Integer minimumValue;
+
+    /**
+   	 * Attribute completeMinimumValue.
+   	 */
+   	private Integer completeMinimumValue;
+
+    public Long getLevelID() {
+        return levelID;
+    }
+
+    public void setLevelID(Long levelID) {
+        this.levelID = levelID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRegister() {
+        return register;
+    }
+
+    public void setRegister(Integer register) {
+        this.register = register;
+    }
+
+    public Integer getMinimumValue() {
+        return minimumValue;
+    }
+
+    public void setMinimumValue(Integer minimumValue) {
+        this.minimumValue = minimumValue;
+    }
+
+    public Integer getCompleteMinimumValue() {
+        return completeMinimumValue;
+    }
+
+    public void setCompleteMinimumValue(Integer completeMinimumValue) {
+        this.completeMinimumValue = completeMinimumValue;
+    }
+
+}

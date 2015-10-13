@@ -1,0 +1,80 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE PromotionProductToHandheld</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Promotionproducttohandheld implements Serializable {
+
+	/**
+	 * Attribute promotionProductToHandheldID.
+	 */
+	private Integer promotionProductToHandheldID;
+	
+	/**
+	 * Attribute promotion
+	 */
+	 private Promotion promotion;	
+
+	/**
+	 * Attribute promotionproduct
+	 */
+	 private Promotionproduct promotionproduct;	
+
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return promotionProductToHandheldID
+	 */
+	public Integer getPromotionProductToHandheldID() {
+		return promotionProductToHandheldID;
+	}
+
+	/**
+	 * @param promotionProductToHandheldID new value for promotionProductToHandheldID 
+	 */
+	public void setPromotionProductToHandheldID(Integer promotionProductToHandheldID) {
+		this.promotionProductToHandheldID = promotionProductToHandheldID;
+	}
+	
+	/**
+	 * get promotion
+	 */
+	public Promotion getPromotion() {
+		return this.promotion;
+	}
+	
+	/**
+	 * set promotion
+	 */
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+
+	/**
+	 * get promotionproduct
+	 */
+	public Promotionproduct getPromotionproduct() {
+		return this.promotionproduct;
+	}
+	
+	/**
+	 * set promotionproduct
+	 */
+	public void setPromotionproduct(Promotionproduct promotionproduct) {
+		this.promotionproduct = promotionproduct;
+	}
+
+
+
+}

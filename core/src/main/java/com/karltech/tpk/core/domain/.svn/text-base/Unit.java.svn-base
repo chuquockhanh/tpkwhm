@@ -1,0 +1,65 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE Unit</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Unit implements Serializable {
+
+	public static final String FIELD_UNIT = "unit";
+	
+	/**
+	 * Attribute unitID.
+	 */
+	private Long unitID;
+	
+	/**
+	 * Attribute unit.
+	 */
+	private String unit;
+	
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return unitID
+	 */
+	public Long getUnitID() {
+		return unitID;
+	}
+
+	/**
+	 * @param unitID new value for unitID 
+	 */
+	public void setUnitID(Long unitID) {
+		this.unitID = unitID;
+	}
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return unit
+	 */
+	public String getUnit() {
+		return unit;
+	}
+
+	/**
+	 * @param unit new value for unit 
+	 */
+	public void setUnit(String unit) {
+		this.unit = unit;
+	}
+	
+
+
+}

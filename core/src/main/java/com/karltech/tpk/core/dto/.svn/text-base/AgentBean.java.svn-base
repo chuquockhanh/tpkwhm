@@ -1,0 +1,29 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Agent;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 3:03 PM
+ */
+public class AgentBean extends AbstractBean<Agent> {
+    public AgentBean() {
+        this.pojo = new Agent();
+    }
+
+
+    /**
+   	 * Attribute regions.
+   	 */
+    private Long[] regions;
+
+    public Long[] getRegions() {
+        return regions;
+    }
+
+    public void setRegions(Long[] regions) {
+        this.regions = regions;
+    }
+}

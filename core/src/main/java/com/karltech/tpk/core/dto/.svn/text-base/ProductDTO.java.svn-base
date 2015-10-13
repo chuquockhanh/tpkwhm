@@ -1,0 +1,95 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Product;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/16/12
+ * Time: 11:18 AM
+ */
+public class ProductDTO {
+    /**
+	 * Attribute productID.
+	 */
+	private Long productID;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute size.
+	 */
+	private String size;
+
+	/**
+	 * Attribute productgroup
+	 */
+	private String productgroup;
+
+	/**
+	 * Attribute brand.
+	 */
+	private String brand;
+
+    public ProductDTO(Product o) {
+        setBrand(o.getProductbrand().getName());
+        setName(o.getName());
+        setProductID(o.getProductID());
+    }
+
+    public ProductDTO() {
+
+    }
+
+    public Long getProductID() {
+        return productID;
+    }
+
+    public void setProductID(Long productID) {
+        this.productID = productID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getProductgroup() {
+        return productgroup;
+    }
+
+    public void setProductgroup(String productgroup) {
+        this.productgroup = productgroup;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setBrand(o.getString("brand"));
+        setName(o.getString("name"));
+        setProductgroup(o.getString("productgroup"));
+        setProductID(o.getLong("productID"));
+        setSize(o.getString("size"));
+    }
+}

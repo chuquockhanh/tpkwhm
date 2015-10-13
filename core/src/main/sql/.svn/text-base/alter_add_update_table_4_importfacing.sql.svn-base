@@ -1,0 +1,53 @@
+
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `levelregister`
+-- ----------------------------
+DROP TABLE IF EXISTS `levelregister`;
+CREATE TABLE `levelregister` (
+  `LevelID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `LevelName` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`LevelID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `location`
+-- ----------------------------
+DROP TABLE IF EXISTS `location`;
+CREATE TABLE `location` (
+  `LocationID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`LocationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `outletlocationregister`
+-- ----------------------------
+DROP TABLE IF EXISTS `outletlocationregister`;
+CREATE TABLE `outletlocationregister` (
+  `outletlocationregisterID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `outletID` bigint(20) DEFAULT NULL,
+  `locationID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`outletlocationregisterID`),
+  KEY `FK_TO_Location` (`locationID`),
+  KEY `FK_TO_Oulet` (`outletID`),
+  CONSTRAINT `FK_TO_Oulet` FOREIGN KEY (`outletID`) REFERENCES `outlet` (`OutletID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_TO_Location` FOREIGN KEY (`locationID`) REFERENCES `location` (`LocationID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+ALTER TABLE `outletdistributionregistered`
+ADD ( LevelRegister BIGINT(20) NULL );
+
+ALTER TABLE `outletdistributionregistered`
+ADD CONSTRAINT `FK_OuletDistributor_LevelRegister` FOREIGN KEY (`LevelRegister`) REFERENCES `levelregister` (`LevelID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+
+

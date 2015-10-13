@@ -1,0 +1,18 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.dto.BrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface BrandService extends GenericService<Brand,Long> {
+
+    void updateItem(BrandBean brandBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(BrandBean brandBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(BrandBean bean);
+}

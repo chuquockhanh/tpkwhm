@@ -1,0 +1,344 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.*;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
+
+
+/**
+ * <p>Hibernate DAO layer for Outletauditresults</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OutletauditresultHibernateDAO extends
+		AbstractHibernateDAO<Outletauditresult, Long> implements
+		OutletauditresultDAO {
+
+    public OutletauditresultHibernateDAO() {
+		super(Outletauditresult.class);
+	}
+
+
+
+
+    @Override
+    public List<Outletauditresult> reportInDetail(final Long createdBy, final Date startDate, final Date endDate, final Long regionID, final Long distributorID, final Long productGroup, final int startRow, final int pageSize) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outletauditresult>>() {
+                public List<Outletauditresult> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("SELECT distinct oar FROM Outletauditresult oar ");
+                    sb.append(" WHERE oar.auditDate >= :startDate and oar.auditDate <= :endDate");
+                    if (createdBy != null) {
+                        sb.append(" AND oar.auditoroutlettask.outlet.createdBy.userID = :createdBy");
+                    }
+                    if (regionID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (distributorID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.distributor.distributorID = :distributorID");
+                    }
+                    sb.append(" and oar.outletAuditResultID=(select max(oarSub.outletAuditResultID) from Outletauditresult oarSub, Outletdistributionregistered odr ");
+                    sb.append(" where oarSub.auditoroutlettask.outlet.outletID = odr.outlet.outletID  and  oarSub.auditDate >= :startDate and oarSub.auditDate <= :endDate");
+                    if (regionID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (distributorID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.distributor.distributorID = :distributorID ");
+                    }
+
+                    if(productGroup != null)
+                    {
+                        sb.append(" and odr.outletBrand.outletBrandID = :outletBrandID ") ;
+                    }
+
+                    sb.append(" and oarSub.auditoroutlettask.outlet.outletID = oar.auditoroutlettask.outlet.outletID)");
+                    Query query = session.createQuery(sb.toString());
+                    query.setParameter("startDate", startDate);
+                    query.setParameter("endDate", endDate);
+                    if (createdBy != null) query.setParameter("createdBy", createdBy);
+                    if (regionID != null) query.setParameter("regionID",regionID);
+                    if (distributorID != null) query.setParameter("distributorID",distributorID);
+                    if (productGroup != null) query.setParameter("outletBrandID",productGroup);
+                    query.setFirstResult(startRow);
+                    query.setMaxResults(pageSize);
+                    List<Outletauditresult> list =  query.list();
+                    for (Outletauditresult o : list) {
+                        Hibernate.initialize(o.getAuditoroutlettask());
+                        Hibernate.initialize(o.getAuditoroutlettask().getOutlet());
+                        Hibernate.initialize(o.getAuditoroutlettask().getOutlet().getRegion());
+                        Hibernate.initialize(o.getAuditoroutlettask().getOutlet().getDistributor());
+                        if (o.getOarfacingiftdisplays() != null) {
+                            Hibernate.initialize(o.getOarfacingiftdisplays());
+                            for (Oarfacingiftdisplay d: o.getOarfacingiftdisplays()) {
+                                Hibernate.initialize(d.getOutletbrand());
+                                Hibernate.initialize(d.getIftdisplaylocation());
+                            }
+                        }
+                        if (o.getOarfullrangeskus() != null) {
+                            Hibernate.initialize(o.getOarfullrangeskus());
+                            for (Oarfullrangesku fu: o.getOarfullrangeskus()) {
+                                Hibernate.initialize(fu.getFullrangesku());
+                                Hibernate.initialize(fu.getFullrangesku().getOutletbrand());
+                            }
+                        }
+                        if (o.getOarnofacings() != null) {
+                            Hibernate.initialize(o.getOarnofacings());
+                            for (Oarnofacing fu: o.getOarnofacings()) {
+                                Hibernate.initialize(fu.getOutletbrand());
+                            }
+                        }
+                        if (o.getOarposms() != null) {
+                            Hibernate.initialize(o.getOarposms());
+                            for (Oarposm fu: o.getOarposms()) {
+                                Hibernate.initialize(fu.getOutletposm());
+                                Hibernate.initialize(fu.getOutletposm().getOutletbrand());
+                            }
+                        }
+                        if (o.getOarpowerskus() != null) {
+                            Hibernate.initialize(o.getOarpowerskus());
+                            for (Oarpowersku fu: o.getOarpowerskus()) {
+                                Hibernate.initialize(fu.getPowersku());
+                                Hibernate.initialize(fu.getPowersku().getOutletbrand());
+                            }
+                        }
+                        if (o.getOarpromotions() != null) {
+                            Hibernate.initialize(o.getOarpromotions());
+                            for (Oarpromotion op: o.getOarpromotions()) {
+                                Hibernate.initialize(op.getPromotion());
+                                Hibernate.initialize(op.getPromotion().getOutletbrand());
+                            }
+                        }
+
+                        if (o.getOarfullrangefacings() != null) {
+                            Hibernate.initialize(o.getOarfullrangefacings());
+                        }
+                    }
+                    return list;
+                }
+            });
+    }
+
+
+
+    @Override
+    public List<Outletauditresult> reportInDetail(final Long createdBy, final Date startDate, final Date endDate, final Long regionID, final Long distributorID, final Long productGroup, final int startRow, final int pageSize, final String whereClause) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outletauditresult>>() {
+                public List<Outletauditresult> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("SELECT distinct oar FROM Outletauditresult oar ");
+                    sb.append(" WHERE oar.auditDate >= :startDate and oar.auditDate <= :endDate");
+                    if (createdBy != null) {
+                        sb.append(" AND oar.auditoroutlettask.outlet.createdBy.userID = :createdBy");
+                    }
+                    if (regionID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (distributorID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.distributor.distributorID = :distributorID");
+                    }
+                    sb.append(" and oar.outletAuditResultID=(select max(oarSub.outletAuditResultID) from Outletauditresult oarSub, Outletdistributionregistered odr ");
+                    sb.append(" where oarSub.auditoroutlettask.outlet.outletID = odr.outlet.outletID  and  oarSub.auditDate >= :startDate and oarSub.auditDate <= :endDate");
+                    if (regionID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (distributorID != null) {
+                        if(createdBy == null)
+                        {
+                            sb.append(whereClause);
+                        }
+                        else
+                        {
+                            sb.append(" and oarSub.auditoroutlettask.outlet.distributor.distributorID = :distributorID )");
+                        }
+                    }
+                    else
+                    {
+                        sb.append(whereClause);
+                    }
+                    if(productGroup != null)
+                    {
+                        sb.append(" and odr.outletBrand.outletBrandID = :outletBrandID ") ;
+                    }
+                    sb.append(" and oarSub.auditoroutlettask.outlet.outletID = oar.auditoroutlettask.outlet.outletID)");
+                    Query query = session.createQuery(sb.toString());
+                    query.setParameter("startDate", startDate);
+                    query.setParameter("endDate", endDate);
+                    if (createdBy != null) query.setParameter("createdBy", createdBy);
+                    if (regionID != null) query.setParameter("regionID",regionID);
+                    if (distributorID != null) query.setParameter("distributorID",distributorID);
+                    if (productGroup != null) query.setParameter("outletBrandID",productGroup);
+                    query.setFirstResult(startRow);
+                    query.setMaxResults(pageSize);
+                    List<Outletauditresult> list =  query.list();
+                    for (Outletauditresult o : list) {
+                        Hibernate.initialize(o.getAuditoroutlettask());
+                        Hibernate.initialize(o.getAuditoroutlettask().getOutlet());
+                        Hibernate.initialize(o.getAuditoroutlettask().getOutlet().getRegion());
+                        Hibernate.initialize(o.getAuditoroutlettask().getOutlet().getDistributor());
+                        if (o.getOarfacingiftdisplays() != null) {
+                            Hibernate.initialize(o.getOarfacingiftdisplays());
+                            for (Oarfacingiftdisplay d: o.getOarfacingiftdisplays()) {
+                                Hibernate.initialize(d.getOutletbrand());
+                                Hibernate.initialize(d.getIftdisplaylocation());
+                            }
+                        }
+                        if (o.getOarfullrangeskus() != null) {
+                            Hibernate.initialize(o.getOarfullrangeskus());
+                            for (Oarfullrangesku fu: o.getOarfullrangeskus()) {
+                                Hibernate.initialize(fu.getFullrangesku());
+                                Hibernate.initialize(fu.getFullrangesku().getOutletbrand());
+                            }
+                        }
+                        if (o.getOarnofacings() != null) {
+                            Hibernate.initialize(o.getOarnofacings());
+                            for (Oarnofacing fu: o.getOarnofacings()) {
+                                Hibernate.initialize(fu.getOutletbrand());
+                            }
+                        }
+                        if (o.getOarposms() != null) {
+                            Hibernate.initialize(o.getOarposms());
+                            for (Oarposm fu: o.getOarposms()) {
+                                Hibernate.initialize(fu.getOutletposm());
+                                Hibernate.initialize(fu.getOutletposm().getOutletbrand());
+                            }
+                        }
+                        if (o.getOarpowerskus() != null) {
+                            Hibernate.initialize(o.getOarpowerskus());
+                            for (Oarpowersku fu: o.getOarpowerskus()) {
+                                Hibernate.initialize(fu.getPowersku());
+                                Hibernate.initialize(fu.getPowersku().getOutletbrand());
+                            }
+                        }
+                        if (o.getOarpromotions() != null) {
+                            Hibernate.initialize(o.getOarpromotions());
+                            for (Oarpromotion op: o.getOarpromotions()) {
+                                Hibernate.initialize(op.getPromotion());
+                                Hibernate.initialize(op.getPromotion().getOutletbrand());
+                            }
+                        }
+
+                        if (o.getOarfullrangefacings() != null) {
+                            Hibernate.initialize(o.getOarfullrangefacings());
+                        }
+                        if (o.getOarfacingregistereds() != null) {
+                            Hibernate.initialize(o.getOarfullrangefacings());
+                        }
+                    }
+                    return list;
+                }
+            });
+    }
+
+
+    @Override
+    public Integer getCountReportInDetail(final Long createdBy, final Date startDate, final Date endDate, final Long regionID, final Long distributorID, final Long productGroup) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Integer>() {
+                public Integer doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("SELECT count(*) FROM Outletauditresult oar ");
+                    sb.append(" WHERE oar.auditDate >= :startDate and oar.auditDate <= :endDate");
+                    if (createdBy != null) {
+                        sb.append(" AND oar.auditoroutlettask.outlet.createdBy.userID = :createdBy");
+                    }
+                    if (regionID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (distributorID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.distributor.distributorID = :distributorID");
+                    }
+                    sb.append(" and oar.outletAuditResultID=(select max(oarSub.outletAuditResultID) from Outletauditresult oarSub, Outletdistributionregistered odr ");
+                    sb.append(" where oarSub.auditoroutlettask.outlet.outletID = odr.outlet.outletID  and  oarSub.auditDate >= :startDate and oarSub.auditDate <= :endDate");
+                    if (regionID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (distributorID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.distributor.distributorID = :distributorID");
+                    }
+                    if(productGroup != null)
+                    {
+                        sb.append(" and odr.outletBrand.outletBrandID = :outletBrandID ") ;
+                    }
+                    sb.append(" and oarSub.auditoroutlettask.outlet.outletID = oar.auditoroutlettask.outlet.outletID)");
+                    Query query = session.createQuery(sb.toString());
+                    query.setParameter("startDate", startDate);
+                    query.setParameter("endDate", endDate);
+                    if (createdBy != null) query.setParameter("createdBy", createdBy);
+                    if (regionID != null) query.setParameter("regionID",regionID);
+                    if (distributorID != null) query.setParameter("distributorID",distributorID);
+                    if (productGroup != null) query.setParameter("outletBrandID",productGroup);
+                    return Integer.valueOf(query.uniqueResult().toString());
+                }
+            });
+    }
+
+    @Override
+    public Integer getCountReportInDetail4SupportRole(final Long createdBy, final Date startDate, final Date endDate, final Long regionID, final Long supportUserID, final Long productGroup) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Integer>() {
+                public Integer doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sb = new StringBuffer();
+                    sb.append("SELECT count(*) FROM Outletauditresult oar ");
+                    sb.append(" WHERE oar.auditDate >= :startDate and oar.auditDate <= :endDate");
+                    if (createdBy != null) {
+                        sb.append(" AND oar.auditoroutlettask.outlet.createdBy.userID = :createdBy");
+                    }
+                    if (regionID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (supportUserID != null) {
+                        sb.append(" and oar.auditoroutlettask.outlet.distributor.distributorID IN (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = :supportUserID)");
+                    }
+                    sb.append(" and oar.outletAuditResultID=(select max(oarSub.outletAuditResultID) from Outletauditresult oarSub, Outletdistributionregistered odr ");
+                    sb.append(" where oarSub.auditoroutlettask.outlet.outletID = odr.outlet.outletID  and  oarSub.auditDate >= :startDate and oarSub.auditDate <= :endDate");
+                    if (regionID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.region.regionID = :regionID ");
+                    }
+                    if (supportUserID != null) {
+                        sb.append(" and oarSub.auditoroutlettask.outlet.distributor.distributorID IN (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = :supportUserID)");
+                    }
+                    if(productGroup != null)
+                    {
+                        sb.append(" and odr.outletBrand.outletBrandID = :outletBrandID ") ;
+                    }
+                    sb.append(" and oarSub.auditoroutlettask.outlet.outletID = oar.auditoroutlettask.outlet.outletID)");
+                    Query query = session.createQuery(sb.toString());
+                    query.setParameter("startDate", startDate);
+                    query.setParameter("endDate", endDate);
+                    if (createdBy != null) query.setParameter("createdBy", createdBy);
+                    if (regionID != null) query.setParameter("regionID",regionID);
+                    if (supportUserID != null) query.setParameter("supportUserID",supportUserID);
+                    if (productGroup != null) query.setParameter("outletBrandID",productGroup);
+                    return Integer.valueOf(query.uniqueResult().toString());
+                }
+            });
+    }
+
+    @Override
+    public Outletauditresult findByOutletID(final Long outletID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Outletauditresult>() {
+                public Outletauditresult doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outletauditresult o WHERE o.auditoroutlettask.outlet.outletID = :outletID");
+                    query.setParameter("outletID", outletID);
+                    return (Outletauditresult) query.uniqueResult();
+                }
+            });
+    }
+}

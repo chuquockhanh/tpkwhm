@@ -1,0 +1,121 @@
+package com.banvien.fcv.webapp.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Storepromotionproduct;
+import com.banvien.fcv.core.dto.StorepromotionproductBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.StorepromotionproductService;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.StorepromotionproductValidator;
+
+@Controller
+public class StorePromotionProductController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    @Autowired
+    private StorepromotionproductService storepromotionproductService;
+
+    @Autowired
+    private StorepromotionproductValidator storepromotionproductValidator;
+
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+  	}
+    
+    @RequestMapping("/support/storepromotionproduct/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) StorepromotionproductBean storepromotionproductBean, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView("/support/storepromotionproduct/edit");
+
+		String crudaction = storepromotionproductBean.getCrudaction();
+		Storepromotionproduct pojo = storepromotionproductBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				storepromotionproductValidator.validate(storepromotionproductBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getStorePromotionProductID() != null && pojo.getStorePromotionProductID() > 0) {
+						this.storepromotionproductService.updateItem(storepromotionproductBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.storepromotionproductService.addNew(storepromotionproductBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& storepromotionproductBean.getPojo().getStorePromotionProductID() != null && storepromotionproductBean.getPojo().getStorePromotionProductID() > 0) {
+			try {
+				Storepromotionproduct itemObj = this.storepromotionproductService.findById(pojo.getStorePromotionProductID());
+				storepromotionproductBean.setPojo(itemObj);
+			}
+			catch (Exception e) {
+				logger.error("Could not found news " + storepromotionproductBean.getPojo().getStorePromotionProductID(), e);
+			}
+		}
+		mav.addObject(Constants.FORM_MODEL_KEY, storepromotionproductBean);
+		return mav;
+	}
+
+
+
+
+    @RequestMapping(value={"/support/storepromotionproduct/list.html"})
+    public ModelAndView list(StorepromotionproductBean bean, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/support/storepromotionproduct/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = storepromotionproductService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+        executeSearch(bean, request);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        return mav;
+    }
+
+    private void executeSearch(StorepromotionproductBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.storepromotionproductService.search(bean);
+        bean.setListResult((List<Storepromotionproduct>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+}

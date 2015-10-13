@@ -1,0 +1,233 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.List;
+
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Storeauditresult;
+import com.banvien.fcv.core.dto.MTPromotionReportInfo;
+import com.banvien.fcv.core.dto.MTReportDTO;
+import com.banvien.fcv.core.dto.MTSODDTO;
+import com.banvien.fcv.core.dto.OutOfStockDTO;
+
+
+/**
+ * <p>Hibernate DAO layer for Storeauditresults</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class StoreauditresultHibernateDAO extends
+		AbstractHibernateDAO<Storeauditresult, Long> implements
+		StoreauditresultDAO {
+
+    public StoreauditresultHibernateDAO() {
+		super(Storeauditresult.class);
+	}
+
+    @Override
+    public List<MTReportDTO> reportByAccount(final Long accountID, final Timestamp fromDate, final Timestamp toDate) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<MTReportDTO>>() {
+                public List<MTReportDTO> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sqlQuery = new StringBuffer(session.getNamedQuery("MT_REPORT_BY_ACCOUNT").getQueryString());
+                    if (accountID != null) {
+                        sqlQuery.append(" AND acc.accountID = :accountID");
+                    }
+                    sqlQuery.append(" GROUP BY acc.AccountID, acc.Name");
+                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+                    if (accountID != null) {
+                        query.setParameter("accountID", accountID);
+                    }
+
+                    query.setParameter("fromDate", fromDate);
+                    query.setParameter("toDate", toDate);
+                    query.setParameter("bgIFT", Constants.BRAND_GROUP_IFT);
+                    query.setParameter("bgDBB", Constants.BRAND_GROUP_DBB);
+
+                    query.addScalar("accountID", Hibernate.LONG);
+                    query.addScalar("account", Hibernate.STRING);
+                    query.addScalar("numberStore", Hibernate.INTEGER);
+                    query.addScalar("numberOoSIFTSKUs", Hibernate.INTEGER);
+                    query.addScalar("numberIFTSKUs", Hibernate.INTEGER);
+                    query.addScalar("numberOoSDBBSKUs", Hibernate.INTEGER);
+                    query.addScalar("numberDBBSKUs", Hibernate.INTEGER);
+                    query.addScalar("sodIFT", Hibernate.DOUBLE);
+                    query.addScalar("sodDBB", Hibernate.DOUBLE);
+                    query.addScalar("sodTotal", Hibernate.DOUBLE);
+                    query.addScalar("sosIFT", Hibernate.DOUBLE);
+                    query.addScalar("sosDBB", Hibernate.DOUBLE);
+                    query.addScalar("sosTotal", Hibernate.DOUBLE);
+                    query.addScalar("brandLocIFT", Hibernate.DOUBLE);
+                    query.addScalar("brandLocDBB", Hibernate.DOUBLE);
+                    query.addScalar("posmIFT", Hibernate.DOUBLE);
+                    query.addScalar("posmDBB", Hibernate.DOUBLE);
+                    query.addScalar("sosDetailIds", Hibernate.STRING);
+                    query.addScalar("sosDetailValues", Hibernate.STRING);
+                    query.addScalar("sosMaster", Hibernate.DOUBLE);
+                    query.addScalar("sodFCVDetailValues", Hibernate.STRING);
+                    query.addScalar("sodStoreDetailValues", Hibernate.STRING);
+                    query.addScalar("sodDetailIds", Hibernate.STRING);
+
+                    query.setResultTransformer(Transformers.aliasToBean(MTReportDTO.class));
+                    return (List<MTReportDTO>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<MTReportDTO> reportByStore(final Long accountID, final Timestamp fromDate, final Timestamp toDate) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<MTReportDTO>>() {
+                public List<MTReportDTO> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sqlQuery = new StringBuffer(session.getNamedQuery("MT_REPORT_BY_STORE").getQueryString());
+                    if (accountID != null) {
+                        sqlQuery.append(" AND acc.accountID = :accountID");
+                    }
+                    sqlQuery.append(" GROUP BY acc.Name, s.StoreID, s.Name");
+                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+                    if (accountID != null) {
+                        query.setParameter("accountID", accountID);
+                    }
+
+                    query.setParameter("fromDate", fromDate);
+                    query.setParameter("toDate", toDate);
+                    query.setParameter("bgIFT", Constants.BRAND_GROUP_IFT);
+                    query.setParameter("bgDBB", Constants.BRAND_GROUP_DBB);
+
+                    query.addScalar("storeName", Hibernate.STRING);
+                    query.addScalar("account", Hibernate.STRING);
+                    query.addScalar("numberOoSIFTSKUs", Hibernate.INTEGER);
+                    query.addScalar("numberIFTSKUs", Hibernate.INTEGER);
+                    query.addScalar("numberOoSDBBSKUs", Hibernate.INTEGER);
+                    query.addScalar("numberDBBSKUs", Hibernate.INTEGER);
+                    query.addScalar("sodIFT", Hibernate.DOUBLE);
+                    query.addScalar("sodDBB", Hibernate.DOUBLE);
+                    query.addScalar("sodTotal", Hibernate.DOUBLE);
+                    query.addScalar("sosIFT", Hibernate.DOUBLE);
+                    query.addScalar("sosDBB", Hibernate.DOUBLE);
+                    query.addScalar("sosTotal", Hibernate.DOUBLE);
+                    query.addScalar("brandLocIFT", Hibernate.DOUBLE);
+                    query.addScalar("brandLocDBB", Hibernate.DOUBLE);
+                    query.addScalar("posmIFT", Hibernate.DOUBLE);
+                    query.addScalar("posmDBB", Hibernate.DOUBLE);
+                    query.addScalar("sosDetailIds", Hibernate.STRING);
+                    query.addScalar("sosDetailValues", Hibernate.STRING);
+                    query.addScalar("sosMaster", Hibernate.DOUBLE);
+                    query.addScalar("sodFCVDetailValues", Hibernate.STRING);
+                    query.addScalar("sodStoreDetailValues", Hibernate.STRING);
+                    query.addScalar("sodDetailIds", Hibernate.STRING);
+
+                    query.setResultTransformer(Transformers.aliasToBean(MTReportDTO.class));
+                    return (List<MTReportDTO>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<OutOfStockDTO> reportOutOfStockDaily(final Long accountID, final Timestamp fromDate, final Timestamp toDate) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<OutOfStockDTO>>() {
+                public List<OutOfStockDTO> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sqlQuery = new StringBuffer(session.getNamedQuery("MT_REPORT_OOS_DAILY").getQueryString());
+                    if (accountID != null) {
+                        sqlQuery.append(" AND ast.storeID IN (SELECT StoreID FROM Store s WHERE s.AccountID = :accountID)");
+                    }
+                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+                    if (accountID != null) {
+                        query.setParameter("accountID", accountID);
+                    }
+
+                    query.setParameter("fromDate", fromDate);
+                    query.setParameter("toDate", toDate);
+
+                    query.addScalar("storeID", Hibernate.LONG);
+                    query.addScalar("day", Hibernate.TIMESTAMP);
+                    query.addScalar("numberOfSKU", Hibernate.INTEGER);
+                    query.addScalar("numberOfOOSSKU", Hibernate.INTEGER);
+                    query.addScalar("oosSKUs", Hibernate.STRING);
+
+
+                    query.setResultTransformer(Transformers.aliasToBean(OutOfStockDTO.class));
+                    return (List<OutOfStockDTO>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<MTSODDTO> reportSODDaily(final Long accountID, final Timestamp fromDate, final Timestamp toDate) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<MTSODDTO>>() {
+                public List<MTSODDTO> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sqlQuery = new StringBuffer(session.getNamedQuery("MT_REPORT_SOD_DAILY").getQueryString());
+                    if (accountID != null) {
+                        sqlQuery.append(" AND ast.storeID IN (SELECT StoreID FROM Store s WHERE s.AccountID = :accountID)");
+                    }
+                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+                    if (accountID != null) {
+                        query.setParameter("accountID", accountID);
+                    }
+
+                    query.setParameter("fromDate", fromDate);
+                    query.setParameter("toDate", toDate);
+                    query.setParameter("bgIFT", Constants.BRAND_GROUP_IFT);
+                    query.setParameter("bgDBB", Constants.BRAND_GROUP_DBB);
+
+
+                    query.addScalar("storeID", Hibernate.LONG);
+                    query.addScalar("day", Hibernate.TIMESTAMP);
+                    query.addScalar("fcvIFTSOD", Hibernate.INTEGER);
+                    query.addScalar("storeIFTSOD", Hibernate.INTEGER);
+                    query.addScalar("fcvDBBSOD", Hibernate.INTEGER);
+                    query.addScalar("storeDBBSOD", Hibernate.INTEGER);
+
+
+                    query.setResultTransformer(Transformers.aliasToBean(MTSODDTO.class));
+                    return (List<MTSODDTO>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<MTPromotionReportInfo> promotionReport(final Long accountID, final Timestamp fromDate, final Timestamp toDate) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<MTPromotionReportInfo>>() {
+                public List<MTPromotionReportInfo> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    StringBuffer sqlQuery = new StringBuffer(session.getNamedQuery("MT_PROMOTION_REPORT_WEEKLY").getQueryString());
+                    if (accountID != null) {
+                        sqlQuery.append(" AND ast.storeID IN (SELECT StoreID FROM Store s WHERE s.AccountID = :accountID)");
+                    }
+                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+                    if (accountID != null) {
+                        query.setParameter("accountID", accountID);
+                    }
+
+                    query.setParameter("fromDate", fromDate);
+                    query.setParameter("toDate", toDate);
+
+
+                    query.addScalar("storeID", Hibernate.LONG);
+                    query.addScalar("day", Hibernate.TIMESTAMP);
+                    query.addScalar("promotionIds", Hibernate.STRING);
+                    query.addScalar("awareness", Hibernate.STRING);
+                    query.addScalar("mechanism", Hibernate.STRING);
+
+                    query.setResultTransformer(Transformers.aliasToBean(MTPromotionReportInfo.class));
+                    return (List<MTPromotionReportInfo>) query.list();
+                }
+            });
+    }
+}

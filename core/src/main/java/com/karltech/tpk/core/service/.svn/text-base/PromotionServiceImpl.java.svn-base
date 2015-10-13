@@ -1,0 +1,149 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.PromotionDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.PromotionproducttohandheldDAO;
+import com.banvien.fcv.core.dao.PromotionscopeDAO;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.PromotionBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class PromotionServiceImpl extends GenericServiceImpl<Promotion,Long> 
+                                                    implements PromotionService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private PromotionDAO promotionDAO;
+
+    private PromotionscopeDAO promotionscopeDAO;
+
+    private PromotionproducttohandheldDAO promotionproducttohandheldDAO;
+
+    public void setPromotionDAO(PromotionDAO promotionDAO) {
+        this.promotionDAO = promotionDAO;
+    }
+
+    public void setPromotionscopeDAO(PromotionscopeDAO promotionscopeDAO) {
+        this.promotionscopeDAO = promotionscopeDAO;
+    }
+
+    public void setPromotionproducttohandheldDAO(PromotionproducttohandheldDAO promotionproducttohandheldDAO) {
+        this.promotionproducttohandheldDAO = promotionproducttohandheldDAO;
+    }
+
+    @Override
+	protected GenericDAO<Promotion, Long> getGenericDAO() {
+		return promotionDAO;
+	}
+
+    @Override
+    public Promotion findByCode(String code) throws ObjectNotFoundException {
+        Promotion res = this.promotionDAO.findEqualUnique(Promotion.FIELD_CODE, code);
+        if (res == null) throw new ObjectNotFoundException("Not found promotion with code " + code);
+        return res;
+    }
+
+    @Override
+    public Promotion findByName(String name) throws ObjectNotFoundException {
+        Promotion res = this.promotionDAO.findEqualUnique(Promotion.FIELD_NAME, name);
+        if (res == null) throw new ObjectNotFoundException("Not found promotion with name " + name);
+        return res;
+    }
+
+    @Override
+    public void updateItem(PromotionBean promotionBean) throws ObjectNotFoundException, DuplicateException {
+        Promotion dbItem = this.promotionDAO.findByIdNoAutoCommit(promotionBean.getPojo().getPromotionID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found promotion " + promotionBean.getPojo().getPromotionID());
+
+        Promotion pojo = promotionBean.getPojo();
+
+        this.promotionDAO.detach(dbItem);
+        this.promotionDAO.update(pojo);
+
+        promotionscopeDAO.deleteByPromotionID(pojo.getPromotionID());
+        promotionproducttohandheldDAO.deleteByPromotionID(pojo.getPromotionID());
+        for (Long regionID : promotionBean.getScopes()) {
+            Promotionscope promotionscope = new Promotionscope();
+            promotionscope.setPromotion(pojo);
+            Region region = new Region();
+            region.setRegionID(regionID);
+            promotionscope.setRegion(region);
+            promotionscopeDAO.save(promotionscope);
+        }
+
+        for (Long productID : promotionBean.getProductsToHandheld()) {
+            Promotionproducttohandheld promotionproducttohandheld = new Promotionproducttohandheld();
+            promotionproducttohandheld.setPromotion(pojo);
+            Promotionproduct product = new Promotionproduct();
+            product.setPromotionProductID(productID);
+            promotionproducttohandheld.setPromotionproduct(product);
+            promotionproducttohandheldDAO.save(promotionproducttohandheld);
+        }
+    }
+
+    @Override
+    public void addNew(PromotionBean promotionBean) throws DuplicateException {
+        Promotion pojo = promotionBean.getPojo();
+        pojo = this.promotionDAO.save(pojo);
+
+        for (Long regionID : promotionBean.getScopes()) {
+            Promotionscope promotionscope = new Promotionscope();
+            promotionscope.setPromotion(pojo);
+            Region region = new Region();
+            region.setRegionID(regionID);
+            promotionscope.setRegion(region);
+            promotionscopeDAO.save(promotionscope);
+        }
+
+        for (Long productID : promotionBean.getProductsToHandheld()) {
+            Promotionproducttohandheld promotionproducttohandheld = new Promotionproducttohandheld();
+            promotionproducttohandheld.setPromotion(pojo);
+            Promotionproduct product = new Promotionproduct();
+            product.setPromotionProductID(productID);
+            promotionproducttohandheld.setPromotionproduct(product);
+            promotionproducttohandheldDAO.save(promotionproducttohandheld);
+        }
+
+        promotionBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                promotionDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(PromotionBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Promotion.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Promotion.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.promotionDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public List<Promotion> findActivePromotions(Timestamp fromDate, Timestamp toDate) {
+        return promotionDAO.findActivePromotions(fromDate, toDate);
+    }
+}

@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Sosbrand;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 2:33 PM
+ */
+public class SosbrandBean extends AbstractBean<Sosbrand> {
+    public SosbrandBean() {
+        this.pojo = new Sosbrand();
+    }
+}

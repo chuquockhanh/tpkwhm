@@ -1,0 +1,14 @@
+import com.banvien.fcv.security.DesEncrypterUtils;
+import junit.framework.TestCase;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/15/12
+ * Time: 4:34 PM
+ */
+public class DesEncrypterUtilsTest extends TestCase {
+    public void testEncrypt() {
+        System.out.println(DesEncrypterUtils.getInstance().encrypt("123456"));
+    }
+}

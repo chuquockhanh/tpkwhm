@@ -1,0 +1,1383 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.*;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.exception.ServiceException;
+import com.banvien.fcv.core.util.CalendarUtil;
+import com.banvien.fcv.security.SecurityUtils;
+import org.apache.commons.lang.time.DateUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class OutletauditresultServiceImpl extends GenericServiceImpl<Outletauditresult,Long> 
+                                                    implements OutletauditresultService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private transient final Log log = LogFactory.getLog(OutletServiceImpl.class);
+
+    private OutletauditresultDAO outletauditresultDAO;
+
+    private AuditoroutlettaskDAO auditoroutlettaskDAO;
+
+    private OarpromotionDAO oarpromotionDAO;
+
+    private OarpowerskuDAO oarpowerskuDAO;
+
+    private OarposmDAO oarposmDAO;
+
+    private OarnofacingDAO oarnofacingDAO;
+
+    private OarfullrangeskuDAO oarfullrangeskuDAO;
+
+    private OarfacingiftdisplayDAO oarfacingiftdisplayDAO;
+
+    private  PromotionDAO promotionDAO;
+
+    private OutletbrandDAO outletbrandDAO;
+    
+    private OarfullrangefacingDAO oarfullrangefacingDAO;
+
+    private RegionDAO regionDAO;
+
+    private DistributorDAO distributorDAO;
+
+    private FullrangeskuDAO fullrangeskuDAO;
+
+    private LevelRegisterDAO levelRegisterDAO;
+
+    private PowerskuDAO powerskuDAO;
+    
+    private OarLatestBonusDAO oarLatestBonusDAO;
+
+    private OarLocationRegisteredDAO oarLocationRegisteredDAO;
+
+    private IftdisplaylocationDAO iftdisplaylocationDAO;
+
+    private OutletposmDAO outletposmDAO;
+
+    private OARAuditSummaryDAO oarAuditSummaryDAO;
+
+    private OutletLocationRegisterDAO outletLocationRegisterDAO;
+
+    private OutletdistributionregisteredDAO outletdistributionregisteredDAO;
+
+    private POSMMiniValueDAO posmMiniValueDAO;
+
+    private OARPosmMiniValueDAO oarPosmMiniValueDAO;
+
+    private OarMiniValuePosmDAO oarMiniValuePosmDAO;
+
+    private OarDbbPosmRegisterDAO oarDbbPosmRegisteredDAO;
+
+
+    public OarDbbPosmRegisterDAO getOarDbbPosmRegisteredDAO() {
+        return oarDbbPosmRegisteredDAO;
+    }
+
+    public void setOarDbbPosmRegisteredDAO(OarDbbPosmRegisterDAO oarDbbPosmRegisteredDAO) {
+        this.oarDbbPosmRegisteredDAO = oarDbbPosmRegisteredDAO;
+    }
+
+    public void setOarMiniValuePosmDAO(OarMiniValuePosmDAO oarMiniValuePosmDAO) {
+        this.oarMiniValuePosmDAO = oarMiniValuePosmDAO;
+    }
+
+    public POSMMiniValueDAO getPosmMiniValueDAO() {
+        return posmMiniValueDAO;
+    }
+
+    public void setPosmMiniValueDAO(POSMMiniValueDAO posmMiniValueDAO) {
+        this.posmMiniValueDAO = posmMiniValueDAO;
+    }
+
+
+    public OutletdistributionregisteredDAO getOutletdistributionregisteredDAO() {
+        return outletdistributionregisteredDAO;
+    }
+
+    public void setOutletdistributionregisteredDAO(OutletdistributionregisteredDAO outletdistributionregisteredDAO) {
+        this.outletdistributionregisteredDAO = outletdistributionregisteredDAO;
+    }
+
+    public OutletLocationRegisterDAO getOutletLocationRegisterDAO() {
+        return outletLocationRegisterDAO;
+    }
+
+    public void setOutletLocationRegisterDAO(OutletLocationRegisterDAO outletLocationRegisterDAO) {
+        this.outletLocationRegisterDAO = outletLocationRegisterDAO;
+    }
+
+    public OARAuditSummaryDAO getOarAuditSummaryDAO() {
+        return oarAuditSummaryDAO;
+    }
+
+    public void setOarAuditSummaryDAO(OARAuditSummaryDAO oarAuditSummaryDAO) {
+        this.oarAuditSummaryDAO = oarAuditSummaryDAO;
+    }
+
+    public OutletposmDAO getOutletposmDAO() {
+        return outletposmDAO;
+    }
+
+    public void setOutletposmDAO(OutletposmDAO outletposmDAO) {
+        this.outletposmDAO = outletposmDAO;
+    }
+
+    public IftdisplaylocationDAO getIftdisplaylocationDAO() {
+        return iftdisplaylocationDAO;
+    }
+
+    public void setIftdisplaylocationDAO(IftdisplaylocationDAO iftdisplaylocationDAO) {
+        this.iftdisplaylocationDAO = iftdisplaylocationDAO;
+    }
+
+    public void setOarLocationRegisteredDAO(OarLocationRegisteredDAO oarLocationRegisteredDAO) {
+        this.oarLocationRegisteredDAO = oarLocationRegisteredDAO;
+    }
+
+    public void setPowerskuDAO(PowerskuDAO powerskuDAO) {
+        this.powerskuDAO = powerskuDAO;
+    }
+
+    private OarFacingRegisteredDAO oarFacingRegisteredDAO;
+
+    public void setOarFacingRegisteredDAO(OarFacingRegisteredDAO oarFacingRegisteredDAO) {
+        this.oarFacingRegisteredDAO = oarFacingRegisteredDAO;
+    }
+
+    public DistributorDAO getDistributorDAO() {
+        return distributorDAO;
+    }
+
+    public void setDistributorDAO(DistributorDAO distributorDAO) {
+        this.distributorDAO = distributorDAO;
+    }
+
+    public void setOutletauditresultDAO(OutletauditresultDAO outletauditresultDAO) {
+        this.outletauditresultDAO = outletauditresultDAO;
+    }
+
+    public FullrangeskuDAO getFullrangeskuDAO() {
+        return fullrangeskuDAO;
+    }
+
+    public void setFullrangeskuDAO(FullrangeskuDAO fullrangeskuDAO) {
+        this.fullrangeskuDAO = fullrangeskuDAO;
+    }
+
+    public LevelRegisterDAO getLevelRegisterDAO() {
+        return levelRegisterDAO;
+    }
+
+    public void setLevelRegisterDAO(LevelRegisterDAO levelRegisterDAO) {
+        this.levelRegisterDAO = levelRegisterDAO;
+    }
+    
+    public void setOarLatestBonusDAO(OarLatestBonusDAO oarLatestBonusDAO) {
+		this.oarLatestBonusDAO = oarLatestBonusDAO;
+	}
+
+    public OARPosmMiniValueDAO getOarPosmMiniValueDAO() {
+        return oarPosmMiniValueDAO;
+    }
+
+    public void setOarPosmMiniValueDAO(OARPosmMiniValueDAO oarPosmMiniValueDAO) {
+        this.oarPosmMiniValueDAO = oarPosmMiniValueDAO;
+    }
+
+
+	@Override
+	protected GenericDAO<Outletauditresult, Long> getGenericDAO() {
+		return outletauditresultDAO;
+	}
+
+    @Override
+    public Long addOutletAuditResult(OutletAuditResultDTO dto) throws ServiceException {
+        Auditoroutlettask  auditoroutlettask = auditoroutlettaskDAO.findByOutletIDandAuditorCode(dto.getOutletID(), dto.getAuditorCode());
+        if (auditoroutlettask == null) {
+            throw new ServiceException("NOT FOUND Auditoroutlettask from OutletID="+dto.getOutletID()+" and AuditorCode="+dto.getAuditorCode());
+        }
+        Outletauditresult result =  createOutletauditresult(auditoroutlettask, dto);
+        createOarfacingiftdisplays(result, dto.getOarfacingiftdisplayDTOs());
+        Map<Long, Boolean> powerSKUs = new HashMap<Long, Boolean>();
+        Map<Long, Integer> noFacings = createOarfullrangeskus(result, dto.getOarfullrangeskuDTOs(), powerSKUs);
+
+        createOarnofacings(result, noFacings);
+        createOarposms(result, dto.getOarposmDTOs());
+        createOarpowerskus(result, powerSKUs);
+        createOarOarpromotions(result, dto.getOarpromotionDTOs());
+        createOarfullrangefacings(result, dto.getOarfullrangefacingDTOs());
+        createOarfacingregistered(result, dto.getOarfacingregisteredDTOs());
+        createOarlocationregistered(result, dto.getOarlocationregisteredDTOs());
+        createOarLastestBonus(result, dto.getOarLatestBonusDTOs());
+        createOarPosmMiniValue(result, dto.getOarPosmMiniValues());
+        createOarDBBPosmRegistered(result, dto.getOarDBBPosmRegisteredDTOs());
+
+        auditoroutlettaskDAO.update(auditoroutlettask);
+        return result.getOutletAuditResultID();
+    }
+
+
+    @Override
+    public List<OutletReportInfo> reportInDetail(Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroup, int startRow, int pageSize) throws ObjectNotFoundException {
+
+        List<OutletReportInfo> outletReportInfos = new ArrayList<OutletReportInfo>();
+        List<Outletbrand> outletbrands = outletbrandDAO.findAll();
+        List<OutletLocationRegister> outletLocationRegisterList = new ArrayList<OutletLocationRegister>();
+
+        Long createdBy = null;
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE) && !SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE)) {
+            createdBy = SecurityUtils.getLoginUserId();
+        }
+
+        if(distributorID != null)
+        {
+            List<Outletauditresult> outletauditresults = new ArrayList<Outletauditresult>();
+            if(SecurityUtils.userHasAuthority(Constants.ROLE_GT))
+            {
+                StringBuffer whereClause = new StringBuffer();
+                Long userID = SecurityUtils.getLoginUserId();
+                whereClause.append(" and oarSub.auditoroutlettask.outlet.agent.agentID IN  (SELECT agent.agentID FROM User WHERE userID = ").append(userID).append(") ");
+                whereClause.append(" and oarSub.auditoroutlettask.outlet.region.regionID IN  (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(userID).append(") ");
+                outletauditresults  = outletauditresultDAO.reportInDetail(null, startDate,endDate,regionID,distributorID,productGroup,startRow,pageSize, whereClause.toString());
+            }
+            else
+            {
+                outletauditresults = outletauditresultDAO.reportInDetail(createdBy, startDate,endDate,regionID,distributorID,productGroup,startRow,pageSize);
+            }
+
+            for (Outletauditresult o: outletauditresults) {
+                OutletReportInfo info = new OutletReportInfo(o, outletbrands);
+                outletReportInfos.add(info);
+            }
+        }
+        else
+        {
+            StringBuffer whereClause = new StringBuffer();
+            List<Outletauditresult> outletauditresults = new ArrayList<Outletauditresult>();
+
+                if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+                {
+                    Long userID = SecurityUtils.getLoginUserId();
+                    whereClause.append(" and oarSub.auditoroutlettask.outlet.distributor.distributorID IN  (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = ").append(userID).append(")");
+                    outletauditresults  = outletauditresultDAO.reportInDetail(createdBy, startDate,endDate,regionID,distributorID,productGroup,startRow,pageSize, whereClause.toString());
+                }
+                else
+                {
+                    if(SecurityUtils.userHasAuthority(Constants.ROLE_GT))
+                    {
+                        Long userID = SecurityUtils.getLoginUserId();
+                        whereClause.append(" and oarSub.auditoroutlettask.outlet.agent.agentID IN  (SELECT agent.agentID FROM User WHERE userID = ").append(userID).append(") ");
+                        whereClause.append(" and oarSub.auditoroutlettask.outlet.region.regionID IN  (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(userID).append(") ");
+                        outletauditresults  = outletauditresultDAO.reportInDetail(createdBy, startDate,endDate,regionID,distributorID,productGroup,startRow,pageSize, whereClause.toString());
+                    }
+                    else
+                    {
+                        outletauditresults  = outletauditresultDAO.reportInDetail(createdBy, startDate,endDate,regionID,distributorID,productGroup,startRow,pageSize);
+                    }
+                }
+
+            for (Outletauditresult o: outletauditresults) {
+                OutletReportInfo info = new OutletReportInfo(o, outletbrands);
+                outletReportInfos.add(info);
+            }
+        }
+
+        return outletReportInfos;
+    }
+
+    @Override
+    public Integer getCountReportInDetail(Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroup) {
+        Long createdBy = null;
+        List<Distributor> distributors = new ArrayList<Distributor>();
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE) && !SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE)) {
+            createdBy = SecurityUtils.getLoginUserId();
+        }
+
+        if(distributorID != null)
+        {
+            return  outletauditresultDAO.getCountReportInDetail(createdBy, startDate, endDate, regionID, distributorID, productGroup);
+        }
+
+        if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+        {
+            return outletauditresultDAO.getCountReportInDetail4SupportRole(createdBy, startDate, endDate, regionID, SecurityUtils.getLoginUserId(), productGroup);
+        }
+
+        return outletauditresultDAO.getCountReportInDetail(createdBy, startDate, endDate, regionID, distributorID, productGroup);
+    }
+
+
+    public Map<Long,OutletSummaryReportInfo> summaryDistributorReportStep0(Date startDate, Date endDate, Long regionID, Long distributorID, List<Outletbrand> outletbrands) throws ObjectNotFoundException {
+        List<OutletReportInfo> outletReportInfos =  reportInDetail(startDate, endDate, regionID, distributorID, null, 0, Integer.MAX_VALUE);
+        Map<Long, List<OutletReportInfo>> longListMap = new HashMap<Long, List<OutletReportInfo>>();
+        for (OutletReportInfo o: outletReportInfos) {
+            if (longListMap.containsKey(o.getDistributorID())) {
+                longListMap.get(o.getDistributorID()).add(o);
+            } else {
+                List<OutletReportInfo> list = new ArrayList<OutletReportInfo>();
+                list.add(o);
+                longListMap.put(o.getDistributorID(),list);
+            }
+        }
+
+
+        Map<Long,OutletSummaryReportInfo>  outletSummaryReportInfos = new HashMap<Long, OutletSummaryReportInfo>();
+        Set<Long> keys = longListMap.keySet();
+        for (Long key : keys) {
+            OutletSummaryReportInfo outletSummaryReportInfo = new OutletSummaryReportInfo(longListMap.get(key), outletbrands);
+            outletSummaryReportInfos.put(key, outletSummaryReportInfo);
+        }
+        return outletSummaryReportInfos;
+    }
+
+    @Override
+     public List<OutletSummaryReportInfo> summaryDistributorReport(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException {
+        List<OutletSummaryReportInfo> result = new ArrayList<OutletSummaryReportInfo>();
+        List<Outletbrand> outletbrands = outletbrandDAO.findAll();
+        if(distributorID != null)
+        {
+            List<Long> distributorIDs = new ArrayList<Long>();
+            distributorIDs.add(distributorID);
+            List<DistributorWithOutletNumDTO> distributorWithOutletNumDTOs = distributorDAO.findDistributorWithOutletNum(distributorIDs, null);
+            Map<Long,OutletSummaryReportInfo> outletSummaryReportInfos = summaryDistributorReportStep0(startDate,endDate,regionID,distributorID, outletbrands);
+            for (Long k:outletSummaryReportInfos.keySet()) {
+                OutletSummaryReportInfo o = outletSummaryReportInfos.get(k);
+                DistributorWithOutletNumDTO distributorWithOutletNumDTO = null;
+                for (DistributorWithOutletNumDTO temp : distributorWithOutletNumDTOs) {
+                    if (temp.getDistributor().getDistributorID().equals(k)) {
+                        distributorWithOutletNumDTO = temp;
+                        break;
+                    }
+                }
+                o.setTotalOutlets(Integer.valueOf(distributorWithOutletNumDTO.getTotalOutlet().toString()));
+                result.add(o);
+            }
+        }
+        else
+        {
+            StringBuffer whereClause = new StringBuffer();
+            if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+
+                if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+                {
+                    Long userID = SecurityUtils.getLoginUserId();
+                    whereClause.append("distributorID IN (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = ").append(userID).append(")");
+                }
+            }
+
+            List<DistributorWithOutletNumDTO> distributors = distributorDAO.findDistributorWithOutletNum(null, whereClause.toString());
+
+            for (DistributorWithOutletNumDTO r: distributors) {
+                Map<Long,OutletSummaryReportInfo> outletSummaryReportInfos = summaryDistributorReportStep0(startDate,endDate,regionID,r.getDistributor().getDistributorID(),outletbrands);
+                for (Long k : outletSummaryReportInfos.keySet()) {
+                    OutletSummaryReportInfo o = outletSummaryReportInfos.get(k);
+                    o.setTotalOutlets(Integer.valueOf(r.getTotalOutlet().toString()));
+                    result.add(o);
+                }
+
+            }
+
+        }
+        return result;
+    }
+
+
+
+
+    @Override
+    public List<OutletSummaryReportInfoByMonth> summaryReportByYear(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException {
+        List<OutletSummaryReportInfoByMonth> resultSummaryByYear = new ArrayList<OutletSummaryReportInfoByMonth>();
+        List<DistributorWithOutletNumDTO> distributors = new ArrayList<DistributorWithOutletNumDTO>();
+        List<Outletbrand> outletbrands = outletbrandDAO.findAll();
+        StringBuffer whereClause = new StringBuffer();
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+
+            if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+            {
+                Long userID = SecurityUtils.getLoginUserId();
+                whereClause.append("distributorID IN (SELECT distributor.distributorID FROM Userdistributor WHERE user.userID = ").append(userID).append(")");
+            }
+        }
+        distributors = distributorDAO.findDistributorWithOutletNum(null, whereClause.toString());
+
+        Date start = startDate;
+        boolean loop = true;
+        while(loop) {
+            Date end = CalendarUtil.addMonth(start, 1);
+            if (end.getTime() > endDate.getTime()) {
+                loop = false;
+                end = endDate;
+            }
+            System.out.println(start);
+            System.out.println(end);
+            OutletSummaryReportInfoByMonth outletSummaryReportInfoByMonth = new OutletSummaryReportInfoByMonth();
+            List<OutletSummaryReportInfo> result = new ArrayList<OutletSummaryReportInfo>();
+            for (DistributorWithOutletNumDTO r: distributors) {
+
+                Map<Long,OutletSummaryReportInfo> outletSummaryReportInfos = summaryDistributorReportStep0(start, end,regionID,r.getDistributor().getDistributorID(), outletbrands);
+                Set<Long> keys = outletSummaryReportInfos.keySet();
+                for (Long k:keys) {
+                    OutletSummaryReportInfo o = outletSummaryReportInfos.get(k);
+                    o.setTotalOutlets(Integer.valueOf(r.getTotalOutlet().toString()));
+                    result.add(o);
+                }
+            }
+            outletSummaryReportInfoByMonth.setMonth(CalendarUtil.dateToString(start, "MMM/yyyy"));
+            outletSummaryReportInfoByMonth.setOutletSummaryReportInfoList(result);
+            resultSummaryByYear.add(outletSummaryReportInfoByMonth);
+            start = end;
+        }
+
+
+        return resultSummaryByYear;
+    }
+
+
+
+
+    private Date getPrevMonth(Date startDate) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+        cal.add(Calendar.MONTH,-1);
+        return cal.getTime();
+    }
+
+    public OutletSummaryReportInfo summaryRegionReportStep0(Date startDate, Date endDate, Long regionID, Long productGroup, List<Outletbrand> outletbrands) throws ObjectNotFoundException {
+        OutletSummaryReportInfo reportInfo =  null;
+        List<OutletReportInfo> outletReportInfos = reportInDetail(startDate,endDate,regionID,null,productGroup,0,Integer.MAX_VALUE);
+        if (outletReportInfos.size() > 0) {
+            reportInfo = new OutletSummaryReportInfo(outletReportInfos, outletbrands);
+        }
+        return reportInfo;
+    }
+
+    @Override
+    public List<OutletSummaryReportInfo> summaryRegionReport(Date startDate, Date endDate, Long regionID, Long productGroup) throws ObjectNotFoundException {
+        List<Outletbrand> outletbrands = outletbrandDAO.findAll();
+        List<OutletSummaryReportInfo> outletSummaryReportInfos = new ArrayList<OutletSummaryReportInfo>();
+        if (regionID != null) {
+            List<Long> regionIDs = new ArrayList<Long>();
+            regionIDs.add(regionID);
+
+            List<RegionWithOutletNumDTO> regionWithOutletNumDTOs = regionDAO.findRegionWithOutletNum(regionIDs, null);
+            OutletSummaryReportInfo info = summaryRegionReportStep0(startDate,endDate,regionID,productGroup, outletbrands);
+
+            if (info != null) {
+                RegionWithOutletNumDTO regionWithOutletNumDTO = regionWithOutletNumDTOs.get(0);
+                info.setTotalOutlets(Integer.valueOf(regionWithOutletNumDTO.getTotalOutlet().toString()));
+                outletSummaryReportInfos.add(info);
+            }
+        } else {
+            StringBuffer whereClause = new StringBuffer();
+            if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+                if(SecurityUtils.userHasAuthority(Constants.SUPPORT_ROLE))
+                {
+                    Long userID = SecurityUtils.getLoginUserId();
+                    whereClause.append("regionID IN (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(userID).append(")");
+                }
+            }
+            List<RegionWithOutletNumDTO> regions = regionDAO.findRegionWithOutletNum(null, whereClause.toString());
+            for (RegionWithOutletNumDTO r: regions) {
+                OutletSummaryReportInfo info = summaryRegionReportStep0(startDate,endDate,r.getRegion().getRegionID(),productGroup, outletbrands);
+                if (info != null) {
+                    info.setTotalOutlets(Integer.valueOf(r.getTotalOutlet().toString()));
+                    outletSummaryReportInfos.add(info);
+                }
+            }
+        }
+        return outletSummaryReportInfos;
+    }
+
+    @Override
+    public List<OutletReportInfo> reAuditReport(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException {
+        List<OutletReportInfo> outletReportInfos =  reportInDetail(startDate,endDate,regionID,distributorID,null,0,99999);
+        List<OutletReportInfo> result = new ArrayList<OutletReportInfo>();
+        for (OutletReportInfo info: outletReportInfos) {
+            if (info.getReAudit()) {
+                result.add(info);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<OutletReportInfo> perfectReport(Date startDate, Date endDate, Long regionID, Long distributorID) throws ObjectNotFoundException {
+        List<OutletReportInfo> outletReportInfos =  reportInDetail(startDate,endDate,regionID,distributorID,null,0,99999);
+        List<OutletReportInfo> result = new ArrayList<OutletReportInfo>();
+        for (OutletReportInfo info: outletReportInfos) {
+            if (info.getPerfect()) {
+                result.add(info);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<OutletSummaryReportInfo> performanceReport(Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroup) throws ObjectNotFoundException {
+        List<Outletbrand> outletbrands = outletbrandDAO.findAll();
+        Map<Long, OutletSummaryReportInfo> outletSummaryReportInfos = summaryDistributorReportStep0(startDate,endDate,regionID,distributorID,outletbrands);
+        List<OutletSummaryReportInfo> res = new ArrayList<OutletSummaryReportInfo>();
+
+
+        res.addAll(outletSummaryReportInfos.values());
+        return res;
+    }
+
+
+    private void createOarOarpromotions(Outletauditresult result, List<OarpromotionDTO> oarpromotionDTOs) {
+        //List<Oarpromotion> oldItems = result.getOarpromotions();
+        this.oarpromotionDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarpromotionDTO dto: oarpromotionDTOs) {
+            Oarpromotion domain = null;
+//            if(oldItems != null) {
+//                for (Oarpromotion dbItem : oldItems) {
+//                    if (dbItem.getPromotion().getPromotionID().equals(dto.getPromotionID())) {
+//                        domain = dbItem;
+//                        break;
+//                    }
+//                }
+//            }
+
+            if (domain == null) {
+                domain = new Oarpromotion();
+            }
+            domain.setGetQuantity(dto.getGetQuantity());
+            domain.setKnown(dto.getKnown());
+            domain.setOarPromotionID(dto.getPromotionID());
+            domain.setOutletauditresult(result);
+            domain.setProductID(dto.getProductID());
+            Promotion promotion = promotionDAO.findById(dto.getPromotionID(),true);
+            domain.setCorrect((byte)0);
+            if (dto.getKnown() > 0) {
+                if (dto.getGetQuantity() == promotion.getGetQuantity().intValue()) {
+                    if (dto.getProductID().longValue() == promotion.getGetProduct().getPromotionProductID()) {
+                        if (dto.getUnitID().longValue() == promotion.getGetUnit().getUnitID()) {
+                            domain.setCorrect((byte)1);
+                        }
+                    }
+                }
+            }
+            domain.setPromotion(promotion);
+            domain.setUnitID(dto.getUnitID());
+            oarpromotionDAO.save(domain);
+        }
+    }
+
+    private void createOarpowerskus(Outletauditresult result, Map<Long, Boolean> powerSKUMap) {
+        oarpowerskuDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        //List<Oarpowersku> oldItems = result.getOarpowerskus();
+        List<Powersku> powerskus = powerskuDAO.findAll();
+        for (Powersku powersku: powerskus) {
+            Oarpowersku domain = null;
+//            if (oldItems != null) {
+//                for (Oarpowersku dbItem : oldItems) {
+//                    if(dbItem.getPowersku().getPowerSKUID().equals(dto.getPowerskuID())) {
+//                        domain = dbItem;
+//                        break;
+//                    }
+//                }
+//            }
+            if (domain == null) {
+                domain = new Oarpowersku();
+            }
+            Boolean has = powerSKUMap.get(powersku.getPowerSKUID());
+            if (has != null && has) {
+                domain.setHas(Byte.valueOf("1"));
+            }else{
+                domain.setHas(Byte.valueOf("0"));
+            }
+            domain.setOutletauditresult(result);
+            domain.setPowersku(powersku);
+            oarpowerskuDAO.save(domain);
+        }
+    }
+
+
+    private void createOarposms(Outletauditresult result, List<OarposmDTO> oarposmDTOs) {
+        //List<Oarposm> oldItems = result.getOarposms();
+        oarposmDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarposmDTO dto: oarposmDTOs) {
+            Oarposm domain = null;
+//            if (oldItems != null) {
+//                for(Oarposm dbItem : oldItems) {
+//                    if (dbItem.getOutletposm().getOutletPOSMID().equals(dto.getOutletposmID())) {
+//                        domain = dbItem;
+//                        break;
+//                    }
+//                }
+//            }
+            if (domain == null) {
+                domain = new Oarposm();
+            }
+            domain.setHas(dto.getHas());
+            domain.setOutletauditresult(result);
+            Outletposm outletposm = new Outletposm();
+            outletposm.setOutletPOSMID(dto.getOutletposmID());
+            domain.setStatusPosm(dto.getStatusPosm());
+            domain.setOutletposm(outletposm);
+            oarposmDAO.save(domain);
+        }
+    }
+
+    private void createOarnofacings(Outletauditresult result, Map<Long, Integer> noFacings) {
+        oarnofacingDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+    	for(Long outletBlandID : noFacings.keySet()) {
+    		Integer facing = noFacings.get(outletBlandID);
+    		Oarnofacing domain = new Oarnofacing();
+    		domain.setFacing(facing);
+            Outletbrand outletbrand = new Outletbrand();
+            outletbrand.setOutletBrandID(outletBlandID);
+            domain.setOutletbrand(outletbrand);
+            domain.setOutletauditresult(result);
+            oarnofacingDAO.save(domain);
+    	}
+    }
+    
+    private void createOarfullrangefacings(Outletauditresult result, List<OarfullrangefacingDTO> oarfullrangefacingDTOs) {
+        //List<Oarfullrangefacing> oldItems = result.getOarfullrangefacings();
+        oarfullrangefacingDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarfullrangefacingDTO dto: oarfullrangefacingDTOs) {
+            Oarfullrangefacing domain = null;
+//            if (oldItems != null) {
+//                for (Oarfullrangefacing dbItem : oldItems) {
+//                    if (dbItem.getOutletbrand().getOutletBrandID().equals(dto.getOutletbrand())) {
+//                        domain = dbItem;
+//                        break;
+//                    }
+//                }
+//            }
+
+            if (domain== null) {
+                domain = new Oarfullrangefacing();
+            }
+            domain.setCorrect(dto.getCorrect());
+            Outletbrand outletbrand = new Outletbrand();
+            outletbrand.setOutletBrandID(dto.getOutletbrand());
+            domain.setOutletbrand(outletbrand);
+            domain.setOutletauditresult(result);
+            oarfullrangefacingDAO.save(domain);
+        }
+    }
+    private void createOarfacingregistered(Outletauditresult result, List<OarFacingRegisteredDTO> oarFacingRegisteredDTO) {
+    	oarFacingRegisteredDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarFacingRegisteredDTO dto: oarFacingRegisteredDTO) {
+            OarFacingRegistered domain = null;
+            if (domain== null) {
+                domain = new OarFacingRegistered();
+            }
+            domain.setFacing(dto.getFacing());
+            LevelRegister levelRegister = new LevelRegister();
+            levelRegister.setLevelID(dto.getLevelregister());
+            domain.setLevelRegister(levelRegister);
+            
+            Outletbrand outletbrand = new Outletbrand();
+            outletbrand.setOutletBrandID(dto.getOutletbrand());
+            domain.setOutletbrand(outletbrand);
+            domain.setOutletauditresult(result);
+            oarFacingRegisteredDAO.save(domain);
+        }
+    }
+    private void createOarPosmMiniValue(Outletauditresult result, List<OarPosmMiniValueDTO> oarPosmMiniValueDTOs) {
+        oarPosmMiniValueDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarPosmMiniValueDTO dto: oarPosmMiniValueDTOs) {
+            OarMiniValuePosm domain = null;
+            if (domain== null) {
+                domain = new OarMiniValuePosm();
+            }
+            domain.setValue(dto.getValue());
+            domain.setOutletAuditResult(result);
+            Outletposm outletposm = new Outletposm();
+            outletposm.setOutletPOSMID(dto.getOutletPosm());
+            domain.setOutletPosm(outletposm);
+
+            oarMiniValuePosmDAO.save(domain);
+        }
+    }
+
+    private void createOarDBBPosmRegistered(Outletauditresult result, List<OarDBBPosmRegisteredDTO> oarDBBPosmRegisteredDTOs) {
+        //oarDbbPosmRegisterDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarDBBPosmRegisteredDTO dto: oarDBBPosmRegisteredDTOs) {
+        	OarDBBPosmRegistered domain = null;
+            if (domain== null) {
+                domain = new OarDBBPosmRegistered();
+            }
+            Outletposm outletPosm = new Outletposm();
+            Outletbrand outletbrand = new Outletbrand();
+            outletPosm.setOutletPOSMID(dto.getPosmID());
+            outletbrand.setOutletBrandID(dto.getOutletBrandID());
+            domain.setOutletauditresult(result);
+            domain.setOutletPosm(outletPosm);
+            domain.setOutletBrand(outletbrand);
+
+            oarDbbPosmRegisteredDAO.save(domain);
+        }
+    }
+
+    private void createOarlocationregistered(Outletauditresult result, List<OarLocationRegisteredDTO> oarLocationRegisteredDTOs) {
+    	oarLocationRegisteredDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarLocationRegisteredDTO dto: oarLocationRegisteredDTOs) {
+            OarLocationRegistered domain = null;
+            if (domain== null) {
+                domain = new OarLocationRegistered();
+            }
+            Iftdisplaylocation iftdisplaylocation = new Iftdisplaylocation();
+            iftdisplaylocation.setIftDisplayLocationID(dto.getDisplayLocationID());
+            Outletbrand outletbrand = new Outletbrand();
+            outletbrand.setOutletBrandID(dto.getOutletbrand());
+            domain.setOutletbrand(outletbrand);
+            domain.setOutletauditresult(result);
+            domain.setIftdisplaylocation(iftdisplaylocation);
+            oarLocationRegisteredDAO.save(domain);
+        }
+    }
+    
+    private void createOarLastestBonus(Outletauditresult result, List<OarLatestBonusDTO> oarLatestBonusDTOs) {
+    	oarLatestBonusDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(new Date());
+    	cal.add(Calendar.MONTH, -1);
+    	cal.set(Calendar.DATE, 10);
+    	cal.set(Calendar.HOUR_OF_DAY, 0);  
+    	cal.set(Calendar.MINUTE, 0);  
+    	cal.set(Calendar.SECOND, 0);  
+    	cal.set(Calendar.MILLISECOND, 0);  
+    	Date fromDate = cal.getTime();
+    	
+    	cal.set(Calendar.DATE, 25);
+    	Date toDate = cal.getTime();
+    	
+        for (OarLatestBonusDTO dto: oarLatestBonusDTOs) {
+            OarLatestBonus domain = null;
+            if (domain== null) {
+                domain = new OarLatestBonus();
+            }
+            Outletbrand outletbrand = new Outletbrand();
+            outletbrand.setOutletBrandID(dto.getOutletbrandID());
+            domain.setOutletBrand(outletbrand);
+            domain.setOutletauditresult(result);
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                Date date = df.parse(dto.getDateBonus());
+                if(date != null) {
+                	if(date.compareTo(fromDate) >= 0 && date.compareTo(toDate) <= 0) {
+                		domain.setCorrect(Integer.valueOf(1));
+                	}else {
+                		domain.setCorrect(Integer.valueOf(0));
+                	}
+                	domain.setEffectiveDate(new Timestamp(date.getTime()));
+                }
+                
+            } catch (Exception e) {
+            }
+            oarLatestBonusDAO.save(domain);
+        }
+    }
+
+    private Map<Long, Integer> createOarfullrangeskus(Outletauditresult result, List<OarfullrangeskuDTO> oarfullrangeskuDTOs, Map<Long, Boolean> powerSKUs) {
+        //List<Oarfullrangesku> oldItems = result.getOarfullrangeskus();
+    	Map<Long, Integer> noFacings = new HashMap<Long, Integer>();
+        oarfullrangeskuDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        List<Fullrangesku> fullrangeskus = fullrangeskuDAO.findAndFetchAll();
+        Map<Long, Fullrangesku> fullrangeskuMap = new HashMap<Long, Fullrangesku>();
+        for (Fullrangesku fullrangesku : fullrangeskus) {
+            fullrangeskuMap.put(fullrangesku.getFullRangeSKUID(), fullrangesku);
+        }
+        for (OarfullrangeskuDTO dto: oarfullrangeskuDTOs) {
+            Oarfullrangesku domain = null;
+//            if (oldItems != null) {
+//                for (Oarfullrangesku dbItem : oldItems) {
+//                    if (dbItem.getFullrangesku().getFullRangeSKUID().equals(dto.getFullrangeskuID())) {
+//                        domain = dbItem;
+//                        break;
+//                    }
+//                }
+//            }
+
+            if (domain == null) {
+                domain = new Oarfullrangesku();
+            }
+            Fullrangesku fullrangesku = new Fullrangesku();
+            Outletposm outletposm = new Outletposm();
+            fullrangesku.setFullRangeSKUID(dto.getFullrangeskuID());
+            outletposm.setOutletPOSMID(dto.getOutletPosmID());
+            domain.setFullrangesku(fullrangesku);
+            domain.setFacing(dto.getFacing());
+            domain.setOutletauditresult(result);
+            domain.setOutletPosm(outletposm);
+            oarfullrangeskuDAO.save(domain);
+
+            Integer facing = noFacings.get(dto.getOutletblandID());
+            Double dFacing = 0d;
+            Fullrangesku fullrangesku1 =  fullrangeskuDAO.findByIdNoAutoCommit(dto.getFullrangeskuID());
+
+            if(facing == null) {
+            	facing = 0;
+            }else{
+            	dFacing = 1.0 * facing;
+            }
+            if (facing > 0) {
+                Fullrangesku fullrangesku2 = fullrangeskuMap.get(dto.getFullrangeskuID());
+                if (fullrangesku2 != null) {
+                    if(fullrangesku2.getPowersku() != null)
+                    {
+                        powerSKUs.put(fullrangesku2.getPowersku().getPowerSKUID(), new Boolean(true));
+                    }
+                }
+            }
+            dFacing += dto.getFacing() * 1.0 /fullrangesku1.getRatio();
+            noFacings.put(dto.getOutletblandID(), Integer.valueOf(String.valueOf(Math.round(dFacing - 0.5))));
+        }
+        return noFacings;
+    }
+
+    private void createOarfacingiftdisplays(Outletauditresult result, List<OarfacingiftdisplayDTO> oarfacingiftdisplayDTOs) {
+        //List<Oarfacingiftdisplay> oldItems = result.getOarfacingiftdisplays();
+        oarfacingiftdisplayDAO.deleteByOutletAuditResult(result.getOutletAuditResultID());
+        for (OarfacingiftdisplayDTO dto: oarfacingiftdisplayDTOs) {
+            Oarfacingiftdisplay domain = null;
+//            if (oldItems != null) {
+//                for (Oarfacingiftdisplay dbItem : oldItems) {
+//                    if (dbItem.getIftdisplaylocation().getIftDisplayLocationID().equals(dto.getIftdisplaylocation())) {
+//                        domain = dbItem;
+//                        break;
+//                    }
+//                }
+//            }
+            if (domain == null) {
+                domain = new Oarfacingiftdisplay();
+            }
+            domain.setHas(dto.getHas());
+            domain.setOutletauditresult(result);
+            Iftdisplaylocation iftdisplaylocation = new Iftdisplaylocation();
+            iftdisplaylocation.setIftDisplayLocationID(dto.getIftdisplaylocation());
+            domain.setIftdisplaylocation(iftdisplaylocation);
+            Outletbrand outletbrand = new Outletbrand();
+            outletbrand.setOutletBrandID(dto.getOutletbrand());
+            domain.setOutletbrand(outletbrand);
+            oarfacingiftdisplayDAO.save(domain);
+        }
+    }
+
+    private Outletauditresult createOutletauditresult(Auditoroutlettask auditoroutlettask, OutletAuditResultDTO dto) {
+        Outletauditresult result = null;
+        result = outletauditresultDAO.findEqualUnique("auditoroutlettask.auditorOutletTaskID", auditoroutlettask.getAuditorOutletTaskID());
+        if (result == null) {
+            result = new Outletauditresult();
+            if (dto.getActiveStatus() == null || dto.getActiveStatus() == Constants.OUTLET_STATUS_ACTIVE || dto.getActiveStatus() == Constants.OUTLET_STATUS_REFUSE_AUDIT) {
+                auditoroutlettask.setStatus(0);
+            }
+        }else{
+            auditoroutlettask.setStatus(0);
+        }
+        result.setAuditDate(new Timestamp(CalendarUtil.stringToDate(dto.getAuditDate()).getTime()));
+        result.setAuditoroutlettask(auditoroutlettask);
+        result.setGpsLatitude(dto.getGpsLatitude().floatValue());
+        result.setGpsLongtitude(dto.getGpsLongtitude().floatValue());
+        result.setSubmittedDate(new Timestamp(CalendarUtil.stringToDate(dto.getSubmittedDate()).getTime()));
+        result.setActiveStatus(dto.getActiveStatus());
+        result.setNotes(dto.getNotes());
+
+        return saveOrUpdate(result);
+    }
+
+    public Timestamp string2TimeStamp(String d, String formatDateTo, String formatDateFrom) {
+        String auditDate = null;
+        try
+        {
+            SimpleDateFormat sdf1 = new SimpleDateFormat(formatDateTo);
+            Date date = sdf1.parse(d);
+            SimpleDateFormat sdf2 = new SimpleDateFormat(formatDateFrom);
+            auditDate = sdf2.format(date);
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
+        return Timestamp.valueOf(auditDate);
+    }
+
+    @Override
+    public Long importOutletAudit(OutletAuditImportDTO outletAuditImportDTO) throws ObjectNotFoundException
+    {
+        Outletauditresult outletAuditResult;
+        List<Iftdisplaylocation> iftdisplaylocations = iftdisplaylocationDAO.findAll();
+        List<Outletbrand> outletBrands = outletbrandDAO.findAll();
+        List<Outletposm> outletposms = outletposmDAO.findAll();
+        List<Powersku> powerskus = powerskuDAO.findAll();
+        List<Fullrangesku> fullrangeskus = fullrangeskuDAO.findAll();
+        List<Promotion> promotions = promotionDAO.findAll();
+        try
+        {
+            if(!outletAuditImportDTO.getSuccess().equals("Success"))
+                return null;
+            // Find auditorOutletTask available and not yet finish
+            Auditoroutlettask auditoroutlettask = auditoroutlettaskDAO.findByAuditScheduleIDAndOutletID(outletAuditImportDTO.getDbOutlet().getOutletID(), outletAuditImportDTO.getAuditSchedule().getAuditScheduleID());
+            if(auditoroutlettask ==  null || auditoroutlettask.getStatus() != 1)
+            {
+                return null;
+            }
+
+            Outlet dbOutlet = outletAuditImportDTO.getDbOutlet();
+
+            // Create OutletauditResult for outletTask behind above
+            Outletauditresult outletauditresult = new Outletauditresult();
+            outletauditresult.setAuditoroutlettask(auditoroutlettask);
+
+            outletauditresult.setAuditDate(string2TimeStamp(outletAuditImportDTO.getAuditDate(), "dd/MM/yyyy hh:mm", "yyyy-MM-dd hh:mm:ss.SSS"));
+            outletauditresult.setSubmittedDate(new Timestamp(System.currentTimeMillis()));
+            outletauditresult.setGpsLatitude(0.00f);
+            outletauditresult.setGpsLongtitude(0.00f);
+            outletauditresult.setActiveStatus(outletAuditImportDTO.getOutletStatus());
+            outletauditresult.setImport(1);
+            outletauditresult.setNotes(outletAuditImportDTO.getNotes());
+            outletAuditResult = outletauditresultDAO.saveOrUpdate(outletauditresult);
+
+            if(outletauditresult.getActiveStatus() == 1)
+            {
+                //Add results for OutletAuditResult :
+                for(Outletbrand outletbrand : outletBrands)
+                {
+                    // Create OarLocationregistered :
+                    List<OutletLocationRegister> outletLocationRegisterList = new ArrayList<OutletLocationRegister>();
+                    outletLocationRegisterList =  outletLocationRegisterDAO.findByOutletAndBrand(dbOutlet.getOutletID(), outletbrand.getOutletBrandID());
+                    for(OutletLocationRegister outletLocationRegister : outletLocationRegisterList)
+                    {
+                        try
+                        {
+                            OarLocationRegistered oarLocationRegistered = new OarLocationRegistered();
+                            oarLocationRegistered.setOutletbrand(outletbrand);
+                            Iftdisplaylocation iftdisplaylocation = new Iftdisplaylocation();
+                            iftdisplaylocation.setIftDisplayLocationID(outletLocationRegister.getLocation().getIftDisplayLocationID());
+                            oarLocationRegistered.setIftdisplaylocation(iftdisplaylocation);
+                            oarLocationRegistered.setOutletauditresult(outletAuditResult);
+
+                            oarLocationRegisteredDAO.saveOrUpdate(oarLocationRegistered);
+                        }
+                        catch(Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save OarLocationRegistered");
+                        }
+                    }
+
+                    // Create OarFacingIftDisplay
+                    for(Iftdisplaylocation iftdisplaylocation : iftdisplaylocations)
+                    {
+                        try
+                        {
+                            Oarfacingiftdisplay oarfacingiftdisplay = new Oarfacingiftdisplay();
+                            oarfacingiftdisplay.setIftdisplaylocation(iftdisplaylocation);
+                            oarfacingiftdisplay.setOutletbrand(outletbrand);
+                            oarfacingiftdisplay.setOutletauditresult(outletAuditResult);
+                            oarfacingiftdisplay.setHas((byte)0);
+                            if(outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()) != null && outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()).keySet().size() > 0)
+                            {
+                                if(outletAuditImportDTO.getHashIFTLocation().get(outletbrand.getOutletBrandID()).get(iftdisplaylocation.getIftDisplayLocationID()) != null)
+                                {
+                                    oarfacingiftdisplay.setHas((byte)1);
+                                }
+                            }
+
+                            oarfacingiftdisplayDAO.saveOrUpdate(oarfacingiftdisplay);
+                        }
+                        catch(Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save Oarfacingiftdisplay");
+                        }
+                    }
+
+                    // Create OarFacingRegistered :
+                    List<Outletdistributionregistered> outletdistributionregisteredList = new ArrayList<Outletdistributionregistered>();
+                    outletdistributionregisteredList =  outletdistributionregisteredDAO.findByOutletIDAndBrand(dbOutlet.getOutletID(), outletbrand.getOutletBrandID());
+                    for(Outletdistributionregistered outletdistributionregistered : outletdistributionregisteredList)
+                    {
+                        try
+                        {
+                            OarFacingRegistered oarFacingRegistered = new OarFacingRegistered();
+                            oarFacingRegistered.setFacing(outletdistributionregistered.getFacing());
+                            LevelRegister levelRegister = new LevelRegister();
+                            levelRegister.setLevelID(outletdistributionregistered.getLevelRegister().getLevelID());
+                            oarFacingRegistered.setLevelRegister(levelRegister);
+                            oarFacingRegistered.setOutletauditresult(outletAuditResult);
+                            oarFacingRegistered.setOutletbrand(outletbrand);
+
+                            oarFacingRegisteredDAO.saveOrUpdate(oarFacingRegistered);
+                        }
+                        catch (Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save OarFacingRegistered");
+                        }
+                    }
+
+
+                    // Create Oarnofacing
+                    if(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()) != null)
+                    {
+                        Double noFacing = 0.0;
+                        Set<Long> keys = outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).keySet();
+                        for(Long fullRangeID : keys)
+                        {
+                            Fullrangesku fullrangesku = fullrangeskuDAO.findByIdNoAutoCommit(fullRangeID);
+                            noFacing = noFacing + outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).get(fullRangeID) * 1.0/fullrangesku.getRatio();
+                        }
+
+                        try
+                        {
+                            Oarnofacing oarnofacing = new Oarnofacing();
+                            oarnofacing.setFacing(noFacing.intValue());
+                            oarnofacing.setOutletauditresult(outletAuditResult);
+                            oarnofacing.setOutletbrand(outletbrand);
+
+                            oarnofacingDAO.saveOrUpdate(oarnofacing);
+                        }
+                        catch(Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save Oarnofacing");
+                        }
+                    }
+
+                    // Create OarPOSM
+                    for(Outletposm outletposm : outletposms)
+                    {
+                        try
+                        {
+                            if(outletposm.getActive() > 0)
+                            {
+                                Oarposm oarposm = new Oarposm();
+                                oarposm.setOutletposm(outletposm);
+                                oarposm.setOutletauditresult(outletAuditResult);
+                                oarposm.setHas((byte)0);
+                                if(outletAuditImportDTO.getHashPOSM().get(outletbrand.getOutletBrandID()) != null)
+                                {
+                                    if(outletAuditImportDTO.getHashPOSM().get(outletbrand.getOutletBrandID()).get(outletposm.getOutletPOSMID()) != null)
+                                    {
+                                        oarposm.setHas((byte)1);
+                                    }
+                                }
+                                oarposmDAO.saveOrUpdate(oarposm);
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save OarPOSM");
+                        }
+                    }
+
+                    // Create OarPowerSKU
+                    for(Powersku powersku : powerskus)
+                    {
+                        try
+                        {
+                            if(powersku.getOutletbrand().getOutletBrandID().equals(outletbrand.getOutletBrandID()))
+                            {
+                                Oarpowersku oarpowersku = new Oarpowersku();
+                                oarpowersku.setOutletauditresult(outletAuditResult);
+                                oarpowersku.setPowersku(powersku);
+                                oarpowersku.setHas((byte)0);
+                                Set<Long> keys = outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).keySet();
+                                for(Long fullRangeID : keys)
+                                {
+                                    Fullrangesku fullrangesku = fullrangeskuDAO.findByIdNoAutoCommit(fullRangeID);
+                                    if(fullrangesku.getPowersku() != null)
+                                    {
+                                        if(powersku.getPowerSKUID().equals(fullrangesku.getPowersku().getPowerSKUID()))
+                                        {
+                                            if(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).get(fullRangeID) > 0)
+                                            {
+                                                oarpowersku.setHas((byte)1);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                oarpowerskuDAO.saveOrUpdate(oarpowersku);
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save OarPowerSKU");
+                        }
+                    }
+
+                    //Create OarFullRangeSKU
+                    for(Fullrangesku fullrangesku : fullrangeskus)
+                    {
+                        try
+                        {
+                            if(fullrangesku.getOutletbrand().getOutletBrandID().equals(outletbrand.getOutletBrandID()))
+                            {
+                                Oarfullrangesku oarfullrangesku = new Oarfullrangesku();
+                                oarfullrangesku.setOutletauditresult(outletAuditResult);
+                                oarfullrangesku.setFullrangesku(fullrangesku);
+                                oarfullrangesku.setFacing(0);
+                                if(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()) != null)
+                                {
+                                    if(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).get(fullrangesku.getFullRangeSKUID()) != null)
+                                    {
+                                        oarfullrangesku.setFacing(outletAuditImportDTO.getHashFullRangeSKU().get(outletbrand.getOutletBrandID()).get(fullrangesku.getFullRangeSKUID()));
+                                    }
+                                }
+
+                                oarfullrangeskuDAO.saveOrUpdate(oarfullrangesku);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            log.error(ex);
+                            log.debug("Don't save OarFullRangeSKU");
+                        }
+                    }
+
+
+                    // Create OarPromotion
+                    for(Promotion promotion : promotions)
+                    {
+                        try
+                        {
+                            if(promotion.getOutletbrand().getOutletBrandID().equals(outletbrand.getOutletBrandID()))
+                            {
+                                if(promotion.getEffectiveDate().compareTo(new Timestamp(System.currentTimeMillis())) < 0 && promotion.getExpireDate().compareTo(new Timestamp(System.currentTimeMillis())) > 0)
+                                {
+                                    Oarpromotion oarpromotion = new Oarpromotion();
+                                    oarpromotion.setPromotion(promotion);
+                                    oarpromotion.setOutletauditresult(outletAuditResult);
+                                    oarpromotion.setKnown((byte)0);
+                                    oarpromotion.setCorrect((byte)0);
+                                    if(outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()) != null)
+                                    {
+                                        if(outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()) != null)
+                                        {
+                                            if(outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()).get("Awareness") == 1)
+                                            {
+                                                oarpromotion.setKnown((byte)1);
+                                            }
+
+                                            if(outletAuditImportDTO.getHashPromotion().get(outletbrand.getOutletBrandID()).get(promotion.getPromotionID()).get("Compliance") == 1)
+                                            {
+                                                oarpromotion.setCorrect((byte)1);
+                                            }
+                                        }
+                                    }
+
+                                    oarpromotionDAO.saveOrUpdate(oarpromotion);
+                                }
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            log.error("Don't save OarPromotion",ex);
+                        }
+                    }
+
+                    // Create OarLatestBonus
+                    try
+                    {
+                        OarLatestBonus oarLatestBonus = outletAuditImportDTO.getOarLatestBonus().get(outletbrand.getOutletBrandID());
+                        oarLatestBonus.setOutletauditresult(outletauditresult);
+                        oarLatestBonus.setOutletBrand(outletbrand);
+
+                        Calendar cal = Calendar.getInstance();
+                        cal.setTime(new Date());
+                        cal.add(Calendar.MONTH, -1);
+                        cal.set(Calendar.DATE, 10);
+                        cal.set(Calendar.HOUR_OF_DAY, 0);
+                        cal.set(Calendar.MINUTE, 0);
+                        cal.set(Calendar.SECOND, 0);
+                        cal.set(Calendar.MILLISECOND, 0);
+                        Date fromDate = cal.getTime();
+
+                        cal.set(Calendar.DATE, 25);
+                        Date toDate = cal.getTime();
+                        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                        try {
+                            Date date = oarLatestBonus.getEffectiveDate();
+                            if(date != null) {
+                                if(date.compareTo(fromDate) >= 0 && date.compareTo(toDate) <= 0) {
+                                    oarLatestBonus.setCorrect(Integer.valueOf(1));
+                                }else {
+                                    oarLatestBonus.setCorrect(Integer.valueOf(0));
+                                }
+                                oarLatestBonus.setEffectiveDate(new Timestamp(date.getTime()));
+                            }
+
+                        } catch (Exception e) {
+                        }
+
+                        oarLatestBonusDAO.saveOrUpdate(oarLatestBonus);
+                    }
+                    catch(Exception ex)
+                    {
+                        log.error(ex);
+                        log.debug("Don't save OarLatestBonus");
+                    }
+                }
+            }
+
+
+            //Set status for auditorOutletTask :
+            auditoroutlettask.setStatus(0);
+            auditoroutlettaskDAO.detach(auditoroutlettask);
+            auditoroutlettaskDAO.saveOrUpdate(auditoroutlettask);
+
+            return outletAuditResult.getOutletAuditResultID();
+        }
+        catch (Exception ex)
+        {
+            log.error(ex);
+            log.debug("Task is not available");
+        }
+
+        return null;
+    }
+
+    @Override
+    public void importOutletAuditSummary(OutletAuditSummaryImportDTO outletAuditSummaryImportDTO) throws ObjectNotFoundException
+    {
+        if(!"Success".equalsIgnoreCase(outletAuditSummaryImportDTO.getSuccess()))
+        {
+            throw new ObjectNotFoundException("Not found outlet with sapCode " + outletAuditSummaryImportDTO.getSapCode() + " and DMS Code  " + outletAuditSummaryImportDTO.getDmsCode());
+        }
+        Outletauditresult outletAuditResult;
+        List<Outletbrand> outletBrands = outletbrandDAO.findAll();
+        // Find auditorOutletTask available and not yet finish
+        Auditoroutlettask auditoroutlettask = auditoroutlettaskDAO.findByAuditScheduleIDAndOutletID(outletAuditSummaryImportDTO.getDbOutlet().getOutletID(), outletAuditSummaryImportDTO.getAuditSchedule().getAuditScheduleID());
+        if(auditoroutlettask ==  null || auditoroutlettask.getStatus() != 1)
+        {
+            throw new ObjectNotFoundException("Not found outlet with sapCode " + outletAuditSummaryImportDTO.getSapCode() + " and DMS Code  " + outletAuditSummaryImportDTO.getDmsCode());
+        }
+
+
+        try
+        {
+            // Create OutletauditResult for outletTask behind above
+            Outletauditresult outletauditresult = new Outletauditresult();
+            outletauditresult.setAuditoroutlettask(auditoroutlettask);
+            outletauditresult.setAuditDate(new Timestamp(System.currentTimeMillis()));
+            outletauditresult.setSubmittedDate(new Timestamp(System.currentTimeMillis()));
+            outletauditresult.setGpsLatitude(0.00f);
+            outletauditresult.setGpsLongtitude(0.00f);
+            outletauditresult.setActiveStatus(1);
+            outletauditresult.setImport(2);
+            outletAuditResult = outletauditresultDAO.saveOrUpdate(outletauditresult);
+            for(Outletbrand outletbrand : outletBrands)
+            {
+                try
+                {
+                     OARAuditSummary oarAuditSummary = new OARAuditSummary();
+                     oarAuditSummary.setOutletauditresult(outletAuditResult);
+                     oarAuditSummary.setOutletbrand(outletbrand);
+                     if(outletAuditSummaryImportDTO.getLocationMeet().get(outletbrand.getOutletBrandID()) != null)
+                     {
+                         oarAuditSummary.setLocationMeet(outletAuditSummaryImportDTO.getLocationMeet().get(outletbrand.getOutletBrandID()));
+                     }
+                     if(outletAuditSummaryImportDTO.getPowerSKUMeet().get(outletbrand.getOutletBrandID()) != null)
+                     {
+                         oarAuditSummary.setPowerSKUMeet(outletAuditSummaryImportDTO.getPowerSKUMeet().get(outletbrand.getOutletBrandID()));
+                     }
+                     if(outletAuditSummaryImportDTO.getFullRangeSKUMeet().get(outletbrand.getOutletBrandID()) != null)
+                     {
+                         oarAuditSummary.setFullRangeMeet(outletAuditSummaryImportDTO.getFullRangeSKUMeet().get(outletbrand.getOutletBrandID()));
+                     }
+                     if(outletAuditSummaryImportDTO.getNoFacingMeet().get(outletbrand.getOutletBrandID()) != null)
+                     {
+                         oarAuditSummary.setNofacingMeet(outletAuditSummaryImportDTO.getNoFacingMeet().get(outletbrand.getOutletBrandID()));
+                     }
+                     if(outletAuditSummaryImportDTO.getPosmMeet().get(outletbrand.getOutletBrandID()) != null)
+                     {
+                         oarAuditSummary.setPosmMeet(outletAuditSummaryImportDTO.getPosmMeet().get(outletbrand.getOutletBrandID()));
+                     }
+
+                     if(outletAuditSummaryImportDTO.getCommissionMeet().get(outletbrand.getOutletBrandID()) != null)
+                     {
+                         oarAuditSummary.setCommisionMeet(outletAuditSummaryImportDTO.getCommissionMeet().get(outletbrand.getOutletBrandID()));
+                     }
+
+                     oarAuditSummaryDAO.saveOrUpdate(oarAuditSummary);
+                }
+                catch(Exception ex)
+                {
+                    log.error(ex);
+                    log.debug("Don't save OarAuditSummary");
+                }
+                //Set status for auditorOutletTask :
+                auditoroutlettask.setStatus(0);
+                auditoroutlettaskDAO.detach(auditoroutlettask);
+                auditoroutlettaskDAO.saveOrUpdate(auditoroutlettask);
+
+
+            }
+        }
+        catch(Exception ex)
+        {
+            log.error(ex);
+            log.debug("Don't find AuditorOutletTask");
+        }
+    }
+
+
+    @Override
+    public Outletauditresult findByOutletID(Long outletID)
+    {
+        return outletauditresultDAO.findByOutletID(outletID);
+    }
+
+    public void setOarpromotionDAO(OarpromotionDAO oarpromotionDAO) {
+        this.oarpromotionDAO = oarpromotionDAO;
+    }
+
+    public void setAuditoroutlettaskDAO(AuditoroutlettaskDAO auditoroutlettaskDAO) {
+        this.auditoroutlettaskDAO = auditoroutlettaskDAO;
+    }
+
+    public void setOarpowerskuDAO(OarpowerskuDAO oarpowerskuDAO) {
+        this.oarpowerskuDAO = oarpowerskuDAO;
+    }
+
+    public void setOarposmDAO(OarposmDAO oarposmDAO) {
+        this.oarposmDAO = oarposmDAO;
+    }
+
+    public void setOarnofacingDAO(OarnofacingDAO oarnofacingDAO) {
+        this.oarnofacingDAO = oarnofacingDAO;
+    }
+
+    public void setOarfullrangeskuDAO(OarfullrangeskuDAO oarfullrangeskuDAO) {
+        this.oarfullrangeskuDAO = oarfullrangeskuDAO;
+    }
+
+    public void setOarfacingiftdisplayDAO(OarfacingiftdisplayDAO oarfacingiftdisplayDAO) {
+        this.oarfacingiftdisplayDAO = oarfacingiftdisplayDAO;
+    }
+
+    public void setOutletbrandDAO(OutletbrandDAO outletbrandDAO) {
+        this.outletbrandDAO = outletbrandDAO;
+    }
+
+    public void setRegionDAO(RegionDAO regionDAO) {
+        this.regionDAO = regionDAO;
+    }
+
+
+    public void setPromotionDAO(PromotionDAO promotionDAO) {
+        this.promotionDAO = promotionDAO;
+    }
+
+	public void setOarfullrangefacingDAO(OarfullrangefacingDAO oarfullrangefacingDAO) {
+		this.oarfullrangefacingDAO = oarfullrangefacingDAO;
+	}
+    
+}

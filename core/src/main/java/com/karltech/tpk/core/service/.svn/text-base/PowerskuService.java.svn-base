@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Powersku;
+import com.banvien.fcv.core.dto.PowerSKUBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+
+public interface PowerskuService extends GenericService<Powersku,Long> {
+
+    void updateItem(PowerSKUBean powerskuBean) throws ObjectNotFoundException, DuplicateException;
+
+    Powersku findByName(String name) throws ObjectNotFoundException;
+
+    void addNew(PowerSKUBean powerskuBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(PowerSKUBean bean);
+
+    public List<Powersku> findAll();
+}

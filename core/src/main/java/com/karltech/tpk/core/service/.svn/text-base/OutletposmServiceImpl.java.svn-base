@@ -1,0 +1,113 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletposmDAO;
+import com.banvien.fcv.core.domain.Outletposm;
+import com.banvien.fcv.core.dto.OutletPOSMBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class OutletposmServiceImpl extends GenericServiceImpl<Outletposm,Long>
+                                                    implements OutletposmService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletposmDAO outletposmDAO;
+
+    public void setOutletposmDAO(OutletposmDAO outletposmDAO) {
+        this.outletposmDAO = outletposmDAO;
+    }
+
+    @Override
+	protected GenericDAO<Outletposm, Long> getGenericDAO() {
+		return outletposmDAO;
+	}
+
+    @Override
+    public Outletposm findByCode(String code) throws ObjectNotFoundException {
+        Outletposm res = this.outletposmDAO.findEqualUnique(Outletposm.FIELD_CODE, code);
+        if (res == null) throw new ObjectNotFoundException("Not found outletposm with code " + code);
+        return res;
+    }
+
+    @Override
+    public void updateItem(OutletPOSMBean outletposmBean) throws ObjectNotFoundException, DuplicateException {
+        Outletposm dbItem = this.outletposmDAO.findByIdNoAutoCommit(outletposmBean.getPojo().getOutletPOSMID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found outletposm " + outletposmBean.getPojo().getOutletPOSMID());
+
+        Outletposm pojo = outletposmBean.getPojo();
+
+        this.outletposmDAO.detach(dbItem);
+        this.outletposmDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OutletPOSMBean outletposmBean) throws DuplicateException {
+        Outletposm pojo = outletposmBean.getPojo();
+        pojo = this.outletposmDAO.save(pojo);
+        outletposmBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                outletposmDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OutletPOSMBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Outletposm.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Outletposm.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getActive() != null) {
+            properties.put(Outletposm.FIELD_ACTIVE, bean.getPojo().getActive());
+        }
+
+        if (bean.getPojo().getOutletbrand() != null && bean.getPojo().getOutletbrand().getOutletBrandID() != null && bean.getPojo().getOutletbrand().getOutletBrandID() > 0) {
+            properties.put("outletbrand.outletBrandID", bean.getPojo().getOutletbrand().getOutletBrandID());
+        }
+
+        return this.outletposmDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public List<Outletposm> findActivePOSM(Timestamp fromDate, Timestamp toDate) {
+        return this.outletposmDAO.findActivePOSM(fromDate, toDate);
+    }
+
+    @Override
+    public List<Outletposm> findAllActive() {
+        return this.outletposmDAO.findAllActive();
+    }
+
+    @Override
+    public Outletposm findByNameAndOutletBrand(String name, Long outletbrandID) throws ObjectNotFoundException
+    {
+        return outletposmDAO.findByNameAndOutletBrand(name,outletbrandID) ;
+    }
+
+    @Override
+    public List<Outletposm> findByOutletBrand(Long outletBrandID) {
+        return this.outletposmDAO.findByOutletBrand(outletBrandID);
+    }
+}

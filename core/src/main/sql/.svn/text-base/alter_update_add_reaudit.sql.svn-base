@@ -1,0 +1,3 @@
+use FCVAuditData;
+ALTER TABLE AuditSchedule ADD COLUMN `ReAuditScheduleID` BIGINT;
+ALTER TABLE AuditSchedule ADD CONSTRAINT `FK_AuditSchedule_AuditSchedule` FOREIGN KEY (`ReAuditScheduleID`) REFERENCES `AuditSchedule` (`AuditScheduleID`) ON DELETE NO ACTION ON UPDATE NO ACTION;

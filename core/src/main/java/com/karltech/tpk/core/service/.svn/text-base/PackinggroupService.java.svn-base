@@ -1,0 +1,18 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Packinggroup;
+import com.banvien.fcv.core.dto.PackinggroupBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface PackinggroupService extends GenericService<Packinggroup,Long> {
+
+    void updateItem(PackinggroupBean packinggroupBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(PackinggroupBean packinggroupBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(PackinggroupBean bean);
+}

@@ -1,0 +1,25 @@
+package com.banvien.fcv.core.service;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.StorepromotionscopeDAO;
+import com.banvien.fcv.core.domain.Storepromotionscope;
+
+public class StorepromotionscopeServiceImpl extends GenericServiceImpl<Storepromotionscope,Long> 
+                                                    implements StorepromotionscopeService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StorepromotionscopeDAO storepromotionscopeDAO;
+
+    public void setStorepromotionscopeDAO(StorepromotionscopeDAO storepromotionscopeDAO) {
+        this.storepromotionscopeDAO = storepromotionscopeDAO;
+    }
+
+    @Override
+	protected GenericDAO<Storepromotionscope, Long> getGenericDAO() {
+		return storepromotionscopeDAO;
+	}
+
+}

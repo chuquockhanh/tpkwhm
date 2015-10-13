@@ -1,0 +1,14 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.POSMMiniValue;
+import com.banvien.fcv.core.dto.POSMMiniValueBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface POSMMiniValueService extends GenericService<POSMMiniValue,Long> {
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(POSMMiniValueBean bean);
+}

@@ -1,0 +1,62 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 2/26/13
+ * Time: 2:55 PM
+ */
+public class OarFacingRegistered implements Serializable {
+    private Long oarFacingRegisteredID;
+
+    private Outletbrand outletbrand;
+
+    private Integer facing;
+
+    private LevelRegister levelRegister;
+
+    private Outletauditresult outletauditresult;
+
+    public Long getOarFacingRegisteredID() {
+        return oarFacingRegisteredID;
+    }
+
+    public void setOarFacingRegisteredID(Long oarFacingRegisteredID) {
+        this.oarFacingRegisteredID = oarFacingRegisteredID;
+    }
+
+    public Outletbrand getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Outletbrand outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Integer getFacing() {
+        return facing;
+    }
+
+    public void setFacing(Integer facing) {
+        this.facing = facing;
+    }
+
+    public LevelRegister getLevelRegister() {
+        return levelRegister;
+    }
+
+    public void setLevelRegister(LevelRegister levelRegister) {
+        this.levelRegister = levelRegister;
+    }
+
+    public Outletauditresult getOutletauditresult() {
+        return outletauditresult;
+    }
+
+    public void setOutletauditresult(Outletauditresult outletauditresult) {
+        this.outletauditresult = outletauditresult;
+    }
+}

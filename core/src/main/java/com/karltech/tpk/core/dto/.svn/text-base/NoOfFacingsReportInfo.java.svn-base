@@ -1,0 +1,154 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.LevelRegister;
+import com.banvien.fcv.core.domain.OarFacingRegistered;
+import com.banvien.fcv.core.domain.Oarnofacing;
+import com.banvien.fcv.core.domain.Outletbrand;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: BAN
+ * Date: 7/2/12
+ * Time: 11:25 AM
+ */
+public class NoOfFacingsReportInfo {
+
+    private Map<Long, Integer> noFacingRegisterMap = new HashMap<Long, Integer>();
+
+
+    private List<Oarnofacing>  oarnofacings;
+
+
+    private Boolean meet;
+
+    private Map<Long, Boolean> noFacingMeetMap = new HashMap<Long, Boolean>();
+
+    private Map<Long, LevelRegister> levelRegisteredMap = new HashMap<Long, LevelRegister>();
+
+    private Map<Long, Boolean> levelRegisteredMeetMap = new HashMap<Long, Boolean>();
+
+    private Map<Long, Integer> noFacingActualMap = new HashMap<Long, Integer>();
+
+    public NoOfFacingsReportInfo(List<Oarnofacing> oarnofacings, List<OarFacingRegistered> oarfacingregistereds, List<Outletbrand> outletbrands) {
+        setOarnofacings(oarnofacings);
+
+        setMeet(true);
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            noFacingActualMap.put(outletbrand.getOutletBrandID(), 0);
+            noFacingRegisterMap.put(outletbrand.getOutletBrandID(), 0);
+            noFacingMeetMap.put(outletbrand.getOutletBrandID(), false);
+            levelRegisteredMeetMap.put(outletbrand.getOutletBrandID(), false);
+        }
+
+        for (OarFacingRegistered oarFacingRegistered : oarfacingregistereds) {
+            noFacingRegisterMap.put(oarFacingRegistered.getOutletbrand().getOutletBrandID(), oarFacingRegistered.getFacing());
+        }
+
+        for(Outletbrand outletbrand : outletbrands)
+        {
+            for (Oarnofacing o: oarnofacings) {
+
+                if (o.getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID()) {
+                    noFacingActualMap.put(outletbrand.getOutletBrandID(), o.getFacing());
+                    if(oarfacingregistereds.size() > 0)
+                    {
+                        for(OarFacingRegistered oarFacingRegistered : oarfacingregistereds )
+                        {
+                            if(o.getOutletauditresult().getOutletAuditResultID().equals(oarFacingRegistered.getOutletauditresult().getOutletAuditResultID()) && oarFacingRegistered.getOutletbrand().getOutletBrandID().equals(o.getOutletbrand().getOutletBrandID()) && o.getFacing() >= oarFacingRegistered.getFacing())
+                            {
+                                noFacingMeetMap.put(outletbrand.getOutletBrandID(), true);
+                                levelRegisteredMeetMap.put(outletbrand.getOutletBrandID(), true);
+                            }
+                            else
+                            {
+                                setMeet(false);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        noFacingMeetMap.put(outletbrand.getOutletBrandID(), true);
+                        levelRegisteredMeetMap.put(outletbrand.getOutletBrandID(), true);
+                    }
+                }
+
+            }
+            for(OarFacingRegistered oarFacingRegistered : oarfacingregistereds)
+            {
+                if(oarFacingRegistered.getOutletbrand().getOutletBrandID().equals(outletbrand.getOutletBrandID()))
+                {
+                    levelRegisteredMap.put(outletbrand.getOutletBrandID(), oarFacingRegistered.getLevelRegister());
+                }
+            }
+        }
+    }
+
+
+
+    public List<Oarnofacing> getOarnofacings() {
+        return oarnofacings;
+    }
+
+    public void setOarnofacings(List<Oarnofacing> oarnofacings) {
+        this.oarnofacings = oarnofacings;
+    }
+
+
+
+    public Map<Long, Integer> getNoFacingRegisterMap() {
+        return noFacingRegisterMap;
+    }
+
+    public void setNoFacingRegisterMap(Map<Long, Integer> noFacingRegisterMap) {
+        this.noFacingRegisterMap = noFacingRegisterMap;
+    }
+
+    public Map<Long, Boolean> getNoFacingMeetMap() {
+        return noFacingMeetMap;
+    }
+
+    public void setNoFacingMeetMap(Map<Long, Boolean> noFacingMeetMap) {
+        this.noFacingMeetMap = noFacingMeetMap;
+    }
+
+    public Map<Long, Integer> getNoFacingActualMap() {
+        return noFacingActualMap;
+    }
+
+    public void setNoFacingActualMap(Map<Long, Integer> noFacingActualMap) {
+        this.noFacingActualMap = noFacingActualMap;
+    }
+
+    public Boolean getMeet() {
+        return meet;
+    }
+
+    public void setMeet(Boolean meet) {
+        this.meet = meet;
+    }
+
+    public Boolean isMeet() {
+        return this.meet;
+    }
+
+    public Map<Long, LevelRegister> getLevelRegisteredMap() {
+        return levelRegisteredMap;
+    }
+
+    public void setLevelRegisteredMap(Map<Long, LevelRegister> levelRegisteredMap) {
+        this.levelRegisteredMap = levelRegisteredMap;
+    }
+
+    public Map<Long, Boolean> getLevelRegisteredMeetMap() {
+        return levelRegisteredMeetMap;
+    }
+
+    public void setLevelRegisteredMeetMap(Map<Long, Boolean> levelRegisteredMeetMap) {
+        this.levelRegisteredMeetMap = levelRegisteredMeetMap;
+    }
+
+}

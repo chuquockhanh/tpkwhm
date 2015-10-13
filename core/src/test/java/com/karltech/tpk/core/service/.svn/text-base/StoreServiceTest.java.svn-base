@@ -1,0 +1,45 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.BaseTestCase;
+import com.banvien.fcv.core.dto.OutletInfoList;
+import com.banvien.fcv.core.dto.StoreInfoList;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 3:02 PM
+ */
+public class StoreServiceTest extends BaseTestCase {
+	@Autowired
+	private StoreService storeService;
+
+
+    @Test
+	public void testGetStoreInfoListByAuditorCode() {
+        StoreInfoList storeInfoList = null;
+        try {
+            storeInfoList = storeService.getStoreInfoListByAuditorCode("0001");
+        } catch (ObjectNotFoundException e) {
+            fail();
+        }
+        try {
+            StoreInfoList storeInfoList2 = new StoreInfoList();
+            System.out.println("outletInfoList:"+storeInfoList.serializeJSON());
+            JSONObject t = new JSONObject(storeInfoList.serializeJSON().toString());
+            storeInfoList2.unserializeJSON(t);
+            System.out.println("outletInfoList2:"+storeInfoList2.serializeJSON());
+        } catch (JSONException e) {
+            fail();
+            e.printStackTrace();
+        }
+    }
+
+    public void setStoreService(StoreService storeService) {
+        this.storeService = storeService;
+    }
+}

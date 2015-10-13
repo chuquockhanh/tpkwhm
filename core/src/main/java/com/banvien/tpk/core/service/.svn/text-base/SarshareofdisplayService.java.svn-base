@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Sarshareofdisplay;
+
+
+public interface SarshareofdisplayService extends GenericService<Sarshareofdisplay,Long> {
+
+}

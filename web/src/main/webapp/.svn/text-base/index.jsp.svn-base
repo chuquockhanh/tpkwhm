@@ -1,0 +1,16 @@
+<%@ include file="/common/taglibs.jsp"%>
+<security:authorize ifAllGranted="ADMIN">
+	<c:redirect url="/admin/dashboard.html"/>
+</security:authorize>
+<security:authorize ifAllGranted="SUPPORT">
+    <c:redirect url="/report/gt/gtreportbydistributor.html"/>
+</security:authorize>
+<security:authorize ifAllGranted="GT">
+	<c:redirect url="/gt/dashboard.html"/>
+</security:authorize>
+<security:authorize ifAllGranted="MT">
+	<c:redirect url="/mt/dashboard.html"/>
+</security:authorize>
+<security:authorize ifNotGranted="ADMIN,SUPPORT,GT,MT">
+    <c:redirect url="/login.jsp"/>
+</security:authorize>

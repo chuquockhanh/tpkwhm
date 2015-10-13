@@ -1,0 +1,49 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 2/26/13
+ * Time: 3:12 PM
+ */
+public class OutletFacingRegisterDTO {
+    private Long outletBrandID;
+
+    private Integer facing;
+
+    private Long levelRegisterID;
+
+    public Long getOutletBrandID() {
+        return outletBrandID;
+    }
+
+    public void setOutletBrandID(Long outletBrandID) {
+        this.outletBrandID = outletBrandID;
+    }
+
+    public Integer getFacing() {
+        return facing;
+    }
+
+    public void setFacing(Integer facing) {
+        this.facing = facing;
+    }
+
+    public Long getLevelRegisterID() {
+        return levelRegisterID;
+    }
+
+    public void setLevelRegisterID(Long levelRegisterID) {
+        this.levelRegisterID = levelRegisterID;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setOutletBrandID(o.getLong("outletBrandID"));
+        setFacing(o.getInt("facing"));
+        setLevelRegisterID(o.getLong("levelRegisterID"));
+    }
+}

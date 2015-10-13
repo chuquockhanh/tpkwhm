@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/webapp
+END
+403.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/403.jsp
+END
+404.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/404.jsp
+END
+error.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/error.jsp
+END
+login.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dcs/!svn/ver/763/trunk/outlet-audit/web/src/main/webapp/login.jsp
+END
+logout.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/web/src/main/webapp/logout.jsp
+END
+index.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/dcs/!svn/ver/845/trunk/outlet-audit/web/src/main/webapp/index.jsp
+END

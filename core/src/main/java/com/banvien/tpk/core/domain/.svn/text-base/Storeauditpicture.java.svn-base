@@ -1,0 +1,101 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE StoreAuditPicture</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storeauditpicture implements Serializable {
+
+	/**
+	 * Attribute storeAuditPicture.
+	 */
+	private Long storeAuditPicture;
+	
+	/**
+	 * Attribute storeauditresult
+	 */
+	 private Storeauditresult storeauditresult;	
+
+	/**
+	 * Attribute description.
+	 */
+	private String description;
+	
+	/**
+	 * Attribute path.
+	 */
+	private String path;
+	
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storeAuditPicture
+	 */
+	public Long getStoreAuditPicture() {
+		return storeAuditPicture;
+	}
+
+	/**
+	 * @param storeAuditPicture new value for storeAuditPicture 
+	 */
+	public void setStoreAuditPicture(Long storeAuditPicture) {
+		this.storeAuditPicture = storeAuditPicture;
+	}
+	
+	/**
+	 * get storeauditresult
+	 */
+	public Storeauditresult getStoreauditresult() {
+		return this.storeauditresult;
+	}
+	
+	/**
+	 * set storeauditresult
+	 */
+	public void setStoreauditresult(Storeauditresult storeauditresult) {
+		this.storeauditresult = storeauditresult;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description new value for description 
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return path
+	 */
+	public String getPath() {
+		return path;
+	}
+
+	/**
+	 * @param path new value for path 
+	 */
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
+
+
+}

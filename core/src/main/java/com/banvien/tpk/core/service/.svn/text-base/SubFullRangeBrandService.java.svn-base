@@ -1,0 +1,18 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.SubFullRangeBrand;
+import com.banvien.fcv.core.dto.SubFullRangeBrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface SubFullRangeBrandService extends GenericService<SubFullRangeBrand,Long> {
+
+    void updateItem(SubFullRangeBrandBean subFullRangeBrandBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(SubFullRangeBrandBean subFullRangeBrandBean) throws ObjectNotFoundException, DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(SubFullRangeBrandBean subFullRangeBrandBean);
+}

@@ -1,0 +1,44 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/20/12
+ * Time: 2:40 PM
+ */
+public class Productbrand implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+    private Long productBrandID;
+
+    private String name;
+
+    private Brandgroup brandgroup;
+
+
+    public Long getProductBrandID() {
+        return productBrandID;
+    }
+
+    public void setProductBrandID(Long productBrandID) {
+        this.productBrandID = productBrandID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Brandgroup getBrandgroup() {
+        return brandgroup;
+    }
+
+    public void setBrandgroup(Brandgroup brandgroup) {
+        this.brandgroup = brandgroup;
+    }
+}

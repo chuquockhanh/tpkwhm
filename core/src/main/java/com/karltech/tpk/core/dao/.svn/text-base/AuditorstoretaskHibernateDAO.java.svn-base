@@ -1,0 +1,80 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.domain.Auditorstoretask;
+import com.banvien.fcv.core.dto.StoreTaskDTO;
+
+
+/**
+ * <p>Hibernate DAO layer for Auditorstoretasks</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class AuditorstoretaskHibernateDAO extends
+		AbstractHibernateDAO<Auditorstoretask, Long> implements
+		AuditorstoretaskDAO {
+
+    public AuditorstoretaskHibernateDAO() {
+		super(Auditorstoretask.class);
+	}
+
+    @Override
+    public List<Auditorstoretask> findByAuditorOfSchedule(final Long auditorID, final Long auditScheduleID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Auditorstoretask>>() {
+                public List<Auditorstoretask> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Auditorstoretask a WHERE a.auditschedule.auditScheduleID = :auditScheduleID AND a.auditor.auditorID = :auditorID");
+                    query.setParameter("auditScheduleID", auditScheduleID);
+                    query.setParameter("auditorID", auditorID);
+                    return (List<Auditorstoretask>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public Auditorstoretask findByStoreIDandAuditorCode(Long storeID, String auditorCode) {
+        List<Auditorstoretask> list = getHibernateTemplate().find("select a from Auditorstoretask a where a.status=1 and a.store.storeID=? and a.auditor.code=?",storeID,auditorCode);
+        if (list != null && list.size() == 1) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+	@Override
+	public List<StoreTaskDTO> findTaskByAuditScheduleID(final Long auditScheduleID) {
+		return getHibernateTemplate().execute(
+	            new HibernateCallback<List<StoreTaskDTO>>() {
+	                public List<StoreTaskDTO> doInHibernate(Session session)
+	                        throws HibernateException, SQLException {
+	                    StringBuffer sqlQuery = new StringBuffer("SELECT ot.StoreID as storeID, st.Name AS storeName, ot.Status AS status, au.Name AS auditorName");
+	                    sqlQuery.append(" FROM AuditorStoreTask ot, Auditor au, Store st");
+	                    sqlQuery.append(" WHERE ot.AuditorScheduleID = :auditScheduleID AND au.AuditorID = ot.AuditorID AND ot.StoreID = st.StoreID");
+	                    
+	                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+	                    
+                        query.setParameter("auditScheduleID", auditScheduleID);
+
+                        query.addScalar("storeID", StandardBasicTypes.LONG);
+                        query.addScalar("storeName", StandardBasicTypes.STRING);
+	                    query.addScalar("auditorName", StandardBasicTypes.STRING);
+	                    query.addScalar("status", StandardBasicTypes.INTEGER);
+	                    
+	                    query.setResultTransformer(Transformers.aliasToBean(StoreTaskDTO.class));
+	                    return (List<StoreTaskDTO>) query.list();
+	                }
+	            });
+	}
+}

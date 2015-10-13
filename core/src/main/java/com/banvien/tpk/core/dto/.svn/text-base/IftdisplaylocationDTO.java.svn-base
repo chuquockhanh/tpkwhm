@@ -1,0 +1,149 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Iftdisplaylocation;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:38 PM
+ */
+public class IftdisplaylocationDTO {
+    /**
+	 * Attribute iftDisplayLocation.
+	 */
+	private Long iftDisplayLocation;
+
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+    /**
+     * Attribute outletBrandID.
+     */
+    private Long outletBrandID;
+
+    /**
+     * Attribute outletBrandName.
+     */
+    private String outletBrandCode;
+
+    public IftdisplaylocationDTO(Iftdisplaylocation ift) {
+        setCode(ift.getCode());
+        setDisplayOrder(ift.getDisplayOrder());
+        setIftDisplayLocation(ift.getIftDisplayLocationID());
+        setName(ift.getName());
+        if(ift.getOutletBrand() != null)
+        {
+            setOutletBrandID(ift.getOutletBrand().getOutletBrandID());
+            setOutletBrandCode(ift.getOutletBrand().getCode());
+        }
+        else
+        {
+            setOutletBrandID(null);
+            setOutletBrandCode(null);
+        }
+    }
+
+    public IftdisplaylocationDTO() {
+
+    }
+
+    public Long getIftDisplayLocation() {
+        return iftDisplayLocation;
+    }
+
+    public void setIftDisplayLocation(Long iftDisplayLocation) {
+        this.iftDisplayLocation = iftDisplayLocation;
+    }
+
+
+    /* liste transiente */
+	/**
+	 * <p>
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/* liste transiente */
+	/**
+	 * <p>
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/* liste transiente */
+	/**
+	 * <p>
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+
+    public Long getOutletBrandID() {
+        return outletBrandID;
+    }
+
+    public void setOutletBrandID(Long outletBrandID) {
+        this.outletBrandID = outletBrandID;
+    }
+
+    public String getOutletBrandCode() {
+        return outletBrandCode;
+    }
+
+    public void setOutletBrandCode(String outletBrandCode) {
+        this.outletBrandCode = outletBrandCode;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setCode(o.getString("code"));
+        setDisplayOrder(o.getInt("displayOrder"));
+        setIftDisplayLocation(o.getLong("iftDisplayLocation"));
+        setName(o.getString("name"));
+        setOutletBrandID(o.getLong("outletBrandID"));
+        setOutletBrandCode(o.getString("outletBrandCode"));
+    }
+}

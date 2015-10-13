@@ -1,0 +1,51 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 9/7/12
+ * Time: 1:23 AM
+ */
+public class Oarfullrangefacing implements Serializable {
+    private Long oarFullRangeFacingID;
+
+    private Outletauditresult outletauditresult;
+
+    private Outletbrand outletbrand;
+
+    private Byte correct;
+
+    public Long getOarFullRangeFacingID() {
+        return oarFullRangeFacingID;
+    }
+
+    public void setOarFullRangeFacingID(Long oarFullRangeFacingID) {
+        this.oarFullRangeFacingID = oarFullRangeFacingID;
+    }
+
+    public Outletauditresult getOutletauditresult() {
+        return outletauditresult;
+    }
+
+    public void setOutletauditresult(Outletauditresult outletauditresult) {
+        this.outletauditresult = outletauditresult;
+    }
+
+    public Outletbrand getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Outletbrand outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Byte getCorrect() {
+        return correct;
+    }
+
+    public void setCorrect(Byte correct) {
+        this.correct = correct;
+    }
+}

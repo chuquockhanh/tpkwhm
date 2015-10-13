@@ -1,0 +1,72 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/20/12
+ * Time: 12:59 PM
+ */
+public class StoreImportDTO implements Serializable {
+    private String account;
+
+    private String storeNo;
+
+    private String storeName;
+
+    private List<ProductImportDTO> registeredProduct;
+
+    private String products;
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public String getStoreNo() {
+        return storeNo;
+    }
+
+    public void setStoreNo(String storeNo) {
+        this.storeNo = storeNo;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public List<ProductImportDTO> getRegisteredProduct() {
+        return registeredProduct;
+    }
+
+    public void setRegisteredProduct(List<ProductImportDTO> registeredProduct) {
+        this.registeredProduct = registeredProduct;
+    }
+
+    public String getProducts() {
+        StringBuffer res = new StringBuffer();
+        boolean isFirst = true;
+        for (ProductImportDTO productImportDTO : registeredProduct) {
+            if (!isFirst) {
+                res.append(", ");
+            }
+            res.append(productImportDTO.getName());
+            isFirst = false;
+        }
+
+        return res.toString();
+    }
+
+    public void setProducts(String products) {
+        this.products = products;
+    }
+}

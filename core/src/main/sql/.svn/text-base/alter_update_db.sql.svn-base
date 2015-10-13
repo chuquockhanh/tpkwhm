@@ -1,0 +1,43 @@
+DROP TABLE IF EXISTS `FCVAuditData`.`Setting` ;
+
+CREATE TABLE IF NOT EXISTS `FCVAuditData`.`Setting` (
+  `SettingID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `FieldName` VARCHAR(45) NOT NULL,
+  `FieldValue` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`SettingID`),
+  UNIQUE KEY `FieldName_UNIQUE` (`FieldName`)
+)
+ENGINE = InnoDB;
+
+INSERT INTO `FCVAuditData`.`Setting` VALUES (1,"Password","123456");
+
+
+DROP TABLE IF EXISTS `FCVAuditData`.`Ward` ;
+
+CREATE TABLE IF NOT EXISTS `FCVAuditData`.`Ward` (
+  `WardID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `DistrictID` BIGINT NOT NULL,
+  `Name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`WardID`),
+  CONSTRAINT `FK_Ward_District` FOREIGN KEY (`DistrictID`) REFERENCES `District` (`DistrictID`) ON DELETE CASCADE ON UPDATE NO ACTION
+)
+ENGINE = InnoDB DEFAULT CHARSET=utf8;
+
+--ALTER TABLE Outlet ADD COLUMN `WardID` BIGINT NULL;
+--ALTER TABLE Outlet ADD CONSTRAINT `FK_Outlet_Ward` FOREIGN KEY (`WardID`) REFERENCES `Ward` (`WardID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `UserDistributor`
+-- ----------------------------
+DROP TABLE IF EXISTS `UserDistributor`;
+CREATE TABLE `UserDistributor` (
+  `UserDistributorID` BIGINT NOT NULL AUTO_INCREMENT,
+  `UserID` BIGINT DEFAULT NULL,
+  `DistributorID` BIGINT DEFAULT NULL,
+  PRIMARY KEY (`UserDistributorID`),
+  CONSTRAINT `FK_UserDistributor_User` FOREIGN KEY(UserID) REFERENCES `User`(UserID) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `FK_UserDistributor_Distributor` FOREIGN KEY(DistributorID) REFERENCES `Distributor`(DistributorID) ON DELETE CASCADE ON UPDATE NO ACTION
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+

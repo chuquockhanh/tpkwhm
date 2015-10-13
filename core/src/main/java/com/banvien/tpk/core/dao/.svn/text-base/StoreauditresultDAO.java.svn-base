@@ -1,0 +1,26 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Storeauditresult;
+import com.banvien.fcv.core.dto.*;
+
+/**
+ * <p>Generic DAO layer for Storeauditresults</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface StoreauditresultDAO extends GenericDAO<Storeauditresult,Long> {
+
+    List<MTReportDTO> reportByAccount(Long accountID, Timestamp fromDate, Timestamp toDate);
+
+    List<MTReportDTO> reportByStore(Long accountID, Timestamp fromDate, Timestamp toDate);
+
+    List<OutOfStockDTO> reportOutOfStockDaily(Long accountID, Timestamp fromDate, Timestamp toDate);
+
+    List<MTSODDTO> reportSODDaily(Long accountID, Timestamp fromDate, Timestamp toDate);
+
+    List<MTPromotionReportInfo> promotionReport(Long accountID, Timestamp fromDate, Timestamp toDate);
+}

@@ -1,0 +1,80 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.ProductgroupDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Productgroup;
+import com.banvien.fcv.core.domain.Productgroup;
+import com.banvien.fcv.core.dto.ProductGroupBean;
+import com.banvien.fcv.core.dto.ProductGroupBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ProductgroupServiceImpl extends GenericServiceImpl<Productgroup,Long> 
+                                                    implements ProductgroupService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private ProductgroupDAO productgroupDAO;
+
+    public void setProductgroupDAO(ProductgroupDAO productgroupDAO) {
+        this.productgroupDAO = productgroupDAO;
+    }
+
+    @Override
+	protected GenericDAO<Productgroup, Long> getGenericDAO() {
+		return productgroupDAO;
+	}
+
+    @Override
+    public void updateItem(ProductGroupBean productgroupBean) throws ObjectNotFoundException, DuplicateException {
+        Productgroup dbItem = this.productgroupDAO.findByIdNoAutoCommit(productgroupBean.getPojo().getProductGroupID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found productgroup " + productgroupBean.getPojo().getProductGroupID());
+
+        Productgroup pojo = productgroupBean.getPojo();
+
+        this.productgroupDAO.detach(dbItem);
+        this.productgroupDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(ProductGroupBean productgroupBean) throws DuplicateException {
+        Productgroup pojo = productgroupBean.getPojo();
+        pojo = this.productgroupDAO.save(pojo);
+        productgroupBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                productgroupDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(ProductGroupBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Productgroup.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.productgroupDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public Productgroup findByCode(String code) throws ObjectNotFoundException {
+        Productgroup res = this.productgroupDAO.findEqualUnique(Productgroup.FIELD_CODE, code);
+        if (res == null) throw  new ObjectNotFoundException("Not found productgroup with code " + code);
+        return res;
+    }
+}

@@ -1,0 +1,39 @@
+/*
+ * Copyright (c) 2013 by Ban Vien Co., Ltd.
+ */
+
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Distributor;
+import com.banvien.fcv.core.domain.Region;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 3/11/13
+ * Time: 1:32 PM
+ */
+public class DistributorWithOutletNumDTO implements Serializable {
+    private Distributor distributor;
+
+    private Long totalOutlet;
+
+    public Distributor getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(Distributor distributor) {
+        this.distributor = distributor;
+    }
+
+    public Long getTotalOutlet() {
+        return totalOutlet;
+    }
+
+    public void setTotalOutlet(Long totalOutlet) {
+        this.totalOutlet = totalOutlet;
+    }
+}

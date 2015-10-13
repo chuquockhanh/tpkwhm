@@ -1,0 +1,126 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE StoreAuditResult</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storeauditresult implements Serializable {
+
+	/**
+	 * Attribute storeAuditResultID.
+	 */
+	private Long storeAuditResultID;
+	
+	/**
+	 * Attribute auditorstoretask
+	 */
+	 private Auditorstoretask auditorstoretask;	
+
+	/**
+	 * Attribute auditedDate.
+	 */
+	private Timestamp auditedDate;
+	
+	/**
+	 * Attribute submittedDate.
+	 */
+	private Timestamp submittedDate;
+	
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Float gpsLatitude;
+	
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Float gpsLongtitude;
+	
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storeAuditResultID
+	 */
+	public Long getStoreAuditResultID() {
+		return storeAuditResultID;
+	}
+
+	/**
+	 * @param storeAuditResultID new value for storeAuditResultID 
+	 */
+	public void setStoreAuditResultID(Long storeAuditResultID) {
+		this.storeAuditResultID = storeAuditResultID;
+	}
+	
+	/**
+	 * get auditorstoretask
+	 */
+	public Auditorstoretask getAuditorstoretask() {
+		return this.auditorstoretask;
+	}
+	
+	/**
+	 * set auditorstoretask
+	 */
+	public void setAuditorstoretask(Auditorstoretask auditorstoretask) {
+		this.auditorstoretask = auditorstoretask;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return auditedDate
+	 */
+	public Timestamp getAuditedDate() {
+		return auditedDate;
+	}
+
+	/**
+	 * @param auditedDate new value for auditedDate 
+	 */
+	public void setAuditedDate(Timestamp auditedDate) {
+		this.auditedDate = auditedDate;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return submittedDate
+	 */
+	public Timestamp getSubmittedDate() {
+		return submittedDate;
+	}
+
+	/**
+	 * @param submittedDate new value for submittedDate 
+	 */
+	public void setSubmittedDate(Timestamp submittedDate) {
+		this.submittedDate = submittedDate;
+	}
+
+    public Float getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Float gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Float getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Float gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+}

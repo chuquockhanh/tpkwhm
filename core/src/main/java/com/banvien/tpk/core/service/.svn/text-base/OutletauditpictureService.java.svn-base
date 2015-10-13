@@ -1,0 +1,10 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outletauditpicture;
+import com.banvien.fcv.core.dto.OutletPictureBean;
+
+
+public interface OutletauditpictureService extends GenericService<Outletauditpicture,Long> {
+
+    Object[] find4Report(OutletPictureBean outletPictureBean, boolean flagAll);
+}

@@ -1,0 +1,16 @@
+package com.banvien.fcv.core.dto;
+
+public class OutletTaskImportBean extends AbstractBean<OutletTaskImportDTO>{
+	private Long auditScheduleID;
+
+	public Long getAuditScheduleID() {
+		return auditScheduleID;
+	}
+
+	public void setAuditScheduleID(Long auditScheduleID) {
+		this.auditScheduleID = auditScheduleID;
+	}
+	
+	
+	
+}

@@ -1,0 +1,92 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.StoreposmDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Storeposm;
+import com.banvien.fcv.core.domain.Storeposm;
+import com.banvien.fcv.core.dto.StorePOSMBean;
+import com.banvien.fcv.core.dto.StorePOSMBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class StoreposmServiceImpl extends GenericServiceImpl<Storeposm,Long> 
+                                                    implements StoreposmService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StoreposmDAO storeposmDAO;
+
+    public void setStoreposmDAO(StoreposmDAO storeposmDAO) {
+        this.storeposmDAO = storeposmDAO;
+    }
+
+    @Override
+	protected GenericDAO<Storeposm, Long> getGenericDAO() {
+		return storeposmDAO;
+	}
+
+    @Override
+    public Storeposm findByCode(String code) throws ObjectNotFoundException {
+        Storeposm res = this.storeposmDAO.findEqualUnique(Storeposm.FIELD_CODE, code);
+        if (res == null) throw new ObjectNotFoundException("Not found storeposm with code " + code);
+        return res;
+    }
+
+    @Override
+    public void updateItem(StorePOSMBean storeposmBean) throws ObjectNotFoundException, DuplicateException {
+        Storeposm dbItem = this.storeposmDAO.findByIdNoAutoCommit(storeposmBean.getPojo().getStorePOSMID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found storeposm " + storeposmBean.getPojo().getStorePOSMID());
+
+        Storeposm pojo = storeposmBean.getPojo();
+
+        this.storeposmDAO.detach(dbItem);
+        this.storeposmDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(StorePOSMBean storeposmBean) throws DuplicateException {
+        Storeposm pojo = storeposmBean.getPojo();
+        pojo = this.storeposmDAO.save(pojo);
+        storeposmBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                storeposmDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(StorePOSMBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Storeposm.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Storeposm.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getActive() != null) {
+            properties.put(Storeposm.FIELD_ACTIVE, bean.getPojo().getActive());
+        }
+
+        if (bean.getPojo().getBrandgroup() != null && bean.getPojo().getBrandgroup().getBrandGroupID() != null && bean.getPojo().getBrandgroup().getBrandGroupID() > 0) {
+            properties.put("brandgroup.brandGroupID", bean.getPojo().getBrandgroup().getBrandGroupID());
+        }
+
+        return this.storeposmDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+}

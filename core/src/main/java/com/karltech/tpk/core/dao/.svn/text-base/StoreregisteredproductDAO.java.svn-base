@@ -1,0 +1,16 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Storeregisteredproduct;
+/**
+ * <p>Generic DAO layer for Storeregisteredproducts</p>
+ * <p>Generated at Thu Jun 14 18:28:14 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface StoreregisteredproductDAO extends GenericDAO<Storeregisteredproduct,Long> {
+
+    void deleteByStore(Long storeID);
+}

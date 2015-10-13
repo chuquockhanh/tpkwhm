@@ -1,0 +1,175 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE OARPromotion</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Oarpromotion implements Serializable {
+
+	/**
+	 * Attribute oarPromotionID.
+	 */
+	private Long oarPromotionID;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute promotion
+	 */
+	 private Promotion promotion;	
+
+	/**
+	 * Attribute getQuantity.
+	 */
+	private Integer getQuantity;
+	
+	/**
+	 * Attribute unitID.
+	 */
+	private Long unitID;
+	
+	/**
+	 * Attribute productID.
+	 */
+	private Long productID;
+	
+	/**
+	 * Attribute known.
+	 */
+	private Byte known;
+	
+	/**
+	 * Attribute correct.
+	 */
+	private Byte correct;
+
+
+    public Long getOarPromotionID() {
+        return oarPromotionID;
+    }
+
+    public void setOarPromotionID(Long oarPromotionID) {
+        this.oarPromotionID = oarPromotionID;
+    }
+
+    /**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * get promotion
+	 */
+	public Promotion getPromotion() {
+		return this.promotion;
+	}
+	
+	/**
+	 * set promotion
+	 */
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return getQuantity
+	 */
+	public Integer getGetQuantity() {
+		return getQuantity;
+	}
+
+	/**
+	 * @param getQuantity new value for getQuantity 
+	 */
+	public void setGetQuantity(Integer getQuantity) {
+		this.getQuantity = getQuantity;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return unitID
+	 */
+	public Long getUnitID() {
+		return unitID;
+	}
+
+	/**
+	 * @param unitID new value for unitID 
+	 */
+	public void setUnitID(Long unitID) {
+		this.unitID = unitID;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return productID
+	 */
+	public Long getProductID() {
+		return productID;
+	}
+
+	/**
+	 * @param productID new value for productID 
+	 */
+	public void setProductID(Long productID) {
+		this.productID = productID;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return known
+	 */
+	public Byte getKnown() {
+		return known;
+	}
+
+	/**
+	 * @param known new value for known 
+	 */
+	public void setKnown(Byte known) {
+		this.known = known;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return correct
+	 */
+	public Byte getCorrect() {
+		return correct;
+	}
+
+	/**
+	 * @param correct new value for correct 
+	 */
+	public void setCorrect(Byte correct) {
+		this.correct = correct;
+	}
+	
+
+
+}

@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Promotiontype;
+/**
+ * <p>Generic DAO layer for Promotiontypes</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface PromotiontypeDAO extends GenericDAO<Promotiontype,Long> {
+
+}

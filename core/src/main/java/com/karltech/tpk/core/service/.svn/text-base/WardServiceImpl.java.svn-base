@@ -1,0 +1,89 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.WardDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Ward;
+import com.banvien.fcv.core.dto.WardBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.security.SecurityUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class WardServiceImpl extends GenericServiceImpl<Ward,Long>
+                                                    implements WardService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private WardDAO wardDAO;
+
+    public void setWardDAO(WardDAO wardDAO) {
+        this.wardDAO = wardDAO;
+    }
+
+    @Override
+	protected GenericDAO<Ward, Long> getGenericDAO() {
+		return wardDAO;
+	}
+
+    @Override
+    public void updateItem(WardBean wardBean) throws ObjectNotFoundException, DuplicateException {
+        Ward dbItem = this.wardDAO.findByIdNoAutoCommit(wardBean.getPojo().getWardID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found ward " + wardBean.getPojo().getWardID());
+
+        Ward pojo = wardBean.getPojo();
+
+        this.wardDAO.detach(dbItem);
+        this.wardDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(WardBean wardBean) throws DuplicateException {
+        Ward pojo = wardBean.getPojo();
+        pojo = this.wardDAO.save(pojo);
+        wardBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                wardDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(WardBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        StringBuffer whereClause = new StringBuffer();
+        if (!SecurityUtils.userHasAuthority(Constants.ADMIN_ROLE)) {
+            whereClause.append("district.region.regionID IN (SELECT region.regionID FROM Userregion WHERE user.userID = ").append(SecurityUtils.getLoginUserId()).append(")");
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Ward.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getDistrict() != null && bean.getPojo().getDistrict().getDistrictID() != null && bean.getPojo().getDistrict().getDistrictID() > 0) {
+            properties.put("district.districtID", bean.getPojo().getDistrict().getDistrictID());
+        }
+
+        return this.wardDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true, whereClause.toString());
+    }
+
+    @Override
+    public List<Ward> findByDistrictID(Long districtID) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        properties.put("district.districtID", districtID);
+        return wardDAO.findByProperties(properties, "name", Constants.SORT_ASC, true, true);
+    }
+}

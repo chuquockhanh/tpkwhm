@@ -1,0 +1,2 @@
+use FCVAuditData;
+ALTER TABLE Outlet ADD COLUMN `OutletName` VARCHAR(255) NULL;

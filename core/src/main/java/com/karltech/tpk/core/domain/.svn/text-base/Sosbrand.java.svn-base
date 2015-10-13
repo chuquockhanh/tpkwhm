@@ -1,0 +1,96 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE SOSBrand</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Sosbrand implements Serializable {
+    public static final String FIELD_NAME = "name";
+	/**
+	 * Attribute sosBrandID.
+	 */
+	private Long sosBrandID;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute brandgroup
+	 */
+	 private Brandgroup brandgroup;	
+
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+
+
+    public Long getSosBrandID() {
+        return sosBrandID;
+    }
+
+    public void setSosBrandID(Long sosBrandID) {
+        this.sosBrandID = sosBrandID;
+    }
+
+    /**
+	 * <p>Ex: Loc 110ml 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * get brandgroup
+	 */
+	public Brandgroup getBrandgroup() {
+		return this.brandgroup;
+	}
+	
+	/**
+	 * set brandgroup
+	 */
+	public void setBrandgroup(Brandgroup brandgroup) {
+		this.brandgroup = brandgroup;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder 
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+	
+
+
+}

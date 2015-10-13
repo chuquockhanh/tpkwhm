@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Brandgroup;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/18/12
+ * Time: 11:51 AM
+ */
+public class BrandgroupBean extends AbstractBean<Brandgroup> {
+    public BrandgroupBean() {
+        this.pojo = new Brandgroup();
+    }
+}

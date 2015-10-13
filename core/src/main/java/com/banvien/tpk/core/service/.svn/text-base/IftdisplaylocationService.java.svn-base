@@ -1,0 +1,22 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Iftdisplaylocation;
+import com.banvien.fcv.core.dto.IFTDisplayLocationBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface IftdisplaylocationService extends GenericService<Iftdisplaylocation,Long> {
+
+    Iftdisplaylocation findByCode(String code) throws ObjectNotFoundException;
+
+    Iftdisplaylocation findByName(String name) throws ObjectNotFoundException;
+
+    void updateItem(IFTDisplayLocationBean iftdisplaylocationBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(IFTDisplayLocationBean iftdisplaylocationBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(IFTDisplayLocationBean bean);
+}

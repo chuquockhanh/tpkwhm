@@ -1,0 +1,1153 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+DROP SCHEMA IF EXISTS `FCVAuditData` ;
+CREATE SCHEMA IF NOT EXISTS `FCVAuditData` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `FCVAuditData` ;
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`User`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`User` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`User` (
+  `UserID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `UserName` VARCHAR(255) NOT NULL ,
+  `Password` VARCHAR(255) NOT NULL ,
+  `Fullname` VARCHAR(255) NULL ,
+  `Email` VARCHAR(255) NOT NULL ,
+  `Status` INT NOT NULL ,
+  `Role` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`UserID`) ,
+  UNIQUE INDEX `UserName_UNIQUE` (`UserName` ASC) ,
+  UNIQUE INDEX `Email_UNIQUE` (`Email` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Region`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Region` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Region` (
+  `RegionID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`RegionID`) ,
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`District`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`District` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`District` (
+  `DistrictID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `RegionID` BIGINT NOT NULL ,
+  PRIMARY KEY (`DistrictID`) ,
+  INDEX `FK_District_Region` (`RegionID` ASC) ,
+  CONSTRAINT `FK_District_Region`
+    FOREIGN KEY (`RegionID` )
+    REFERENCES `FCVAuditData`.`Region` (`RegionID` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Distributor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Distributor` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Distributor` (
+  `DistributorID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `SapCode` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`DistributorID`) ,
+  UNIQUE INDEX `SapCode_UNIQUE` (`SapCode` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Outlet`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Outlet` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Outlet` (
+  `OutletID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `DistributorID` BIGINT NOT NULL ,
+  `DMSCode` VARCHAR(45) NOT NULL ,
+  `RegionID` BIGINT NOT NULL ,
+  `DistrictID` BIGINT NOT NULL ,
+  `Address` VARCHAR(255) NULL ,
+  `GPSLatitude` FLOAT NULL ,
+  `GPSLongtitude` FLOAT NULL ,
+  PRIMARY KEY (`OutletID`) ,
+  UNIQUE INDEX `DMSCode_UNIQUE` (`DMSCode` ASC, `DistributorID` ASC) ,
+  INDEX `FK_Outlet_Region` (`RegionID` ASC) ,
+  INDEX `FK_Outlet_Distributor` (`DistributorID` ASC) ,
+  INDEX `FK_Outlet_District` (`DistrictID` ASC) ,
+  CONSTRAINT `FK_Outlet_Region`
+    FOREIGN KEY (`RegionID` )
+    REFERENCES `FCVAuditData`.`Region` (`RegionID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Outlet_Distributor`
+    FOREIGN KEY (`DistributorID` )
+    REFERENCES `FCVAuditData`.`Distributor` (`DistributorID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Outlet_District`
+    FOREIGN KEY (`DistrictID` )
+    REFERENCES `FCVAuditData`.`District` (`DistrictID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletDistributionRegistered`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletDistributionRegistered` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletDistributionRegistered` (
+  `OutletDistributionRegisteredID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletID` BIGINT NOT NULL ,
+  `Friso` INT(11) NULL ,
+  `DutchLady` INT(11) NULL ,
+  PRIMARY KEY (`OutletDistributionRegisteredID`) ,
+  INDEX `FK_OutletDistributionReg_Outlet` (`OutletID` ASC) ,
+  CONSTRAINT `FK_OutletDistributionReg_Outlet`
+    FOREIGN KEY (`OutletID` )
+    REFERENCES `FCVAuditData`.`Outlet` (`OutletID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletDistributionRegisteredHistory`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletDistributionRegisteredHistory` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletDistributionRegisteredHistory` (
+  `OutletDistributionRegisteredHistoryID` BIGINT NOT NULL ,
+  `OutletID` BIGINT NOT NULL ,
+  `Friso` INT(11) NULL ,
+  `DutchLady` INT(11) NULL ,
+  `EffectiveDate` DATETIME NULL ,
+  `ExpiredDate` DATETIME NULL ,
+  PRIMARY KEY (`OutletDistributionRegisteredHistoryID`) ,
+  INDEX `FK_OutletDistributionRegHistory_Outlet` (`OutletID` ASC) ,
+  CONSTRAINT `FK_OutletDistributionRegHistory_Outlet`
+    FOREIGN KEY (`OutletID` )
+    REFERENCES `FCVAuditData`.`Outlet` (`OutletID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletBrand`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletBrand` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletBrand` (
+  `OutletBrandID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NULL ,
+  PRIMARY KEY (`OutletBrandID`) ,
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`PowerSKU`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`PowerSKU` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`PowerSKU` (
+  `PowerSKUID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletBrandID` BIGINT NOT NULL COMMENT 'The product group: Friso or Dutch Lady' ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `DisplayOrder` INT NULL ,
+  PRIMARY KEY (`PowerSKUID`) ,
+  INDEX `FK_PowerSKU_OBrand` (`OutletBrandID` ASC) ,
+  CONSTRAINT `FK_PowerSKU_OBrand`
+    FOREIGN KEY (`OutletBrandID` )
+    REFERENCES `FCVAuditData`.`OutletBrand` (`OutletBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`FullRangeSKU`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`FullRangeSKU` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`FullRangeSKU` (
+  `FullRangeSKUID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletBrandID` BIGINT NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `DisplayOrder` INT NULL ,
+  PRIMARY KEY (`FullRangeSKUID`) ,
+  INDEX `FK_FullRangeSKU_OBrand` (`OutletBrandID` ASC) ,
+  CONSTRAINT `FK_FullRangeSKU_OBrand`
+    FOREIGN KEY (`OutletBrandID` )
+    REFERENCES `FCVAuditData`.`OutletBrand` (`OutletBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`IFTDisplayLocation`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`IFTDisplayLocation` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`IFTDisplayLocation` (
+  `IFTDisplayLocationID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(10) NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `DisplayOrder` INT(11) NULL ,
+  PRIMARY KEY (`IFTDisplayLocationID`) ,
+  UNIQUE INDEX `Code_UNIQUE` (`Code` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletPOSM`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletPOSM` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletPOSM` (
+  `OutletPOSMID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(45) NOT NULL ,
+  `Active` TINYINT NULL ,
+  `OutletBrandID` BIGINT NOT NULL ,
+  PRIMARY KEY (`OutletPOSMID`) ,
+  UNIQUE INDEX `FrisoCode_UNIQUE` (`Code` ASC) ,
+  INDEX `FK_OutletPOSM_OBrand` (`OutletBrandID` ASC) ,
+  CONSTRAINT `FK_OutletPOSM_OBrand`
+    FOREIGN KEY (`OutletBrandID` )
+    REFERENCES `FCVAuditData`.`OutletBrand` (`OutletBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletPOSMHistory`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletPOSMHistory` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletPOSMHistory` (
+  `OutletPOSMHistoryID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletPOSMID` BIGINT NOT NULL ,
+  `Active` TINYINT NULL ,
+  `EffectiveDate` DATETIME NULL ,
+  `ExpiredDate` DATETIME NULL ,
+  PRIMARY KEY (`OutletPOSMHistoryID`) ,
+  INDEX `FK_OutletPOSMHistory_OutletPOSM` (`OutletPOSMID` ASC) ,
+  CONSTRAINT `FK_OutletPOSMHistory_OutletPOSM`
+    FOREIGN KEY (`OutletPOSMID` )
+    REFERENCES `FCVAuditData`.`OutletPOSM` (`OutletPOSMID` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Unit`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Unit` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Unit` (
+  `UnitID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Unit` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`UnitID`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`ProductGroup`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`ProductGroup` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`ProductGroup` (
+  `ProductGroupID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(50) NOT NULL
+  `Name` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`ProductGroupID`),
+   UNIQUE INDEX `UQ_ProductGroup`(`Code` ASC))
+ENGINE = InnoDB;
+
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`ProductBrand`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`ProductBrand` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`ProductBrand` (
+  `ProductBrandID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  PRIMARY KEY (`ProductBrandID`),
+  UNIQUE INDEX `UQ_ProductBrand`(`Name` ASC),
+  CONSTRAINT `FK_ProductBrand_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Product`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Product` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Product` (
+  `ProductID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `Size` VARCHAR(45) NOT NULL ,
+  `ProductGroupID` BIGINT NULL ,
+  `ProductBrandID` BIGINT NOT NULL ,
+
+  PRIMARY KEY (`ProductID`) ,
+  INDEX `FK_Product_ProductGroup` (`ProductGroupID` ASC) ,
+  CONSTRAINT `FK_Product_ProductGroup`
+    FOREIGN KEY (`ProductGroupID` )
+    REFERENCES `FCVAuditData`.`ProductGroup` (`ProductGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Product_ProductBrand`
+    FOREIGN KEY (`ProductBrandID` )
+    REFERENCES `FCVAuditData`.`ProductBrand` (`ProductBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`PromotionType`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`PromotionType` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`PromotionType` (
+  `PromotionTypeID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Type` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`PromotionTypeID`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Promotion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Promotion` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Promotion` (
+  `PromotionID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `PromotionTypeID` BIGINT NOT NULL ,
+  `EffectiveDate` DATETIME NULL ,
+  `ExpireDate` DATETIME NULL ,
+  `BuyQuantity` INT NULL ,
+  `BuyUnitID` BIGINT NOT NULL ,
+  `BuyProductID` BIGINT NULL ,
+  `GetQuantity` BIGINT NULL ,
+  `GetUnitID` BIGINT NULL ,
+  `ProductID` BIGINT NULL ,
+  PRIMARY KEY (`PromotionID`) ,
+  UNIQUE INDEX `Code_UNIQUE` (`Code` ASC) ,
+  INDEX `FK_Promotion_BuyUnit` (`BuyUnitID` ASC) ,
+  INDEX `FK_Promotion_BuyProduct` (`BuyProductID` ASC) ,
+  INDEX `FK_Promotion_GetUnit` (`GetUnitID` ASC) ,
+  INDEX `FK_Promotion_GetProduct` (`ProductID` ASC) ,
+  INDEX `FK_Promotion_PromotionType` (`PromotionTypeID` ASC) ,
+  CONSTRAINT `FK_Promotion_BuyUnit`
+    FOREIGN KEY (`BuyUnitID` )
+    REFERENCES `FCVAuditData`.`Unit` (`UnitID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_BuyProduct`
+    FOREIGN KEY (`BuyProductID` )
+    REFERENCES `FCVAuditData`.`Product` (`ProductID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_GetUnit`
+    FOREIGN KEY (`GetUnitID` )
+    REFERENCES `FCVAuditData`.`Unit` (`UnitID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_GetProduct`
+    FOREIGN KEY (`ProductID` )
+    REFERENCES `FCVAuditData`.`Product` (`ProductID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_PromotionType`
+    FOREIGN KEY (`PromotionTypeID` )
+    REFERENCES `FCVAuditData`.`PromotionType` (`PromotionTypeID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`PromotionScope`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`PromotionScope` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`PromotionScope` (
+  `PromotionScopeID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `PromotionID` BIGINT NOT NULL ,
+  `RegionID` BIGINT NOT NULL ,
+  PRIMARY KEY (`PromotionScopeID`) ,
+  INDEX `FK_PromotionScope_Promotion` (`PromotionID` ASC) ,
+  INDEX `FK_PromotionScope_Region` (`RegionID` ASC) ,
+  UNIQUE INDEX `UQ_PromotionScope` (`PromotionID` ASC, `RegionID` ASC) ,
+  CONSTRAINT `FK_PromotionScope_Promotion`
+    FOREIGN KEY (`PromotionID` )
+    REFERENCES `FCVAuditData`.`Promotion` (`PromotionID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_PromotionScope_Region`
+    FOREIGN KEY (`RegionID` )
+    REFERENCES `FCVAuditData`.`Region` (`RegionID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`PromotionProductToHandheld`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`PromotionProductToHandheld` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`PromotionProductToHandheld` (
+  `PromotionProductToHandheldID` INT NOT NULL AUTO_INCREMENT ,
+  `PromotionID` BIGINT NOT NULL ,
+  `ProductID` BIGINT NOT NULL ,
+  PRIMARY KEY (`PromotionProductToHandheldID`) ,
+  UNIQUE INDEX `UQ_PromotionProductToHandheld` (`PromotionID` ASC, `ProductID` ASC) ,
+  INDEX `FK_PromotionProductToHandheld_Promotion` (`PromotionID` ASC) ,
+  INDEX `FK_PromotionProductToHandheld_Product` (`ProductID` ASC) ,
+  CONSTRAINT `FK_PromotionProductToHandheld_Promotion`
+    FOREIGN KEY (`PromotionID` )
+    REFERENCES `FCVAuditData`.`Promotion` (`PromotionID` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_PromotionProductToHandheld_Product`
+    FOREIGN KEY (`ProductID` )
+    REFERENCES `FCVAuditData`.`Product` (`ProductID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Account`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Account` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Account` (
+  `AccountID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`AccountID`) ,
+  UNIQUE INDEX `Name_UNIQUE` (`Name` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Store`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Store` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Store` (
+  `StoreID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `Address` VARCHAR(512) NULL ,
+  `RegionID` BIGINT NOT NULL ,
+  `AccountID` BIGINT NOT NULL ,
+  `GPSLatitude` FLOAT NULL ,
+  `GPSLongtitude` FLOAT NULL ,
+  PRIMARY KEY (`StoreID`) ,
+  INDEX `FK_Store_Region` (`RegionID` ASC) ,
+  INDEX `FK_Store_Account` (`AccountID` ASC) ,
+  CONSTRAINT `FK_Store_Region`
+    FOREIGN KEY (`RegionID` )
+    REFERENCES `FCVAuditData`.`Region` (`RegionID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Store_Account`
+    FOREIGN KEY (`AccountID` )
+    REFERENCES `FCVAuditData`.`Account` (`AccountID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`StoreRegisteredProduct`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`StoreRegisteredProduct` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`StoreRegisteredProduct` (
+  `StoreRegisteredProductID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreID` BIGINT NOT NULL ,
+  `ProductID` BIGINT NOT NULL ,
+  PRIMARY KEY (`StoreRegisteredProductID`) ,
+  UNIQUE INDEX `UQ_StoreRegisteredProduct` (`StoreID` ASC, `ProductID` ASC) ,
+  INDEX `FK_StoreProduct_Store` (`StoreID` ASC) ,
+  INDEX `FK_StoreProduct_Product` (`ProductID` ASC) ,
+  CONSTRAINT `FK_StoreProduct_Store`
+    FOREIGN KEY (`StoreID` )
+    REFERENCES `FCVAuditData`.`Store` (`StoreID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreProduct_Product`
+    FOREIGN KEY (`ProductID` )
+    REFERENCES `FCVAuditData`.`Product` (`ProductID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`BrandGroup`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`BrandGroup` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`BrandGroup` (
+  `BrandGroupID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`BrandGroupID`) ,
+  UNIQUE INDEX `Code_UNIQUE` (`Code` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Brand`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Brand` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Brand` (
+  `BrandID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  `Products` TEXT NULL ,
+  `RightLocation` TEXT NULL ,
+  PRIMARY KEY (`BrandID`) ,
+  INDEX `FK_Brand_BrandGroup` (`BrandGroupID` ASC) ,
+  CONSTRAINT `FK_Brand_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`BrandProduct`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`BrandProduct` ;
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`SOSBrand`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`SOSBrand` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`SOSBrand` (
+  `SOSBrandID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Name` VARCHAR(255) NOT NULL COMMENT 'Ex: Loc 110ml' ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  `DisplayOrder` INT NULL ,
+  PRIMARY KEY (`SOSBrandID`) ,
+  INDEX `FK_SOSBrand_BrandGroup` (`BrandGroupID` ASC) ,
+  CONSTRAINT `FK_SOSBrand_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`PackingGroup`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`PackingGroup` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`PackingGroup` (
+  `PackingGroupID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `SOSBrandID` BIGINT NOT NULL ,
+  `Size` FLOAT NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`PackingGroupID`) ,
+  INDEX `FK_PackingGroup_SOSBrand` (`SOSBrandID` ASC) ,
+  CONSTRAINT `FK_PackingGroup_SOSBrand`
+    FOREIGN KEY (`SOSBrandID` )
+    REFERENCES `FCVAuditData`.`SOSBrand` (`SOSBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`StoreSOSMaster`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`StoreSOSMaster` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`StoreSOSMaster` (
+  `StoreSOSMasterID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreID` BIGINT NOT NULL ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  `ShelfInMain` INT NOT NULL ,
+  `TrayInShelf` INT NOT NULL ,
+  `LengthOfTray` FLOAT NOT NULL ,
+  PRIMARY KEY (`StoreSOSMasterID`) ,
+  UNIQUE INDEX `UQ_StoreSOSMaster` (`StoreID` ASC, `BrandGroupID` ASC) ,
+  INDEX `FK_StoreSOSMaster_Store` (`StoreID` ASC) ,
+  INDEX `FK_StoreSOSMaster_BrandGroup` (`BrandGroupID` ASC) ,
+  CONSTRAINT `FK_StoreSOSMaster_Store`
+    FOREIGN KEY (`StoreID` )
+    REFERENCES `FCVAuditData`.`Store` (`StoreID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreSOSMaster_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`StorePOSM`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`StorePOSM` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`StorePOSM` (
+  `StorePOSMID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  `Active` TINYINT NULL ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  PRIMARY KEY (`StorePOSMID`) ,
+  UNIQUE INDEX `DBBCode_UNIQUE` (`Code` ASC) ,
+  INDEX `FK_StorePOSM_BrandGroup` (`BrandGroupID` ASC) ,
+  CONSTRAINT `FK_StorePOSM_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`StorePOSMHistory`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`StorePOSMHistory` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`StorePOSMHistory` (
+  `StorePOSMHistory` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StorePOSMID` BIGINT NOT NULL ,
+  `Active` TINYINT NULL ,
+  `EffectiveDate` DATETIME NULL ,
+  `ExpiredDate` DATETIME NULL ,
+  PRIMARY KEY (`StorePOSMHistory`) ,
+  INDEX `FK_StorePOSMHistory_POSM` (`StorePOSMID` ASC) ,
+  CONSTRAINT `FK_StorePOSMHistory_POSM`
+    FOREIGN KEY (`StorePOSMID` )
+    REFERENCES `FCVAuditData`.`StorePOSM` (`StorePOSMID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`Auditor`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`Auditor` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`Auditor` (
+  `AuditorID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`AuditorID`) ,
+  UNIQUE INDEX `Code_UNIQUE` (`Code` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`AuditSchedule`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`AuditSchedule` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`AuditSchedule` (
+  `AuditScheduleID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `Code` VARCHAR(45) NOT NULL ,
+  `Name` VARCHAR(45) NOT NULL ,
+  `FromDate` DATETIME NULL ,
+  `ToDate` DATETIME NULL ,
+  PRIMARY KEY (`AuditScheduleID`) ,
+  UNIQUE INDEX `Code_UNIQUE` (`Code` ASC) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`AuditorOutletTask`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`AuditorOutletTask` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`AuditorOutletTask` (
+  `AuditorOutletTaskID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `AuditorScheduleID` BIGINT NOT NULL ,
+  `AuditorID` BIGINT NOT NULL ,
+  `OutletID` BIGINT NOT NULL ,
+  `Status` INT NOT NULL ,
+  PRIMARY KEY (`AuditorOutletTaskID`) ,
+  UNIQUE INDEX `UQ_AuditorOutletTask` (`AuditorScheduleID` ASC, `AuditorID` ASC, `OutletID` ASC) ,
+  INDEX `FK_OutletTask_AuditorSchedule` (`AuditorScheduleID` ASC) ,
+  INDEX `FK_OutletTask_Auditor` (`AuditorID` ASC) ,
+  INDEX `FK_OutletTask_Outlet` (`OutletID` ASC) ,
+  CONSTRAINT `FK_OutletTask_AuditorSchedule`
+    FOREIGN KEY (`AuditorScheduleID` )
+    REFERENCES `FCVAuditData`.`AuditSchedule` (`AuditScheduleID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OutletTask_Auditor`
+    FOREIGN KEY (`AuditorID` )
+    REFERENCES `FCVAuditData`.`Auditor` (`AuditorID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OutletTask_Outlet`
+    FOREIGN KEY (`OutletID` )
+    REFERENCES `FCVAuditData`.`Outlet` (`OutletID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`AuditorStoreTask`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`AuditorStoreTask` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`AuditorStoreTask` (
+  `AuditorStoreTaskID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `AuditorID` BIGINT NOT NULL ,
+  `AuditorScheduleID` BIGINT NOT NULL ,
+  `StoreID` BIGINT NOT NULL ,
+  `Status` INT NOT NULL ,
+
+  PRIMARY KEY (`AuditorStoreTaskID`) ,
+  UNIQUE INDEX `UQ_AuditorStoreTask` (`AuditorID` ASC, `AuditorScheduleID` ASC, `StoreID` ASC) ,
+  INDEX `FK_StoreTask_AuditSchedule` (`AuditorScheduleID` ASC) ,
+  INDEX `FK_StoreTask_Auditor` (`AuditorID` ASC) ,
+  INDEX `FK_StoreTask_Store` (`StoreID` ASC) ,
+  CONSTRAINT `FK_StoreTask_AuditSchedule`
+    FOREIGN KEY (`AuditorScheduleID` )
+    REFERENCES `FCVAuditData`.`AuditSchedule` (`AuditScheduleID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreTask_Auditor`
+    FOREIGN KEY (`AuditorID` )
+    REFERENCES `FCVAuditData`.`Auditor` (`AuditorID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreTask_Store`
+    FOREIGN KEY (`StoreID` )
+    REFERENCES `FCVAuditData`.`Store` (`StoreID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletAuditResult`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletAuditResult` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletAuditResult` (
+  `OutletAuditResultID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `AuditorOutletTaskID` BIGINT NOT NULL ,
+  `AuditDate` DATETIME NOT NULL ,
+  `SubmittedDate` TIMESTAMP NOT NULL ,
+  `GPSLatitude` FLOAT NULL ,
+  `GPSLongtitude` FLOAT NULL ,
+  PRIMARY KEY (`OutletAuditResultID`) ,
+  INDEX `FK_OutletAuditResult_OAT` (`AuditorOutletTaskID` ASC) ,
+  CONSTRAINT `FK_OutletAuditResult_OAT`
+    FOREIGN KEY (`AuditorOutletTaskID` )
+    REFERENCES `FCVAuditData`.`AuditorOutletTask` (`AuditorOutletTaskID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OutletAuditPicture`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OutletAuditPicture` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OutletAuditPicture` (
+  `OutletAuditPicture` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `Description` VARCHAR(255) NULL ,
+  `Path` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`OutletAuditPicture`) ,
+  INDEX `FK_OutletAuditPicture_OAR` (`OutletAuditResultID` ASC) ,
+  CONSTRAINT `FK_OutletAuditPicture_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARPowerSKU`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARPowerSKU` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARPowerSKU` (
+  `OARPowerSKUID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `PowerSKUID` BIGINT NOT NULL ,
+  `Has` TINYINT NOT NULL ,
+  PRIMARY KEY (`OARPowerSKUID`) ,
+  INDEX `FK_OARPowerSKU_OAR` (`OutletAuditResultID` ASC) ,
+  INDEX `FK_OARPowerSKU_PowerSKU` (`PowerSKUID` ASC) ,
+  UNIQUE INDEX `UQ_OARPowerSKU` (`OutletAuditResultID` ASC, `PowerSKUID` ASC) ,
+  CONSTRAINT `FK_OARPowerSKU_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARPowerSKU_PowerSKU`
+    FOREIGN KEY (`PowerSKUID` )
+    REFERENCES `FCVAuditData`.`PowerSKU` (`PowerSKUID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARFullRangeSKU`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARFullRangeSKU` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARFullRangeSKU` (
+  `OARFullRangeSKUID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `FullRangeID` BIGINT NOT NULL ,
+  `Has` TINYINT NOT NULL ,
+  PRIMARY KEY (`OARFullRangeSKUID`) ,
+  UNIQUE INDEX `UQ_OARFullRangeSKU` (`OutletAuditResultID` ASC, `FullRangeID` ASC) ,
+  INDEX `FK_OARFullRangeSKU_OAR` (`OutletAuditResultID` ASC) ,
+  INDEX `FK_OARFullRangeSKU_FRS` (`FullRangeID` ASC) ,
+  CONSTRAINT `FK_OARFullRangeSKU_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARFullRangeSKU_FRS`
+    FOREIGN KEY (`FullRangeID` )
+    REFERENCES `FCVAuditData`.`FullRangeSKU` (`FullRangeSKUID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARNoFacing`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARNoFacing` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARNoFacing` (
+  `OARNoFacingID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `OutletBrandID` BIGINT NOT NULL ,
+  `Facing` INT NULL ,
+  PRIMARY KEY (`OARNoFacingID`) ,
+  UNIQUE INDEX `UQ_OARNoFacing` (`OutletAuditResultID` ASC, `OutletBrandID` ASC) ,
+  INDEX `FK_OARNoFacing_OAR` (`OutletAuditResultID` ASC) ,
+  INDEX `FK_OARNoFacing_OutletBrand` (`OutletBrandID` ASC) ,
+  CONSTRAINT `FK_OARNoFacing_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARNoFacing_OutletBrand`
+    FOREIGN KEY (`OutletBrandID` )
+    REFERENCES `FCVAuditData`.`OutletBrand` (`OutletBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARFacingIFTDisplay`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARFacingIFTDisplay` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARFacingIFTDisplay` (
+  `OARFacingIFTDisplayID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `OutletBrandID` BIGINT NOT NULL ,
+  `IFTDisplayLocationID` BIGINT NOT NULL ,
+  `Has` TINYINT NOT NULL ,
+  PRIMARY KEY (`OARFacingIFTDisplayID`) ,
+  UNIQUE INDEX `UQ_ OARFacingIFTDisplay` (`OutletAuditResultID` ASC, `OutletBrandID` ASC, `IFTDisplayLocationID` ASC) ,
+  INDEX `FK_ OARFacingIFTDisplay_OAR` (`OutletAuditResultID` ASC) ,
+  INDEX `FK_OARFacingIFTDisplay_OB` (`OutletBrandID` ASC) ,
+  INDEX `FK_ OARFacingIFTDisplay_IFTDisplay` (`IFTDisplayLocationID` ASC) ,
+  CONSTRAINT `FK_ OARFacingIFTDisplay_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARFacingIFTDisplay_OB`
+    FOREIGN KEY (`OutletBrandID` )
+    REFERENCES `FCVAuditData`.`OutletBrand` (`OutletBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ OARFacingIFTDisplay_IFTDisplay`
+    FOREIGN KEY (`IFTDisplayLocationID` )
+    REFERENCES `FCVAuditData`.`IFTDisplayLocation` (`IFTDisplayLocationID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARPosm`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARPosm` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARPosm` (
+  `OARPosmID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `POSMID` BIGINT NOT NULL ,
+  `Has` TINYINT NOT NULL ,
+  PRIMARY KEY (`OARPosmID`) ,
+  UNIQUE INDEX `UQ_OARPosm` (`OutletAuditResultID` ASC, `POSMID` ASC) ,
+  INDEX `FK_ OARPosm_OAR` (`OutletAuditResultID` ASC) ,
+  INDEX `FK_ OARPosm_OPOSM` (`POSMID` ASC) ,
+  CONSTRAINT `FK_ OARPosm_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ OARPosm_OPOSM`
+    FOREIGN KEY (`POSMID` )
+    REFERENCES `FCVAuditData`.`OutletPOSM` (`OutletPOSMID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARPromotion`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARPromotion` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARPromotion` (
+  `OARPromotionID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OuletAuditResultID` BIGINT NOT NULL ,
+  `PromotionID` BIGINT NOT NULL ,
+  `GetQuantity` INT NULL ,
+  `UnitID` BIGINT NULL ,
+  `ProductID` BIGINT NULL ,
+  `Known` TINYINT NULL ,
+  `Correct` TINYINT NULL ,
+  PRIMARY KEY (`OARPromotionID`) ,
+  UNIQUE INDEX `UQ_OARPromotion` (`OuletAuditResultID` ASC, `PromotionID` ASC) ,
+  INDEX `FK_OARPromotion_OAR` (`OuletAuditResultID` ASC) ,
+  INDEX `FK_OARPromotion_Promotion` (`PromotionID` ASC) ,
+  CONSTRAINT `FK_OARPromotion_OAR`
+    FOREIGN KEY (`OuletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARPromotion_Promotion`
+    FOREIGN KEY (`PromotionID` )
+    REFERENCES `FCVAuditData`.`Promotion` (`PromotionID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`StoreAuditResult`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`StoreAuditResult` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`StoreAuditResult` (
+  `StoreAuditResultID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditTaskID` BIGINT NOT NULL ,
+  `AuditedDate` DATETIME NULL ,
+  `SubmittedDate` DATETIME NULL ,
+  `GPSLatitude` FLOAT NULL ,
+  `GPSLongtitude` FLOAT NULL ,
+  PRIMARY KEY (`StoreAuditResultID`) ,
+  INDEX `FK_StoreAuditResult_AST` (`StoreAuditTaskID` ASC) ,
+  CONSTRAINT `FK_StoreAuditResult_AST`
+    FOREIGN KEY (`StoreAuditTaskID` )
+    REFERENCES `FCVAuditData`.`AuditorStoreTask` (`AuditorStoreTaskID` )
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`SARRegisterProduct`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`SARRegisterProduct` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`SARRegisterProduct` (
+  `SARRegisterProductID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditResultID` BIGINT NOT NULL ,
+  `ProductID` BIGINT NOT NULL ,
+  `Has` TINYINT NOT NULL ,
+  PRIMARY KEY (`SARRegisterProductID`) ,
+  UNIQUE INDEX `UQ_SARRegisterProduct` (`StoreAuditResultID` ASC, `ProductID` ASC) ,
+  INDEX `FK_SARRegisterProduct_SAR` (`StoreAuditResultID` ASC) ,
+  INDEX `FK_SARRegisterProduct_Product` (`ProductID` ASC) ,
+  CONSTRAINT `FK_SARRegisterProduct_SAR`
+    FOREIGN KEY (`StoreAuditResultID` )
+    REFERENCES `FCVAuditData`.`StoreAuditResult` (`StoreAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARRegisterProduct_Product`
+    FOREIGN KEY (`ProductID` )
+    REFERENCES `FCVAuditData`.`Product` (`ProductID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`SARShareOfShelf`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`SARShareOfShelf` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`SARShareOfShelf` (
+  `SARShareOfShelfID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditResultID` BIGINT NOT NULL ,
+  `PackingGroupID` BIGINT NOT NULL ,
+  `Quatity` INT NULL ,
+  PRIMARY KEY (`SARShareOfShelfID`) ,
+  UNIQUE INDEX `UQ_SARShareOfShelf` (`StoreAuditResultID` ASC, `PackingGroupID` ASC) ,
+  INDEX `FK_SARShareOfShelf_SAR` (`StoreAuditResultID` ASC) ,
+  INDEX `FK_SARShareOfShelf_PG` (`PackingGroupID` ASC) ,
+  CONSTRAINT `FK_SARShareOfShelf_SAR`
+    FOREIGN KEY (`StoreAuditResultID`)
+    REFERENCES `FCVAuditData`.`StoreAuditResult` (`StoreAuditResultID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARShareOfShelf_PG`
+    FOREIGN KEY (`PackingGroupID` )
+    REFERENCES `FCVAuditData`.`PackingGroup` (`PackingGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`SARSBrandLocation`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`SARSBrandLocation` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`SARSBrandLocation` (
+  `SARSBrandLocationID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditResultID` BIGINT NOT NULL ,
+  `BrandID` BIGINT NOT NULL ,
+  `Has` TINYINT NULL ,
+  `Right` TINYINT NULL ,
+  PRIMARY KEY (`SARSBrandLocationID`) ,
+  UNIQUE INDEX `UQ_ SARSBrandLocation` (`StoreAuditResultID` ASC, `BrandID` ASC) ,
+  INDEX `FK_ SARSBrandLocation_SAR` (`StoreAuditResultID` ASC) ,
+  INDEX `FK_SARSBrandLocation_Brand` (`BrandID` ASC) ,
+  CONSTRAINT `FK_ SARSBrandLocation_SAR`
+    FOREIGN KEY (`StoreAuditResultID` )
+    REFERENCES `FCVAuditData`.`StoreAuditResult` (`StoreAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARSBrandLocation_Brand`
+    FOREIGN KEY (`BrandID` )
+    REFERENCES `FCVAuditData`.`Brand` (`BrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`SARPosm`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`SARPosm` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`SARPosm` (
+  `SARPosmID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditResultID` BIGINT NOT NULL ,
+  `StorePOSM` BIGINT NOT NULL ,
+  `Has` TINYINT NOT NULL ,
+  PRIMARY KEY (`SARPosmID`) ,
+  UNIQUE INDEX `UQ_SARPosm` (`StoreAuditResultID` ASC, `StorePOSM` ASC) ,
+  INDEX `FK_SARPosm_SAR` (`StoreAuditResultID` ASC) ,
+  INDEX `FK_SARPosm_StorePOSM` (`StorePOSM` ASC) ,
+  CONSTRAINT `FK_SARPosm_SAR`
+    FOREIGN KEY (`StoreAuditResultID` )
+    REFERENCES `FCVAuditData`.`StoreAuditResult` (`StoreAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARPosm_StorePOSM`
+    FOREIGN KEY (`StorePOSM` )
+    REFERENCES `FCVAuditData`.`StorePOSM` (`StorePOSMID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`SARShareOfDisplay`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`SARShareOfDisplay` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`SARShareOfDisplay` (
+  `SARShareOfDisplayID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditResultID` BIGINT NOT NULL ,
+  `BrandGroupID` BIGINT NOT NULL ,
+  `FCVSS` INT NULL ,
+  `FCVGE` INT NULL ,
+  `FCVOther` INT NULL ,
+  `StoreSS` INT NULL ,
+  `StoreGE` INT NULL ,
+  `StoreOther` INT NULL ,
+  PRIMARY KEY (`SARShareOfDisplayID`) ,
+  UNIQUE INDEX `UQ_SARShareOfDisplay` (`StoreAuditResultID` ASC, `BrandGroupID` ASC) ,
+  INDEX `FK_SARShareOfDisplay_SAR` (`StoreAuditResultID` ASC) ,
+  INDEX `FK_SARShareOfDisplay_BrandGroup` (`BrandGroupID` ASC) ,
+  CONSTRAINT `FK_SARShareOfDisplay_SAR`
+    FOREIGN KEY (`StoreAuditResultID` )
+    REFERENCES `FCVAuditData`.`StoreAuditResult` (`StoreAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARShareOfDisplay_BrandGroup`
+    FOREIGN KEY (`BrandGroupID` )
+    REFERENCES `FCVAuditData`.`BrandGroup` (`BrandGroupID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

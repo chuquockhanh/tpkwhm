@@ -1,0 +1,16 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Promotionproduct;
+
+import java.util.List;
+
+/**
+ * <p>Generic DAO layer for Promotionproducts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface PromotionproductDAO extends GenericDAO<Promotionproduct,Long> {
+
+}

@@ -1,0 +1,61 @@
+package com.banvien.fcv.core.dto;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 8/10/12
+ * Time: 7:46 AM
+ */
+public class MTPromotionReportInfo {
+    private Long storeID;
+
+    private String promotionIds;
+
+    private String awareness;
+
+    private String mechanism;
+
+    private Timestamp day;
+
+    public String getPromotionIds() {
+        return promotionIds;
+    }
+
+    public void setPromotionIds(String promotionIds) {
+        this.promotionIds = promotionIds;
+    }
+
+    public String getAwareness() {
+        return awareness;
+    }
+
+    public void setAwareness(String awareness) {
+        this.awareness = awareness;
+    }
+
+    public String getMechanism() {
+        return mechanism;
+    }
+
+    public void setMechanism(String mechanism) {
+        this.mechanism = mechanism;
+    }
+
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public Timestamp getDay() {
+        return day;
+    }
+
+    public void setDay(Timestamp day) {
+        this.day = day;
+    }
+}

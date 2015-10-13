@@ -1,0 +1,71 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Unit;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/30/12
+ * Time: 2:40 PM
+ */
+public class UnitDTO {
+    /**
+     * Attribute unitID.
+     */
+    private Long unitID;
+
+    /**
+     * Attribute unit.
+     */
+    private String unit;
+
+    public UnitDTO(Unit u) {
+        setUnit(u.getUnit());
+        setUnitID(u.getUnitID());
+    }
+
+    public UnitDTO() {
+
+    }
+
+
+    /* liste transiente */
+    /**
+     * <p>
+     * </p>
+     * @return unitID
+     */
+    public Long getUnitID() {
+        return unitID;
+    }
+
+    /**
+     * @param unitID new value for unitID
+     */
+    public void setUnitID(Long unitID) {
+        this.unitID = unitID;
+    }
+
+    /* liste transiente */
+    /**
+     * <p>
+     * </p>
+     * @return unit
+     */
+    public String getUnit() {
+        return unit;
+    }
+
+    /**
+     * @param unit new value for unit
+     */
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setUnit(o.getString("unit"));
+        setUnitID(o.getLong("unitID"));
+    }
+}

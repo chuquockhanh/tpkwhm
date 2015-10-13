@@ -1,0 +1,145 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.OarLocationRegistered;
+import com.banvien.fcv.core.domain.Oarfacingiftdisplay;
+import com.banvien.fcv.core.domain.Outletbrand;
+import com.banvien.fcv.core.Constants;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: BAN
+ * Date: 7/2/12
+ * Time: 12:05 PM
+ */
+public class RightLocationReportInfo {
+    private List<Oarfacingiftdisplay> oarfacingiftdisplays;
+
+    private Boolean meet;
+    private Map<Long, Boolean> meetMap = new HashMap<Long, Boolean>();
+    private Map<Long, Map<Long, Integer>> rightLocations = new HashMap<Long, Map<Long, Integer>>();
+    private Map<Long, Map<Long,Integer> > rightLocationRegisteredMap = new HashMap<Long, Map<Long,Integer>>();
+
+    public RightLocationReportInfo(List<Oarfacingiftdisplay> oarfacingiftdisplays, List<OarLocationRegistered> outletLocationRegisters, List<Outletbrand> outletbrands) {
+        this.oarfacingiftdisplays = oarfacingiftdisplays;
+        setMeet(true);
+
+        for (OarLocationRegistered oarLocationRegistered : outletLocationRegisters) {
+            Map<Long, Integer> brandLocationRegisteredMap = rightLocationRegisteredMap.get(oarLocationRegistered.getOutletbrand().getOutletBrandID());
+            if (brandLocationRegisteredMap == null) {
+                brandLocationRegisteredMap = new HashMap<Long, Integer>();
+            }
+            brandLocationRegisteredMap.put(oarLocationRegistered.getIftdisplaylocation().getIftDisplayLocationID(), 1);
+            rightLocationRegisteredMap.put(oarLocationRegistered.getOutletbrand().getOutletBrandID(), brandLocationRegisteredMap);
+        }
+
+        for (Oarfacingiftdisplay oarfacingiftdisplay : oarfacingiftdisplays) {
+            Map<Long, Integer> brandRightLocation =  rightLocations.get(oarfacingiftdisplay.getOutletbrand().getOutletBrandID());
+            if (brandRightLocation == null) {
+                brandRightLocation = new HashMap<Long, Integer>();
+            }
+            brandRightLocation.put(oarfacingiftdisplay.getIftdisplaylocation().getIftDisplayLocationID(), oarfacingiftdisplay.getHas() > 0 ? 1 : 0);
+            rightLocations.put(oarfacingiftdisplay.getOutletbrand().getOutletBrandID(), brandRightLocation);
+        }
+
+        for (Outletbrand outletbrand : outletbrands) {
+            if(!outletbrand.getCode().equals(Constants.DBB))
+            {
+                boolean res = true;
+                Map<Long, Integer> brandLocationRegistered = rightLocationRegisteredMap.get(outletbrand.getOutletBrandID());
+                Map<Long, Integer> brandLocationResult = rightLocations.get(outletbrand.getOutletBrandID());
+                if(!outletbrand.getCode().equals(Constants.DBB))
+                {
+                    if (brandLocationResult != null && brandLocationRegistered != null) {
+                        for (Long locationID : brandLocationRegistered.keySet()) {
+                            Integer has = brandLocationResult.get(locationID);
+                            if (has == null || has == 0) {
+                                res = false;
+                                break;
+                            }
+                        }
+
+                    }else{
+                        res = false;
+                    }
+                }
+                else
+                {
+                    res = false;
+                    if (brandLocationResult != null)
+                    {
+                        for(Long locationID : brandLocationResult.keySet())
+                        {
+                            if(brandLocationResult.get(locationID) > 0)
+                            {
+                                res = true;
+                            }
+                        }
+                    }
+                }
+                meetMap.put(outletbrand.getOutletBrandID(), res);
+            }
+            else
+            {
+                boolean res = false;
+                for(Oarfacingiftdisplay oarfacingiftdisplay : oarfacingiftdisplays)
+                {
+                    if(oarfacingiftdisplay.getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID() && oarfacingiftdisplay.getHas() > 0)
+                    {
+                        res = true;
+                    }
+                }
+                meetMap.put(outletbrand.getOutletBrandID(), res);
+            }
+        }
+    }
+
+
+    public Map<Long, Map<Long, Integer>> getRightLocations() {
+        return rightLocations;
+    }
+
+    public void setRightLocations(Map<Long, Map<Long, Integer>> rightLocations) {
+        this.rightLocations = rightLocations;
+    }
+
+    public List<Oarfacingiftdisplay> getOarfacingiftdisplays() {
+        return oarfacingiftdisplays;
+    }
+
+    public void setOarfacingiftdisplays(List<Oarfacingiftdisplay> oarfacingiftdisplays) {
+        this.oarfacingiftdisplays = oarfacingiftdisplays;
+    }
+
+
+    public Boolean getMeet() {
+        return meet;
+    }
+
+    public void setMeet(Boolean meet) {
+        this.meet = meet;
+    }
+
+    public Boolean isMeet() {
+        return meet;
+    }
+
+    public Map<Long, Boolean> getMeetMap() {
+        return meetMap;
+    }
+
+    public void setMeetMap(Map<Long, Boolean> meetMap) {
+        this.meetMap = meetMap;
+    }
+
+    public Map<Long, Map<Long, Integer>> getRightLocationRegisteredMap() {
+        return rightLocationRegisteredMap;
+    }
+
+    public void setRightLocationRegisteredMap(Map<Long, Map<Long, Integer>> rightLocationRegisteredMap) {
+        this.rightLocationRegisteredMap = rightLocationRegisteredMap;
+    }
+
+}

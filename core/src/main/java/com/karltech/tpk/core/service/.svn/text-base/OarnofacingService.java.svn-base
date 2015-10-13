@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Oarnofacing;
+
+
+public interface OarnofacingService extends GenericService<Oarnofacing,Long> {
+
+}

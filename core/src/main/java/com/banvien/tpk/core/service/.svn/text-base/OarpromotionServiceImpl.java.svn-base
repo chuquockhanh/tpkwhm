@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.OarpromotionDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Oarpromotion;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class OarpromotionServiceImpl extends GenericServiceImpl<Oarpromotion,Long> 
+                                                    implements OarpromotionService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OarpromotionDAO oarpromotionDAO;
+
+    public void setOarpromotionDAO(OarpromotionDAO oarpromotionDAO) {
+        this.oarpromotionDAO = oarpromotionDAO;
+    }
+
+    @Override
+	protected GenericDAO<Oarpromotion, Long> getGenericDAO() {
+		return oarpromotionDAO;
+	}
+
+}

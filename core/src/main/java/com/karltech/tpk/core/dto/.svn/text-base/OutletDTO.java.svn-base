@@ -1,0 +1,369 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.OutletLocationRegister;
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+import com.banvien.fcv.core.domain.DBBPosmRegistered;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 11:04 AM
+ */
+public class OutletDTO {
+    /**
+	 * Attribute outletID.
+	 */
+	private Long outletID;
+
+	/**
+	 * Attribute distributor
+	 */
+    private Long distributorID;
+
+	private String distributorName;
+
+    private String distributorSapCode;
+
+	/**
+	 * Attribute dmsCode.
+	 */
+	private String dmsCode;
+
+	/**
+	 * Attribute region
+	 */
+
+    private Long regionID;
+
+
+	 private String region;
+
+	/**
+	 * Attribute district
+	 */
+	 private String district;
+
+	/**
+	 * Attribute address.
+	 */
+	private String address;
+
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Double gpsLatitude;
+
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Double gpsLongtitude;
+
+
+    private List<OutletFacingRegisterDTO> outletFacingRegisterDTOs;
+
+    private List<OutletLocationRegisterDTO> outletLocationRegisterDTOs;
+
+    private List<DBBPosmRegisteredDTO> dbbPosmRegisteredDTOs;
+
+    public OutletDTO(Outlet o) {
+        setAddress(o.getAddress());
+        setDistributorID(o.getDistributor().getDistributorID());
+        setDistributorName(o.getDistributor().getName());
+        setDistributorSapCode(o.getDistributor().getSapCode());
+        setDistrict(o.getDistrict().getName());
+        setDmsCode(o.getDmsCode());
+        if (o.getGpsLatitude() != null && o.getGpsLongtitude() != null) {
+            setGpsLatitude(Double.valueOf(o.getGpsLatitude()));
+            setGpsLongtitude(Double.valueOf(o.getGpsLongtitude()));
+        }
+        setOutletID(o.getOutletID());
+        setRegion(o.getRegion().getName());
+        setRegionID(o.getRegion().getRegionID());
+        outletFacingRegisterDTOs = new ArrayList<OutletFacingRegisterDTO>();
+        if (o.getOutletdistributionregistereds() != null && o.getOutletdistributionregistereds().size() > 0) {
+        	List<Outletdistributionregistered> afterList = editData(o.getOutletdistributionregistereds());
+            for (Outletdistributionregistered outletdistributionregistered : afterList)  {
+                OutletFacingRegisterDTO outletFacingRegisterDTO = new OutletFacingRegisterDTO();
+                outletFacingRegisterDTO.setFacing(outletdistributionregistered.getFacing());
+                outletFacingRegisterDTO.setOutletBrandID(outletdistributionregistered.getOutletBrand().getOutletBrandID());
+                if (outletdistributionregistered.getLevelRegister() != null) {
+                    outletFacingRegisterDTO.setLevelRegisterID(outletdistributionregistered.getLevelRegister().getLevelID());
+                }
+                this.outletFacingRegisterDTOs.add(outletFacingRegisterDTO);
+            }
+        }
+
+        outletLocationRegisterDTOs = new ArrayList<OutletLocationRegisterDTO>();
+        if (o.getOutletLocationRegisters() != null && o.getOutletLocationRegisters().size() > 0) {
+            for (OutletLocationRegister outletLocationRegister : o.getOutletLocationRegisters())  {
+            	OutletLocationRegisterDTO outletLocationRegisterDTO = new OutletLocationRegisterDTO();
+            	outletLocationRegisterDTO.setIftLocationID(outletLocationRegister.getLocation().getIftDisplayLocationID());
+            	outletLocationRegisterDTO.setOutletBrandID(outletLocationRegister.getOutletBrand().getOutletBrandID());
+
+                this.outletLocationRegisterDTOs.add(outletLocationRegisterDTO);
+            }
+        }
+
+        dbbPosmRegisteredDTOs = new ArrayList<DBBPosmRegisteredDTO>();
+        if (o.getOutletDbbPosmRegisters() != null && o.getOutletDbbPosmRegisters().size() > 0) {
+            for (DBBPosmRegistered dbbPosmRegistered : o.getOutletDbbPosmRegisters())  {
+            	DBBPosmRegisteredDTO dbbPosmRegisteredDTO = new DBBPosmRegisteredDTO();
+                dbbPosmRegisteredDTO.setPosmID(dbbPosmRegistered.getOutletPosm().getOutletPOSMID());
+                dbbPosmRegisteredDTO.setOutletBrandID(dbbPosmRegistered.getOutletBrand().getOutletBrandID());
+
+                this.dbbPosmRegisteredDTOs.add(dbbPosmRegisteredDTO);
+            }
+        }
+    }
+
+    public JSONObject serializeJSON() throws JSONException {
+        JSONObject o = new JSONObject(this);
+        o.put("outletFacingRegisterDTOs", toJSONArray(outletFacingRegisterDTOs));
+        o.put("outletLocationRegisterDTOs", toJSONArray(outletLocationRegisterDTOs));
+        o.put("dbbPosmRegisteredDTOs", toJSONArray(dbbPosmRegisteredDTOs));
+        return o;
+    }
+    
+    private JSONArray toJSONArray(List objects) {
+        JSONArray a = new JSONArray();
+        for (Object o: objects) {
+            a.put(new JSONObject(o));
+        }
+        return a;
+    }
+    
+    public OutletDTO() {
+
+    }
+
+    
+    public String getDistributorName() {
+        return distributorName;
+    }
+
+    public void setDistributorName(String distributorName) {
+        this.distributorName = distributorName;
+    }
+
+    public String getDistributorSapCode() {
+        return distributorSapCode;
+    }
+
+    public void setDistributorSapCode(String distributorSapCode) {
+        this.distributorSapCode = distributorSapCode;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return outletID
+	 */
+	public Long getOutletID() {
+		return outletID;
+	}
+
+	/**
+	 * @param outletID new value for outletID
+	 */
+	public void setOutletID(Long outletID) {
+		this.outletID = outletID;
+	}
+
+    public String getDmsCode() {
+        return dmsCode;
+    }
+
+    public void setDmsCode(String dmsCode) {
+        this.dmsCode = dmsCode;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address new value for address
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+    public Double getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Double gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Double getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Double gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setAddress(o.getString("address"));
+        setDistributorID(o.getLong("distributorID"));
+        setDistributorName(o.getString("distributorName"));
+        setDistributorSapCode(o.getString("distributorSapCode"));
+        setDistrict(o.getString("district"));
+        setDmsCode(o.getString("dmsCode"));
+        try {
+            setGpsLatitude(o.getDouble("gpsLatitude"));
+            setGpsLongtitude(o.getDouble("gpsLongtitude"));
+        } catch (JSONException e) {
+            // not set GpsLatitude
+        }
+        setOutletID(o.getLong("outletID"));
+        setRegion((o.getString("region")));
+        setRegionID(o.getLong("regionID"));
+
+        updateOutletFacingRegistered(o.getJSONArray("outletFacingRegisterDTOs"));
+        updateOutletLocationRegister(o.getJSONArray("outletLocationRegisterDTOs"));
+        updateDbbPosmRegistered(o.getJSONArray("dbbPosmRegisteredDTOs"));
+
+    }
+
+    private void updateOutletFacingRegistered(JSONArray a) throws JSONException {
+        if (outletFacingRegisterDTOs == null) {
+            outletFacingRegisterDTOs = new ArrayList<OutletFacingRegisterDTO>();
+        } else {
+            outletFacingRegisterDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OutletFacingRegisterDTO bean = new OutletFacingRegisterDTO();
+            bean.unserializeJSON(o);
+            outletFacingRegisterDTOs.add(bean);
+        }
+    }
+    
+    private void updateOutletLocationRegister(JSONArray a) throws JSONException {
+        if (outletLocationRegisterDTOs == null) {
+        	outletLocationRegisterDTOs = new ArrayList<OutletLocationRegisterDTO>();
+        } else {
+        	outletLocationRegisterDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OutletLocationRegisterDTO bean = new OutletLocationRegisterDTO();
+            bean.unserializeJSON(o);
+            outletLocationRegisterDTOs.add(bean);
+        }
+    }
+
+    private void updateDbbPosmRegistered(JSONArray a) throws JSONException {
+        if (dbbPosmRegisteredDTOs == null) {
+            dbbPosmRegisteredDTOs = new ArrayList<DBBPosmRegisteredDTO>();
+        } else {
+            dbbPosmRegisteredDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            DBBPosmRegisteredDTO bean = new DBBPosmRegisteredDTO();
+            bean.unserializeJSON(o);
+            dbbPosmRegisteredDTOs.add(bean);
+        }
+    }
+
+    public Long getDistributorID() {
+        return distributorID;
+    }
+
+    public void setDistributorID(Long distributorID) {
+        this.distributorID = distributorID;
+    }
+
+
+    public List<OutletFacingRegisterDTO> getOutletFacingRegisterDTOs() {
+        return outletFacingRegisterDTOs;
+    }
+
+    public void setOutletFacingRegisterDTOs(List<OutletFacingRegisterDTO> outletFacingRegisterDTOs) {
+        this.outletFacingRegisterDTOs = outletFacingRegisterDTOs;
+    }
+
+	public List<OutletLocationRegisterDTO> getOutletLocationRegisterDTOs() {
+		return outletLocationRegisterDTOs;
+	}
+
+	public void setOutletLocationRegisterDTOs(
+			List<OutletLocationRegisterDTO> outletLocationRegisterDTOs) {
+		this.outletLocationRegisterDTOs = outletLocationRegisterDTOs;
+	}
+
+    public List<DBBPosmRegisteredDTO> getDbbPosmRegisteredDTOs() {
+        return dbbPosmRegisteredDTOs;
+    }
+
+    public void setDbbPosmRegisteredDTOs(List<DBBPosmRegisteredDTO> dbbPosmRegisteredDTOs) {
+        this.dbbPosmRegisteredDTOs = dbbPosmRegisteredDTOs;
+    }
+	
+	private List<Outletdistributionregistered> editData( List<Outletdistributionregistered> beforeList)
+	{
+        List<Outletdistributionregistered> result = new ArrayList<Outletdistributionregistered>();
+
+        int i, j;
+        for(i = 0; i < beforeList.size(); i ++)
+        {
+            int flag = 0;
+            for(j = i + 1; j < beforeList.size(); j ++)
+            {
+                boolean flag1 = beforeList.get(j).getOutlet().getOutletID().equals(beforeList.get(i).getOutlet().getOutletID());
+                boolean  flag2 = beforeList.get(j).getOutletBrand().getOutletBrandID().equals(beforeList.get(i).getOutletBrand().getOutletBrandID());
+                if(flag1 && flag2)
+                {
+                    flag = 1;
+                }
+            }
+            if(flag == 0)
+            {
+                result.add(beforeList.get(i));
+            }
+
+        }		
+		return result;
+		
+	}
+
+}

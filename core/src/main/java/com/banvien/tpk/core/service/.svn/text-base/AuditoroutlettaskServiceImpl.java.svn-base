@@ -1,0 +1,42 @@
+package com.banvien.fcv.core.service;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.dao.AuditoroutlettaskDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Auditoroutlettask;
+
+public class AuditoroutlettaskServiceImpl extends GenericServiceImpl<Auditoroutlettask,Long> 
+                                                    implements AuditoroutlettaskService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private AuditoroutlettaskDAO auditoroutlettaskDAO;
+
+    public void setAuditoroutlettaskDAO(AuditoroutlettaskDAO auditoroutlettaskDAO) {
+        this.auditoroutlettaskDAO = auditoroutlettaskDAO;
+    }
+
+    @Override
+	protected GenericDAO<Auditoroutlettask, Long> getGenericDAO() {
+		return auditoroutlettaskDAO;
+	}
+
+	@Override
+	public Object[] findTaskByAuditScheduleID(Long auditScheduleID, Long distributorID, Long auditorID, Integer statusID, Integer firstIItem, Integer maxItems, String sortExpression, String sortDirection) {
+		return auditoroutlettaskDAO.findTaskByAuditScheduleID(auditScheduleID, distributorID, auditorID, statusID, firstIItem, maxItems, sortExpression, sortDirection);
+	}
+
+    @Override
+    public Auditoroutlettask findByOutletAndAuditorAndSchedule(Long outletID, Long auditorID, Long auditscheduleID)
+    {
+        return auditoroutlettaskDAO.findByAuditorIDAndOutletID(auditorID, outletID, auditscheduleID);
+    }
+
+    @Override
+    public Auditoroutlettask findByOutletAndSchedule(Long outletID, Long auditscheduleID)
+    {
+        return auditoroutlettaskDAO.findByAuditScheduleIDAndOutletID(outletID, auditscheduleID);
+    }
+
+}

@@ -1,0 +1,115 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.SalemanDAO;
+import com.banvien.fcv.core.domain.Saleman;
+import com.banvien.fcv.core.dto.SalemanBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class SalemanServiceImpl extends GenericServiceImpl<Saleman,Long>
+                                                    implements SalemanService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private SalemanDAO salemanDAO;
+
+    public SalemanDAO getSalemanDAO() {
+        return salemanDAO;
+    }
+
+    public void setSalemanDAO(SalemanDAO salemanDAO) {
+        this.salemanDAO = salemanDAO;
+    }
+
+    @Override
+	protected GenericDAO<Saleman, Long> getGenericDAO() {
+		return salemanDAO;
+	}
+
+    @Override
+    public void updateItem(SalemanBean salemanBean) throws ObjectNotFoundException, DuplicateException {
+        Saleman dbItem = this.salemanDAO.findByIdNoAutoCommit(salemanBean.getPojo().getSalemanID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found auditor " + salemanBean.getPojo().getSalemanID());
+
+        Saleman pojo = salemanBean.getPojo();
+
+        this.salemanDAO.detach(dbItem);
+        this.salemanDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(SalemanBean salemanBean) throws DuplicateException {
+        Saleman pojo = salemanBean.getPojo();
+
+        pojo = this.salemanDAO.save(pojo);
+        salemanBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                salemanDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(SalemanBean salemanBean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(salemanBean.getPojo().getCode())) {
+            properties.put(Saleman.FIELD_CODE, salemanBean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(salemanBean.getPojo().getName())) {
+            properties.put(Saleman.FIELD_NAME, salemanBean.getPojo().getName());
+        }
+
+        return this.salemanDAO.searchByProperties(properties, salemanBean.getFirstItem(), salemanBean.getMaxPageItems(), salemanBean.getSortExpression(), salemanBean.getSortDirection(), true);
+    }
+
+    @Override
+    public Saleman findByCode(String code) throws ObjectNotFoundException {
+        Saleman res = this.salemanDAO.findEqualUnique(Saleman.FIELD_CODE, code);
+        if (res == null) return null;
+        return res;
+    }
+
+    @Override
+    public Long importSaleman(Saleman saleman) throws ObjectNotFoundException {
+        Saleman saleman1 = salemanDAO.findByCode(saleman.getCode());
+        Saleman saleManager = new Saleman();
+        if(!saleman.getCode().equals(""))
+        {
+            saleManager = salemanDAO.findByCode(saleman.getCodeManager());
+        }
+        Saleman saleman2 = new Saleman();
+        if(saleman1 != null)
+        {
+            saleman2 = saleman;
+            saleman2.setSalemanID(saleman1.getSalemanID());
+            saleman2.setManager(saleManager);
+            this.salemanDAO.detach(saleman1);
+            this.salemanDAO.update(saleman2);
+        }
+        else
+        {
+            saleman2 = saleman;
+            saleman2.setManager(saleManager);
+            salemanDAO.save(saleman2);
+        }
+        return saleman2.getSalemanID();
+    }
+
+}

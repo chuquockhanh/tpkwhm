@@ -1,0 +1,32 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+
+public class OarLocationRegisteredDTO implements Serializable{
+	 private Long outletbrand;
+	 private Long displayLocationID;
+	 
+	public Long getOutletbrand() {
+		return outletbrand;
+	}
+	public void setOutletbrand(Long outletbrand) {
+		this.outletbrand = outletbrand;
+	}
+
+    public Long getDisplayLocationID() {
+        return displayLocationID;
+    }
+
+    public void setDisplayLocationID(Long displayLocationID) {
+        this.displayLocationID = displayLocationID;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setOutletbrand(o.getLong("outletbrand"));
+        setDisplayLocationID(o.getLong("displayLocationID"));
+    }
+
+}

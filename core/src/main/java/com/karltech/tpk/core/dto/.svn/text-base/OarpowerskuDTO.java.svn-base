@@ -1,0 +1,42 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:30 AM
+ */
+public class OarpowerskuDTO {
+    /**
+	 * Attribute powersku
+	 */
+	 private Long powerskuID;
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+    public Long getPowerskuID() {
+        return powerskuID;
+    }
+
+    public void setPowerskuID(Long powerskuID) {
+        this.powerskuID = powerskuID;
+    }
+
+    public Byte getHas() {
+        return has;
+    }
+
+    public void setHas(Byte has) {
+        this.has = has;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setHas(Byte.valueOf(o.getString("has")));
+        setPowerskuID(o.getLong("powerskuID"));
+    }
+}

@@ -1,0 +1,209 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator
+END
+UnitValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/528/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/UnitValidator.java
+END
+AgentValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/859/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/AgentValidator.java
+END
+BrandValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/173/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/BrandValidator.java
+END
+LevelRegisterValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/LevelRegisterValidator.java
+END
+UserValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/832/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/UserValidator.java
+END
+OutletValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/OutletValidator.java
+END
+StorepromotionproductValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/StorepromotionproductValidator.java
+END
+DistrictValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/141/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/DistrictValidator.java
+END
+FullrangeskuValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/FullrangeskuValidator.java
+END
+SosbrandValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/SosbrandValidator.java
+END
+SettingValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/466/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/SettingValidator.java
+END
+BrandgroupValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/172/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/BrandgroupValidator.java
+END
+MyProfileValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/333/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/MyProfileValidator.java
+END
+IftdisplaylocationValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/140/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/IftdisplaylocationValidator.java
+END
+StoreValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/200/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/StoreValidator.java
+END
+StorepromotionValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/477/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/StorepromotionValidator.java
+END
+PromotionValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/200/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/PromotionValidator.java
+END
+OutletposmValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/137/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/OutletposmValidator.java
+END
+DistributorValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/229/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/DistributorValidator.java
+END
+PromotionproductValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/435/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/PromotionproductValidator.java
+END
+AccountValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/178/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/AccountValidator.java
+END
+ProductValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/159/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/ProductValidator.java
+END
+SubFullRangeSKUValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/SubFullRangeSKUValidator.java
+END
+ProductgroupValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/ProductgroupValidator.java
+END
+AuditscheduleValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/202/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/AuditscheduleValidator.java
+END
+SalemanValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1006/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/SalemanValidator.java
+END
+RegionValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/140/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/RegionValidator.java
+END
+PackinggroupValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/PackinggroupValidator.java
+END
+PowerskuValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/137/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/PowerskuValidator.java
+END
+ProductbrandValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/ProductbrandValidator.java
+END
+StoreposmValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/168/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/StoreposmValidator.java
+END
+OutletBrandValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/919/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/OutletBrandValidator.java
+END
+WardValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/463/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/WardValidator.java
+END
+AuditorValidator.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/167/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/validator/AuditorValidator.java
+END

@@ -1,0 +1,66 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.dto.BrandBean;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.BrandService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit brand form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class BrandValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(BrandValidator.class);
+
+    private BrandService brandService;
+    @Autowired
+    public void setBrandService(BrandService brandService) {
+        this.brandService = brandService;
+    }
+
+    public boolean supports(Class<?> aClass) {
+        return BrandBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        BrandBean cmd = (BrandBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+    }
+
+    private void validateRequiredValues(BrandBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.brand.form.name")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.products", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.brand.form.products")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.rightLocation", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.brand.form.rightlocation")}, "non-empty value required.");
+
+    }
+
+    private void trimingField(BrandBean cmd) {
+        if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+        if(StringUtils.isNotEmpty(cmd.getPojo().getProducts())) {
+    		cmd.getPojo().setProducts(cmd.getPojo().getProducts().trim());
+    	}
+
+        if(StringUtils.isNotEmpty(cmd.getPojo().getRightLocation())) {
+    		cmd.getPojo().setRightLocation(cmd.getPojo().getRightLocation().trim());
+    	}
+
+    }
+
+
+}

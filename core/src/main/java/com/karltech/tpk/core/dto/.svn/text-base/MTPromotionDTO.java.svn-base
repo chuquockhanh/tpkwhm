@@ -1,0 +1,51 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 8/8/12
+ * Time: 4:30 PM
+ */
+public class MTPromotionDTO implements Serializable {
+    private Long storeID;
+    private String storeName;
+    private String account;
+
+    private Map<String, List<PromotionReportDTO>> promotionInfoMap;
+
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public Map<String, List<PromotionReportDTO>> getPromotionInfoMap() {
+        return promotionInfoMap;
+    }
+
+    public void setPromotionInfoMap(Map<String, List<PromotionReportDTO>> promotionInfoMap) {
+        this.promotionInfoMap = promotionInfoMap;
+    }
+}

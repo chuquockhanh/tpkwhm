@@ -1,0 +1,25 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Outletauditresult;
+
+import java.util.Date;
+import java.util.List;
+
+/**
+ * <p>Generic DAO layer for Outletauditresults</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface OutletauditresultDAO extends GenericDAO<Outletauditresult,Long> {
+
+    List<Outletauditresult> reportInDetail(Long createdBy, Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroupID, int startRow, int pageSize);
+
+    List<Outletauditresult> reportInDetail(Long createdBy, Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroupID, int startRow, int pageSize, String whereCause);
+
+    Integer getCountReportInDetail(Long createdBy, Date startDate, Date endDate, Long regionID, Long distributorID, Long productGroup);
+
+    Integer getCountReportInDetail4SupportRole(Long createdBy, Date startDate, Date endDate, Long regionID, Long supportUserID, Long productGroup);
+
+    Outletauditresult findByOutletID(final Long outletID);
+}

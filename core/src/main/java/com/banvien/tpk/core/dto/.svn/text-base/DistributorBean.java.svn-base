@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Distributor;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 3:36 PM
+ */
+public class DistributorBean extends AbstractBean<Distributor> {
+    public DistributorBean() {
+        this.pojo = new Distributor();
+    }
+}

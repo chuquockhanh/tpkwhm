@@ -1,0 +1,23 @@
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`OARFullRangeFacing`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`OARFullRangeFacing` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`OARFullRangeFacing` (
+  `OARFullRangeFacingID` BIGINT NOT NULL AUTO_INCREMENT ,
+  `OutletAuditResultID` BIGINT NOT NULL ,
+  `OutletBrandID` BIGINT NOT NULL ,
+  `Correct` TINYINT NOT NULL ,
+  PRIMARY KEY (`OARFullRangeFacingID`) ,
+  UNIQUE INDEX `UQ_OARPowerSKU` (`OutletAuditResultID` ASC, `OutletBrandID` ASC) ,
+  CONSTRAINT `FK_OARFullRangeFacing_OAR`
+    FOREIGN KEY (`OutletAuditResultID` )
+    REFERENCES `FCVAuditData`.`OutletAuditResult` (`OutletAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARFullRangeFacing_OutletBrand`
+    FOREIGN KEY (`OutletBrandID` )
+    REFERENCES `FCVAuditData`.`OutletBrand` (`OutletBrandID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;

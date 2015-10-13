@@ -1,0 +1,332 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.*;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.UserBean;
+import com.banvien.fcv.core.dto.UserDTO;
+import com.banvien.fcv.security.SecurityUtils;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.security.DesEncrypterUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class UserServiceImpl extends GenericServiceImpl<User,Long> 
+                                                    implements UserService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private UserDAO userDAO;
+
+
+    public RegionDAO getRegionDAO() {
+        return regionDAO;
+    }
+
+    public void setRegionDAO(RegionDAO regionDAO) {
+        this.regionDAO = regionDAO;
+    }
+
+    private RegionDAO regionDAO;
+
+    private UserregionDAO userregionDAO;
+
+    public DistributorDAO getDistributorDAO() {
+        return distributorDAO;
+    }
+
+    public void setDistributorDAO(DistributorDAO distributorDAO) {
+        this.distributorDAO = distributorDAO;
+    }
+
+    private DistributorDAO distributorDAO;
+
+    public UserdistributorDAO getUserdistributorDAO() {
+        return userdistributorDAO;
+    }
+
+    public void setUserdistributorDAO(UserdistributorDAO userdistributorDAO) {
+        this.userdistributorDAO = userdistributorDAO;
+    }
+
+    private UserdistributorDAO userdistributorDAO;
+
+    public AgentDAO getAgentDAO() {
+        return agentDAO;
+    }
+
+    public void setAgentDAO(AgentDAO agentDAO) {
+        this.agentDAO = agentDAO;
+    }
+
+    private AgentDAO agentDAO;
+
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public void setUserregionDAO(UserregionDAO userregionDAO) {
+        this.userregionDAO = userregionDAO;
+    }
+
+    @Override
+	protected GenericDAO<User, Long> getGenericDAO() {
+		return userDAO;
+	}
+
+    @Override
+    public User findByEmail(String email) throws ObjectNotFoundException {
+        User res = this.userDAO.findEqualUnique(User.FIELD_EMAIL, email);
+        if (res == null) throw new ObjectNotFoundException("Not found user with email " + email);
+        return res;
+    }
+
+    @Override
+    public User findByUsername(String userName) throws ObjectNotFoundException {
+        User res = this.userDAO.findEqualUnique(User.FIELD_USERNAME, userName);
+        if (res == null) throw new ObjectNotFoundException("Not found user with username " + userName);
+        return res;
+    }
+
+    @Override
+    public void updateItem(UserBean userBean) throws ObjectNotFoundException, DuplicateException {
+        User dbItem = this.userDAO.findByIdNoAutoCommit(userBean.getPojo().getUserID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found user " + userBean.getPojo().getUserID());
+
+        Long[] regions = userBean.getRegions();
+        User pojo = userBean.getPojo();
+        if (StringUtils.isNotEmpty(pojo.getPassword())) {
+            pojo.setPassword(DesEncrypterUtils.getInstance().encrypt(pojo.getPassword()));
+        }else{
+            pojo.setPassword(dbItem.getPassword());
+        }
+        this.userDAO.detach(dbItem);
+        this.userDAO.update(pojo);
+
+        userregionDAO.deleteByUser(pojo.getUserID());
+        for (Long regionID : regions) {
+            Userregion userregion = new Userregion();
+            userregion.setUser(pojo);
+            Region region = new Region();
+            region.setRegionID(regionID);
+            userregion.setRegion(region);
+            userregionDAO.save(userregion);
+        }
+
+
+        Map<String, Object> properties = new HashMap<String, Object>();
+        StringBuffer whereClause = new StringBuffer(" 1 = 1 ");
+        //Object obj[] = distributorDAO.searchByProperties(properties, userBean.getDistributorBean().getFirstItem(), userBean.getDistributorBean().getMaxPageItems() , "distributorID","DESC" ,true, whereClause.toString());
+        Object obj[] = distributorDAO.searchByProperties(properties, userBean.getDistributorBean().getFirstItem(), userBean.getDistributorBean().getMaxPageItems(), userBean.getSortExpression(), userBean.getSortDirection(), true);
+
+        List<Distributor> _lstDistributor = (List<Distributor>)obj[1];
+        List<Userdistributor> _lstUserDistributor = userdistributorDAO.findAll();
+
+        for(int i = 0; i < _lstUserDistributor.size(); i ++)
+        {
+            for(int j = 0; j < _lstDistributor.size(); j ++)
+            {
+                if(_lstUserDistributor.get(i).getUser().getUserID() == pojo.getUserID() && _lstUserDistributor.get(i).getDistributor().getDistributorID() == _lstDistributor.get(j).getDistributorID())
+                {
+                    userdistributorDAO.delete(_lstUserDistributor.get(i).getUserDistributorID());
+                }
+            }
+        }
+
+        if(userBean.getDistributorBean().getCheckList() != null)
+        {
+
+            String[] lstDistributor = userBean.getDistributorBean().getCheckList();
+            for(String distributorID : lstDistributor)
+            {
+                Long distributorId = Long.parseLong(distributorID);
+                Userdistributor userdistributor = new Userdistributor();
+                userdistributor.setUser(pojo);
+                Distributor distributor = new Distributor();
+                distributor.setDistributorID(distributorId);
+                userdistributor.setDistributor(distributor);
+                userdistributorDAO.save(userdistributor);
+            }
+        }
+
+    }
+
+
+
+    @Override
+    public void updateItemImport(UserDTO userDTO) throws ObjectNotFoundException, DuplicateException {
+        User dbItem = this.userDAO.findByUsername(userDTO.getUserName());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found user " + userDTO.getUserName());
+
+        String region = userDTO.getRegion();
+        if (StringUtils.isNotEmpty(dbItem.getPassword())) {
+            dbItem.setPassword(DesEncrypterUtils.getInstance().encrypt(userDTO.getPassword()));
+        }else{
+            dbItem.setPassword(dbItem.getPassword());
+        }
+        this.userDAO.detach(dbItem);
+        this.userDAO.update(dbItem);
+
+        userregionDAO.deleteByUser(dbItem.getUserID());
+        Region region_temp = regionDAO.findRegionByName(userDTO.getRegion()) ;
+
+        if(region != null)
+        {
+            Userregion userregion = new Userregion();
+            userregion.setUser(dbItem);
+            userregion.setRegion(region_temp);
+            userregionDAO.save(userregion);
+        }
+
+        userdistributorDAO.deleteByUser(dbItem.getUserID());
+
+        for(String c : userDTO.getDistributor())
+        {
+            List<Distributor> distributors = distributorDAO.findBySapCode(c);
+
+            if(distributors != null)
+            {
+                for(int i = 0; i < distributors.size(); i++)
+                {
+
+                    Userdistributor userdistributor = new Userdistributor();
+                    userdistributor.setUser(dbItem);
+                    userdistributor.setDistributor(distributors.get(i));
+                    userdistributorDAO.save(userdistributor);
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void addNew(UserBean userBean) throws DuplicateException {
+        User pojo = userBean.getPojo();
+        Long[] regions = userBean.getRegions();
+        pojo.setPassword(DesEncrypterUtils.getInstance().encrypt(pojo.getPassword()));
+        pojo = this.userDAO.save(pojo);
+        userBean.setPojo(pojo);
+
+        for (Long regionID : regions) {
+            Userregion userregion = new Userregion();
+            userregion.setUser(pojo);
+            Region region = new Region();
+            region.setRegionID(regionID);
+            userregion.setRegion(region);
+            userregionDAO.save(userregion);
+        }
+    }
+
+    @Override
+    public Long importUser(UserDTO userDTO)
+    {
+        User user = new User();
+
+        user.setUserName(userDTO.getUserName());
+        user.setPassword(DesEncrypterUtils.getInstance().encrypt(userDTO.getPassword()));
+        user.setFullname(userDTO.getFullName());
+        user.setEmail(userDTO.getEmail());
+        user.setStatus(userDTO.getStatus());
+        user.setRole(userDTO.getRole());
+
+        this.userDAO.save(user);
+
+        //Distributor distributor = distributorDAO.findBySapCodeAndName(userDTO.getDistributor(), StringUtil.removeDiacritic(userDTO.getDistributorName()));
+        for(String c : userDTO.getDistributor())
+        {
+            List<Distributor> distributors = distributorDAO.findBySapCode(c);
+
+            if(distributors != null)
+            {
+                for(int i = 0; i < distributors.size(); i++)
+                {
+
+                    Userdistributor userdistributor = new Userdistributor();
+                    userdistributor.setUser(user);
+                    userdistributor.setDistributor(distributors.get(i));
+                    userdistributorDAO.save(userdistributor);
+                }
+            }
+        }
+        Region region = regionDAO.findRegionByName(userDTO.getRegion()) ;
+
+        if(region != null)
+        {
+            Userregion userregion = new Userregion();
+            userregion.setUser(user);
+            userregion.setRegion(region);
+            userregionDAO.save(userregion);
+        }
+
+
+        return user.getUserID();
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                userDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(UserBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getUserName())) {
+            properties.put(User.FIELD_USERNAME, bean.getPojo().getUserName());
+        }
+        if (StringUtils.isNotBlank(bean.getPojo().getFullname())) {
+            properties.put(User.FIELD_FULLNAME, bean.getPojo().getFullname());
+        }
+        if (StringUtils.isNotBlank(bean.getPojo().getEmail())) {
+            properties.put(User.FIELD_EMAIL, bean.getPojo().getEmail());
+        }
+        if (SecurityUtils.userHasAuthority("GT")) {
+            properties.put(User.FIELD_AGENT, userDAO.findById(SecurityUtils.getLoginUserId(),true).getAgent().getAgentID());
+        }
+
+        if (bean.getPojo().getStatus() != null && bean.getPojo().getStatus() >= 0) {
+            properties.put(User.FIELD_STATUS, bean.getPojo().getStatus());
+        }
+        return this.userDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+       }
+
+    @Override
+    public Object[] searchDistributor4User(UserBean bean)
+    {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if(bean.getDistributorBean() != null)
+        {
+            properties.put(Userdistributor.FIELD_USERID, bean.getPojo().getUserID());
+        }
+
+        return this.userdistributorDAO.searchByProperties(properties, 0, -1, bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public void updateProfile(UserBean userBean) throws ObjectNotFoundException, DuplicateException {
+        User dbItem = this.userDAO.findByIdNoAutoCommit(userBean.getPojo().getUserID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found user " + userBean.getPojo().getUserID());
+
+
+        if (StringUtils.isNotEmpty(userBean.getNewPassword())) {
+            dbItem.setPassword(DesEncrypterUtils.getInstance().encrypt(userBean.getNewPassword()));
+        }
+        dbItem.setEmail(userBean.getPojo().getEmail());
+        dbItem.setFullname(userBean.getPojo().getFullname());
+
+        this.userDAO.update(dbItem);
+    }
+}

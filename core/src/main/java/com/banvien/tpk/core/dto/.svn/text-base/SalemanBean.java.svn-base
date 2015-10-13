@@ -1,0 +1,38 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Saleman;
+
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 3:03 PM
+ */
+public class SalemanBean extends AbstractBean<Saleman> {
+    public SalemanBean() {
+        this.pojo = new Saleman();
+    }
+
+    private OutletSalemanBean outletSalemanBean;
+
+    public OutletSalemanBean getOutletSalemanBean() {
+        return outletSalemanBean;
+    }
+
+    public void setOutletSalemanBean(OutletSalemanBean outletSalemanBean) {
+        this.outletSalemanBean = outletSalemanBean;
+    }
+
+    public Map<String, String> getHashOutletBrandSaleman() {
+        return hashOutletBrandSaleman;
+    }
+
+    public void setHashOutletBrandSaleman(Map<String, String> hashOutletBrandSaleman) {
+        this.hashOutletBrandSaleman = hashOutletBrandSaleman;
+    }
+
+    private Map<String, String> hashOutletBrandSaleman;
+
+}

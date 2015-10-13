@@ -1,0 +1,83 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE OutletDistributionRegistered</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Outletdistributionregistered implements Serializable {
+
+
+    /**
+	 * Attribute outletDistributionRegisteredID.
+	 */
+	private Long outletDistributionRegisteredID;
+	
+	/**
+	 * Attribute outlet
+	 */
+	 private Outlet outlet;
+
+    /**
+   	 * Attribute outletBrand
+   	 */
+   	 private Outletbrand outletBrand;
+
+    /**
+   	 * Attribute facing
+   	 */
+   	 private Integer facing;
+
+    /**
+   	 * Attribute Level
+   	 */
+   	 private LevelRegister levelRegister;
+
+
+    public Long getOutletDistributionRegisteredID() {
+        return outletDistributionRegisteredID;
+    }
+
+    public void setOutletDistributionRegisteredID(Long outletDistributionRegisteredID) {
+        this.outletDistributionRegisteredID = outletDistributionRegisteredID;
+    }
+
+    public Outlet getOutlet() {
+        return outlet;
+    }
+
+    public void setOutlet(Outlet outlet) {
+        this.outlet = outlet;
+    }
+
+    public Outletbrand getOutletBrand() {
+        return outletBrand;
+    }
+
+    public void setOutletBrand(Outletbrand outletBrand) {
+        this.outletBrand = outletBrand;
+    }
+
+    public Integer getFacing() {
+        return facing;
+    }
+
+    public void setFacing(Integer facing) {
+        this.facing = facing;
+    }
+
+    public LevelRegister getLevelRegister() {
+        return levelRegister;
+    }
+
+    public void setLevelRegister(LevelRegister levelRegister) {
+        this.levelRegister = levelRegister;
+    }
+
+}

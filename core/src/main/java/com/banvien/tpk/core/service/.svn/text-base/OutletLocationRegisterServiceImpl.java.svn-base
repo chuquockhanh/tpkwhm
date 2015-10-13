@@ -1,0 +1,81 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletLocationRegisterDAO;
+import com.banvien.fcv.core.domain.OutletLocationRegister;
+import com.banvien.fcv.core.dto.OutletLocationRegisterBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class OutletLocationRegisterServiceImpl extends GenericServiceImpl<OutletLocationRegister,Long>
+                                                    implements OutletLocationRegisterService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletLocationRegisterDAO outletLocationRegisterDAO;
+
+    public void setOutletLocationRegisterDAO(OutletLocationRegisterDAO outletLocationRegisterDAO) {
+        this.outletLocationRegisterDAO = outletLocationRegisterDAO;
+    }
+
+    @Override
+	protected GenericDAO<OutletLocationRegister, Long> getGenericDAO() {
+		return outletLocationRegisterDAO;
+	}
+
+    @Override
+    public void updateItem(OutletLocationRegisterBean outletLocationRegisterBean) throws ObjectNotFoundException, DuplicateException {
+        OutletLocationRegister dbItem = this.outletLocationRegisterDAO.findByIdNoAutoCommit(outletLocationRegisterBean.getPojo().getOutletLocationRegisterID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + outletLocationRegisterBean.getPojo().getOutletLocationRegisterID());
+
+        OutletLocationRegister pojo = outletLocationRegisterBean.getPojo();
+
+        this.outletLocationRegisterDAO.detach(dbItem);
+        this.outletLocationRegisterDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OutletLocationRegisterBean outletLocationRegisterBean) throws DuplicateException {
+        OutletLocationRegister pojo = outletLocationRegisterBean.getPojo();
+        pojo = this.outletLocationRegisterDAO.save(pojo);
+        outletLocationRegisterBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                outletLocationRegisterDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OutletLocationRegisterBean outletLocationRegisterBean)
+    {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (outletLocationRegisterBean.getPojo().getLocation() != null && outletLocationRegisterBean.getPojo().getLocation().getIftDisplayLocationID() != null && outletLocationRegisterBean.getPojo().getLocation().getIftDisplayLocationID() > 0) {
+            properties.put("location.iftDisplayLocationID", outletLocationRegisterBean.getPojo().getLocation().getIftDisplayLocationID());
+        }
+
+        if (outletLocationRegisterBean.getPojo().getOutletBrand() != null && outletLocationRegisterBean.getPojo().getOutletBrand().getOutletBrandID() != null && outletLocationRegisterBean.getPojo().getOutletBrand().getOutletBrandID() > 0) {
+            properties.put("outletbrand.outletBrandID", outletLocationRegisterBean.getPojo().getOutletBrand().getOutletBrandID());
+        }
+
+        if (outletLocationRegisterBean.getPojo().getOutlet() != null && outletLocationRegisterBean.getPojo().getOutlet().getOutletID() != null && outletLocationRegisterBean.getPojo().getOutlet().getOutletID() > 0) {
+            properties.put("outlet.outletID", outletLocationRegisterBean.getPojo().getOutlet().getOutletID());
+        }
+
+        return this.outletLocationRegisterDAO.searchByProperties(properties, outletLocationRegisterBean.getFirstItem(), outletLocationRegisterBean.getMaxPageItems(), outletLocationRegisterBean.getSortExpression(), outletLocationRegisterBean.getSortDirection(), true);
+    }
+
+}

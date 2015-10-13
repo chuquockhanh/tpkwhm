@@ -1,0 +1,135 @@
+package com.banvien.fcv.core.dto;
+
+import org.apache.commons.lang.StringUtils;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/9/12
+ * Time: 6:30 AM
+ */
+public class OutOfStockDTO implements Serializable {
+    private Long storeID;
+    private String storeName;
+    private String account;
+    private Integer week;
+    private Timestamp day;
+    private Integer numberOfSKU;
+    private Integer numberOfOOSSKU;
+    private String oosSKUs;
+
+    private Integer numberOfSKUListed;
+    private Integer numberOfAuditDay;
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
+
+    public Timestamp getDay() {
+        return day;
+    }
+
+    public void setDay(Timestamp day) {
+        this.day = day;
+    }
+
+    public Integer getNumberOfSKU() {
+        return numberOfSKU;
+    }
+
+    public void setNumberOfSKU(Integer numberOfSKU) {
+        this.numberOfSKU = numberOfSKU;
+    }
+
+    public Integer getNumberOfOOSSKU() {
+        return numberOfOOSSKU;
+    }
+
+    public void setNumberOfOOSSKU(Integer numberOfOOSSKU) {
+        this.numberOfOOSSKU = numberOfOOSSKU;
+    }
+
+    public String getOosSKUs() {
+        return oosSKUs;
+    }
+
+    public void setOosSKUs(String oosSKUs) {
+        this.oosSKUs = oosSKUs;
+    }
+
+    public Integer getNumberOfSKUListed() {
+        return numberOfSKUListed;
+    }
+
+    public void setNumberOfSKUListed(Integer numberOfSKUListed) {
+        this.numberOfSKUListed = numberOfSKUListed;
+    }
+
+    public Integer getNumberOfAuditDay() {
+        return numberOfAuditDay;
+    }
+
+    public void setNumberOfAuditDay(Integer numberOfAuditDay) {
+        this.numberOfAuditDay = numberOfAuditDay;
+    }
+
+    public void addOosSKUs(String oosSKUs) {
+        if (StringUtils.isNotBlank(this.oosSKUs)) {
+            StringBuffer res = new StringBuffer();
+            String[] currSKUs = this.oosSKUs.split(",");
+            Set<String> skuSet = new HashSet<String>();
+            for (String s : currSKUs) {
+                skuSet.add(s.trim());
+            }
+            if (StringUtils.isNotBlank(oosSKUs)) {
+                String[] arr = oosSKUs.split(",");
+                for (String s : arr) {
+                    skuSet.add(s.trim());
+                }
+            }
+            boolean isFirst = true;
+            for (String s : skuSet) {
+                if (!isFirst) {
+                    res.append(", ");
+                }
+                res.append(s);
+                isFirst = false;
+            }
+            this.oosSKUs = res.toString();
+        }else {
+            this.oosSKUs = oosSKUs;
+        }
+    }
+}

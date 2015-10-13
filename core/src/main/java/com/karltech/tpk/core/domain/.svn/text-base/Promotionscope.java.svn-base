@@ -1,0 +1,80 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE PromotionScope</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Promotionscope implements Serializable {
+
+	/**
+	 * Attribute promotionScopeID.
+	 */
+	private Long promotionScopeID;
+	
+	/**
+	 * Attribute promotion
+	 */
+	 private Promotion promotion;	
+
+	/**
+	 * Attribute region
+	 */
+	 private Region region;	
+
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return promotionScopeID
+	 */
+	public Long getPromotionScopeID() {
+		return promotionScopeID;
+	}
+
+	/**
+	 * @param promotionScopeID new value for promotionScopeID 
+	 */
+	public void setPromotionScopeID(Long promotionScopeID) {
+		this.promotionScopeID = promotionScopeID;
+	}
+	
+	/**
+	 * get promotion
+	 */
+	public Promotion getPromotion() {
+		return this.promotion;
+	}
+	
+	/**
+	 * set promotion
+	 */
+	public void setPromotion(Promotion promotion) {
+		this.promotion = promotion;
+	}
+
+	/**
+	 * get region
+	 */
+	public Region getRegion() {
+		return this.region;
+	}
+	
+	/**
+	 * set region
+	 */
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+
+
+}

@@ -1,0 +1,108 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.domain.Saleman;
+import com.banvien.fcv.core.dto.SalemanBean;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.SalemanService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit region form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class SalemanValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(SalemanValidator.class);
+
+    private SalemanService salemanService;
+
+	@Autowired
+    public void setUserService(SalemanService salemanService) {
+		this.salemanService = salemanService;
+	}
+
+    public boolean supports(Class<?> aClass) {
+        return SalemanBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        SalemanBean cmd = (SalemanBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+        validateDuplicate(cmd,errors);
+    }
+
+    private void validateRequiredValues(SalemanBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.saleman.form.name")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.code", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.saleman.form.code")}, "non-empty value required.");
+    }
+
+    private void trimingField(SalemanBean cmd) {
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+        if(StringUtils.isNotEmpty(cmd.getPojo().getCode())) {
+       		cmd.getPojo().setCode(cmd.getPojo().getCode().trim());
+       	}
+    }
+
+    private void validateDuplicate(SalemanBean cmd, Errors errors) {
+    	//code
+    	if(StringUtils.isNotBlank(cmd.getPojo().getCode()) && cmd.getPojo().getSalemanID() == null) {
+    		try {
+    			Saleman res = this.salemanService.findByCode(cmd.getPojo().getCode());
+                if(res != null) {
+                    if(cmd.getPojo().getCode() != null &&
+                            res.getCode().equals(cmd.getPojo().getCode()))
+                    errors.rejectValue("pojo.code", "error.duplicated", new String[] {this.getMessageSourceAccessor().getMessage("support.saleman.form.code")}, "Value has been chosen.");
+                }
+    		} catch (ObjectNotFoundException ex) {
+    			// true
+    		}
+    	}
+    }
+
+    public void validateImportSaleman(Saleman saleman)
+    {
+        saleman.setRootCause("");
+        if(saleman.getType().equals("MR") || saleman.getType().equals("NA") || saleman.getType().equals("SA") )
+        {
+            saleman.setValidate("Success");
+        }
+        else
+        {
+            saleman.setRootCause("Type is not valid");
+            saleman.setValidate("Fail");
+        }
+
+        Saleman validate = new Saleman();
+        try
+        {
+            if(saleman.getCodeManager() != null)
+                validate = salemanService.findByCode(saleman.getCodeManager());
+        }
+        catch(Exception ex){}
+        if(validate == null)
+        {
+            saleman.setRootCause("Manager code is not available");
+            saleman.setValidate("Fail");
+        }
+        else
+        {
+            saleman.setValidate("Success");
+        }
+
+    }
+
+}

@@ -1,0 +1,80 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.domain.Promotion;
+import com.banvien.fcv.core.dto.PromotionBean;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.PromotionService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit promotion form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class PromotionValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(PromotionValidator.class);
+
+    @Autowired
+    private PromotionService promotionService;
+
+    public boolean supports(Class<?> aClass) {
+        return PromotionBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        PromotionBean cmd = (PromotionBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+        validateDuplicate(cmd, errors);
+    }
+
+    private void validateRequiredValues(PromotionBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.code", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.code")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.name")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.effectiveDate", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.effectivedate")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.expireDate", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.expiredate")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.buyQuantity", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.buyquantity")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.getQuantity", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.getquantity")}, "non-empty value required.");
+
+    }
+
+    private void trimingField(PromotionBean cmd) {
+        if(StringUtils.isNotEmpty(cmd.getPojo().getCode())) {
+    		cmd.getPojo().setCode(cmd.getPojo().getCode().trim());
+    	}
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+
+    }
+    
+    private void validateDuplicate(PromotionBean cmd, Errors errors) {
+    	//Code
+    	if(StringUtils.isNotBlank(cmd.getPojo().getCode())) {
+    		try {
+    			Promotion promotion = this.promotionService.findByCode(cmd.getPojo().getCode());
+                if(promotion != null) {
+                    if(cmd.getPojo().getPromotionID() != null &&
+                            !promotion.getPromotionID().equals(cmd.getPojo().getPromotionID()))
+                    errors.rejectValue("pojo.code", "error.duplicated", new String[] {this.getMessageSourceAccessor().getMessage("support.promotion.form.code")}, "Value has been chosen.");
+                }
+    		} catch (ObjectNotFoundException ex) {
+    			// true
+    		}
+    	}
+
+    }
+
+
+}

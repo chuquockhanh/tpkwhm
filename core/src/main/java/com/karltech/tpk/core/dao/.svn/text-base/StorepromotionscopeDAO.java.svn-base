@@ -1,0 +1,13 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Storepromotionscope;
+/**
+ * <p>Generic DAO layer for Storepromotionscopes</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface StorepromotionscopeDAO extends GenericDAO<Storepromotionscope,Long> {
+
+    void deleteByStorePromotionID(Long promotionID);
+}

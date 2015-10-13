@@ -1,0 +1,22 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Auditoroutlettask;
+
+import java.util.List;
+/**
+ * <p>Generic DAO layer for Auditoroutlettasks</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface AuditoroutlettaskDAO extends GenericDAO<Auditoroutlettask,Long> {
+
+    Auditoroutlettask findByOutletIDandAuditorCode(Long outletID, String auditorCode);
+    List<Auditoroutlettask> findByAuditorOfSchedule(Long auditorID, Long auditScheduleID);
+    public Object[] findTaskByAuditScheduleID(Long auditScheduleID, Long distributorID, Long auditorID, Integer statusID, Integer firstIItem, Integer maxItems, String sortExpression, String sortDirection);
+    
+    public Auditoroutlettask findByAuditorIDAndOutletID(Long auditorID, Long outletID, Long scheduleID);
+
+    public Auditoroutlettask findByAuditScheduleIDAndOutletID(final Long outletID, final Long scheduleID);
+
+}

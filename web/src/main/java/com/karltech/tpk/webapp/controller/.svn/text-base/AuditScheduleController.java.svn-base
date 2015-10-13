@@ -1,0 +1,499 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.*;
+import com.banvien.fcv.core.util.CacheUtil;
+import com.banvien.fcv.security.SecurityUtils;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.editor.PojoEditor;
+import com.banvien.fcv.webapp.util.CommonUtil;
+import com.banvien.fcv.webapp.util.ExcelUtil;
+import com.banvien.fcv.webapp.util.FileUtils;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.AuditscheduleValidator;
+import jxl.*;
+import jxl.read.biff.BiffException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.*;
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 11:59 AM
+ */
+@Controller
+public class AuditScheduleController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+    
+    private final static String OUTLET_TASK_IMPORT_KEY = "OUTLET_TASK_IMPORT_KEY";
+    private final static String OUTLET_TASK_IMPORT_AUDIT_SCHEDULE_KEY = "OUTLET_TASK_IMPORT_AUDIT_SCHEDULE_KEY";
+    
+    private static final int COL_DISTRIBUTOR = 1;
+    private static final int COL_SAPCODE = 2;
+    private static final int COL_DISTRICT= 3;
+    private static final int COL_WARD = 4;
+    private static final int COL_NAME = 5;
+    private static final int COL_ADDRESS = 6;
+    private static final int COL_DMSCODE = 7;
+    private static final int COL_FS = 8;
+    private static final int COL_DL = 9;
+    private static final int COL_AUDITOR_CODE = 10;
+    
+    @Autowired
+    private AuditscheduleService auditscheduleService;
+
+    @Autowired
+    private AuditscheduleValidator auditscheduleValidator;
+
+    @Autowired
+    private AuditorService auditorService;
+    
+    @Autowired
+    private AuditoroutlettaskService auditoroutlettaskService;
+    
+    @Autowired
+    private AuditorstoretaskService auditorstoretaskService;
+
+    @Autowired
+    private StoreService storeService;
+
+    @Autowired
+    private OutletService outletService;
+
+    @Autowired
+    private RegionService regionService;
+
+    @Autowired
+    private DistrictService districtService;
+
+    @Autowired
+    private WardService wardService;
+
+    @Autowired
+    private DistributorService distributorService;
+
+    @Autowired
+    private OutletauditresultService outletauditresultService;
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+        binder.registerCustomEditor(Auditor.class, new PojoEditor(Auditor.class, "auditorID", Long.class));
+        binder.registerCustomEditor(Auditschedule.class, new PojoEditor( Auditschedule.class, "auditScheduleID", Long.class));
+	}
+    
+    @RequestMapping("/support/auditschedule/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) AuditScheduleBean auditscheduleBean, BindingResult bindingResult) throws ObjectNotFoundException{
+		ModelAndView mav = new ModelAndView("/support/auditschedule/edit");
+
+		String crudaction = auditscheduleBean.getCrudaction();
+		Auditschedule pojo = auditscheduleBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				auditscheduleValidator.validate(auditscheduleBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getAuditScheduleID() != null && pojo.getAuditScheduleID() > 0) {
+						this.auditscheduleService.updateItem(auditscheduleBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.auditscheduleService.addNew(auditscheduleBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& auditscheduleBean.getPojo().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditScheduleID() > 0
+                && (StringUtils.isBlank(auditscheduleBean.getCrudaction()) || !auditscheduleBean.getCrudaction().equals("search"))) {
+			try {
+				Auditschedule itemObj = this.auditscheduleService.findById(pojo.getAuditScheduleID());
+				auditscheduleBean.setPojo(itemObj);
+				if(itemObj.getAuditschedule() != null) {
+					auditscheduleBean.setIsReAudit(true);
+				}
+			}
+			catch (Exception e) {
+				logger.error("Could not found auditschedule " + auditscheduleBean.getPojo().getAuditScheduleID(), e);
+			}
+		}
+		referenceData(mav, auditscheduleBean);
+		
+        if (StringUtils.isNotBlank(auditscheduleBean.getSearchType())) {
+            if (AuditScheduleBean.SEARCH_STORE.equals(auditscheduleBean.getSearchType()) && auditscheduleBean.getAuditorID() != null && auditscheduleBean.getAuditorID() > 0) {
+            	List<Store> availableStores = null;
+            	if(auditscheduleBean.getIsReAudit() && auditscheduleBean.getPojo().getAuditschedule() != null && 
+            			auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID() > 0) {
+            		availableStores = storeService.findAssignedItemsByAuditBean(auditscheduleBean);
+            	}else {
+	                 availableStores = storeService.findAvailableStores(auditscheduleBean);
+            	}
+            	mav.addObject("availableStores", availableStores);
+                mav.addObject("totalAvailableItems", availableStores.size());
+                if (auditscheduleBean.getPojo().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditScheduleID() > 0) {
+                    List<Store> assignedStores = storeService.findAssignedItemsByAuditAndAuditor(auditscheduleBean.getPojo().getAuditScheduleID(), auditscheduleBean.getAuditorID());
+                    auditscheduleBean.setAssignedStores(assignedStores);
+                    mav.addObject("totalAssignedItems", assignedStores.size());
+                }
+
+            }else{
+            	List<Outlet> availableOutlets = null;
+            	if(auditscheduleBean.getIsReAudit() && auditscheduleBean.getPojo().getAuditschedule() != null && 
+            			auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID() > 0) {
+            		Auditschedule auditschedule = auditscheduleService.findById(auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID());
+            		List<OutletReportInfo> reAuditOutletList = outletauditresultService.reAuditReport(auditschedule.getFromDate(), auditschedule.getToDate(), auditscheduleBean.getRegionID(), null);
+            		List<Long> outletIDs = new ArrayList<Long>();
+            		for(OutletReportInfo info : reAuditOutletList) {
+            			outletIDs.add(info.getOutletID());
+            		}
+//            		availableOutlets = outletService.findAssignedItemsByAuditBean(auditscheduleBean);
+            		if(outletIDs.size() > 0) {
+            			availableOutlets = outletService.findAssignedItemsByAuditBean(auditscheduleBean, outletIDs);
+            		}else {
+            			availableOutlets = new ArrayList<Outlet>();
+            		}
+            	}else {
+            		availableOutlets = outletService.findAvailableOutlet(auditscheduleBean);
+            	}
+                mav.addObject("availableOutlets", availableOutlets);
+                if (auditscheduleBean.getPojo().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditScheduleID() > 0) {
+                    List<Outlet> assignedOutlets = outletService.findAssignedItemsByAuditAndAuditor(auditscheduleBean.getPojo().getAuditScheduleID(), auditscheduleBean.getAuditorID());
+                    auditscheduleBean.setAssignedOutlets(assignedOutlets);
+                    mav.addObject("totalAssignedItems", assignedOutlets.size());
+                }
+                mav.addObject("totalAvailableItems", availableOutlets.size());
+            }
+        }
+
+		mav.addObject(Constants.FORM_MODEL_KEY, auditscheduleBean);
+		return mav;
+	}
+    
+    @RequestMapping("/support/auditschedule/view.html")
+   	public ModelAndView view(@RequestParam("auditscheduleID") Long auditscheduleID, @ModelAttribute(Constants.FORM_MODEL_KEY) AuditScheduleViewBean auditscheduleViewBean, HttpServletRequest request) {
+   		ModelAndView mav = new ModelAndView("/support/auditschedule/view");
+
+		try {
+			Auditschedule itemObj = this.auditscheduleService.findById(auditscheduleID);
+			mav.addObject("auditschedule", itemObj);
+			referenceData4View(mav, auditscheduleID, auditscheduleViewBean, request);
+		}
+		catch (ObjectNotFoundException e) {
+			logger.error("Could not found auditschedule " + auditscheduleID, e);
+		}
+
+   		mav.addObject(Constants.FORM_MODEL_KEY, auditscheduleViewBean);
+   		return mav;
+   	}
+
+    private void referenceData(ModelAndView mav, AuditScheduleBean auditscheduleBean) {
+        mav.addObject("regions", regionService.findAllSortAsc());
+        List<Auditor> auditors = auditorService.findByOnlineAgent();
+        mav.addObject("auditors", auditors);
+
+        List<District> districts = new ArrayList<District>();
+        if (auditscheduleBean.getRegionID() != null && auditscheduleBean.getRegionID() > 0) {
+            districts = districtService.findByRegionID(auditscheduleBean.getRegionID());
+        }else{
+            districts = districtService.findAllByOnlineAgent();
+        }
+
+        mav.addObject("districts", districts);
+
+        List<Ward> wards = new ArrayList<Ward>();
+        if (auditscheduleBean.getDistrictID() != null && auditscheduleBean.getDistrictID() > 0) {
+            wards = wardService.findByDistrictID(auditscheduleBean.getDistrictID());
+        }
+        mav.addObject("wards", wards);
+
+        if (auditscheduleBean.getAuditorID() == null) {
+            if (auditors.size() > 0) {
+                auditscheduleBean.setAuditorID(auditors.get(0).getAuditorID());
+            }
+        }
+        if(auditscheduleBean.getIsReAudit()) {
+        	Long auditID = null;
+        	if(auditscheduleBean.getPojo().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditScheduleID() > 0) {
+        		auditID = auditscheduleBean.getPojo().getAuditScheduleID();
+        	}
+        	mav.addObject("auditschedules", auditscheduleService.findActiveAuditNotAuditID(auditID));
+        }
+    }
+    
+    private void referenceData4View(ModelAndView mav, Long auditscheduleID, AuditScheduleViewBean auditscheduleViewBean, HttpServletRequest request) {
+        List<AuditorTaskDTO> auditorTasks = auditscheduleService.findAuditorTaskByID(auditscheduleID);
+        mav.addObject("auditorTasks", auditorTasks);
+        if(SecurityUtils.userHasAuthority(Constants.ROLE_GT) || SecurityUtils.userHasAuthority(Constants.ROLE_ADMIN)) {
+        	RequestUtil.initSearchBean(request, auditscheduleViewBean);
+        	Object[] results = auditoroutlettaskService.findTaskByAuditScheduleID(auditscheduleID, auditscheduleViewBean.getDistributorID(), auditscheduleViewBean.getAuditorID(), auditscheduleViewBean.getStatusID(),
+        			auditscheduleViewBean.getFirstItem(),
+        			auditscheduleViewBean.getMaxPageItems(), auditscheduleViewBean.getSortExpression(), auditscheduleViewBean.getSortDirection());
+        	auditscheduleViewBean.setListResult((List<OutletTaskDTO>)results[1]);
+        	auditscheduleViewBean.setTotalItems(Integer.valueOf(results[0].toString()));
+        	List<Auditor> auditors = auditorService.findByOnlineAgent();
+            mav.addObject("auditors", auditors);
+            mav.addObject("distributors", distributorService.findByOnlineAgent());
+        			
+        }
+        if(SecurityUtils.userHasAuthority(Constants.ROLE_MT) || SecurityUtils.userHasAuthority(Constants.ROLE_ADMIN)) {
+	        List<StoreTaskDTO> storeTasks = auditorstoretaskService.findTaskByAuditScheduleID(auditscheduleID);
+	        mav.addObject("storeTasks", storeTasks);
+        }
+    }
+
+    @RequestMapping(value={"/support/auditschedule/list.html"})
+    public ModelAndView list(AuditScheduleBean bean, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/support/auditschedule/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = auditscheduleService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+        executeSearch(bean, request);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        return mav;
+    }
+    
+    private void executeSearch(AuditScheduleBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.auditscheduleService.search(bean);
+        bean.setListResult((List<Auditschedule>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+    
+    @RequestMapping(value={"/support/auditschedule/import.html"})
+    public ModelAndView importData(OutletTaskImportBean bean, HttpServletRequest request) throws IOException, ServletException {
+        ModelAndView mav = new ModelAndView("/support/auditschedule/import");
+        mav.addObject(Constants.FORM_MODEL_KEY, bean);
+        if (RequestMethod.GET.toString().equals(request.getMethod())) {
+			//Clear cache
+			CacheUtil.getInstance().remove(request.getSession().getId() + OUTLET_TASK_IMPORT_KEY);
+			CacheUtil.getInstance().remove(request.getSession().getId() + OUTLET_TASK_IMPORT_AUDIT_SCHEDULE_KEY);
+		} else if (RequestMethod.POST.toString().equals(request.getMethod())) {
+            try{
+                if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_IMPORT)) {
+                    String destFolder = CommonUtil.getBaseFolder() + CommonUtil.getTempFolderName();
+                    MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+                    Map<String, MultipartFile> map = mRequest.getFileMap();
+                    MultipartFile csvfile = (MultipartFile) map.get("dataFile");
+                    String fileName = FileUtils.upload(mRequest, destFolder, csvfile);
+                    String destFileName = request.getSession().getServletContext().getRealPath(destFolder + "/" + fileName);
+
+                    List<OutletTaskImportDTO> importedOutletTasks = new ArrayList<OutletTaskImportDTO>();
+                    extractExcelData2OutletTasks(destFileName, importedOutletTasks);
+                    log.debug("Remove temp file: " + destFileName);
+                    try{
+                        FileUtils.remove(destFileName);
+                    }catch (Exception e) {
+                        log.debug("Temporary File could not be deleted" + e.getMessage());
+                    }
+                    
+                    validateOutletTaskImported(importedOutletTasks);
+                    
+                    String sessionId = request.getSession().getId();
+                    CacheUtil.getInstance().putValue(sessionId + OUTLET_TASK_IMPORT_KEY, importedOutletTasks);
+                    CacheUtil.getInstance().putValue(sessionId + OUTLET_TASK_IMPORT_AUDIT_SCHEDULE_KEY, bean.getAuditScheduleID());
+                }
+                mav = new ModelAndView("redirect:/support/auditschedule/importlist.html");
+            }catch (Exception ex) {
+                mav = new ModelAndView("/support/auditschedule/import");
+                mav.addObject(Constants.FORM_MODEL_KEY, bean);
+                mav.addObject("messageResponse", "Could not extract excel data");
+            }
+        }
+
+        return mav;
+    }
+
+    private void extractExcelData2OutletTasks(String dbFileName, List<OutletTaskImportDTO> importedOutletTasks) throws BiffException, IOException {
+        WorkbookSettings ws = null;
+		Workbook workbook = null;
+		Sheet s = null;
+		Cell rowData[] = null;
+		int rowCount = 0;
+		int columnCount = 0;
+		DateCell dc = null;
+		int totalSheet = 0;
+        FileInputStream fs = new FileInputStream(new File(dbFileName));
+        ws = new WorkbookSettings();
+        ExcelUtil.setEncoding4Workbook(ws);
+//        ws.setLocale(new Locale("en", "EN"));
+        workbook = Workbook.getWorkbook(fs, ws);
+        s = workbook.getSheet(0);
+        rowCount = s.getRows();
+        boolean beginParseOutletData = false;
+        for (int i = 0; i < rowCount; i++) {
+            rowData = s.getRow(i);
+            if (rowData.length == 0) {
+                continue;
+            }
+
+            //Identify column header
+            if (rowData[0].getContents().equals("STT")) {
+                beginParseOutletData = true;
+            }else if (beginParseOutletData) {
+            	if (StringUtils.isNotBlank(rowData[COL_SAPCODE].getContents()) && StringUtils.isNotBlank(rowData[COL_DMSCODE].getContents())) {
+	                OutletTaskImportDTO outletTaskImportDTO = new OutletTaskImportDTO();
+	
+	                outletTaskImportDTO.setDistributor(StringUtils.trim(rowData[COL_DISTRIBUTOR].getContents()));
+	                outletTaskImportDTO.setSapCode(StringUtils.trim(rowData[COL_SAPCODE].getContents()));
+	                outletTaskImportDTO.setDistrict(StringUtils.trim(rowData[COL_DISTRICT].getContents()));
+	                outletTaskImportDTO.setWard(StringUtils.trim(rowData[COL_WARD].getContents()));
+	                outletTaskImportDTO.setName(StringUtils.trim(rowData[COL_NAME].getContents()));
+	                outletTaskImportDTO.setAddress(StringUtils.trim(rowData[COL_ADDRESS].getContents()));
+	                outletTaskImportDTO.setDmsCode(StringUtils.trim(rowData[COL_DMSCODE].getContents()));
+	                outletTaskImportDTO.setFriso(StringUtils.trim(rowData[COL_FS].getContents()));
+	                outletTaskImportDTO.setDutchLady(StringUtils.trim(rowData[COL_DL].getContents()));
+	                outletTaskImportDTO.setAuditorCode(StringUtils.trim(rowData[COL_AUDITOR_CODE].getContents()));
+	
+	                importedOutletTasks.add(outletTaskImportDTO);
+            	}
+            }
+        }
+    }
+
+    @RequestMapping(value="/support/auditschedule/importlist.html", method=RequestMethod.GET)
+    public ModelAndView importOutletList(HttpServletRequest request, OutletTaskImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<OutletTaskImportDTO> importedOutletTasks = (List<OutletTaskImportDTO>) CacheUtil.getInstance().getValue(sessionId + OUTLET_TASK_IMPORT_KEY);
+		if (importedOutletTasks == null || importedOutletTasks.size() == 0) {
+			return new ModelAndView("redirect:/support/auditschedule/import.html");
+		}
+
+		List<OutletTaskImportDTO> displayOutlets = importedOutletTasks;
+
+		RequestUtil.initSearchBean(request, bean);
+        if (displayOutlets.size() > 0) {
+	        Integer lastIndex = bean.getPage() * bean.getMaxPageItems();
+	        if (lastIndex > displayOutlets.size()) {
+	        	lastIndex = displayOutlets.size();
+	        }
+	        if (bean.getFirstItem() > displayOutlets.size()) {
+	        	bean.setFirstItem(0);
+	        }
+
+        	bean.setListResult((List<OutletTaskImportDTO>) displayOutlets.subList(bean.getFirstItem(), lastIndex));
+        }
+        bean.setTotalItems(displayOutlets.size());
+
+		return new ModelAndView("/support/auditschedule/importList", Constants.LIST_MODEL_KEY, bean);
+	}
+    
+    @RequestMapping(value="/support/auditschedule/importsave.html", method=RequestMethod.GET)
+    public ModelAndView importOutletSave(HttpServletRequest request, OutletTaskImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<OutletTaskImportDTO> importedOutletTasks = (List<OutletTaskImportDTO>) CacheUtil.getInstance().getValue(sessionId + OUTLET_TASK_IMPORT_KEY);
+		Long auditScheduleID = (Long) CacheUtil.getInstance().getValue(sessionId + OUTLET_TASK_IMPORT_AUDIT_SCHEDULE_KEY);
+		if (importedOutletTasks == null || importedOutletTasks.size() == 0) {
+			return new ModelAndView("redirect:/support/auditschedule/import.html");
+		}
+		
+		/**
+		 * Save/update outlets
+		 */
+		int totalSuccess = 0;
+
+		for (OutletTaskImportDTO outletImport : importedOutletTasks) {
+            try{
+                if(outletImport.getIsValid()) {
+                	auditscheduleService.importOutletTask(outletImport, auditScheduleID);
+                	totalSuccess++;
+                }
+            }catch (Exception ex) {
+                log.error("Could not import outlet " + outletImport.getSapCode() + " - " + outletImport.getDmsCode(), ex);
+            }
+
+		}
+	
+		CacheUtil.getInstance().remove(sessionId + OUTLET_TASK_IMPORT_KEY);
+		CacheUtil.getInstance().remove(sessionId + OUTLET_TASK_IMPORT_AUDIT_SCHEDULE_KEY);
+		ModelAndView mav = new ModelAndView("/support/auditschedule/importReport");
+		mav.addObject("success", true);
+		mav.addObject("totalItems", importedOutletTasks.size());
+		mav.addObject("totalSuccess", Integer.valueOf(totalSuccess));
+
+		return mav;
+	}
+    private void validateOutletTaskImported(List<OutletTaskImportDTO> outletTaskImportDTOs) {
+    	for(OutletTaskImportDTO outletTaskDTO : outletTaskImportDTOs) {
+    		if(StringUtils.isBlank(outletTaskDTO.getSapCode())) {
+    			outletTaskDTO.setErrorMessage("Sap Code is blank");
+    			outletTaskDTO.setIsValid(false);
+    			continue;
+    		}
+    		if(StringUtils.isBlank(outletTaskDTO.getDmsCode())) {
+    			outletTaskDTO.setErrorMessage("Dms Code is blank");
+    			outletTaskDTO.setIsValid(false);
+    			continue;
+    		}
+    		if(StringUtils.isBlank(outletTaskDTO.getAuditorCode())) {
+    			outletTaskDTO.setErrorMessage("Auditor Code is blank");
+    			outletTaskDTO.setIsValid(false);
+    			continue;
+    		}
+            Distributor distributor = null;
+            try {
+                distributor = distributorService.findBySapCode(outletTaskDTO.getSapCode(), outletTaskDTO.getDistributor());
+            }catch (ObjectNotFoundException ex) {
+                outletTaskDTO.setErrorMessage("Distributor not found");
+                outletTaskDTO.setIsValid(false);
+                continue;
+            }
+            try{
+    		    Outlet outlet = outletService.findByDmsCodeAndDistributor(outletTaskDTO.getDmsCode(), distributor.getDistributorID());
+    			outletTaskDTO.setOutlet(outlet);
+    		}catch (ObjectNotFoundException ex) {
+                outletTaskDTO.setErrorMessage("Outlet doesn't exist");
+    			outletTaskDTO.setIsValid(false);
+    			continue;
+            }
+    		try {
+    			Auditor auditor = auditorService.findByCode(outletTaskDTO.getAuditorCode());
+    			outletTaskDTO.setAuditor(auditor);
+    		}catch (ObjectNotFoundException e) {
+    			outletTaskDTO.setErrorMessage("Auditor doesn't exist");
+    			outletTaskDTO.setIsValid(false);
+			}
+    	}
+    }
+    
+}

@@ -1,0 +1,79 @@
+package com.banvien.fcv.webapp.validator;
+
+import com.banvien.fcv.core.domain.Storeposm;
+import com.banvien.fcv.core.dto.StorePOSMBean;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.StoreposmService;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+/**
+ * This object is responsible for validating user input parameters from add/edit outletposm form
+ * @author Vien Nguyen
+ *
+ */
+@Component
+public class StoreposmValidator extends ApplicationObjectSupport implements Validator {
+	private transient final Log log = LogFactory.getLog(StoreposmValidator.class);
+
+    private StoreposmService storeposmService;
+    
+	@Autowired
+    public void setStoreposmService(StoreposmService storeposmService) {
+		this.storeposmService = storeposmService;
+	}
+    
+    public boolean supports(Class<?> aClass) {
+        return StorePOSMBean.class.isAssignableFrom(aClass);
+    }
+    /**
+     * This method is called for validating Model Attribute
+     */
+    public void validate(Object o, Errors errors) {
+        StorePOSMBean cmd = (StorePOSMBean)o;
+        trimingField(cmd);
+        validateRequiredValues(cmd, errors);
+        validateDuplicate(cmd, errors);
+    }
+
+    private void validateRequiredValues(StorePOSMBean cmd, Errors errors) {
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.code", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.storeposm.form.code")}, "non-empty value required.");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pojo.name", "errors.required", new String[] {this.getMessageSourceAccessor().getMessage("support.storeposm.form.name")}, "non-empty value required.");
+    }
+
+    private void trimingField(StorePOSMBean cmd) {
+        if(StringUtils.isNotEmpty(cmd.getPojo().getCode())) {
+    		cmd.getPojo().setCode(cmd.getPojo().getCode().trim());
+    	}
+    	if(StringUtils.isNotEmpty(cmd.getPojo().getName())) {
+    		cmd.getPojo().setName(cmd.getPojo().getName().trim());
+    	}
+
+    }
+
+
+    private void validateDuplicate(StorePOSMBean cmd, Errors errors) {
+    	//Code
+    	if(StringUtils.isNotBlank(cmd.getPojo().getCode())) {
+    		try {
+    			Storeposm user = this.storeposmService.findByCode(cmd.getPojo().getCode());
+                if(user != null) {
+                    if(cmd.getPojo().getStorePOSMID() != null &&
+                            !user.getStorePOSMID().equals(cmd.getPojo().getStorePOSMID()))
+                    errors.rejectValue("pojo.code", "error.duplicated", new String[] {this.getMessageSourceAccessor().getMessage("support.storeposm.form.code")}, "Value has been chosen.");
+                }
+    		} catch (ObjectNotFoundException ex) {
+    			// true
+    		}
+    	}
+
+    }
+
+}

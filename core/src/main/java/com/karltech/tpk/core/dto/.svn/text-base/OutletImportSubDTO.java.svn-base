@@ -1,0 +1,55 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+import com.banvien.fcv.core.domain.LevelRegister;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/19/12
+ * Time: 4:42 PM
+ */
+public class OutletImportSubDTO implements Serializable {
+
+    private String facing;
+
+    private String levelRegistered;
+
+    private String locationRegistered;
+
+    private LevelRegister dbLevelRegister;
+    
+    public String getFacing() {
+        return facing;
+    }
+
+    public void setFacing(String facing) {
+        this.facing = facing;
+    }
+
+    public String getLevelRegistered() {
+        return levelRegistered;
+    }
+
+    public void setLevelRegistered(String levelRegistered) {
+        this.levelRegistered = levelRegistered;
+    }
+
+    public String getLocationRegistered() {
+        return locationRegistered;
+    }
+
+    public void setLocationRegistered(String locationRegistered) {
+        this.locationRegistered = locationRegistered;
+    }
+
+	public LevelRegister getDbLevelRegister() {
+		return dbLevelRegister;
+	}
+
+	public void setDbLevelRegister(LevelRegister dbLevelRegister) {
+		this.dbLevelRegister = dbLevelRegister;
+	}
+    
+}

@@ -1,0 +1,16 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Promotionproduct;
+import com.banvien.fcv.core.dto.AbstractBean;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/6/12
+ * Time: 3:14 PM
+ */
+public class PromotionproductBean extends AbstractBean<Promotionproduct>{
+    public PromotionproductBean() {
+        this.pojo = new Promotionproduct();
+    }
+}

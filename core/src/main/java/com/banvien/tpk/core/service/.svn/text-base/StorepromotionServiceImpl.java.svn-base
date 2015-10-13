@@ -1,0 +1,149 @@
+package com.banvien.fcv.core.service;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.StorepromotionDAO;
+import com.banvien.fcv.core.dao.StorepromotionproducttohandheldDAO;
+import com.banvien.fcv.core.dao.StorepromotionscopeDAO;
+import com.banvien.fcv.core.domain.Account;
+import com.banvien.fcv.core.domain.Storepromotion;
+import com.banvien.fcv.core.domain.Storepromotionproduct;
+import com.banvien.fcv.core.domain.Storepromotionproducttohandheld;
+import com.banvien.fcv.core.domain.Storepromotionscope;
+import com.banvien.fcv.core.dto.StorepromotionBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+public class StorepromotionServiceImpl extends GenericServiceImpl<Storepromotion,Long> 
+                                                    implements StorepromotionService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StorepromotionDAO storepromotionDAO;
+
+    private StorepromotionscopeDAO storepromotionscopeDAO;
+
+    private StorepromotionproducttohandheldDAO storepromotionproducttohandheldDAO;
+
+    public void setStorepromotionDAO(StorepromotionDAO storepromotionDAO) {
+		this.storepromotionDAO = storepromotionDAO;
+	}
+
+	public void setStorepromotionscopeDAO(
+			StorepromotionscopeDAO storepromotionscopeDAO) {
+		this.storepromotionscopeDAO = storepromotionscopeDAO;
+	}
+
+	public void setStorepromotionproducttohandheldDAO(
+			StorepromotionproducttohandheldDAO storepromotionproducttohandheldDAO) {
+		this.storepromotionproducttohandheldDAO = storepromotionproducttohandheldDAO;
+	}
+
+	@Override
+	protected GenericDAO<Storepromotion, Long> getGenericDAO() {
+		return storepromotionDAO;
+	}
+
+    @Override
+    public Storepromotion findByCode(String code) throws ObjectNotFoundException {
+        Storepromotion res = this.storepromotionDAO.findEqualUnique(Storepromotion.FIELD_CODE, code);
+        if (res == null) throw new ObjectNotFoundException("Not found store promotion with code " + code);
+        return res;
+    }
+
+    @Override
+    public void updateItem(StorepromotionBean storepromotionBean) throws ObjectNotFoundException, DuplicateException {
+        Storepromotion dbItem = this.storepromotionDAO.findByIdNoAutoCommit(storepromotionBean.getPojo().getStorePromotionID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found store promotion " + storepromotionBean.getPojo().getStorePromotionID());
+
+        Storepromotion pojo = storepromotionBean.getPojo();
+
+        this.storepromotionDAO.detach(dbItem);
+        this.storepromotionDAO.update(pojo);
+
+        storepromotionscopeDAO.deleteByStorePromotionID(pojo.getStorePromotionID());
+        storepromotionproducttohandheldDAO.deleteByStorePromotionID(pojo.getStorePromotionID());
+        for (Long accountID : storepromotionBean.getScopes()) {
+            Storepromotionscope promotionscope = new Storepromotionscope();
+            promotionscope.setStorepromotion(pojo);
+            Account account = new Account();
+            account.setAccountID(accountID);
+            promotionscope.setAccount(account);
+            storepromotionscopeDAO.save(promotionscope);
+        }
+
+        for (Long productID : storepromotionBean.getStoreProductsToHandheld()) {
+            Storepromotionproducttohandheld promotionproducttohandheld = new Storepromotionproducttohandheld();
+            promotionproducttohandheld.setStorepromotion(pojo);
+            Storepromotionproduct product = new Storepromotionproduct();
+            product.setStorePromotionProductID(productID);
+            promotionproducttohandheld.setStorepromotionproduct(product);
+            storepromotionproducttohandheldDAO.save(promotionproducttohandheld);
+        }
+    }
+
+    @Override
+    public void addNew(StorepromotionBean storepromotionBean) throws DuplicateException {
+        Storepromotion pojo = storepromotionBean.getPojo();
+        pojo = this.storepromotionDAO.save(pojo);
+
+        for (Long accountID : storepromotionBean.getScopes()) {
+            Storepromotionscope promotionscope = new Storepromotionscope();
+            promotionscope.setStorepromotion(pojo);
+            Account account = new Account();
+            account.setAccountID(accountID);
+            promotionscope.setAccount(account);
+            storepromotionscopeDAO.save(promotionscope);
+        }
+
+        for (Long productID : storepromotionBean.getStoreProductsToHandheld()) {
+            Storepromotionproducttohandheld promotionproducttohandheld = new Storepromotionproducttohandheld();
+            promotionproducttohandheld.setStorepromotion(pojo);
+            Storepromotionproduct product = new Storepromotionproduct();
+            product.setStorePromotionProductID(productID);
+            promotionproducttohandheld.setStorepromotionproduct(product);
+            storepromotionproducttohandheldDAO.save(promotionproducttohandheld);
+        }
+
+        storepromotionBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                storepromotionDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(StorepromotionBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Storepromotion.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Storepromotion.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.storepromotionDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public List<Storepromotion> findActivePromotions(Long accountID, Timestamp fromDate, Timestamp toDate) {
+        return this.storepromotionDAO.findActivePromotions(accountID, fromDate, toDate);
+    }
+}

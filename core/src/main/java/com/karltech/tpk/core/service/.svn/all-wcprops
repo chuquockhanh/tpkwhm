@@ -1,0 +1,857 @@
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service
+END
+AgentServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AgentServiceImpl.java
+END
+PromotionproducttohandheldService.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionproducttohandheldService.java
+END
+UserServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/UserServiceImpl.java
+END
+StorepromotionproductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionproductService.java
+END
+SettingService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/466/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SettingService.java
+END
+PromotionscopeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionscopeService.java
+END
+GenericService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/333/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/GenericService.java
+END
+OarLatestBonusServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/974/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarLatestBonusServiceImpl.java
+END
+StorepromotiontypeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotiontypeService.java
+END
+StoreService.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/498/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreService.java
+END
+POSMMiniValueService.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/POSMMiniValueService.java
+END
+StorepromotionServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/569/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionServiceImpl.java
+END
+StoreauditpictureServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/803/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreauditpictureServiceImpl.java
+END
+OarfacingiftdisplayServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarfacingiftdisplayServiceImpl.java
+END
+OutletLocationRegisterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/937/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletLocationRegisterService.java
+END
+OutletposmService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletposmService.java
+END
+DistributorService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/815/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/DistributorService.java
+END
+PromotionproductServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionproductServiceImpl.java
+END
+StorepromotionproducttohandheldServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionproducttohandheldServiceImpl.java
+END
+AccountServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/178/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AccountServiceImpl.java
+END
+OarfullrangeskuServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarfullrangeskuServiceImpl.java
+END
+ProductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/ProductService.java
+END
+ProductgroupServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/ProductgroupServiceImpl.java
+END
+AuditscheduleService.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditscheduleService.java
+END
+RegionServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/RegionServiceImpl.java
+END
+PackinggroupServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PackinggroupServiceImpl.java
+END
+PowerskuServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PowerskuServiceImpl.java
+END
+StoresosmasterServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoresosmasterServiceImpl.java
+END
+ProductbrandServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/ProductbrandServiceImpl.java
+END
+OarpromotionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarpromotionService.java
+END
+AgentService.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/859/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AgentService.java
+END
+LevelRegisterServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/958/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/LevelRegisterServiceImpl.java
+END
+UserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/839/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/UserService.java
+END
+OutletServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletServiceImpl.java
+END
+AuditoroutlettaskService.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1018/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditoroutlettaskService.java
+END
+OutletauditpictureService.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/803/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletauditpictureService.java
+END
+SosbrandService.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/174/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SosbrandService.java
+END
+SettingServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/466/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SettingServiceImpl.java
+END
+OarMiniValuePosmServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarMiniValuePosmServiceImpl.java
+END
+BrandgroupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/BrandgroupService.java
+END
+AgentRegionServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/893/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AgentRegionServiceImpl.java
+END
+OutletbrandService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/919/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletbrandService.java
+END
+StoreposmhistoryService.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreposmhistoryService.java
+END
+StorepromotiontypeServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotiontypeServiceImpl.java
+END
+PromotiontypeServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotiontypeServiceImpl.java
+END
+OarfacingiftdisplayService.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarfacingiftdisplayService.java
+END
+OutletBrandGroupServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/916/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletBrandGroupServiceImpl.java
+END
+OutletposmServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletposmServiceImpl.java
+END
+StoreregisteredproductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreregisteredproductService.java
+END
+AccountService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/178/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AccountService.java
+END
+OutletposmhistoryService.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletposmhistoryService.java
+END
+OarfullrangeskuService.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarfullrangeskuService.java
+END
+AuditscheduleServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditscheduleServiceImpl.java
+END
+StorepromotionscopeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionscopeService.java
+END
+StoreauditresultServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/563/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreauditresultServiceImpl.java
+END
+OarposmServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarposmServiceImpl.java
+END
+WardService.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/463/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/WardService.java
+END
+SarposmServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarposmServiceImpl.java
+END
+UnitService.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/528/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/UnitService.java
+END
+BrandServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/173/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/BrandServiceImpl.java
+END
+LevelRegisterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/958/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/LevelRegisterService.java
+END
+BrandproductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/BrandproductService.java
+END
+SarregisterproductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarregisterproductService.java
+END
+OutletauditresultServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletauditresultServiceImpl.java
+END
+OutletService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/1028/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletService.java
+END
+SarsbrandlocationServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarsbrandlocationServiceImpl.java
+END
+DistrictService.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/DistrictService.java
+END
+FullrangeskuServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/1038/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/FullrangeskuServiceImpl.java
+END
+AuditoroutlettaskServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/1018/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditoroutlettaskServiceImpl.java
+END
+OutletauditpictureServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/854/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletauditpictureServiceImpl.java
+END
+SosbrandServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/174/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SosbrandServiceImpl.java
+END
+OutletdistributionregisteredServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/dcs/!svn/ver/370/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletdistributionregisteredServiceImpl.java
+END
+OarMiniValuePosmService.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarMiniValuePosmService.java
+END
+BrandgroupServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/BrandgroupServiceImpl.java
+END
+OarpowerskuService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarpowerskuService.java
+END
+SarshareofshelfService.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarshareofshelfService.java
+END
+AgentRegionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AgentRegionService.java
+END
+SubFullRangeBrandServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SubFullRangeBrandServiceImpl.java
+END
+OutletbrandServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/919/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletbrandServiceImpl.java
+END
+StoreposmhistoryServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreposmhistoryServiceImpl.java
+END
+PromotiontypeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotiontypeService.java
+END
+IftdisplaylocationService.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/IftdisplaylocationService.java
+END
+OarStorepromotionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarStorepromotionService.java
+END
+PromotionServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/1022/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionServiceImpl.java
+END
+OutletbrandgroupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/916/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletbrandgroupService.java
+END
+OutletSalemanService.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/973/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletSalemanService.java
+END
+AuditorstoretaskService.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditorstoretaskService.java
+END
+StoreregisteredproductServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreregisteredproductServiceImpl.java
+END
+OutletposmhistoryServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletposmhistoryServiceImpl.java
+END
+SarshareofdisplayService.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarshareofdisplayService.java
+END
+StorepromotionscopeServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionscopeServiceImpl.java
+END
+SalemanServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/1006/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SalemanServiceImpl.java
+END
+StoreauditresultService.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/563/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreauditresultService.java
+END
+OarposmService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarposmService.java
+END
+StoreposmService.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/168/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreposmService.java
+END
+OarnofacingServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarnofacingServiceImpl.java
+END
+WardServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/759/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/WardServiceImpl.java
+END
+SarposmService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarposmService.java
+END
+AuditorService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditorService.java
+END
+UnitServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/528/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/UnitServiceImpl.java
+END
+BrandService.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/173/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/BrandService.java
+END
+BrandproductServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/BrandproductServiceImpl.java
+END
+SarregisterproductServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarregisterproductServiceImpl.java
+END
+OutletauditresultService.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletauditresultService.java
+END
+PromotionproducttohandheldServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionproducttohandheldServiceImpl.java
+END
+SarsbrandlocationService.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarsbrandlocationService.java
+END
+StorepromotionproductServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionproductServiceImpl.java
+END
+DistrictServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/767/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/DistrictServiceImpl.java
+END
+FullrangeskuService.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/FullrangeskuService.java
+END
+PromotionscopeServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionscopeServiceImpl.java
+END
+OutletdistributionregisteredService.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/dcs/!svn/ver/370/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletdistributionregisteredService.java
+END
+GenericServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/333/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/GenericServiceImpl.java
+END
+OarpowerskuServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarpowerskuServiceImpl.java
+END
+SarshareofshelfServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarshareofshelfServiceImpl.java
+END
+OarLatestBonusService.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/974/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarLatestBonusService.java
+END
+SubFullRangeBrandService.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SubFullRangeBrandService.java
+END
+IftdisplaylocationServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/1038/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/IftdisplaylocationServiceImpl.java
+END
+StoreServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/498/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreServiceImpl.java
+END
+POSMMiniValueServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/POSMMiniValueServiceImpl.java
+END
+OarStorepromotionServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarStorepromotionServiceImpl.java
+END
+StorepromotionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/569/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionService.java
+END
+PromotionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1022/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionService.java
+END
+StoreauditpictureService.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/803/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreauditpictureService.java
+END
+OutletLocationRegisterServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/dcs/!svn/ver/937/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletLocationRegisterServiceImpl.java
+END
+OutletSalemanServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/973/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OutletSalemanServiceImpl.java
+END
+DistributorServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/815/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/DistributorServiceImpl.java
+END
+AuditorstoretaskServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditorstoretaskServiceImpl.java
+END
+PromotionproductService.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PromotionproductService.java
+END
+StorepromotionproducttohandheldService.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StorepromotionproducttohandheldService.java
+END
+ProductServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/ProductServiceImpl.java
+END
+ProductgroupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/ProductgroupService.java
+END
+SarshareofdisplayServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SarshareofdisplayServiceImpl.java
+END
+SalemanService.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/903/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/SalemanService.java
+END
+RegionService.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/892/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/RegionService.java
+END
+PackinggroupService.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PackinggroupService.java
+END
+PowerskuService.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/PowerskuService.java
+END
+StoresosmasterService.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoresosmasterService.java
+END
+ProductbrandService.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/ProductbrandService.java
+END
+StoreposmServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/168/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/StoreposmServiceImpl.java
+END
+OarnofacingService.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarnofacingService.java
+END
+AuditorServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/AuditorServiceImpl.java
+END
+OarpromotionServiceImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/service/OarpromotionServiceImpl.java
+END

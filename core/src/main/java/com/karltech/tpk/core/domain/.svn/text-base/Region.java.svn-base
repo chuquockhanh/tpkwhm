@@ -1,0 +1,67 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE Region</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Region implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+	/**
+	 * Attribute regionID.
+	 */
+	private Long regionID;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+
+
+    /* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return regionID
+	 */
+	public Long getRegionID() {
+		return regionID;
+	}
+
+	/**
+	 * @param regionID new value for regionID 
+	 */
+	public void setRegionID(Long regionID) {
+		this.regionID = regionID;
+	}
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+}

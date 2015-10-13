@@ -1,0 +1,23 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storeauditresult;
+import com.banvien.fcv.core.dto.*;
+import com.banvien.fcv.core.exception.ServiceException;
+
+import java.util.List;
+
+
+public interface StoreauditresultService extends GenericService<Storeauditresult,Long> {
+     public Long addStoreAuditResult(StoreauditresultDTO dto) throws ServiceException;
+
+    List<MTReportDTO> reportByAccount(MTReportBean mtReportBean);
+
+    List<MTReportDTO> reportByStore(MTReportBean mtReportBean);
+
+    List<OutOfStockDTO> reportOutOfStockDaily(MTOutOfStockReportBean mtReportBean);
+
+    List<MTSODDTO> reportSODDaily(MTSODReportBean mtReportBean);
+
+    List<MTPromotionReportInfo> promotionReport(MTPromotionReportBean mtReportBean);
+
+}

@@ -1,0 +1,1471 @@
+-- MySQL dump 10.13  Distrib 5.5.20, for osx10.6 (i386)
+--
+-- Host: localhost    Database: FCVAuditData
+-- ------------------------------------------------------
+-- Server version	5.5.20
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Account`
+--
+
+DROP TABLE IF EXISTS `Account`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Account` (
+  `AccountID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`AccountID`),
+  UNIQUE KEY `Name_UNIQUE` (`Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Account`
+--
+
+LOCK TABLES `Account` WRITE;
+/*!40000 ALTER TABLE `Account` DISABLE KEYS */;
+INSERT INTO `Account` VALUES (1,'BigC'),(2,'Coop Mart'),(3,'Metro');
+/*!40000 ALTER TABLE `Account` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `AuditSchedule`
+--
+
+DROP TABLE IF EXISTS `AuditSchedule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `AuditSchedule` (
+  `AuditScheduleID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(45) NOT NULL,
+  `FromDate` datetime DEFAULT NULL,
+  `ToDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`AuditScheduleID`),
+  UNIQUE KEY `Code_UNIQUE` (`Code`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AuditSchedule`
+--
+
+LOCK TABLES `AuditSchedule` WRITE;
+/*!40000 ALTER TABLE `AuditSchedule` DISABLE KEYS */;
+INSERT INTO `AuditSchedule` VALUES (6,'V001','Audit tháng 7','2012-06-19 00:00:00','2012-06-22 00:00:00');
+/*!40000 ALTER TABLE `AuditSchedule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Auditor`
+--
+
+DROP TABLE IF EXISTS `Auditor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Auditor` (
+  `AuditorID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`AuditorID`),
+  UNIQUE KEY `Code_UNIQUE` (`Code`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Auditor`
+--
+
+LOCK TABLES `Auditor` WRITE;
+/*!40000 ALTER TABLE `Auditor` DISABLE KEYS */;
+INSERT INTO `Auditor` VALUES (1,'0001','Nguyễn Hải Viễn'),(2,'0002','Lê Trung Hiếu'),(3,'0003','Lê Hưng Ban');
+/*!40000 ALTER TABLE `Auditor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `AuditorOutletTask`
+--
+
+DROP TABLE IF EXISTS `AuditorOutletTask`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `AuditorOutletTask` (
+  `AuditorOutletTaskID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `AuditorScheduleID` bigint(20) NOT NULL,
+  `AuditorID` bigint(20) NOT NULL,
+  `OutletID` bigint(20) NOT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`AuditorOutletTaskID`),
+  UNIQUE KEY `UQ_AuditorOutletTask` (`AuditorScheduleID`,`AuditorID`,`OutletID`),
+  KEY `FK_OutletTask_AuditorSchedule` (`AuditorScheduleID`),
+  KEY `FK_OutletTask_Auditor` (`AuditorID`),
+  KEY `FK_OutletTask_Outlet` (`OutletID`),
+  CONSTRAINT `FK_OutletTask_Auditor` FOREIGN KEY (`AuditorID`) REFERENCES `Auditor` (`AuditorID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OutletTask_AuditorSchedule` FOREIGN KEY (`AuditorScheduleID`) REFERENCES `AuditSchedule` (`AuditScheduleID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OutletTask_Outlet` FOREIGN KEY (`OutletID`) REFERENCES `Outlet` (`OutletID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AuditorOutletTask`
+--
+
+LOCK TABLES `AuditorOutletTask` WRITE;
+/*!40000 ALTER TABLE `AuditorOutletTask` DISABLE KEYS */;
+INSERT INTO `AuditorOutletTask` VALUES (1,6,2,48,0),(2,6,2,50,0),(3,6,2,34,0),(4,6,2,21,0),(5,6,2,10,0),(6,6,2,64,0),(7,6,2,8,0),(8,6,2,18,0),(9,6,2,73,0),(10,6,2,6,0),(11,6,2,76,0),(12,6,2,28,0),(13,6,2,37,0),(14,6,2,53,0),(15,6,2,47,0),(16,6,2,46,0),(17,6,2,4,0),(18,6,2,55,0),(19,6,2,90,0),(20,6,2,38,0),(21,6,2,49,0),(22,6,2,79,0),(23,6,2,60,0),(24,6,2,71,0),(25,6,2,54,0),(26,6,2,63,0),(27,6,2,17,0),(28,6,2,85,0),(29,6,2,5,0),(30,6,2,3,0),(31,6,2,11,0),(32,6,2,77,0),(33,6,2,66,0),(34,6,2,68,0),(35,6,2,67,0),(36,6,2,16,0),(37,6,2,89,0),(38,6,2,57,0),(39,6,2,74,0),(40,6,2,58,0),(41,6,2,75,0),(42,6,2,15,0);
+/*!40000 ALTER TABLE `AuditorOutletTask` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `AuditorStoreTask`
+--
+
+DROP TABLE IF EXISTS `AuditorStoreTask`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `AuditorStoreTask` (
+  `AuditorStoreTaskID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `AuditorID` bigint(20) NOT NULL,
+  `AuditorScheduleID` bigint(20) NOT NULL,
+  `StoreID` bigint(20) NOT NULL,
+  `Status` int(11) NOT NULL,
+  PRIMARY KEY (`AuditorStoreTaskID`),
+  UNIQUE KEY `UQ_AuditorStoreTask` (`AuditorID`,`AuditorScheduleID`,`StoreID`),
+  KEY `FK_StoreTask_AuditSchedule` (`AuditorScheduleID`),
+  KEY `FK_StoreTask_Auditor` (`AuditorID`),
+  KEY `FK_StoreTask_Store` (`StoreID`),
+  CONSTRAINT `FK_StoreTask_Auditor` FOREIGN KEY (`AuditorID`) REFERENCES `Auditor` (`AuditorID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreTask_AuditSchedule` FOREIGN KEY (`AuditorScheduleID`) REFERENCES `AuditSchedule` (`AuditScheduleID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreTask_Store` FOREIGN KEY (`StoreID`) REFERENCES `Store` (`StoreID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `AuditorStoreTask`
+--
+
+LOCK TABLES `AuditorStoreTask` WRITE;
+/*!40000 ALTER TABLE `AuditorStoreTask` DISABLE KEYS */;
+INSERT INTO `AuditorStoreTask` VALUES (1,1,6,1,0),(2,1,6,4,0),(3,1,6,5,0);
+/*!40000 ALTER TABLE `AuditorStoreTask` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Brand`
+--
+
+DROP TABLE IF EXISTS `Brand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Brand` (
+  `BrandID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `BrandGroupID` bigint(20) NOT NULL,
+  `RightLocation` text,
+  `Products` text,
+  PRIMARY KEY (`BrandID`),
+  KEY `FK_Brand_BrandGroup` (`BrandGroupID`),
+  CONSTRAINT `FK_Brand_BrandGroup` FOREIGN KEY (`BrandGroupID`) REFERENCES `BrandGroup` (`BrandGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Brand`
+--
+
+LOCK TABLES `Brand` WRITE;
+/*!40000 ALTER TABLE `Brand` DISABLE KEYS */;
+INSERT INTO `Brand` VALUES (1,'DL IFT Regular',1,'Đặt cạnh Dielac','DL Mum/DL step 1/DL step 2/ DL 123 /DL  456/ IMP DL'),(2,'DL IFT Gold',1,'Đặt cạnh DL IFT Regular/Dielac','DL Gold step 1/DL Gold step 2/ DL Gold 123 /DL Gold 456'),(3,'Friso gold',1,'Đặt cạnh Abbott/Enfa/Friso Regular','FG Mum/FG 1/FG 2/FG 3/FG 4'),(4,'Friso regular',1,'Đặt cạnh Abbott/Enfa/Friso gold','Fr 1/FR 2/FR 3/FR 4'),(5,'DL UHT',2,'Đặt cạnh Vinamilk/TH True milk','Plain/Sweet/ straw/ Chocolate'),(6,'Yomost',2,'Đặt cạnh Vinamilk','Pomegranate/ seabuckthorn/ Orange/ Straw/ Peach/Plain');
+/*!40000 ALTER TABLE `Brand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `BrandGroup`
+--
+
+DROP TABLE IF EXISTS `BrandGroup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `BrandGroup` (
+  `BrandGroupID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`BrandGroupID`),
+  UNIQUE KEY `Code_UNIQUE` (`Code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `BrandGroup`
+--
+
+LOCK TABLES `BrandGroup` WRITE;
+/*!40000 ALTER TABLE `BrandGroup` DISABLE KEYS */;
+INSERT INTO `BrandGroup` VALUES (1,'IFT','Ngành hàng sữa bột'),(2,'DBB','Ngành hàng sữa nước');
+/*!40000 ALTER TABLE `BrandGroup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Distributor`
+--
+
+DROP TABLE IF EXISTS `Distributor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Distributor` (
+  `DistributorID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `SapCode` varchar(45) NOT NULL,
+  PRIMARY KEY (`DistributorID`),
+  UNIQUE KEY `UQ_Distributor` (`SapCode` ASC, `Name` ASC)
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Distributor`
+--
+
+LOCK TABLES `Distributor` WRITE;
+/*!40000 ALTER TABLE `Distributor` DISABLE KEYS */;
+INSERT INTO `Distributor` VALUES (1,'Ngoc Nhi','100063'),(2,'Phát Sang','100067'),(8,'Tấn Phúc','100069'),(11,'Hồng Lĩnh 1','100070'),(12,'Minh Nguyệt 1','100061'),(13,'THANH NGA','100060'),(15,'Chín Nguyện','100062'),(19,'Phương & Hằng','100066'),(22,'L‚m Kim Loan 1','100523'),(23,'Vương Hà Phát','102368'),(30,'Thảo Vy','100059'),(31,'NAM TRUNG','100058'),(33,'Nhất Trí Khang ','100242'),(36,'TRÕ TÕN 1','100072'),(41,'Ho‡ng Phong 1','100073'),(43,'Hồng Trinh','100071'),(52,'NGỌC DUY','100064'),(53,'Duyệt Hỷ','100057'),(55,'H˘ng QuyÍn','100075');
+/*!40000 ALTER TABLE `Distributor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `District`
+--
+
+DROP TABLE IF EXISTS `District`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `District` (
+  `DistrictID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `RegionID` bigint(20) NOT NULL,
+  PRIMARY KEY (`DistrictID`),
+  KEY `FK_District_Region` (`RegionID`),
+  CONSTRAINT `FK_District_Region` FOREIGN KEY (`RegionID`) REFERENCES `Region` (`RegionID`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `District`
+--
+
+LOCK TABLES `District` WRITE;
+/*!40000 ALTER TABLE `District` DISABLE KEYS */;
+INSERT INTO `District` VALUES (1,'Quận 1',1),(4,'Quận 5',1),(10,'Quận 10',1),(13,'Quận 11',1),(14,'BÏnh Ch·nh',1),(15,'Quận 12/HM',1),(17,'HM/ Củ Chi',1),(18,'Củ Chi',1),(20,'Quận 2/9',1),(24,'Quận 4',1),(27,'Quận 7',1),(28,'Quận 8',1),(35,'Thủ Đức',1),(36,'Bình Thạnh',1),(39,'T‚n BÏnh',1),(40,'Quận 3',1),(45,'Gò Vấp',1),(46,'Phú Nhụân',1),(48,'T‚n Ph˙',1),(49,'Quận 6',1),(51,'Quận Bình Chánh',1),(52,'Cần Giờ',1);
+/*!40000 ALTER TABLE `District` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `FullRangeSKU`
+--
+
+DROP TABLE IF EXISTS `FullRangeSKU`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `FullRangeSKU` (
+  `FullRangeSKUID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletBrandID` bigint(20) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `DisplayOrder` int(11) DEFAULT NULL,
+  PRIMARY KEY (`FullRangeSKUID`),
+  KEY `FK_FullRangeSKU_OBrand` (`OutletBrandID`),
+  CONSTRAINT `FK_FullRangeSKU_OBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `OutletBrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `FullRangeSKU`
+--
+
+LOCK TABLES `FullRangeSKU` WRITE;
+/*!40000 ALTER TABLE `FullRangeSKU` DISABLE KEYS */;
+INSERT INTO `FullRangeSKU` VALUES (1,1,'Friso Gold  Mum 900g',1),(2,1,'Friso Gold 1 900g',2),(3,1,'Friso Gold 2 900g',3),(4,1,'Friso Gold 3 900g',4),(5,1,'Friso Gold 4 900g',5),(6,2,'Dutch Lady Mum 900g',1),(7,2,'Dutch Lady Regular Step 1 900g',2),(8,2,'Dutch Lady Regular Step 2 900g',3),(9,2,'Dutch Lady Regular 123 900g',4),(10,2,'Dutch Lady Regular 456 900g',5);
+/*!40000 ALTER TABLE `FullRangeSKU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `IFTDisplayLocation`
+--
+
+DROP TABLE IF EXISTS `IFTDisplayLocation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `IFTDisplayLocation` (
+  `IFTDisplayLocationID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(10) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `DisplayOrder` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IFTDisplayLocationID`),
+  UNIQUE KEY `Code_UNIQUE` (`Code`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `IFTDisplayLocation`
+--
+
+LOCK TABLES `IFTDisplayLocation` WRITE;
+/*!40000 ALTER TABLE `IFTDisplayLocation` DISABLE KEYS */;
+INSERT INTO `IFTDisplayLocation` VALUES (1,'1','Sau quầy tính tiền',1),(2,'2','Trước quầy tính tiền',2),(3,'3','Giữa nhà dọc theo 2 bên tường cùng phía quầy tính tiền',3),(4,'4','Giữa nhà dọc theo 2 bên tường khác phía quầy tính tiền',4),(5,'5','Trực diện nhìn từ ngòai vô',5);
+/*!40000 ALTER TABLE `IFTDisplayLocation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OARFacingIFTDisplay`
+--
+
+DROP TABLE IF EXISTS `OARFacingIFTDisplay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OARFacingIFTDisplay` (
+  `OARFacingIFTDisplayID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) NOT NULL,
+  `OutletBrandID` bigint(20) NOT NULL,
+  `IFTDisplayLocationID` bigint(20) NOT NULL,
+  `Has` tinyint(4) NOT NULL,
+  PRIMARY KEY (`OARFacingIFTDisplayID`),
+  UNIQUE KEY `UQ_ OARFacingIFTDisplay` (`OutletAuditResultID`,`OutletBrandID`,`IFTDisplayLocationID`),
+  KEY `FK_ OARFacingIFTDisplay_OAR` (`OutletAuditResultID`),
+  KEY `FK_OARFacingIFTDisplay_OB` (`OutletBrandID`),
+  KEY `FK_ OARFacingIFTDisplay_IFTDisplay` (`IFTDisplayLocationID`),
+  CONSTRAINT `FK_ OARFacingIFTDisplay_IFTDisplay` FOREIGN KEY (`IFTDisplayLocationID`) REFERENCES `IFTDisplayLocation` (`IFTDisplayLocationID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ OARFacingIFTDisplay_OAR` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARFacingIFTDisplay_OB` FOREIGN KEY (`OutletBrandID`) REFERENCES `OutletBrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OARFacingIFTDisplay`
+--
+
+LOCK TABLES `OARFacingIFTDisplay` WRITE;
+/*!40000 ALTER TABLE `OARFacingIFTDisplay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OARFacingIFTDisplay` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OARFullRangeSKU`
+--
+
+DROP TABLE IF EXISTS `OARFullRangeSKU`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OARFullRangeSKU` (
+  `OARFullRangeSKUID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) NOT NULL,
+  `FullRangeID` bigint(20) NOT NULL,
+  `Has` tinyint(4) NOT NULL,
+  PRIMARY KEY (`OARFullRangeSKUID`),
+  UNIQUE KEY `UQ_OARFullRangeSKU` (`OutletAuditResultID`,`FullRangeID`),
+  KEY `FK_OARFullRangeSKU_OAR` (`OutletAuditResultID`),
+  KEY `FK_OARFullRangeSKU_FRS` (`FullRangeID`),
+  CONSTRAINT `FK_OARFullRangeSKU_FRS` FOREIGN KEY (`FullRangeID`) REFERENCES `FullRangeSKU` (`FullRangeSKUID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARFullRangeSKU_OAR` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OARFullRangeSKU`
+--
+
+LOCK TABLES `OARFullRangeSKU` WRITE;
+/*!40000 ALTER TABLE `OARFullRangeSKU` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OARFullRangeSKU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OARNoFacing`
+--
+
+DROP TABLE IF EXISTS `OARNoFacing`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OARNoFacing` (
+  `OARNoFacingID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) NOT NULL,
+  `OutletBrandID` bigint(20) NOT NULL,
+  `Facing` int(11) DEFAULT NULL,
+  PRIMARY KEY (`OARNoFacingID`),
+  UNIQUE KEY `UQ_OARNoFacing` (`OutletAuditResultID`,`OutletBrandID`),
+  KEY `FK_OARNoFacing_OAR` (`OutletAuditResultID`),
+  KEY `FK_OARNoFacing_OutletBrand` (`OutletBrandID`),
+  CONSTRAINT `FK_OARNoFacing_OAR` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARNoFacing_OutletBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `OutletBrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OARNoFacing`
+--
+
+LOCK TABLES `OARNoFacing` WRITE;
+/*!40000 ALTER TABLE `OARNoFacing` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OARNoFacing` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OARPosm`
+--
+
+DROP TABLE IF EXISTS `OARPosm`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OARPosm` (
+  `OARPosmID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) NOT NULL,
+  `POSMID` bigint(20) NOT NULL,
+  `Has` tinyint(4) NOT NULL,
+  PRIMARY KEY (`OARPosmID`),
+  UNIQUE KEY `UQ_OARPosm` (`OutletAuditResultID`,`POSMID`),
+  KEY `FK_ OARPosm_OAR` (`OutletAuditResultID`),
+  KEY `FK_ OARPosm_OPOSM` (`POSMID`),
+  CONSTRAINT `FK_ OARPosm_OAR` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_ OARPosm_OPOSM` FOREIGN KEY (`POSMID`) REFERENCES `OutletPOSM` (`OutletPOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OARPosm`
+--
+
+LOCK TABLES `OARPosm` WRITE;
+/*!40000 ALTER TABLE `OARPosm` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OARPosm` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OARPowerSKU`
+--
+
+DROP TABLE IF EXISTS `OARPowerSKU`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OARPowerSKU` (
+  `OARPowerSKUID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) NOT NULL,
+  `PowerSKUID` bigint(20) NOT NULL,
+  `Has` tinyint(4) NOT NULL,
+  PRIMARY KEY (`OARPowerSKUID`),
+  UNIQUE KEY `UQ_OARPowerSKU` (`OutletAuditResultID`,`PowerSKUID`),
+  KEY `FK_OARPowerSKU_OAR` (`OutletAuditResultID`),
+  KEY `FK_OARPowerSKU_PowerSKU` (`PowerSKUID`),
+  CONSTRAINT `FK_OARPowerSKU_OAR` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARPowerSKU_PowerSKU` FOREIGN KEY (`PowerSKUID`) REFERENCES `PowerSKU` (`PowerSKUID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OARPowerSKU`
+--
+
+LOCK TABLES `OARPowerSKU` WRITE;
+/*!40000 ALTER TABLE `OARPowerSKU` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OARPowerSKU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OARPromotion`
+--
+
+DROP TABLE IF EXISTS `OARPromotion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OARPromotion` (
+  `OARPromotionID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OuletAuditResultID` bigint(20) NOT NULL,
+  `PromotionID` bigint(20) NOT NULL,
+  `GetQuantity` int(11) DEFAULT NULL,
+  `UnitID` bigint(20) DEFAULT NULL,
+  `ProductID` bigint(20) DEFAULT NULL,
+  `Known` tinyint(4) DEFAULT NULL,
+  `Correct` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`OARPromotionID`),
+  UNIQUE KEY `UQ_OARPromotion` (`OuletAuditResultID`,`PromotionID`),
+  KEY `FK_OARPromotion_OAR` (`OuletAuditResultID`),
+  KEY `FK_OARPromotion_Promotion` (`PromotionID`),
+  CONSTRAINT `FK_OARPromotion_OAR` FOREIGN KEY (`OuletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARPromotion_Promotion` FOREIGN KEY (`PromotionID`) REFERENCES `Promotion` (`PromotionID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OARPromotion`
+--
+
+LOCK TABLES `OARPromotion` WRITE;
+/*!40000 ALTER TABLE `OARPromotion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OARPromotion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Outlet`
+--
+
+DROP TABLE IF EXISTS `Outlet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Outlet` (
+  `OutletID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `DistributorID` bigint(20) NOT NULL,
+  `DMSCode` varchar(45) NOT NULL,
+  `RegionID` bigint(20) NOT NULL,
+  `DistrictID` bigint(20) NOT NULL,
+  `Address` varchar(255) DEFAULT NULL,
+  `GPSLatitude` float DEFAULT NULL,
+  `GPSLongtitude` float DEFAULT NULL,
+  PRIMARY KEY (`OutletID`),
+  UNIQUE KEY `DMSCode_UNIQUE` (`DMSCode`),
+  KEY `FK_Outlet_Region` (`RegionID`),
+  KEY `FK_Outlet_Distributor` (`DistributorID`),
+  KEY `FK_Outlet_District` (`DistrictID`),
+  CONSTRAINT `FK_Outlet_Distributor` FOREIGN KEY (`DistributorID`) REFERENCES `Distributor` (`DistributorID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Outlet_District` FOREIGN KEY (`DistrictID`) REFERENCES `District` (`DistrictID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Outlet_Region` FOREIGN KEY (`RegionID`) REFERENCES `Region` (`RegionID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1219 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Outlet`
+--
+
+LOCK TABLES `Outlet` WRITE;
+/*!40000 ALTER TABLE `Outlet` DISABLE KEYS */;
+INSERT INTO `Outlet` VALUES (1,1,'000019',1,1,'44/7 Trần Hưng Đạo Quận 1',NULL,NULL),(2,1,'000018',1,1,'457 Trần Hưng Đạo Quận 1',NULL,NULL),(3,1,'000015',1,1,'185I Cống Quỳnh Quận 1',NULL,NULL),(4,1,'000013',1,1,'146 Cô Giang Quận 1',NULL,NULL),(5,1,'000014',1,1,'185A Cống Quỳnh Quận 1',NULL,NULL),(6,1,'000270',1,1,'131 Trần Quang Khải Quận 1',NULL,NULL),(7,1,'000272',1,1,'31 Nguyễn Văn Giai Quận 1',NULL,NULL),(8,1,'000271',1,1,'121 Điện Biên Phủ Quận 1',NULL,NULL),(9,1,'000391',1,1,'38 Nguyễn Huy Tự Quận 1',NULL,NULL),(10,1,'000009',1,1,'102 Đề Thám Quận 1',NULL,NULL),(11,1,'000003',1,1,'198 Đề Thám Quận 1',NULL,NULL),(12,1,'000024',1,1,'591 Trần Hưng Đạo Quận 1',NULL,NULL),(13,1,'000315',1,1,'31K Nguyễn Du Quận 1',NULL,NULL),(14,1,'000405',1,1,'52B Nguyễn Bỉnh Khiêm Quận 1',NULL,NULL),(15,1,'000161',1,1,'282/5B Cống Quỳnh Quận 1',NULL,NULL),(16,1,'000011',1,1,'225 Cống Quỳnh Quận 1',NULL,NULL),(17,1,'000010',1,1,'185 U Cống quỳnh Quận 1',NULL,NULL),(18,1,'000276',1,1,'125B Trần Quang Khải Quận 1',NULL,NULL),(19,1,'000374',1,1,'84 Trần Khắc Chân Quận 1',NULL,NULL),(20,1,'000317',1,1,'71B Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(21,1,'000368',1,1,'100 Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(22,1,'000342',1,1,'60 B Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(23,1,'000343',1,1,' 72B Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(24,1,'000344',1,1,'69B Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(25,1,'000345',1,1,'61B Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(26,1,'000346',1,1,'70B Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(27,1,'000362',1,1,'48A Chợ Tôn Thất Đạm Quận 1',NULL,NULL),(28,1,'000392',1,1,'135 Nguyễn Hữu Cầu Quận 1',NULL,NULL),(29,1,'000400',1,1,'5 Nguyen Dinh Chieu Quan 1',NULL,NULL),(33,1,'000020',1,1,'85 Đề Thám',NULL,NULL),(34,2,'000006',1,4,'013 Lô B Đặng Thái Thân',NULL,NULL),(37,2,'000016',1,4,'138D Nguyễn Tri Phương',NULL,NULL),(38,2,'000017',1,4,'154 Nguyễn Tri Phương',NULL,NULL),(42,2,'000025',1,4,'4 Tân Hưng',NULL,NULL),(43,2,'000026',1,4,'8 Tân Hưng',NULL,NULL),(44,2,'000031',1,4,'35 Thuận Kiều',NULL,NULL),(45,2,'000041',1,4,'815/1B Nguyễn Trãi',NULL,NULL),(46,2,'000054',1,4,'141 An Dương Vương',NULL,NULL),(47,2,'000062',1,4,'14 Lô F Đặng Thái Thân',NULL,NULL),(48,2,'000065',1,4,'004 Ngô Quyền',NULL,NULL),(49,2,'000096',1,4,'157C Nguyễn Trãi',NULL,NULL),(50,2,'000097',1,4,'007 Chung Cư Xóm Cải',NULL,NULL),(51,2,'000099',1,4,'462 Trần Hưng Đạo',NULL,NULL),(52,2,'000100',1,4,'810 Nguyễn Trãi',NULL,NULL),(53,2,'000101',1,4,'138H Nguyễn Tri Phương',NULL,NULL),(54,2,'000102',1,4,'179 Nguyễn Tri Phương',NULL,NULL),(55,2,'000103',1,4,'148 Bis Trần Hưng Đạo',NULL,NULL),(56,2,'000107',1,4,'40 An Điềm',NULL,NULL),(57,2,'000112',1,4,'23 XÛm VÙi',NULL,NULL),(58,2,'000113',1,4,'25 XÛm VÙi',NULL,NULL),(59,2,'000115',1,4,'66 Trần Hưng Đạo',NULL,NULL),(60,2,'000117',1,4,'165 Nguyễn Trãi',NULL,NULL),(61,2,'000119',1,4,'46 Phạm Đôn',NULL,NULL),(62,2,'000121',1,4,'38 Bãi Sậy',NULL,NULL),(63,2,'000125',1,4,'184 Nguyễn Thị Nhỏ',NULL,NULL),(64,2,'000126',1,4,'110G Ngô Nhân Tịnh',NULL,NULL),(65,2,'000127',1,4,'30 Bùi Hữu Nghĩa',NULL,NULL),(66,2,'000128',1,4,'208 Cao Đạt',NULL,NULL),(67,2,'000129',1,4,'221 Cao Đạt',NULL,NULL),(68,2,'000130',1,4,'21A&22A CHỢ HÒA BÌNH',NULL,NULL),(69,2,'000131',1,4,'48 Nguyễn Biểu',NULL,NULL),(70,2,'000132',1,4,'77&79 Nguyễn Biểu',NULL,NULL),(71,2,'000133',1,4,'169 Nguyễn Trãi',NULL,NULL),(72,2,'000134',1,4,'91 Nguyễn Văn Cừ',NULL,NULL),(73,2,'000135',1,4,'126C1 Trần Bình Trọng',NULL,NULL),(74,2,'000136',1,4,'24A Trần Bình Trọng',NULL,NULL),(75,2,'000138',1,4,'26A Trần Bình Trọng',NULL,NULL),(76,2,'000139',1,4,'132 Trần Tuấn Khải',NULL,NULL),(77,2,'000141',1,4,'1A Trần Xuân Hoà',NULL,NULL),(78,2,'000142',1,4,'827 Nguyễn Trãi',NULL,NULL),(79,2,'000143',1,4,'163 NGUYỄN TRI PHƯƠNG',NULL,NULL),(80,2,'000144',1,4,'59 Thuận Kiều',NULL,NULL),(81,2,'000145',1,4,'63 Thuận Kiều',NULL,NULL),(82,2,'000149',1,4,'29-30 Chợ Hòa Bình',NULL,NULL),(83,2,'000181',1,4,'335 Nguyễn Trãi',NULL,NULL),(84,2,'000186',1,4,'294A Trần Phú',NULL,NULL),(85,2,'000200',1,4,'185/7 Nguyễn Văn Cừ',NULL,NULL),(86,2,'000219',1,4,'84/29 Nguyễn Biểu',NULL,NULL),(87,2,'000245',1,4,'933 TRẦN HƯNG ĐẠO',NULL,NULL),(88,2,'000246',1,4,'931 TRẦN HƯNG ĐẠO',NULL,NULL),(89,2,'000278',1,4,'227 Trần Bình Trọng',NULL,NULL),(90,2,'000297',1,4,'153 Nguyễn Văn Cừ',NULL,NULL),(91,2,'000303',1,4,'455 Trần Phú',NULL,NULL),(92,1,'000316',1,1,'31I,Nguyễn Du,Quận 1',NULL,NULL),(94,1,'000012',1,1,'119 - Nguyễn Cư Trinh , Quận 1',NULL,NULL),(105,8,'000481',1,10,'159 TRẦN NHÂN TÔN',NULL,NULL),(106,8,'000008',1,10,'89A HÒA HƯNG',NULL,NULL),(107,8,'000029',1,10,'252 HÒA HƯNG',NULL,NULL),(108,8,'000038',1,10,'261 BA TH¡NG HAI',NULL,NULL),(110,8,'000021',1,10,'45 QTER 1',NULL,NULL),(111,8,'000035',1,10,'39 TÔ HiẾN THÀNH',NULL,NULL),(112,8,'000036',1,10,'43 TÔ HiẾN THÀNH',NULL,NULL),(113,8,'000417',1,10,'81 TÔ HiẾN THÀNH',NULL,NULL),(115,8,'000365',1,10,'42/2B NGUYỄN GiẢN TAHNH',NULL,NULL),(116,8,'000044',1,10,'42/22 NGUYỄN GiẢN TAHNH',NULL,NULL),(117,8,'000030',1,10,'7 HÒA HƯNG',NULL,NULL),(118,8,'000326',1,10,'107 HÒA HƯNG',NULL,NULL),(119,8,'000439',1,10,'T3 TAM ĐẢO',NULL,NULL),(120,8,'000187',1,10,'58/16 HỒ THỊ KỶ',NULL,NULL),(121,8,'000002',1,10,'666/58 BA TH¡NG HAI',NULL,NULL),(122,8,'000004',1,10,'666/56 BA TH¡NG HAI',NULL,NULL),(123,8,'000001',1,10,'666/50 BA TH¡NG HAI',NULL,NULL),(128,8,'000183',1,10,'187A NGÔ QUYỀN',NULL,NULL),(129,8,'000477',1,10,'388 NGUYỄN CHÍ THANH',NULL,NULL),(130,8,'000023',1,10,'485 BÀ HẠT',NULL,NULL),(132,8,'000193',1,10,'423 NGUYỄN TRI PHƯƠNG',NULL,NULL),(133,8,'000263',1,10,'100/29 NGUYỄN NGỌC LỘC',NULL,NULL),(134,8,'000039',1,10,'106 NHẬT TẢO',NULL,NULL),(135,8,'000022',1,10,'391 BÀ HẠT',NULL,NULL),(137,8,'000277',1,10,'528/A1B NGUYỄN TRI PHƯƠNG',NULL,NULL),(140,8,'000042',1,10,'208 NGUYỄN TRI PHƯƠNG',NULL,NULL),(141,8,'000067',1,10,'650/49 ĐiỆN BIÊN PHỦ',NULL,NULL),(142,8,'000061',1,10,'038S CHUNG CƯ NGÔ GIA TỰ',NULL,NULL),(144,8,'000088',1,10,'B5 CHỢ LÊ HỒNG PHONG',NULL,NULL),(145,8,'000089',1,10,'B6 CHỢ LÊ HỒNG PHONG',NULL,NULL),(146,8,'000154',1,10,'145 NGUYỄN LÂM',NULL,NULL),(147,8,'000189',1,10,'185 NGUYỄN TiỂU LA',NULL,NULL),(148,8,'000172',1,10,'286 NGUYỄN DUY DƯƠNG',NULL,NULL),(149,8,'000486',1,10,'313 nguyen duy duong',NULL,NULL),(150,8,'000333',1,10,'72 TH¿NH TH¡I',NULL,NULL),(153,11,'000007',1,13,'6, Lê Phát Đạt, phường 7, Quận Tân Bình, HCM, ',NULL,NULL),(156,11,'000027',1,13,'147, Lạc Long Quân, Phường 3, Quận 11, HCM, ',NULL,NULL),(157,11,'000424',1,13,'13/194, Trần Văn Hoàng, Phường 9, Quận Tân Bình, HCM, ',NULL,NULL),(158,11,'000040',1,13,'179, Nguyễn Thị Nhỏ, Phường 9, Quận Tân Bình, HCM, ',NULL,NULL),(159,11,'000265',1,13,'39B, Phú Thọ, Phường 1, Quận 11, HCM, ',NULL,NULL),(161,11,'000175',1,13,'88B, Ông Ích Khiêm, Phường 5, Quận 11, HCM, ',NULL,NULL),(163,11,'000005',1,13,'50, Bành Văn Trân, Phường 7, Quận Tân Bình, HCM, ',NULL,NULL),(165,11,'000290',1,13,'56B, Lữ Gia, Phường 15, Quận 11, HCM, ',NULL,NULL),(170,11,'000380',1,13,'146, Đội Cung, Phường 9, Quận 11, HCM, ',NULL,NULL),(173,11,'000370',1,13,'568, Nguyễn Chí Thanh, Phường 14, Quận 11, HCM, ',NULL,NULL),(175,11,'000260',1,13,'107 AH, Lạc Long Quân, Phường 5, Quận 11, HCM, ',NULL,NULL),(179,11,'000163',1,13,'55, Phú Thọ, Phường 1, Quận 11, HCM, ',NULL,NULL),(180,11,'000028',1,13,'97, Đất Thánh, Phường 6, Quận Tân Bình, HCM, ',NULL,NULL),(181,11,'000318',1,13,'126, Lãnh Binh Thăng, Phường 13, Quận 11, HCM, ',NULL,NULL),(182,11,'000157',1,13,'136, Nguyễn Thị Nhỏ, Phường 15, Quận 11, HCM, ',NULL,NULL),(183,11,'001193',1,13,'170 Nghĩa Phát, Phường 6, Quận Tân Bình',NULL,NULL),(185,11,'001196',1,14,'18A T‚y L‚n',NULL,NULL),(186,11,'000588',1,14,'100 Lộ Tẻ',NULL,NULL),(187,11,'000792',1,14,'A3/4 Nguyễn Cửu Phú ',NULL,NULL),(188,11,'000799',1,14,'72 Trần Thanh Mại ',NULL,NULL),(189,11,'001054',1,14,'51 LiÍn Khu 5-6',NULL,NULL),(190,11,'001055',1,14,'69 LiÍn Khu 5-6',NULL,NULL),(191,11,'001060',1,14,'1368 Tỉnh Lộ 10',NULL,NULL),(192,11,'001061',1,14,'1A1 Chợ Đệm ',NULL,NULL),(193,11,'001062',1,14,'1B1 Chợ Đệm ',NULL,NULL),(194,11,'001063',1,14,'62 Lộ Tẻ ',NULL,NULL),(195,11,'001064',1,14,'65 Trần Thanh Mại ',NULL,NULL),(196,11,'001065',1,14,'1754 Tỉnh Lộ 10',NULL,NULL),(197,11,'001066',1,14,'C2/3 Quốc Lộ 1A',NULL,NULL),(198,11,'001068',1,14,'Số 9 Đường Số 5',NULL,NULL),(199,11,'001070',1,14,'B20/1 C1 C‚y C·m ',NULL,NULL),(200,11,'001071',1,14,'B18/25F LiÍn Khu 5-6',NULL,NULL),(201,11,'001072',1,14,'69 T‚y L‚n',NULL,NULL),(202,11,'001075',1,14,'2E Trịnh Như Khuê',NULL,NULL),(203,11,'001076',1,14,'D7/66 Trịnh Như Khuê ',NULL,NULL),(204,11,'001077',1,14,'D8/40 Hương Lộ 1',NULL,NULL),(205,11,'001078',1,14,'D1/8 Quốc Lộ 1A',NULL,NULL),(206,11,'001079',1,14,'E1/30 Nguyễn Hữu Trí',NULL,NULL),(207,11,'001081',1,14,'Kios 55 Trúc Hạnh ',NULL,NULL),(208,11,'001083',1,14,'257A/10 Bờ Đất Mới ',NULL,NULL),(209,11,'001084',1,14,'Loan Lớn Chợ Bình Chánh',NULL,NULL),(210,11,'001085',1,14,'A12/1C Nguyễn Hữu Trí ',NULL,NULL),(211,11,'001093',1,14,'169 Trần Thanh Mại ',NULL,NULL),(213,11,'000442',1,14,'D7/29 Hương Lộ 80 ',NULL,NULL),(214,11,'000445',1,14,'315 Nguyễn Thị Tú ',NULL,NULL),(215,11,'000447',1,14,'B4/22 Chợ Võ Văn Vân ',NULL,NULL),(216,11,'000449',1,14,'249 Chợ Vĩnh Lộc ',NULL,NULL),(217,11,'000459',1,14,'371 BÏnh Th‡nh',NULL,NULL),(218,11,'000466',1,14,'150 Đường A9 KDC Vĩnh Lộc ',NULL,NULL),(219,11,'000467',1,14,'60 BÏnh Th‡nh',NULL,NULL),(220,11,'000469',1,14,'C4/1 Nữ Dân Công',NULL,NULL),(221,11,'000470',1,14,'2270 Hương Lộ 80',NULL,NULL),(222,11,'000474',1,14,'C1/1 Liên Ấp 123',NULL,NULL),(223,11,'000479',1,14,'A3/34 Võ Văn Vân ',NULL,NULL),(224,11,'000480',1,14,'C1/11 Võ Văn Vân',NULL,NULL),(226,11,'000490',1,14,'D17/11 Võ Văn Vân ',NULL,NULL),(227,11,'000492',1,14,'D4/30A Hương Lộ 80',NULL,NULL),(228,11,'000493',1,14,'68 Hồ Văn Long',NULL,NULL),(229,11,'000966',1,14,'142 Đường A9 KDC Vĩnh Lộc ',NULL,NULL),(230,11,'000440',1,14,'F7/56 Quách Điêu',NULL,NULL),(231,11,'000441',1,14,'D19/31 Hương Lộ 80',NULL,NULL),(232,11,'000443',1,14,'Kios 1 Chợ Bà Lát ',NULL,NULL),(233,11,'000450',1,14,'E8/5A Thới Hòa ',NULL,NULL),(234,11,'000454',1,14,'A3/8 Hương Lộ 80',NULL,NULL),(235,11,'000463',1,14,'F2/34 Quách Điêu',NULL,NULL),(236,11,'000464',1,14,'E10/12 Lại Hùng Cường ',NULL,NULL),(237,11,'000471',1,14,'E6/31A Thới Hòa ',NULL,NULL),(238,11,'000476',1,14,'C4/5 Nữ Dân Công ',NULL,NULL),(239,11,'000482',1,14,'C2/18 Nữ Dân Công ',NULL,NULL),(240,11,'000487',1,14,'2118 Vĩnh Lộc B',NULL,NULL),(241,11,'000488',1,14,'C1/31 Liên Ấp 123',NULL,NULL),(242,11,'000489',1,14,'2110 Hương Lộ 80',NULL,NULL),(243,11,'000793',1,14,'22 Chợ Cầu Xáng ',NULL,NULL),(244,11,'000814',1,14,'D8/67/2 Tỉnh Lộ 10',NULL,NULL),(245,11,'001015',1,14,'E10/16 Thới Hòa',NULL,NULL),(246,11,'000619',1,14,'Kios 3 B‡ L·t',NULL,NULL),(247,11,'000973',1,14,'194 Đường 1 KDC Vĩnh Lộc ',NULL,NULL),(248,11,'001048',1,14,'F2/15C Quách Điêu ',NULL,NULL),(249,11,'000974',1,14,'C4/7 Nữ Dân Công ',NULL,NULL),(250,11,'000959',1,14,'27 Bùi Dương Lịch ',NULL,NULL),(251,11,'001013',1,14,'E6/34A Thới Hòa ',NULL,NULL),(252,11,'000984',1,14,'F3/2C Quách Điêu ',NULL,NULL),(253,11,'000788',1,14,'A5/159B Tràn Đại Nghĩa',NULL,NULL),(254,11,'000807',1,14,'Kios 106 LÍ Minh Xu‚n ',NULL,NULL),(255,11,'000802',1,14,'Kios 1 LÍ Minh Xu‚n ',NULL,NULL),(256,11,'001086',1,14,'329B/2 Bờ Đất Mới',NULL,NULL),(257,11,'001218',1,14,'318 Nguyễn Thị Tú',NULL,NULL),(258,11,'001197',1,14,'C2/12 Võ Văn Vân ',NULL,NULL),(259,11,'000652',1,14,'G8/21H Tỉnh lộ 10',NULL,NULL),(260,12,'000496',1,15,'616, Nguyễn Văn Quá, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(261,12,'000514',1,15,'18/4D, Nguyễn Văn Quá, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(262,12,'000524',1,15,'252, Trường Chinh, Tân Hưng Thuận, Q12, HCM, ',NULL,NULL),(263,12,'000534',1,15,'62/1A, Quốc Lộ 22, Tân Xuân, HM, HCM, ',NULL,NULL),(264,12,'000491',1,15,'74/2, Nguyễn Ảnh Thủ, Trung Mỹ Tây, Q12, HCM, ',NULL,NULL),(266,12,'000495',1,15,'6/57, Trưng Nữ Vương, Thị Trấn Hóc Môn, HM, HCM, ',NULL,NULL),(267,12,'000500',1,15,'61/14B, Quang Trung, Thị Trấn Hóc Môn, HM, HCM, ',NULL,NULL),(268,12,'000502',1,15,'14, Chợ Quang Trung, Trung Mỹ Tây, Q12, HCM, ',NULL,NULL),(269,12,'000506',1,15,'27/2, Nguyễn Ảnh Thủ, Trung Chánh, HM, HCM, ',NULL,NULL),(270,12,'000058',1,15,'133/1, Nguyễn Ảnh Thủ, Trung Chánh, HM, HCM, ',NULL,NULL),(271,12,'000508',1,15,'93/5B, Nguyễn Ảnh Thủ, Trung Chánh, HM, HCM, ',NULL,NULL),(272,12,'000510',1,15,'Kios 1C, Tô Ký, Trung Mỹ Tây, Q12, HCM, ',NULL,NULL),(273,12,'000513',1,15,'18, Cây Xộp, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(274,12,'000528',1,15,'101, Đông Hưng Thuận 6, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(275,12,'000530',1,15,'B92, Tô Ký, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(276,12,'000547',1,15,'326A, Trường Chinh, Tân Hưng Thuận, Q12, HCM, ',NULL,NULL),(277,12,'000560',1,15,'37/7, Trường Chinh, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(278,12,'000561',1,15,'1N, Trường Chinh, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(279,12,'000564',1,15,'10/17A, Tân Thới Nhất 13, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(280,12,'000571',1,15,'744A, Trường Chinh, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(281,12,'000273',1,15,'130/3, Nguyễn Ảnh Thủ, Trung Chánh, HM, HCM, ',NULL,NULL),(283,12,'000533',1,15,'72, Đông Hưng Thuận 3, Đông Hưng Thuận, Q12, HCM, ',NULL,NULL),(285,12,'000166',1,15,'29/4, Quốc Lộ 22, Bà Điểm, HM, HCM, ',NULL,NULL),(286,12,'000275',1,15,'11/7A, Nguyễn Ảnh Thủ, Tân Thới Nhất, HM, HCM, ',NULL,NULL),(287,12,'000566',1,15,'4/6B, Trần Văn Mười, Xuân Thới Thượng, HM, HCM, ',NULL,NULL),(288,12,'000567',1,15,'230, Phan Văn Hớn, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(289,12,'000171',1,15,'29/8, Quốc Lộ 22, Trung Chánh, HM, HCM, ',NULL,NULL),(290,12,'000220',1,15,'B69/13A, Nguyễn Thị Sóc, Bà Điểm, HM, HCM, ',NULL,NULL),(291,12,'000893',1,15,'1/130, Quốc Lộ 22, Nhị Tân, HM, HCM, ',NULL,NULL),(292,12,'000898',1,15,'43/8, Chợ Thành Ông Năm, Tân Thới Nhì, HM, HCM, ',NULL,NULL),(293,12,'000581',1,15,'92/3, Nguyễn Văn Bứa, Xuân Thới Sơn, HM, HCM, ',NULL,NULL),(294,12,'000540',1,15,'31/9, Nguyễn Văn Bứa, Xuân Thới Sơn, HM, HCM, ',NULL,NULL),(295,12,'000569',1,15,'65/4G, Trần Văn Mười, Xuân Thới Đông, HM, HCM, ',NULL,NULL),(296,12,'000544',1,15,'30/5, Tân Tiến, Xuân Thới Đông, HM, HCM, ',NULL,NULL),(297,12,'000553',1,15,'57/8, Phan Văn Hớn, Bà Điểm, HM, HCM, ',NULL,NULL),(299,12,'000543',1,15,'40/10, Quốc Lộ 22, Tân Thới Nhì, HM, HCM, ',NULL,NULL),(300,12,'000565',1,15,'53/3A, Phan Văn Hớn, Xuân Thới Thượng, HM, HCM, ',NULL,NULL),(301,12,'000559',1,15,'Hương, Chợ Bà Điểm, Bà Điểm, HM, HCM, ',NULL,NULL),(302,12,'000563',1,15,'27/4B, Phan Văn Hớn, Bà Điểm, HM, HCM, ',NULL,NULL),(303,12,'000585',1,15,'56/1, Phan Văn Hớn, Tiền Lân, HM, HCM, ',NULL,NULL),(304,12,'000750',1,15,'363, Trường Chinh, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(305,12,'000837',1,15,'75/2D, KP6, Tân Thới Nhất 1, Q12, HCM, ',NULL,NULL),(306,12,'000865',1,15,'79/1, Phan Văn Hớn, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(307,12,'000909',1,15,'10/2, Quốc Lộ 22, Xuân Thới Đông, HM, HCM, ',NULL,NULL),(308,12,'000931',1,15,'46, Nguyễn Văn Bứa, Xuân Thới Sơn, HM, HCM, ',NULL,NULL),(309,12,'000063',1,15,'61/7F, Đông Lân, Bà Điểm, HM, HCM, ',NULL,NULL),(310,12,'000236',1,15,'48/1D, Trần Văn Mười, Xuân Thới Thượng, HM, HCM, ',NULL,NULL),(312,12,'000539',1,15,'125B, Nguyễn Văn Bứa, Nhị Xuân, HM, HCM, ',NULL,NULL),(313,12,'000541',1,15,'1/4A, Phan Văn Hớn, Bà Điểm, HM, HCM, ',NULL,NULL),(314,12,'000552',1,15,'24/10, Nguyễn Ảnh Thủ, Bà Điểm, HM, HCM, ',NULL,NULL),(315,12,'000979',1,15,'16A, Nguyễn Văn Bứa, Bà Điểm, HM, HCM, ',NULL,NULL),(316,12,'000762',1,15,'232, Phan Văn Hớn, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(317,12,'000554',1,15,'302, Phan Văn Hớn, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(318,12,'000518',1,15,'4/18, Quang Trung, Thới Tam Thôn, HM, HCM, ',NULL,NULL),(319,12,'000733',1,15,'08, Thới Tây 1, Tân Hiệp, HM, HCM, ',NULL,NULL),(321,12,'000840',1,15,'10/1, Khu Phố 2, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(322,12,'000768',1,15,'63/7B, Đường số 5, Tân Thới Nhất, Q12, HCM, ',NULL,NULL),(323,12,'000195',1,15,'42/10E, Nguyễn Ảnh Thủ, Bà Điểm, HM, HCM, ',NULL,NULL),(324,12,'000292',1,15,'43/10T, Phan Văn Đối, Bà Điểm, HM, HCM, ',NULL,NULL),(325,12,'000310',1,15,'28/1A, Phan Văn Đối, Bà Điểm, HM, HCM, ',NULL,NULL),(326,12,'001853',1,15,'Phương Vi - A95 Nguyễn Văn Quá - Đông Hưng Thuận, ',NULL,NULL),(328,12,'001180',1,17,'Nguyễn Thị Lệ Hà-26/1 Quốc Lộ 1A',NULL,NULL),(329,12,'001231',1,17,'Thái Dương-195 Tân Thới Hiệp 21',NULL,NULL),(330,12,'001172',1,17,'Ngọc Huy-486 Nguyễn Văn Quá',NULL,NULL),(331,12,'001023',1,17,'Lưu Thị Huệ-121/1 Nguyễn Văn Quá',NULL,NULL),(332,12,'001200',1,17,'Chị Thoa-8/6 KP4 TCH',NULL,NULL),(333,12,'001022',1,17,'Ti Ti -955 Nguyễn Ảnh Thủ',NULL,NULL),(334,12,'001190',1,17,'Lê Thị Nở-62/1 Nguyễn Ảnh Thủ',NULL,NULL),(335,12,'001656',1,17,'Ngô Tấn Phát-B7 HT13',NULL,NULL),(336,12,'001187',1,17,'Nghiêm Thị Hiền-32 Đặng Thúc Vịnh',NULL,NULL),(337,12,'001174',1,17,'Lại Duy Hưng-266 Hiệp Thành 17',NULL,NULL),(338,12,'001189',1,17,'Nguyễn Thị Dướng-276 Đặng Thúc Vịnh',NULL,NULL),(340,12,'001202',1,17,'Xuân Thụ-43H1 Nguyễn Ảnh Thủ',NULL,NULL),(341,12,'001181',1,17,'Nguyễn Văn Hiếu-118 Tân Chánh Hiệp',NULL,NULL),(342,12,'001194',1,17,'Đào Thị Loan-128/2B Tổ 29 KP5 Tô Ký',NULL,NULL),(343,12,'001096',1,17,'Võ Thị Bạch Yến-152/2 Tô Ký',NULL,NULL),(344,12,'001619',1,17,'Nguyệt-26i/2 HT 13',NULL,NULL),(345,12,'001027',1,17,'Ngân Hà-375 Tân Chánh Hiệp 21',NULL,NULL),(346,12,'001182',1,17,'Ngô Loan Kiều-A15 Tô Ký',NULL,NULL),(347,12,'001291',1,17,'Ph˙c Nh‚n 74 TA 32',NULL,NULL),(348,12,'001387',1,17,'Trần Thị Thùy Trang-22/1A Thới Tứ',NULL,NULL),(349,12,'001470',1,17,'Trương Thị Tố Uyên-79/3 Tô Ngọc Vân',NULL,NULL),(350,12,'001542',1,17,'Chị Giang - Kios số 1 - chợ Thạnh Xuân',NULL,NULL),(351,12,'001436',1,17,'Phạm Thị Cúc-59 Hà Huy Giáp',NULL,NULL),(352,12,'001452',1,17,'Nguyễn Văn Đức-1022 Quốc Lộ 1A',NULL,NULL),(353,12,'001442',1,17,'Nguyễn Thị Thu Hằng-1489/1D Quốc Lộ 1A',NULL,NULL),(354,12,'001285',1,17,'Mạnh Hùng-31/1 Lê Văn Khương',NULL,NULL),(355,12,'001315',1,17,'Trần Thanh Lan-373 Đặng Thúc Vịnh',NULL,NULL),(356,12,'001312',1,17,'Nguyễn Lâm Thùy Dương-134 Đặng Thúc Vịnh',NULL,NULL),(357,12,'001358',1,17,'Trương Thị Cẩm Tú-43/7 Bùi Công Trừng',NULL,NULL),(358,12,'001313',1,17,'Trần Mỹ Phương-161 Đặng Thúc Vịnh',NULL,NULL),(359,12,'001444',1,17,'Trần Thị Phượng Tứ-59G Quốc Lộ 1A',NULL,NULL),(360,12,'001459',1,17,'Huỳnh Ngọc Vân-77/1 Tô Ngọc Vân',NULL,NULL),(361,12,'001469',1,17,'Lê Thị Kim Nga-59/2 Tô Ngọc Vân',NULL,NULL),(362,12,'001498',1,17,'Nguyễn Thị Vân-5/33 Hà Huy Giáp',NULL,NULL),(363,12,'001509',1,17,'Uông Hạnh-18/5 Hà Huy Giáp',NULL,NULL),(364,12,'001527',1,17,'Hoàng Thị Trinh-2048/1B Vườn Lài',NULL,NULL),(365,12,'001029',1,17,'Th·i HÚa-A99 TÙ K˝',NULL,NULL),(366,12,'001050',1,17,'Loan Sơn-1118/28 Nguyễn Văn Quá',NULL,NULL),(367,12,'001132',1,17,'Thanh-Duy Khiêm Tân Chánh Hiệp',NULL,NULL),(368,12,'001135',1,17,'Việt Thành -986 Nguyễn Văn Quá',NULL,NULL),(369,12,'001136',1,17,'Trần Viết Kính-375 Tổ 58 TCH21',NULL,NULL),(370,12,'001147',1,17,'Quỳnh Trâm-398 Tô Ký',NULL,NULL),(371,12,'001156',1,17,'Nam Nhi -20/6 KP4 TCH',NULL,NULL),(372,12,'001170',1,17,'Ngọc Hạnh-19/109 TCH 33',NULL,NULL),(373,12,'001171',1,17,'Gia Phát-1164A Nguyễn Văn Quá',NULL,NULL),(374,12,'001186',1,17,'Bùi Phú Đông Phương-Tuấn Chợ Tân Chánh Hiệp',NULL,NULL),(375,12,'001204',1,17,'116-116 TCH 33',NULL,NULL),(376,12,'001205',1,17,'Nguyễn Thị Thủy-385 Lê Văn Khương',NULL,NULL),(377,12,'001207',1,17,'Cẩm Hồng 16/4AKP3 TTHiệp',NULL,NULL),(378,12,'001228',1,17,'Hoàng Vỹ-331 Tân Thới Hiệp 07',NULL,NULL),(379,12,'001236',1,17,'Nguyễn Thị Thiên Lý-Kios 9 Tân Thới Hiệp 22',NULL,NULL),(380,12,'001281',1,17,'VP Mark -73 Bis  Tân Thới Hiệp 20',NULL,NULL),(381,12,'001306',1,17,'Anh Dũng-198 HT 37',NULL,NULL),(382,12,'001607',1,17,'Nguyễn Thị Dung-80/4B Nguyễn Ảnh Thủ',NULL,NULL),(383,12,'001612',1,17,'An Dân-112/5 KP 1 Tân Thới Hiệp 20',NULL,NULL),(384,12,'001627',1,17,'Hằng -35A Nguyễn Ảnh Thủ',NULL,NULL),(385,12,'001641',1,17,'Út Huệ-Út Huệ Lê Văn Khương',NULL,NULL),(386,12,'001725',1,17,'Nga - 725 HT 37',NULL,NULL),(387,12,'001140',1,17,'Minh NguyÍn-Minh NguyÍn T‚n Ch·nh HiÍp 13',NULL,NULL),(388,12,'001159',1,17,'357 Tân Chánh Hiệp 21 Tân Chánh Hiệp Q12 HCM',NULL,NULL),(389,13,' 000440 ',1,18,'Luân -  P.Thạnh AREA11 Phước Thạnh 1 ',NULL,NULL),(390,13,'  000441',1,18,' Chị Gái  - Phước Thạnh AREA11 Phước Thạnh 2 ',NULL,NULL),(391,13,'  000466',1,18,' Quyền - Chợ Củ Chi AREA21 Thị Trấn Củ Chi 4 ',NULL,NULL),(392,13,'  000469',1,18,' Kim Hồng  -Thái Mỹ AREA10 Thái Mỹ 5 ',NULL,NULL),(393,13,'  000473',1,18,' Thanh Tuyến - Quốc Lộ 22 AREA21 Thị Trấn Củ Chi 7 ',NULL,NULL),(394,13,'  000474',1,18,' Diễm Trang  - Phước Thạnh AREA11 Phước Thạnh 8 ',NULL,NULL),(395,13,'  000482',1,18,' Lê - Quốc Lộ 22 AREA21 Thị Trấn Củ Chi 10 ',NULL,NULL),(396,13,'  000493',1,18,' Loan - Q.Lộ 22 AREA06 Tân Phú Trung 14 ',NULL,NULL),(397,13,'  000503',1,18,' Quyên - Chợ C Chi AREA21 Thị Trấn Củ Chi 19 ',NULL,NULL),(398,13,'  000444',1,18,' Quế - Trung Hòa AREA20 Trung Lập Hạ 2 ',NULL,NULL),(399,13,'  000445',1,18,' Trinh - T Lập Hạ AREA20 Trung Lập Hạ 3 ',NULL,NULL),(400,13,'  000452',1,18,' Thúy Liễu - Tỉnh Lộ 8 AREA03 Tân Thạnh Tây 5 ',NULL,NULL),(401,13,'  000453',1,18,' Ẩn - Tân Qui AREA03 Tân Thạnh Tây 6 ',NULL,NULL),(402,13,'  000456',1,18,' Hằng -Tân Thạnh Đông AREA02 Tân Thạnh Đông 9 ',NULL,NULL),(403,13,'  000460',1,18,' Hân - Phú Hoà Đông AREA01 Phú Hòa Đông 12 ',NULL,NULL),(404,13,'  000464',1,18,' Lài - T.Lộ 8 AREA21 Thị Trấn Củ Chi 15 ',NULL,NULL),(405,13,'  000475',1,18,' Liễu - Trung Lập Hạ AREA20 Trung Lập Hạ 16 ',NULL,NULL),(406,13,' 000443 ',1,18,'Phượng - Trung Hòa AREA13 Trung Lập Thượng 21 ',NULL,NULL),(407,13,'  000449',1,18,' Hoà Thuận - Quốc Lộ 22 AREA06 Tân Phú Trung 3 ',NULL,NULL),(408,13,'  000450',1,18,' Mai - Q.Lộ 22 AREA06 Tân Phú Trung 4 ',NULL,NULL),(409,13,'  000467',1,18,' C.Phương - Q.Lộ 22 AREA21 Thị Trấn Củ Chi 5 ',NULL,NULL),(410,13,'  000478',1,18,' Dung  - T‚n Ph˙ AREA06 T‚n Ph˙ Trung 6 ',NULL,NULL),(412,13,'  000463',1,18,' Kim Hương  -Tỉnh Lộ 8 AREA21 Thị Trấn Củ Chi 3 ',NULL,NULL),(413,13,'000468 ',1,18,'Thảo - Quốc Lộ 22 AREA21 Thị Trấn Củ Chi 1 ',NULL,NULL),(414,13,'  000448',1,18,' Minh Ánh  - Việt Kiều AREA05 Tân Thông Hội 2 ',NULL,NULL),(416,13,'  000472',1,18,' Diễm-Việt Kiều AREA05 Tân Thông Hội 2 ',NULL,NULL),(417,13,'000483 ',1,18,'Hạnh - Quốc Lộ 22 AREA21 Thị Trấn Củ Chi 1 ',NULL,NULL),(419,13,'000903 ',1,18,' Lén - Việt Kiều AREA05 Tân Thông Hội 1 ',NULL,NULL),(421,13,'  000189',1,18,' Ho‡ng -  An Ph˙ AREA15 An Ph˙ 2 ',NULL,NULL),(422,13,'  000200',1,18,' Thơ - P.M.Hưng AREA14 Phú Mỹ Hưng 6 ',NULL,NULL),(423,13,' 000264 ',1,18,'Kim Cương -An Phú AREA15 An Phú 14 ',NULL,NULL),(424,13,'  000217',1,18,' Gái - P.H.Đông AREA01 Phú Hòa Đông 4 ',NULL,NULL),(425,13,'  000223',1,18,' Thanh Thảo - Phú Hòa Đông AREA01 Phú Hòa Đông 9 ',NULL,NULL),(426,13,'  000202',1,18,' Đằng - T.Lộ 7 AREA12 An Nhơn Tây 6 ',NULL,NULL),(427,13,'  000203',1,18,' Loan - T.Lộ 7 AREA12 An Nhơn Tây 7 ',NULL,NULL),(428,13,'  000821',1,18,' Ánh Ngân - Tỉnh Lộ 15 AREA12 An Nhơn Tây 16 ',NULL,NULL),(429,13,'000285 ',1,18,'Diệp - Bình Mỹ AREA18 Bình Mỹ 1 ',NULL,NULL),(430,13,'  000293',1,18,' Tuyền - Bình Mỹ AREA18 Bình Mỹ 8 ',NULL,NULL),(431,13,'  000297',1,18,' Kim LiÍn  - Ho‡ Ph˙ AREA09 HÚa Ph˙ 3 ',NULL,NULL),(432,13,'  000307',1,18,' Ngọc Út  -Tân Thạnh Đông AREA02 Tân Thạnh Đông 5 ',NULL,NULL),(433,13,'  000333',1,18,' Thùy- Tân Thạnh Đông AREA02 Tân Thạnh Đông 14 ',NULL,NULL),(434,13,'  000291',1,18,' Tâm - Bình Mỹ AREA18 Bình Mỹ 2 ',NULL,NULL),(435,13,'000348 ',1,18,'Dung - Tân Thạnh Đông AREA02 Tân Thạnh Đông 11 ',NULL,NULL),(436,13,'  000339',1,18,' Lộc Phát  - Tân Qui AREA09 Hòa Phú 9 ',NULL,NULL),(438,15,'000146',1,20,'43 Nguyễn Duy Trinh',NULL,NULL),(439,15,'000151',1,20,'580 Nguyễn Duy Trinh',NULL,NULL),(442,15,'000169',1,20,'93 Đường 18 Phước Bình',NULL,NULL),(447,15,'000162',1,20,'163 Đỗ Xuân Hợp',NULL,NULL),(448,15,'000147',1,20,'55 Nguyễn Duy Trinh',NULL,NULL),(449,15,'000150',1,20,'564 Nguyễn Duy Trinh',NULL,NULL),(450,15,'000148',1,20,'99 Lê văn Thịnh',NULL,NULL),(451,15,'000457',1,20,'24 Lê Văn Thịnh',NULL,NULL),(452,15,'000451',1,20,'9 Đường 22 Lê Văn Thịnh',NULL,NULL),(453,15,'000325',1,20,'648 Nguyễn Thị Định',NULL,NULL),(454,15,'000152',1,20,'909A Nguyễn Duy Trinh',NULL,NULL),(455,15,'000156',1,20,'117 Đại Lộ III Phước Bình',NULL,NULL),(456,15,'000719',1,20,'977 Nguyễn Duy Trinh',NULL,NULL),(457,15,'000332',1,20,'524 An Ph˙',NULL,NULL),(458,15,'000891',1,20,'608 Nguyễn Thị Định',NULL,NULL),(459,15,'000320',1,20,'15 Thảo Điền',NULL,NULL),(460,15,'000330',1,20,'178 Đường 147',NULL,NULL),(461,15,'000708',1,20,'20 Đường 19 Nguyễn Duy Trinh',NULL,NULL),(462,15,'000334',1,20,'14IJ Quốc Hương Thảo Điền',NULL,NULL),(464,15,'000321',1,20,'51 Xa Lộ Hà Nội',NULL,NULL),(465,15,'000622',1,20,'K.OP 4A Đại Lộ II Phước Bình',NULL,NULL),(467,15,'000319',1,20,'68 Quốc Hương ',NULL,NULL),(469,15,'000311',1,20,'25 Lương Định Của',NULL,NULL),(470,15,'000329',1,20,'67 Tăng Nhơn Phú',NULL,NULL),(471,15,'000159',1,20,'29 Đại Lộ II Phước Bình',NULL,NULL),(472,15,'000165',1,20,'2/248 Tăng Nhơn Phú',NULL,NULL),(473,15,'000164',1,20,'157 Tăng Nhơn Phú',NULL,NULL),(474,15,'000155',1,20,'71B L„ Xu‚n Oai',NULL,NULL),(475,15,'000731',1,20,'05 Đường 27 Trần Não',NULL,NULL),(477,15,'000419',1,20,'24 Quốc Hương Thảo Điền',NULL,NULL),(478,15,'000522',1,20,'337 Nguyễn Thị Định',NULL,NULL),(480,15,'000066',1,20,'205 Đình Phong Phú',NULL,NULL),(483,15,'000116',1,20,'37 Đường 339',NULL,NULL),(485,15,'000185',1,20,'22 Đường 18 Long Phước',NULL,NULL),(486,15,'000657',1,20,'53 T‚y HÚa',NULL,NULL),(487,15,'000637',1,20,'13 Đường 1 Phước Bình',NULL,NULL),(489,15,'000331',1,20,'14 Chung Cư Bình Minh',NULL,NULL),(490,15,'000758',1,20,'4 Lô B Chung Cư 120 Căn',NULL,NULL),(495,19,'000032',1,24,'Cô Loan - 198R  - Xóm Chiếu - Phường 14 - 4',NULL,NULL),(496,19,'000033',1,24,'Chị Doan - 2 - Tân Vĩnh - Phường 4 - 4',NULL,NULL),(497,19,'000034',1,24,'Cô Hạnh - 888(B.398) - Đoàn Văn Bơ - Phường 18 - 4',NULL,NULL),(498,19,'000037',1,24,'Anh Phước - 271Bis - Tôn Thất Thuyết - Phường 3 - 4',NULL,NULL),(500,19,'000046',1,24,'Chị Thuyên - 243/36 - Hòang Diệu - Phường 8 - 4',NULL,NULL),(501,19,'000049',1,24,'F 38 Cư Xá Vĩnh Hội, Q4 - F 38 - Cư Xá Vĩnh Hội, Q4 - Phường 9 - 4',NULL,NULL),(506,19,'000056',1,24,'Anh Khôi - 325 - Tôn Đản - Phường 15 - 4',NULL,NULL),(510,19,'000043',1,24,'335 Tôn Đản',NULL,NULL),(512,19,'000095',1,24,'F 28 Cư Xá Vĩnh Hội',NULL,NULL),(513,19,'000231',1,24,'60B Nguyễn Thần Hiến',NULL,NULL),(514,19,'000059',1,24,'168 - Hoàng Diệu',NULL,NULL),(515,19,'000283',1,24,'Anh Khương - 198 N.T.Thành',NULL,NULL),(518,22,'000173',1,27,'30, Đường số 2, Tân Kiểng, Quận 7, Hồ Chí Minh, ',NULL,NULL),(520,22,'000167',1,27,'105, Phạm Hữu Lầu, Phú Mỹ, Quận 7, Hồ Chí Minh, ',NULL,NULL),(521,22,'000178',1,27,'1663, Huỳnh Tấn Phát, Phú Mỹ, Quận 7, Hồ Chí Minh, ',NULL,NULL),(529,22,'000180',1,27,'75, Lý Phục Man, Bình Thuận, Quận 7, Hồ Chí Minh, ',NULL,NULL),(530,22,'000176',1,27,'9A, Lý Phục Man, Bình Thuận, Quận 7, Hồ Chí Minh, ',NULL,NULL),(531,22,'000158',1,27,'26/5B, Trần Trọng Cung, Tân Thuận Đông, Quận 7, Hồ Chí Minh, ',NULL,NULL),(533,22,'000153',1,27,'4, Bùi Văn Ba, Tân Thuận Đông, Quận 7, Hồ Chí Minh, ',NULL,NULL),(535,22,'000349',1,27,'487/22, Huỳnh Tấn Phát, Tân Thuận Đông, Quận 7, Hồ Chí Minh, ',NULL,NULL),(536,22,'000177',1,27,'83, Đường số 17, Tân Quy, Quận 7, Hồ Chí Minh, ',NULL,NULL),(537,22,'000174',1,27,'56, Đường số 25, Tân Kiểng, Quận 7, Hồ Chí Minh, ',NULL,NULL),(538,22,'000170',1,27,'380, Lê Văn Lương, Tân Hưng, Quận 7, Hồ Chí Minh, ',NULL,NULL),(540,22,'000168',1,27,'26/15B, Trần Xuân Soạn, Tân Hưng, Quận 7, Hồ Chí Minh, ',NULL,NULL),(544,22,'000160',1,27,'28, Tân Mỹ, Tân Phú, Quận 7, Hồ Chí Minh, ',NULL,NULL),(546,22,'000179',1,27,'156/11, Nguyễn Văn Linh, Tân Thuận Tây, Quận 7, Hồ Chí Minh, ',NULL,NULL),(551,23,'000656',1,28,'22 AU DUONG LAN',NULL,NULL),(552,23,'000608',1,28,'4/1A PHAM HUNG',NULL,NULL),(553,23,'000661',1,28,'193 BUI MINH TRUC',NULL,NULL),(554,23,'000643',1,28,'B17/29 QL 50',NULL,NULL),(556,23,'000623',1,28,'2472 PHAM THE HIEN',NULL,NULL),(558,23,'000646',1,28,'D10/294 QL50',NULL,NULL),(560,23,'000413',1,28,'A22/22 QL 50',NULL,NULL),(562,23,'000620',1,28,'15 CAO X DUC',NULL,NULL),(563,23,'000635',1,28,'407A  LT 5',NULL,NULL),(564,23,'000640',1,28,'B5/119 QL50',NULL,NULL),(565,23,'000621',1,28,'24 L VAN CANG',NULL,NULL),(566,23,'000618',1,28,'1999 PH THE HIEN',NULL,NULL),(567,23,'000641',1,28,'B5/140 QL50',NULL,NULL),(568,23,'000624',1,28,'2853 PH THE HIEN',NULL,NULL),(570,23,'000586',1,28,'210 AN DUONG VUONG',NULL,NULL),(572,23,'000658',1,28,'2B ME COC',NULL,NULL),(573,23,'000414',1,28,'A15/2 QL 50',NULL,NULL),(574,23,'000629',1,28,'4C BUI MINH TRUC',NULL,NULL),(575,23,'000182',1,28,'11-12-13 CHO PH THE HIEN',NULL,NULL),(576,23,'000611',1,28,'22 LO C CC PH THE HIEN',NULL,NULL),(577,23,'000615',1,28,'511 HUNG PHU',NULL,NULL),(578,23,'000218',1,28,'651 HUNG PHU',NULL,NULL),(579,23,'000609',1,28,'883 PH HUNG',NULL,NULL),(580,23,'000603',1,28,'119/54 DANG CHAT',NULL,NULL),(581,23,'000614',1,28,'2C C. PH THE HIEN',NULL,NULL),(582,23,'000604',1,28,'9N NG THI TAN',NULL,NULL),(583,23,'000599',1,28,'19 AU DUONG LAN',NULL,NULL),(584,23,'000601',1,28,'125/87 A DUONG LAN',NULL,NULL),(585,23,'000607',1,28,'139 D BA TRAC',NULL,NULL),(586,23,'000600',1,28,'108 A DUONG LAN',NULL,NULL),(589,23,'000612',1,28,'108 PH THE HIEN',NULL,NULL),(590,23,'000630',1,28,'140 HOANG MINH DAO',NULL,NULL),(591,23,'000660',1,28,'D10/281 QL50',NULL,NULL),(594,23,'000651',1,28,'2292 PH THE HIEN',NULL,NULL),(595,23,'000545',1,28,'3K RACH CAT',NULL,NULL),(596,23,'000591',1,28,'45 PHU DINH',NULL,NULL),(597,23,'000645',1,28,'D5/151 QL 50',NULL,NULL),(598,23,'000636',1,28,'A11/A6 QL50',NULL,NULL),(599,23,'000572',1,28,'12 PHU DINH',NULL,NULL),(600,23,'000634',1,28,'86 QL 50',NULL,NULL),(601,23,'000625',1,28,'215/2 BA TO',NULL,NULL),(602,23,'000633',1,28,'80LTINH 5',NULL,NULL),(603,23,'000520',1,28,'179 LUU HUU PHUOC',NULL,NULL),(604,23,'000606',1,28,'137 DBT',NULL,NULL),(611,30,'000610',1,35,'1 - Kha Vạn Cân',NULL,NULL),(614,30,'000671',1,35,'369 - Nguyễn Văn Tăng',NULL,NULL),(616,30,'000655',1,35,'53 - Lê Văn Việt',NULL,NULL),(619,30,'000627',1,35,'2 - Hoàng Diệu',NULL,NULL),(621,30,'000605',1,35,'173 - Lê Văn Chí',NULL,NULL),(622,30,'000654',1,35,'387-Nguyễn Văn Tăng',NULL,NULL),(623,30,'000659',1,35,'148A-L„ Xu‚n Oai',NULL,NULL),(626,30,'000666',1,35,'63 - Ngô Quyền',NULL,NULL),(628,30,'000264',1,35,'44 - Lê Văn Chí',NULL,NULL),(630,30,'000613',1,35,'65/58-Đường 5',NULL,NULL),(631,30,'000668',1,35,'5 - Cây Dầu',NULL,NULL),(632,30,'000680',1,35,'83-Đường 16',NULL,NULL),(633,30,'000677',1,35,'380-hoàng hữu Nam',NULL,NULL),(634,30,'000796',1,35,'173-Đường 6',NULL,NULL),(635,31,'000386',1,36,'Ngà 58A Nguyễn Văn Lạc',NULL,NULL),(636,31,'000244',1,36,'Tập Hóa Bảo Phúc 502 Xô Viết Nghệ Tĩnh',NULL,NULL),(637,31,'000255',1,36,'Thủy - 1A Huỳnh Mẫn Đạt',NULL,NULL),(638,31,'000262',1,36,'Bích Ngọc-553A Xô Viết Nghệ Tĩnh',NULL,NULL),(641,31,'000247',1,36,'Kim Long 26A6 Cư Xá 30.04( cư xá 307)',NULL,NULL),(646,31,'000376',1,36,'Thuận Thiên  78 Xô Viết Nghệ Tĩnh',NULL,NULL),(647,31,'000280',1,36,'Thanh Hải-114 Ung Văn Khiêm',NULL,NULL),(648,31,'000279',1,36,'Thuận Danh 348A Bình Quới',NULL,NULL),(649,31,'000258',1,36,'VINAMIK - 032 Thanh Đa',NULL,NULL),(651,31,'000261',1,36,'Hương Thanh 003 Lô 9 Cư Xá Thanh Đa',NULL,NULL),(653,31,'000282',1,36,'CH Quang Hương - 138 Bình Quới',NULL,NULL),(654,31,'000192',1,36,'Tập Hóa Thành 324 Xô Viết Nghệ Tĩnh',NULL,NULL),(656,31,'000257',1,36,'Chị Bé-011 Cư Xá Thanh Đa',NULL,NULL),(659,31,'000252',1,36,'Thu Thủy-81/1 ( số mới 237 ) Phan Văn Hân',NULL,NULL),(660,31,'000269',1,36,'Mỹ Hạnh-144 Ngô Tất Tố ( 50 Võ Duy Ninh )',NULL,NULL),(662,31,'000196',1,36,'LiÍn-52 D1',NULL,NULL),(665,31,'000266',1,36,'CAFE G7 -20B6 Cư xá 30/4',NULL,NULL),(670,31,'000284',1,36,'Shop Mẹ Yêu 66 Bình Quới',NULL,NULL),(671,31,'000267',1,36,'Kim Cúc 152/34 ( 649/25 )Điện Biên Phủ',NULL,NULL),(673,31,'000268',1,36,'Dung-17 Huỳnh Tỉnh Của',NULL,NULL),(675,31,'000281',1,36,'Hà-021 Lô C Cư Xá Thanh Đa',NULL,NULL),(677,33,'000073',1,35,'262 Tô Ngọc Vân',NULL,NULL),(679,33,'000209',1,35,'108 Quốc Lộ 13',NULL,NULL),(681,33,'000229',1,35,'188A Quốc Lộ 13',NULL,NULL),(682,33,'000208',1,35,'742 Quốc Lộ 13',NULL,NULL),(685,33,'000366',1,35,'1189 Tỉnh Lộ 43',NULL,NULL),(689,33,'000361',1,35,'28B Lê Thị Hoa',NULL,NULL),(690,33,'000532',1,35,'156 Hiệp Bình ',NULL,NULL),(691,33,'000548',1,35,'172 Hiệp Bình ',NULL,NULL),(692,33,'000579',1,35,'7 Đường 1 ',NULL,NULL),(695,33,'000529',1,35,'61/39 Đường 48',NULL,NULL),(707,33,'000354',1,35,'233 Lê Thị Hoa',NULL,NULL),(718,33,'000531',1,35,'13 Hiệp Bình ',NULL,NULL),(720,33,'000497',1,35,'61/1D Đường 48',NULL,NULL),(722,33,'000602',1,35,'367B Tô Ngọc Vân ',NULL,NULL),(724,33,'000227',1,35,'520/8/3 Quốc Lộ 13',NULL,NULL),(729,33,'000503',1,35,'441 Kha Vạn Cân ',NULL,NULL),(732,36,'000416',1,39,'390 Trường Chinh',NULL,NULL),(747,36,'000672',1,39,'27 Cửu Long',NULL,NULL),(758,36,'000210',1,39,'80 Ho‡ng Hoa Th·m',NULL,NULL),(761,36,'000050',1,39,'140 Phạm Văn Hai',NULL,NULL),(769,36,'000574',1,39,'226D Lê Văn Sỹ',NULL,NULL),(770,36,'000350',1,39,'K1/04/06 B‡u C·t',NULL,NULL),(781,36,'000590',1,39,'205 Phạm Văn Hai',NULL,NULL),(782,36,'000048',1,39,'54 Ho‡ng Hoa Th·m',NULL,NULL),(784,36,'000387',1,39,'521 Trường Chinh',NULL,NULL),(785,36,'000395',1,39,'60 Trương Công Định',NULL,NULL),(789,36,'002003',1,40,'Nguyễn Mười-1-Nguyễn Thông',NULL,NULL),(790,36,'002002',1,40,'456-Nguyễn Thị Minh Khai',NULL,NULL),(791,36,'002001',1,40,'Hương-42A-Nguyễn Thông',NULL,NULL),(792,36,'002041',1,40,'Hùng Dung-47A (so mới  51)-Nguyễn Thông',NULL,NULL),(793,36,'002014',1,40,'Thanh Xuân-55F-Nguyễn Thông',NULL,NULL),(794,36,'002025',1,40,'Hương-29 Bis-Nguyễn Thông',NULL,NULL),(795,36,'002024',1,40,'Vũ Hào-3-Nguyễn Thông',NULL,NULL),(796,36,'002008',1,40,'Hồng Xuân-45-Kỳ Đồng',NULL,NULL),(797,36,'002009',1,40,'Hoàng Sơn-38-Nguyễn Thông',NULL,NULL),(798,36,'002010',1,40,'Mai Khanh-55A -Nguyễn Thông',NULL,NULL),(799,36,'002011',1,40,'55Bis-Nguyễn Thông',NULL,NULL),(800,36,'002012',1,40,'Thu Hương-55BisA-Nguyễn Thông',NULL,NULL),(801,36,'002013',1,40,'Thu Hà-55Bisc-Nguyễn Thông',NULL,NULL),(802,36,'002015',1,40,'Cô Nhàn-60A-Nguyễn Thông',NULL,NULL),(803,36,'002016',1,40,'Chị Tư-60H-Nguyễn Thông',NULL,NULL),(804,36,'002017',1,40,'Vân-60I-Nguyễn Thông',NULL,NULL),(805,36,'002020',1,40,'Hương-88/51-Bà Huyện Thanh Quan',NULL,NULL),(806,36,'002021',1,40,'20-Trần Quang Diệu',NULL,NULL),(807,36,'002155',1,40,'Anh Oai-453/101-Lê Văn Sỹ',NULL,NULL),(808,36,'002204',1,40,'45-Trần Quốc Toản',NULL,NULL),(809,36,'002222',1,40,'16C-16C-Trần Quang Diệu',NULL,NULL),(810,36,'002612',1,40,'89 Nguyen Thong',NULL,NULL),(811,36,'002026',1,40,'Xuyến-114-Võ Văn Tần',NULL,NULL),(812,36,'002032',1,40,'Hạnh-9-Lê Văn Sỹ',NULL,NULL),(813,36,'002034',1,40,'Tuấn Phượng-388-Võ Văn Tần',NULL,NULL),(814,36,'002036',1,40,'Minh Hà-235/9-Nam Kỳ Khởi Nghĩa',NULL,NULL),(815,36,'002043',1,40,'Thế Giới Sữa-55BisB-Nguyễn Thông',NULL,NULL),(816,36,'002057',1,40,'008J-C/C Nguyễn Thiện Thuật',NULL,NULL),(817,36,'002076',1,40,'Chị Mai-287/59-Nguyễn Đình Chiểu',NULL,NULL),(818,36,'002092',1,40,'Hoa-430-Nguyễn Đình Chiểu',NULL,NULL),(819,36,'002104',1,40,'42-Vườn Chuối',NULL,NULL),(820,36,'002120',1,40,'Cẩm Loan-160-Nguyễn Thiện Thuật',NULL,NULL),(821,36,'002240',1,40,'Lan-654-CMT8',NULL,NULL),(822,36,'002345',1,40,'51/24-Cao Thắng ',NULL,NULL),(823,36,'002348',1,40,'MẹvàBé-213-Nguyễn Thiện Thuật',NULL,NULL),(824,36,'002018',1,40,'Hương Lan-84-Nguyễn Thông',NULL,NULL),(825,36,'002521',1,40,'Shop Sữa-57-Nguyễn Thông',NULL,NULL),(826,36,'002184',1,40,'Thuỷ-195/19/2-Lê Văn Sỹ ',NULL,NULL),(827,36,'002235',1,40,'BÌch-376-CMT8',NULL,NULL),(828,36,'002179',1,40,'Ngọc Ánh-128-Trần Quốc Thảo',NULL,NULL),(833,41,'000045',1,45,'418 - Quang Trung , F10 , GV',NULL,NULL),(834,41,'000757',1,45,'37/8A - Quang Trung , F10 , GV',NULL,NULL),(835,41,'000051',1,45,'519 - Quang Trung , F10 , GV',NULL,NULL),(839,41,'000108',1,45,'48/1 - C‚y Tr‚m , F9 , GV',NULL,NULL),(840,41,'001808',1,45,'106/1Q - Lê Văn Thọ , F9 , GV',NULL,NULL),(850,41,'001810',1,45,'503 - Phan Văn Trị , F5 , GV',NULL,NULL),(855,41,'000337',1,45,'25/216 - Nguyễn Văn Lượng , F17 , GV',NULL,NULL),(857,41,'000228',1,45,'90A - Đường Số 5 , F17 , GV',NULL,NULL),(860,41,'001760',1,45,'71/484G - Phan Huy Õch , F12 , GV',NULL,NULL),(862,41,'001690',1,45,'80/9M - Phan Huy Õch , F12 , GV',NULL,NULL),(863,41,'000069',1,45,'18/8B - Phan Huy Õch , F14 , GV',NULL,NULL),(867,41,'001803',1,45,'61/7T - Phạm Văn Chiêu',NULL,NULL),(868,41,'000509',1,45,'33/1A1  Phạm Văn Chiêu',NULL,NULL),(869,41,'000080',1,45,'14/6  Thống Nhất',NULL,NULL),(870,41,'000072',1,45,'37/260C Quang Trung',NULL,NULL),(879,41,'000455',1,45,'139 Nguyễn Văn Nghi',NULL,NULL),(881,41,'000053',1,45,'106/1130 Lê Đức Thọ',NULL,NULL),(883,41,'000055',1,45,'226 Đường số 8 - Lê Văn Thọ',NULL,NULL),(885,41,'000060',1,45,'2/6 Phạm Văn Chiêu',NULL,NULL),(888,41,'000070',1,45,'71/484Z  Phan Huy Õch',NULL,NULL),(889,41,'000074',1,45,'65/444  Quang Trung',NULL,NULL),(890,41,'000075',1,45,'2/3 Quang Trung',NULL,NULL),(891,41,'000076',1,45,'55 Tân Sơn',NULL,NULL),(892,41,'000079',1,45,'134 Thống Nhất',NULL,NULL),(894,41,'000082',1,45,'41/4A  Thống Nhất',NULL,NULL),(895,41,'001849',1,45,'1358/28A - Quang Trung',NULL,NULL),(897,41,'000521',1,45,'42/6B  Phạm Văn Chiêu',NULL,NULL),(899,41,'000217',1,45,'51/44 Đường số 2 - Nguyễn Văn Lượng',NULL,NULL),(900,41,'001858',1,45,'160/34/9 - Phan Huy Õch',NULL,NULL),(902,41,'000769',1,45,'72/7 Quang Trung',NULL,NULL),(903,41,'001835',1,45,'217 Đường số 8 - Lê Văn Thọ',NULL,NULL),(908,41,'002382',1,46,'606-Nguyễn Kiệm ',NULL,NULL),(909,41,'002373',1,46,'K48-Chợ Trần Hữu Trang',NULL,NULL),(910,41,'002321',1,46,'217-Thích Quảng Đức',NULL,NULL),(911,41,'002388',1,46,'245-Huỳnh Văn Bánh ',NULL,NULL),(912,41,'002213',1,46,'16-Nguyễn Đình Chính',NULL,NULL),(913,41,'002378',1,46,'1K-Đặng Văn Ngữ',NULL,NULL),(914,41,'002182',1,46,'S27-Chợ Phú Nhuận',NULL,NULL),(915,41,'002296',1,46,'K46 -Chợ Trần Hữu Trang',NULL,NULL),(916,41,'002350',1,46,'820/76 -Lê Lợi',NULL,NULL),(917,41,'002391',1,46,'460 Nguyen Kiem',NULL,NULL),(918,41,'002353',1,46,'41A-Nguyễn Kiệm',NULL,NULL),(919,41,'002237',1,46,'10-LÍ Lai',NULL,NULL),(920,41,'002386',1,46,'44B Nguyen thai Son',NULL,NULL),(921,41,'002464',1,46,'17/19-Hoa Sứ ',NULL,NULL),(922,41,'002319',1,46,'233-Huỳnh Văn Bánh',NULL,NULL),(923,41,'002376',1,46,'111/830Z Nguyen Kiem',NULL,NULL),(924,41,'002337',1,46,'113-Đặng Văn Ngữ ',NULL,NULL),(925,41,'002327',1,46,'273-Phan Đình Phùng',NULL,NULL),(927,41,'002383',1,46,'S25 -Nguyễn Đình Chiểu',NULL,NULL),(928,41,'002212',1,46,'24-Nguyễn Đình Chính',NULL,NULL),(929,41,'002479',1,46,'28/27 -Phan Tây Hồ',NULL,NULL),(930,41,'002377',1,46,'93B-Phan XÌch Long',NULL,NULL),(931,41,'002238',1,46,'133 Nguyễn Văn Công',NULL,NULL),(932,41,'002352',1,46,'70A -Tân Sơn Nhất',NULL,NULL),(933,41,'002422',1,46,'42- Phùng Văn Cung',NULL,NULL),(934,41,'002200',1,46,'541/53B -Huỳnh văn Bánh',NULL,NULL),(935,41,'002380',1,46,'183-Thích Quảng Đức',NULL,NULL),(936,41,'002381',1,46,'30/30A-Nguyễn Văn Công',NULL,NULL),(937,41,'002295',1,46,'K42 -Chợ Trần Hữu Trang',NULL,NULL),(938,41,'002328',1,46,'161-Huỳnh Văn Bánh',NULL,NULL),(939,41,'002339',1,46,'334-336-Huỳnh Văn Bánh',NULL,NULL),(940,41,'002389',1,46,'820/72/46A -Nguyễn Kiệm',NULL,NULL),(941,41,'002283',1,46,'182/11 Chợ Trần Hữu Trang (Lê văn sỹ)',NULL,NULL),(942,41,'002392',1,46,'45 Đỗ Tấn Phong',NULL,NULL),(943,41,'002187',1,46,'S62 Chợ Phú Nhuận',NULL,NULL),(944,41,'002198',1,46,'81 Nguyễn Trong Tuyển',NULL,NULL),(946,41,'002069',1,46,'965 Nguyễn Kiệm',NULL,NULL),(947,41,'002390',1,46,'208 Hồ Văn Huê',NULL,NULL),(949,43,'000943',1,48,'192 - Tân Hương',NULL,NULL),(951,43,'000835',1,48,'285 - Tân Hương',NULL,NULL),(954,43,'000199',1,48,'210 - Gò Dầu',NULL,NULL),(955,43,'000191',1,48,'238 - Gò Dầu',NULL,NULL),(956,43,'000811',1,48,'48 - Gò Dầu G2)',NULL,NULL),(958,43,'000839',1,48,'33 - Đỗ Thừa Luông',NULL,NULL),(967,43,'000523',1,48,'193/5 - Lê Trọng Tấn',NULL,NULL),(970,43,'000631',1,48,'18/95 - Đỗ Nhuận',NULL,NULL),(972,43,'000525',1,48,'18/64 - Đỗ Nhuận',NULL,NULL),(973,43,'000188',1,48,'SF53†-†S11†KCN†T‚n†BÏnh',NULL,NULL),(978,43,'000421',1,48,'38A - Nguyễn Phúc Chu',NULL,NULL),(980,43,'000371',1,48,'20†-†Phan†Huy†Õch†(12/4)',NULL,NULL),(984,43,'000360',1,48,'118/127/2†- Phan Huy Õch',NULL,NULL),(985,43,'000378',1,48,'239 - Tân Sơn',NULL,NULL),(986,43,'000367',1,48,'93/1 - Trần Thái Tông',NULL,NULL),(996,43,'000693',1,48,'281 - Thoại Ngọc Hầu',NULL,NULL),(997,43,'000327',1,48,'173 - Lê Thúc Họach',NULL,NULL),(998,43,'000775',1,48,'11 - C‚y Keo',NULL,NULL),(999,43,'000194',1,48,'118†-†C‚y†Keo',NULL,NULL),(1000,43,'000705',1,48,'18†-†C‚y†keo',NULL,NULL),(1001,43,'000810',1,48,'180 - Thạch Lam',NULL,NULL),(1004,43,'000790',1,48,'49/56/106 - Trịnh Đình Trọng',NULL,NULL),(1009,43,'000781',1,48,'248 - Khuông Việt',NULL,NULL),(1010,43,'000212',1,48,'Thy - Chợ Phường 18',NULL,NULL),(1011,43,'000690',1,48,'202/45 - Tô Hiệu',NULL,NULL),(1013,43,'000213',1,48,'27A - Văn Cao',NULL,NULL),(1014,43,'000198',1,48,'106 - Huỳnh Thiện Lộc',NULL,NULL),(1015,43,'000197',1,48,'83/72 - Vườn Lài',NULL,NULL),(1020,43,'000190',1,48,'18KC - Thọai Ngọc Hầu',NULL,NULL),(1021,43,'000184',1,48,'181 - Hương Lộ 14',NULL,NULL),(1032,52,'000550',1,36,'243 Nguyễn Xí , F26 , Bình Thạnh',NULL,NULL),(1034,52,'000047',1,36,'174/2 Chu Văn An , F12 , Bình Thạnh',NULL,NULL),(1046,52,'000295',1,36,'125 Hoàng Hoa Thám , F6 , Bình Thạnh',NULL,NULL),(1048,52,'000288',1,36,'154 Chợ Bà Chiểu , F1 , Bình Thạnh',NULL,NULL),(1050,52,'000649',1,36,'280/4 Bùi Hữu Nghĩa , F2 , Bình Thạnh',NULL,NULL),(1054,52,'000512',1,36,'411 Lê Quang Định , F5 , Bình Thạnh',NULL,NULL),(1064,52,'000704',1,36,'125/14 Bùi Đình Túy , F11 , Bình Thạnh',NULL,NULL),(1066,52,'000710',1,36,'153/50 Quốc Lộ 13',NULL,NULL),(1069,52,'000294',1,36,'594 Chợ Bà Chiểu , F1 , Bình Thạnh',NULL,NULL),(1072,53,'000642',1,49,'A1, Tháp Mười, Phường 02, Quận 6, HCM, ',NULL,NULL),(1075,53,'000638',1,49,'16A, Lê Quang Sung, Phường 02, Quận 6, HCM, ',NULL,NULL),(1079,53,'000556',1,49,'78A3, Cao Văn Lâu, Phường 02, Quận 6, HCM, ',NULL,NULL),(1086,53,'000673',1,49,'số 5 đường số 3, ',NULL,NULL),(1089,53,'000086',1,49,'63 -Tân Hòa Đông',NULL,NULL),(1093,53,'000494',1,49,'655, Chợ Bình Tây, Phường 02, Quận 6, HCM, ',NULL,NULL),(1105,53,'000501',1,49,'651, Chợ Bình Tây, Phường 02, Quận 6, HCM, ',NULL,NULL),(1106,53,'000499',1,49,'658, CHỢ BÌNH TÂY, Phường 02, Quận 6, HCM, ',NULL,NULL),(1114,53,'000682',1,49,'95 Phan Văn Khỏe',NULL,NULL),(1119,53,'000616',1,49,'243, Bình Tiên, Phường 08, Quận 6, HCM, ',NULL,NULL),(1122,53,'000578',1,49,'301, Nguyễn Thị Nhỏ, Phường 02, Quận 6, HCM, ',NULL,NULL),(1129,53,'000575',1,49,'303, Nguyễn Thị Nhỏ, phường 16, Quận 11, HCM, ',NULL,NULL),(1133,53,'000373',1,49,'135, Minh Phụng, Phường 09, Quận 6, HCM, ',NULL,NULL),(1137,55,'000078',1,51,' I5  - Chợ Kiến Đức',NULL,NULL),(1139,55,'000106',1,51,'88 - Đất Mới',NULL,NULL),(1143,55,'000351',1,51,'278 - Lê Đình Cẩn',NULL,NULL),(1153,55,'000109',1,51,'346 - Đất Mới',NULL,NULL),(1159,55,'000214',1,51,'174 - Đường Số 7A',NULL,NULL),(1160,55,'000233',1,51,'171 - GÚ Xo‡i',NULL,NULL),(1161,55,'000234',1,51,'217 - GÚ Xo‡i',NULL,NULL),(1166,55,'000287',1,51,'736 - Hương lộ 2',NULL,NULL),(1167,55,'000363',1,51,'762 - Lê Trọng Tấn',NULL,NULL),(1169,55,'000382',1,51,'319A  - Lê Văn Quới',NULL,NULL),(1178,55,'000415',1,51,'424 - M„ LÚ',NULL,NULL),(1179,22,'000517',1,52,'8/7, Lê Văn Lương, Nhơn Đức, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1180,22,'000537',1,52,'8/10, Lê Văn Lương, Nhơn Đức, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1182,22,'000726',1,52,'77, Lê Văn Lương, Nhơn Đức, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1183,22,'000549',1,52,'525, Nguyễn Văn Tạo, Long Thới, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1184,22,'000546',1,52,'114, Nguyễn Văn Tạo, Long Hậu, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1192,22,'000515',1,52,'17/7, Nguyễn Bình, Phú Xuân, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1194,22,'000526',1,52,'18, Lê Văn Lương, Phước Kiển, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1195,22,'000535',1,52,'157, Lê Văn Lương, Phước Kiển, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1197,22,'000511',1,52,'119, Lê Văn Lương, Phước Kiển, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1201,22,'000743',1,52,'71, Lê Văn Lương, Phước Kiển, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1207,22,'000842',1,52,'23/4, Huỳnh Tấn Phát, Phú Xuân, Nhà Bè, Hồ Chí Minh, ',NULL,NULL),(1208,22,'000941',1,52,'56/5C-Huynh Tan Phat',NULL,NULL),(1210,22,'000883',1,52,'Ngọc Loan - Binh Khánh',NULL,NULL),(1211,22,'000910',1,52,'Bảy Mai -Binh khánh',NULL,NULL),(1212,22,'000587',1,52,'339, Rừng Sác, Bình Khánh, Cần Giờ, Hồ Chí Minh, ',NULL,NULL),(1216,22,'001011',1,52,'Ngọc Mai -An Nghĩa',NULL,NULL),(1217,22,'001012',1,52,'Chi Gắng -Chợ An Thới Đông',NULL,NULL),(1218,22,'001014',1,52,'Phương Nam -Tam Thôn Hiệp',NULL,NULL);
+/*!40000 ALTER TABLE `Outlet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletAuditPicture`
+--
+
+DROP TABLE IF EXISTS `OutletAuditPicture`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletAuditPicture` (
+  `OutletAuditPicture` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) NOT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  `Path` varchar(255) NOT NULL,
+  PRIMARY KEY (`OutletAuditPicture`),
+  KEY `FK_OutletAuditPicture_OAR` (`OutletAuditResultID`),
+  CONSTRAINT `FK_OutletAuditPicture_OAR` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletAuditPicture`
+--
+
+LOCK TABLES `OutletAuditPicture` WRITE;
+/*!40000 ALTER TABLE `OutletAuditPicture` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OutletAuditPicture` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletAuditResult`
+--
+
+DROP TABLE IF EXISTS `OutletAuditResult`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletAuditResult` (
+  `OutletAuditResultID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `AuditorOutletTaskID` bigint(20) NOT NULL,
+  `AuditDate` datetime NOT NULL,
+  `SubmittedDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `GPSLatitude` float DEFAULT NULL,
+  `GPSLongtitude` float DEFAULT NULL,
+  PRIMARY KEY (`OutletAuditResultID`),
+  KEY `FK_OutletAuditResult_OAT` (`AuditorOutletTaskID`),
+  CONSTRAINT `FK_OutletAuditResult_OAT` FOREIGN KEY (`AuditorOutletTaskID`) REFERENCES `AuditorOutletTask` (`AuditorOutletTaskID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletAuditResult`
+--
+
+LOCK TABLES `OutletAuditResult` WRITE;
+/*!40000 ALTER TABLE `OutletAuditResult` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OutletAuditResult` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletBrand`
+--
+
+DROP TABLE IF EXISTS `OutletBrand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletBrand` (
+  `OutletBrandID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`OutletBrandID`),
+  UNIQUE KEY `Name_UNIQUE` (`Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletBrand`
+--
+
+LOCK TABLES `OutletBrand` WRITE;
+/*!40000 ALTER TABLE `OutletBrand` DISABLE KEYS */;
+INSERT INTO `OutletBrand` VALUES (2,'Dutch Lady IFT'),(1,'Friso');
+/*!40000 ALTER TABLE `OutletBrand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletDistributionRegistered`
+--
+
+DROP TABLE IF EXISTS `OutletDistributionRegistered`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletDistributionRegistered` (
+  `OutletDistributionRegisteredID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletID` bigint(20) NOT NULL,
+  `Friso` int(11) DEFAULT NULL,
+  `DutchLady` int(11) DEFAULT NULL,
+  PRIMARY KEY (`OutletDistributionRegisteredID`),
+  KEY `FK_OutletDistributionReg_Outlet` (`OutletID`),
+  CONSTRAINT `FK_OutletDistributionReg_Outlet` FOREIGN KEY (`OutletID`) REFERENCES `Outlet` (`OutletID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletDistributionRegistered`
+--
+
+LOCK TABLES `OutletDistributionRegistered` WRITE;
+/*!40000 ALTER TABLE `OutletDistributionRegistered` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OutletDistributionRegistered` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletDistributionRegisteredHistory`
+--
+
+DROP TABLE IF EXISTS `OutletDistributionRegisteredHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletDistributionRegisteredHistory` (
+  `OutletDistributionRegisteredHistoryID` bigint(20) NOT NULL,
+  `OutletID` bigint(20) NOT NULL,
+  `Friso` int(11) DEFAULT NULL,
+  `DutchLady` int(11) DEFAULT NULL,
+  `EffectiveDate` datetime DEFAULT NULL,
+  `ExpiredDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`OutletDistributionRegisteredHistoryID`),
+  KEY `FK_OutletDistributionRegHistory_Outlet` (`OutletID`),
+  CONSTRAINT `FK_OutletDistributionRegHistory_Outlet` FOREIGN KEY (`OutletID`) REFERENCES `Outlet` (`OutletID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletDistributionRegisteredHistory`
+--
+
+LOCK TABLES `OutletDistributionRegisteredHistory` WRITE;
+/*!40000 ALTER TABLE `OutletDistributionRegisteredHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OutletDistributionRegisteredHistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletPOSM`
+--
+
+DROP TABLE IF EXISTS `OutletPOSM`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletPOSM` (
+  `OutletPOSMID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(45) NOT NULL,
+  `Active` tinyint(4) DEFAULT NULL,
+  `OutletBrandID` bigint(20) NOT NULL,
+  PRIMARY KEY (`OutletPOSMID`),
+  UNIQUE KEY `FrisoCode_UNIQUE` (`Code`),
+  KEY `FK_OutletPOSM_OBrand` (`OutletBrandID`),
+  CONSTRAINT `FK_OutletPOSM_OBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `OutletBrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletPOSM`
+--
+
+LOCK TABLES `OutletPOSM` WRITE;
+/*!40000 ALTER TABLE `OutletPOSM` DISABLE KEYS */;
+INSERT INTO `OutletPOSM` VALUES (1,'FR-H','Miếng treo',1,1),(2,'DL-H','Miếng treo',1,2),(3,'FR-W','Miếng gắn kệ',1,1),(4,'DL-W','Miếng gắn kệ',1,2),(5,'FR-MS','Miếng dán nam châm',1,1),(6,'DL-MS','Miếng dán nam châm',1,2),(7,'FR-SF','Khung trưng bày',1,1),(8,'DL-SF','Khung trưng bày',1,2),(9,'FR-DB','Hộp trưng bày',1,1),(10,'DL-DB','Hộp trưng bày',1,2),(11,'FR-TP','Tờ trưng bày bán hàng',1,1),(12,'DL-TP','Tờ trưng bày bán hàng',1,2),(13,'FR-ST','Miếng dán kệ',1,1),(14,'DL-ST','Miếng dán kệ',1,2),(15,'FR-L','Tờ rơi',1,1),(16,'DL-L','Tờ rơi',1,2),(17,'FR-MU','Mô hình trưng bày',1,1),(18,'DL-MU','Mô hình trưng bày',1,2);
+/*!40000 ALTER TABLE `OutletPOSM` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `OutletPOSMHistory`
+--
+
+DROP TABLE IF EXISTS `OutletPOSMHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `OutletPOSMHistory` (
+  `OutletPOSMHistoryID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletPOSMID` bigint(20) NOT NULL,
+  `Active` tinyint(4) DEFAULT NULL,
+  `EffectiveDate` datetime DEFAULT NULL,
+  `ExpiredDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`OutletPOSMHistoryID`),
+  KEY `FK_OutletPOSMHistory_OutletPOSM` (`OutletPOSMID`),
+  CONSTRAINT `FK_OutletPOSMHistory_OutletPOSM` FOREIGN KEY (`OutletPOSMID`) REFERENCES `OutletPOSM` (`OutletPOSMID`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `OutletPOSMHistory`
+--
+
+LOCK TABLES `OutletPOSMHistory` WRITE;
+/*!40000 ALTER TABLE `OutletPOSMHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `OutletPOSMHistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PackingGroup`
+--
+
+DROP TABLE IF EXISTS `PackingGroup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PackingGroup` (
+  `PackingGroupID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SOSBrandID` bigint(20) NOT NULL,
+  `Size` float NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`PackingGroupID`),
+  KEY `FK_PackingGroup_SOSBrand` (`SOSBrandID`),
+  CONSTRAINT `FK_PackingGroup_SOSBrand` FOREIGN KEY (`SOSBrandID`) REFERENCES `SOSBrand` (`SOSBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PackingGroup`
+--
+
+LOCK TABLES `PackingGroup` WRITE;
+/*!40000 ALTER TABLE `PackingGroup` DISABLE KEYS */;
+INSERT INTO `PackingGroup` VALUES (1,1,21.5,'Lốc 110ml'),(2,1,21.5,'Lốc 180ml'),(3,1,9.5,'Hộp 1Lít'),(4,1,10,'Bịch 200ml'),(5,1,26,'Thùng 110ml/180ml/200ml'),(6,1,20,'Thùng 1Lít'),(7,2,21.5,'Lốc 110ml'),(8,2,21.5,'Lốc 170ml'),(9,2,15.5,'Lốc 80ml'),(10,2,26,'Thùng 80/110/170ml'),(11,3,7.5,'Lon 380g'),(12,3,30,'Thùng 380g'),(13,4,21.5,'Lốc 110ml'),(14,4,21.5,'Lốc 180ml'),(15,4,14,'IMP Hộp giấy'),(16,4,9,'IMP Hủ/Jar'),(17,5,10.5,'Lon 400g'),(18,5,13.5,'Lon 900g'),(19,5,16,'Lon 1.5kg'),(20,5,14,'Hộp giấy 400g'),(21,5,22,'Hộp giấy 1.6kg'),(22,5,27,'Hộp giấy 2kg');
+/*!40000 ALTER TABLE `PackingGroup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PowerSKU`
+--
+
+DROP TABLE IF EXISTS `PowerSKU`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PowerSKU` (
+  `PowerSKUID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletBrandID` bigint(20) NOT NULL COMMENT 'The product group: Friso or Dutch Lady',
+  `Name` varchar(255) NOT NULL,
+  `DisplayOrder` int(11) DEFAULT NULL,
+  PRIMARY KEY (`PowerSKUID`),
+  KEY `FK_PowerSKU_OBrand` (`OutletBrandID`),
+  CONSTRAINT `FK_PowerSKU_OBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `OutletBrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PowerSKU`
+--
+
+LOCK TABLES `PowerSKU` WRITE;
+/*!40000 ALTER TABLE `PowerSKU` DISABLE KEYS */;
+INSERT INTO `PowerSKU` VALUES (1,1,'Friso Gold Mum',1),(2,1,'Friso Gold 1',2),(3,1,'Friso Gold 2',3),(4,1,'Friso Gold 3',4),(5,2,'Dutch Lady Mum',1),(6,2,'Dutch Lady Regular Step 1',2),(7,2,'Dutch Lady Regular Step 2',3),(8,2,'Dutch Lady Regular 456',5),(9,2,'Dutch Lady Regular 123',4);
+/*!40000 ALTER TABLE `PowerSKU` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Product`
+--
+
+DROP TABLE IF EXISTS `Product`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Product` (
+  `ProductID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `Size` varchar(45) DEFAULT NULL,
+  `ProductGroupID` bigint(20) DEFAULT NULL,
+  `ProductBrandID` bigint(20) NOT NULL,
+  PRIMARY KEY (`ProductID`),
+  KEY `FK_Product_ProductGroup` (`ProductGroupID`),
+  KEY `FK_Product_ProductBrand` (`ProductBrandID`),
+  CONSTRAINT `FK_Product_ProductBrand` FOREIGN KEY (`ProductBrandID`) REFERENCES `ProductBrand` (`ProductBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Product_ProductGroup` FOREIGN KEY (`ProductGroupID`) REFERENCES `ProductGroup` (`ProductGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Product`
+--
+
+LOCK TABLES `Product` WRITE;
+/*!40000 ALTER TABLE `Product` DISABLE KEYS */;
+INSERT INTO `Product` VALUES (1,'IMP DL 400gr',NULL,NULL,1),(2,'IMP DL 900gr',NULL,NULL,1),(3,'IMP BIB 400gr',NULL,NULL,1),(4,'Step 1 400gr',NULL,NULL,1),(5,'Step 1 900gr',NULL,NULL,1),(6,'Step 2 400gr',NULL,NULL,1),(7,'Step 2 900gr',NULL,NULL,1),(8,'IMP 123 400gr',NULL,NULL,1),(9,'IMP 123 900gr',NULL,NULL,1),(10,'IMP 123 1500gr',NULL,NULL,1),(11,'IMP 123 2000gr',NULL,NULL,1),(12,'IMP 123 BIB',NULL,NULL,1),(13,'IMP 456 900gr',NULL,NULL,1),(14,'IMP 456 1500gr',NULL,NULL,1),(15,'IMP 456 2000gr',NULL,NULL,1),(16,'IMP 456 BIB',NULL,NULL,1),(17,'DL MUM 400gr',NULL,NULL,1),(18,'DL MUM 900gr',NULL,NULL,1),(19,'DL Gold Step 1 400gr',NULL,NULL,2),(20,'DL Gold Step 1 900gr',NULL,NULL,2),(21,'DL Gold Step 2 400gr',NULL,NULL,2),(22,'DL Gold Step 2 900gr',NULL,NULL,2),(23,'DL123 Gold 900gr',NULL,NULL,2),(24,'DL123 Gold 1500gr',NULL,NULL,2),(25,'DL123 Gold 2000gr',NULL,NULL,2),(26,'DL456 Gold 900gr',NULL,NULL,2),(27,'DL456 Gold 1500gr',NULL,NULL,2),(28,'Friso 1-900gr',NULL,NULL,3),(29,'Friso 2-900gr',NULL,NULL,3),(30,'Friso 3-900gr',NULL,NULL,3),(31,'Friso 3-1500gr',NULL,NULL,3),(32,'Friso 4-900gr',NULL,NULL,3),(33,'Friso 1 Gold 400gr',NULL,NULL,4),(34,'Friso 1 Gold 900gr',NULL,NULL,4),(35,'Friso 2 Gold 400gr',NULL,NULL,4),(36,'Friso 2 Gold 900gr',NULL,NULL,4),(37,'Friso 3 Gold 400gr',NULL,NULL,4),(38,'Friso 3 Gold 900gr',NULL,NULL,4),(39,'Friso3 Gold 1500gr',NULL,NULL,4),(40,'Friso 4 Gold 900gr',NULL,NULL,4),(41,'Friso 4 Gold 1500gr',NULL,NULL,4),(42,'Friso Gold Mum vani 400gr',NULL,NULL,4),(43,'Friso Gold Mum Ora 400gr',NULL,NULL,4),(44,'Friso Gold Mum vani 900gr',NULL,NULL,4),(45,'Friso Gold Mum Ora 900gr',NULL,NULL,4),(46,'SCM EXC',NULL,NULL,5),(47,'SCM NUTRI',NULL,NULL,5),(48,'SCM WTS',NULL,NULL,5),(49,'SCM COMP',NULL,NULL,5),(50,'UHT 110ml Vani',NULL,NULL,6),(51,'UHT 110ml Choco',NULL,NULL,6),(52,'UHT 110ml Straw',NULL,NULL,6),(53,'UHT Sweet 180ml',NULL,NULL,6),(54,'UHT Choco 180ml',NULL,NULL,6),(55,'UHT Straw 180ml',NULL,NULL,6),(56,'UHT 180ml Plain',NULL,NULL,6),(57,'UHT 1L Plain',NULL,NULL,6),(58,'UHT 1L Sweet',NULL,NULL,6),(59,'FINO Plain',NULL,NULL,6),(60,'FINO Sweet',NULL,NULL,6),(61,'FINO Straw',NULL,NULL,6),(62,'DKY. Straw 110ml',NULL,NULL,7),(63,'DKY. Ora 110ml',NULL,NULL,7),(64,'YO. Straw 170ml',NULL,NULL,7),(65,'YO. Ora 170ml',NULL,NULL,7),(66,'YO. Plain 170ml',NULL,NULL,7),(67,'YO. Pomegranate 170ml',NULL,NULL,7),(68,'YO. Seabuckthorn 170ml',NULL,NULL,7),(69,'YO. Peach 170ml',NULL,NULL,7),(70,'Fristi Straw 80ml',NULL,NULL,7),(71,'Fristi Grape 80ml',NULL,NULL,7),(72,'Fristi Orange 80ml',NULL,NULL,7),(73,'Fristi Mixed Fruit 80ml',NULL,NULL,7),(74,'Oval Jar 400gr',NULL,NULL,8),(75,'Oval Bib 285gr',NULL,NULL,8),(76,'Oval 3 in 1',NULL,NULL,8),(77,'Oval Swiss Choco Malt 260g',NULL,NULL,8),(78,'Oval Supreme Choco 300g',NULL,NULL,8),(79,'UHT Oval 110ml',NULL,NULL,8),(80,'UHT Oval 180ml',NULL,NULL,8);
+/*!40000 ALTER TABLE `Product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ProductBrand`
+--
+
+DROP TABLE IF EXISTS `ProductBrand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ProductBrand` (
+  `ProductBrandID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `BrandGroupID` bigint(20) NOT NULL,
+  PRIMARY KEY (`ProductBrandID`),
+  UNIQUE KEY `UQ_ProductBrand` (`Name`),
+  KEY `FK_ProductBrand_BrandGroup` (`BrandGroupID`),
+  CONSTRAINT `FK_ProductBrand_BrandGroup` FOREIGN KEY (`BrandGroupID`) REFERENCES `BrandGroup` (`BrandGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ProductBrand`
+--
+
+LOCK TABLES `ProductBrand` WRITE;
+/*!40000 ALTER TABLE `ProductBrand` DISABLE KEYS */;
+INSERT INTO `ProductBrand` VALUES (1,'DL REGULAR',1),(2,'DL GOLD',1),(3,'FRISO REGULAR',1),(4,'FRISO GOLD',1),(5,'SCM  ',2),(6,'UHT',2),(7,'DKY',2),(8,'TFD',2);
+/*!40000 ALTER TABLE `ProductBrand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ProductGroup`
+--
+
+DROP TABLE IF EXISTS `ProductGroup`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ProductGroup` (
+  `ProductGroupID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  `Code` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ProductGroupID`),
+  UNIQUE KEY `UQ_ProductGroup` (`Code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ProductGroup`
+--
+
+LOCK TABLES `ProductGroup` WRITE;
+/*!40000 ALTER TABLE `ProductGroup` DISABLE KEYS */;
+INSERT INTO `ProductGroup` VALUES (1,'Friso Gold','Friso'),(2,'Dutch Lady IFT','DLIFT');
+/*!40000 ALTER TABLE `ProductGroup` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Promotion`
+--
+
+DROP TABLE IF EXISTS `Promotion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Promotion` (
+  `PromotionID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `PromotionTypeID` bigint(20) NOT NULL,
+  `EffectiveDate` datetime DEFAULT NULL,
+  `ExpireDate` datetime DEFAULT NULL,
+  `BuyQuantity` int(11) DEFAULT NULL,
+  `BuyUnitID` bigint(20) NOT NULL,
+  `BuyProductID` bigint(20) DEFAULT NULL,
+  `GetQuantity` bigint(20) DEFAULT NULL,
+  `GetUnitID` bigint(20) DEFAULT NULL,
+  `ProductID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`PromotionID`),
+  UNIQUE KEY `Code_UNIQUE` (`Code`),
+  KEY `FK_Promotion_BuyUnit` (`BuyUnitID`),
+  KEY `FK_Promotion_BuyProduct` (`BuyProductID`),
+  KEY `FK_Promotion_GetUnit` (`GetUnitID`),
+  KEY `FK_Promotion_GetProduct` (`ProductID`),
+  KEY `FK_Promotion_PromotionType` (`PromotionTypeID`),
+  CONSTRAINT `FK_Promotion_BuyProduct` FOREIGN KEY (`BuyProductID`) REFERENCES `Product` (`ProductID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_BuyUnit` FOREIGN KEY (`BuyUnitID`) REFERENCES `Unit` (`UnitID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_GetProduct` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_GetUnit` FOREIGN KEY (`GetUnitID`) REFERENCES `Unit` (`UnitID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Promotion_PromotionType` FOREIGN KEY (`PromotionTypeID`) REFERENCES `PromotionType` (`PromotionTypeID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Promotion`
+--
+
+LOCK TABLES `Promotion` WRITE;
+/*!40000 ALTER TABLE `Promotion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Promotion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PromotionProductToHandheld`
+--
+
+DROP TABLE IF EXISTS `PromotionProductToHandheld`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PromotionProductToHandheld` (
+  `PromotionProductToHandheldID` int(11) NOT NULL AUTO_INCREMENT,
+  `PromotionID` bigint(20) NOT NULL,
+  `ProductID` bigint(20) NOT NULL,
+  PRIMARY KEY (`PromotionProductToHandheldID`),
+  UNIQUE KEY `UQ_PromotionProductToHandheld` (`PromotionID`,`ProductID`),
+  KEY `FK_PromotionProductToHandheld_Promotion` (`PromotionID`),
+  KEY `FK_PromotionProductToHandheld_Product` (`ProductID`),
+  CONSTRAINT `FK_PromotionProductToHandheld_Product` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_PromotionProductToHandheld_Promotion` FOREIGN KEY (`PromotionID`) REFERENCES `Promotion` (`PromotionID`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PromotionProductToHandheld`
+--
+
+LOCK TABLES `PromotionProductToHandheld` WRITE;
+/*!40000 ALTER TABLE `PromotionProductToHandheld` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PromotionProductToHandheld` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PromotionScope`
+--
+
+DROP TABLE IF EXISTS `PromotionScope`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PromotionScope` (
+  `PromotionScopeID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `PromotionID` bigint(20) NOT NULL,
+  `RegionID` bigint(20) NOT NULL,
+  PRIMARY KEY (`PromotionScopeID`),
+  UNIQUE KEY `UQ_PromotionScope` (`PromotionID`,`RegionID`),
+  KEY `FK_PromotionScope_Promotion` (`PromotionID`),
+  KEY `FK_PromotionScope_Region` (`RegionID`),
+  CONSTRAINT `FK_PromotionScope_Promotion` FOREIGN KEY (`PromotionID`) REFERENCES `Promotion` (`PromotionID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_PromotionScope_Region` FOREIGN KEY (`RegionID`) REFERENCES `Region` (`RegionID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PromotionScope`
+--
+
+LOCK TABLES `PromotionScope` WRITE;
+/*!40000 ALTER TABLE `PromotionScope` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PromotionScope` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `PromotionType`
+--
+
+DROP TABLE IF EXISTS `PromotionType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `PromotionType` (
+  `PromotionTypeID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Type` varchar(255) NOT NULL,
+  PRIMARY KEY (`PromotionTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PromotionType`
+--
+
+LOCK TABLES `PromotionType` WRITE;
+/*!40000 ALTER TABLE `PromotionType` DISABLE KEYS */;
+INSERT INTO `PromotionType` VALUES (1,'Discount'),(2,'Rebate'),(3,'Display'),(4,'Mix');
+/*!40000 ALTER TABLE `PromotionType` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Region`
+--
+
+DROP TABLE IF EXISTS `Region`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Region` (
+  `RegionID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`RegionID`),
+  UNIQUE KEY `Name_UNIQUE` (`Name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Region`
+--
+
+LOCK TABLES `Region` WRITE;
+/*!40000 ALTER TABLE `Region` DISABLE KEYS */;
+INSERT INTO `Region` VALUES (1,'Hồ Chí Minh'),(2,'Đà Nẵng');
+/*!40000 ALTER TABLE `Region` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SARPosm`
+--
+
+DROP TABLE IF EXISTS `SARPosm`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SARPosm` (
+  `SARPosmID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreAuditResultID` bigint(20) NOT NULL,
+  `StorePOSM` bigint(20) NOT NULL,
+  `Has` tinyint(4) NOT NULL,
+  PRIMARY KEY (`SARPosmID`),
+  UNIQUE KEY `UQ_SARPosm` (`StoreAuditResultID`,`StorePOSM`),
+  KEY `FK_SARPosm_SAR` (`StoreAuditResultID`),
+  KEY `FK_SARPosm_StorePOSM` (`StorePOSM`),
+  CONSTRAINT `FK_SARPosm_SAR` FOREIGN KEY (`StoreAuditResultID`) REFERENCES `StoreAuditResult` (`StoreAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARPosm_StorePOSM` FOREIGN KEY (`StorePOSM`) REFERENCES `StorePOSM` (`StorePOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SARPosm`
+--
+
+LOCK TABLES `SARPosm` WRITE;
+/*!40000 ALTER TABLE `SARPosm` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SARPosm` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SARRegisterProduct`
+--
+
+DROP TABLE IF EXISTS `SARRegisterProduct`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SARRegisterProduct` (
+  `SARRegisterProductID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreAuditResultID` bigint(20) NOT NULL,
+  `ProductID` bigint(20) NOT NULL,
+  `Has` tinyint(4) NOT NULL,
+  PRIMARY KEY (`SARRegisterProductID`),
+  UNIQUE KEY `UQ_SARRegisterProduct` (`StoreAuditResultID`,`ProductID`),
+  KEY `FK_SARRegisterProduct_SAR` (`StoreAuditResultID`),
+  KEY `FK_SARRegisterProduct_Product` (`ProductID`),
+  CONSTRAINT `FK_SARRegisterProduct_Product` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARRegisterProduct_SAR` FOREIGN KEY (`StoreAuditResultID`) REFERENCES `StoreAuditResult` (`StoreAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SARRegisterProduct`
+--
+
+LOCK TABLES `SARRegisterProduct` WRITE;
+/*!40000 ALTER TABLE `SARRegisterProduct` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SARRegisterProduct` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SARSBrandLocation`
+--
+
+DROP TABLE IF EXISTS `SARSBrandLocation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SARSBrandLocation` (
+  `SARSBrandLocationID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreAuditResultID` bigint(20) NOT NULL,
+  `BrandID` bigint(20) NOT NULL,
+  `Has` tinyint(4) DEFAULT NULL,
+  `Right` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`SARSBrandLocationID`),
+  UNIQUE KEY `UQ_ SARSBrandLocation` (`StoreAuditResultID`,`BrandID`),
+  KEY `FK_ SARSBrandLocation_SAR` (`StoreAuditResultID`),
+  KEY `FK_SARSBrandLocation_Brand` (`BrandID`),
+  CONSTRAINT `FK_ SARSBrandLocation_SAR` FOREIGN KEY (`StoreAuditResultID`) REFERENCES `StoreAuditResult` (`StoreAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARSBrandLocation_Brand` FOREIGN KEY (`BrandID`) REFERENCES `Brand` (`BrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SARSBrandLocation`
+--
+
+LOCK TABLES `SARSBrandLocation` WRITE;
+/*!40000 ALTER TABLE `SARSBrandLocation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SARSBrandLocation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SARShareOfDisplay`
+--
+
+DROP TABLE IF EXISTS `SARShareOfDisplay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SARShareOfDisplay` (
+  `SARShareOfDisplayID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreAuditResultID` bigint(20) NOT NULL,
+  `BrandGroupID` bigint(20) NOT NULL,
+  `FCVSS` int(11) DEFAULT NULL,
+  `FCVGE` int(11) DEFAULT NULL,
+  `FCVOther` int(11) DEFAULT NULL,
+  `StoreSS` int(11) DEFAULT NULL,
+  `StoreGE` int(11) DEFAULT NULL,
+  `StoreOther` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SARShareOfDisplayID`),
+  UNIQUE KEY `UQ_SARShareOfDisplay` (`StoreAuditResultID`,`BrandGroupID`),
+  KEY `FK_SARShareOfDisplay_SAR` (`StoreAuditResultID`),
+  KEY `FK_SARShareOfDisplay_BrandGroup` (`BrandGroupID`),
+  CONSTRAINT `FK_SARShareOfDisplay_BrandGroup` FOREIGN KEY (`BrandGroupID`) REFERENCES `BrandGroup` (`BrandGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARShareOfDisplay_SAR` FOREIGN KEY (`StoreAuditResultID`) REFERENCES `StoreAuditResult` (`StoreAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SARShareOfDisplay`
+--
+
+LOCK TABLES `SARShareOfDisplay` WRITE;
+/*!40000 ALTER TABLE `SARShareOfDisplay` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SARShareOfDisplay` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SARShareOfShelf`
+--
+
+DROP TABLE IF EXISTS `SARShareOfShelf`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SARShareOfShelf` (
+  `SARShareOfShelfID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreAuditResultID` bigint(20) NOT NULL,
+  `PackingGroupID` bigint(20) NOT NULL,
+  `Quatity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SARShareOfShelfID`),
+  UNIQUE KEY `UQ_SARShareOfShelf` (`StoreAuditResultID`,`PackingGroupID`),
+  KEY `FK_SARShareOfShelf_SAR` (`StoreAuditResultID`),
+  KEY `FK_SARShareOfShelf_PG` (`PackingGroupID`),
+  CONSTRAINT `FK_SARShareOfShelf_PG` FOREIGN KEY (`PackingGroupID`) REFERENCES `PackingGroup` (`PackingGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_SARShareOfShelf_SAR` FOREIGN KEY (`StoreAuditResultID`) REFERENCES `StoreAuditResult` (`StoreAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SARShareOfShelf`
+--
+
+LOCK TABLES `SARShareOfShelf` WRITE;
+/*!40000 ALTER TABLE `SARShareOfShelf` DISABLE KEYS */;
+/*!40000 ALTER TABLE `SARShareOfShelf` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `SOSBrand`
+--
+
+DROP TABLE IF EXISTS `SOSBrand`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SOSBrand` (
+  `SOSBrandID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(255) NOT NULL COMMENT 'Ex: Loc 110ml',
+  `BrandGroupID` bigint(20) NOT NULL,
+  `DisplayOrder` int(11) DEFAULT NULL,
+  PRIMARY KEY (`SOSBrandID`),
+  KEY `FK_SOSBrand_BrandGroup` (`BrandGroupID`),
+  CONSTRAINT `FK_SOSBrand_BrandGroup` FOREIGN KEY (`BrandGroupID`) REFERENCES `BrandGroup` (`BrandGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `SOSBrand`
+--
+
+LOCK TABLES `SOSBrand` WRITE;
+/*!40000 ALTER TABLE `SOSBrand` DISABLE KEYS */;
+INSERT INTO `SOSBrand` VALUES (1,'UHT',2,1),(2,'DKY',2,2),(3,'SCM',2,3),(4,'TFD',2,4),(5,'IFT',1,1);
+/*!40000 ALTER TABLE `SOSBrand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Store`
+--
+
+DROP TABLE IF EXISTS `Store`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Store` (
+  `StoreID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Address` varchar(512) DEFAULT NULL,
+  `RegionID` bigint(20) NOT NULL,
+  `AccountID` bigint(20) NOT NULL,
+  `GPSLatitude` float DEFAULT NULL,
+  `GPSLongtitude` float DEFAULT NULL,
+  PRIMARY KEY (`StoreID`),
+  KEY `FK_Store_Region` (`RegionID`),
+  KEY `FK_Store_Account` (`AccountID`),
+  CONSTRAINT `FK_Store_Account` FOREIGN KEY (`AccountID`) REFERENCES `Account` (`AccountID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Store_Region` FOREIGN KEY (`RegionID`) REFERENCES `Region` (`RegionID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Store`
+--
+
+LOCK TABLES `Store` WRITE;
+/*!40000 ALTER TABLE `Store` DISABLE KEYS */;
+INSERT INTO `Store` VALUES (1,'10','TRUNG TÂM METRO CASH & CARRY AN PHÚ','Khu đô thị mới An Phú – An Khánh, P.An Phú, Q.2, Thành phố Hồ Chí Minh',1,3,NULL,NULL),(4,'11','TRUNG TÂM METRO CASH & CARRY BÌNH PHÚ','Khu dân cư Bình Phú, Phường 10 – 11, Quận 6, Thành phố Hồ Chí Minh',1,3,NULL,NULL),(5,'12','TRUNG TÂM METRO CASH & CARRY HIỆP PHÚ','Phường Tân Thới Hiệp, Quận 12, Thành phố Hồ Chí Minh',1,3,NULL,NULL);
+/*!40000 ALTER TABLE `Store` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `StoreAuditResult`
+--
+
+DROP TABLE IF EXISTS `StoreAuditResult`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `StoreAuditResult` (
+  `StoreAuditResultID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreAuditTaskID` bigint(20) NOT NULL,
+  `AuditedDate` datetime DEFAULT NULL,
+  `SubmittedDate` datetime DEFAULT NULL,
+  `GPSLatitude` float DEFAULT NULL,
+  `GPSLongtitude` float DEFAULT NULL,
+  PRIMARY KEY (`StoreAuditResultID`),
+  KEY `FK_StoreAuditResult_AST` (`StoreAuditTaskID`),
+  CONSTRAINT `FK_StoreAuditResult_AST` FOREIGN KEY (`StoreAuditTaskID`) REFERENCES `AuditorStoreTask` (`AuditorStoreTaskID`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `StoreAuditResult`
+--
+
+LOCK TABLES `StoreAuditResult` WRITE;
+/*!40000 ALTER TABLE `StoreAuditResult` DISABLE KEYS */;
+/*!40000 ALTER TABLE `StoreAuditResult` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `StorePOSM`
+--
+
+DROP TABLE IF EXISTS `StorePOSM`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `StorePOSM` (
+  `StorePOSMID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Code` varchar(45) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Active` tinyint(4) DEFAULT NULL,
+  `BrandGroupID` bigint(20) NOT NULL,
+  PRIMARY KEY (`StorePOSMID`),
+  UNIQUE KEY `DBBCode_UNIQUE` (`Code`),
+  KEY `FK_StorePOSM_BrandGroup` (`BrandGroupID`),
+  CONSTRAINT `FK_StorePOSM_BrandGroup` FOREIGN KEY (`BrandGroupID`) REFERENCES `BrandGroup` (`BrandGroupID`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `StorePOSM`
+--
+
+LOCK TABLES `StorePOSM` WRITE;
+/*!40000 ALTER TABLE `StorePOSM` DISABLE KEYS */;
+INSERT INTO `StorePOSM` VALUES (1,'DBB-TROL','Xe đẩy',1,2),(2,'IMP-TROL','Xe đẩy',1,1),(3,'DBB-HS','Khung trưng bày 1',1,2),(4,'IMP-HS','Khung trưng bày 1',1,1),(5,'DBB-GE','Đầu kệ',1,2),(6,'IMP-GE','Đầu kệ',1,1),(7,'DBB-CROS','Trưng bày tại ngành hàng khác',1,2),(8,'IMP-CROS','Trừng bày tại ngành hàng khác',1,1),(9,'DBB-TSD','Khung trưng bày 2',1,2),(10,'IMP-TSD','Khung trưng bày 2',1,1),(11,'DBB-WOB','Miếng quảng cáo',1,2),(12,'IMP-WOB','Miếng quảng cáo',1,1),(13,'DBB-ON SH','Khung trưng bày 3',1,2),(14,'IMP-ON SH','Khung trưng bày 3',1,1),(15,'DBB-LIG DIVI','Hộp đèn và vách ngăn kệ',1,2),(16,'IMP-LIH DIVI','Hộp đèn và vách ngăn kệ',1,1),(17,'DBB-SG','Cổng từ',1,2),(18,'IMP-SG','Cổng từ',1,1);
+/*!40000 ALTER TABLE `StorePOSM` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `StorePOSMHistory`
+--
+
+DROP TABLE IF EXISTS `StorePOSMHistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `StorePOSMHistory` (
+  `StorePOSMHistory` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StorePOSMID` bigint(20) NOT NULL,
+  `Active` tinyint(4) DEFAULT NULL,
+  `EffectiveDate` datetime DEFAULT NULL,
+  `ExpiredDate` datetime DEFAULT NULL,
+  PRIMARY KEY (`StorePOSMHistory`),
+  KEY `FK_StorePOSMHistory_POSM` (`StorePOSMID`),
+  CONSTRAINT `FK_StorePOSMHistory_POSM` FOREIGN KEY (`StorePOSMID`) REFERENCES `StorePOSM` (`StorePOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `StorePOSMHistory`
+--
+
+LOCK TABLES `StorePOSMHistory` WRITE;
+/*!40000 ALTER TABLE `StorePOSMHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `StorePOSMHistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `StoreRegisteredProduct`
+--
+
+DROP TABLE IF EXISTS `StoreRegisteredProduct`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `StoreRegisteredProduct` (
+  `StoreRegisteredProductID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreID` bigint(20) NOT NULL,
+  `ProductID` bigint(20) NOT NULL,
+  PRIMARY KEY (`StoreRegisteredProductID`),
+  UNIQUE KEY `UQ_StoreRegisteredProduct` (`StoreID`,`ProductID`),
+  KEY `FK_StoreProduct_Store` (`StoreID`),
+  KEY `FK_StoreProduct_Product` (`ProductID`),
+  CONSTRAINT `FK_StoreProduct_Product` FOREIGN KEY (`ProductID`) REFERENCES `Product` (`ProductID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreProduct_Store` FOREIGN KEY (`StoreID`) REFERENCES `Store` (`StoreID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=241 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `StoreRegisteredProduct`
+--
+
+LOCK TABLES `StoreRegisteredProduct` WRITE;
+/*!40000 ALTER TABLE `StoreRegisteredProduct` DISABLE KEYS */;
+INSERT INTO `StoreRegisteredProduct` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,1,6),(7,1,7),(8,1,8),(9,1,9),(10,1,10),(11,1,11),(12,1,12),(13,1,13),(14,1,14),(15,1,15),(16,1,16),(17,1,17),(18,1,18),(19,1,19),(20,1,20),(21,1,21),(22,1,22),(23,1,23),(24,1,24),(25,1,25),(26,1,26),(27,1,27),(28,1,28),(29,1,29),(30,1,30),(31,1,31),(32,1,32),(33,1,33),(34,1,34),(35,1,35),(36,1,36),(37,1,37),(38,1,38),(39,1,39),(40,1,40),(41,1,41),(42,1,42),(43,1,43),(44,1,44),(45,1,45),(46,1,46),(47,1,47),(48,1,48),(49,1,49),(50,1,50),(51,1,51),(52,1,52),(53,1,53),(54,1,54),(55,1,55),(56,1,56),(57,1,57),(58,1,58),(59,1,59),(60,1,60),(61,1,61),(62,1,62),(63,1,63),(64,1,64),(65,1,65),(66,1,66),(67,1,67),(68,1,68),(69,1,69),(70,1,70),(71,1,71),(72,1,72),(73,1,73),(74,1,74),(75,1,75),(76,1,76),(77,1,77),(78,1,78),(79,1,79),(80,1,80),(81,4,1),(82,4,2),(83,4,3),(84,4,4),(85,4,5),(86,4,6),(87,4,7),(88,4,8),(89,4,9),(90,4,10),(91,4,11),(92,4,12),(93,4,13),(94,4,14),(95,4,15),(96,4,16),(97,4,17),(98,4,18),(99,4,19),(100,4,20),(101,4,21),(102,4,22),(103,4,23),(104,4,24),(105,4,25),(106,4,26),(107,4,27),(108,4,28),(109,4,29),(110,4,30),(111,4,31),(112,4,32),(113,4,33),(114,4,34),(115,4,35),(116,4,36),(117,4,37),(118,4,38),(119,4,39),(120,4,40),(121,4,41),(122,4,42),(123,4,43),(124,4,44),(125,4,45),(126,4,46),(127,4,47),(128,4,48),(129,4,49),(130,4,50),(131,4,51),(132,4,52),(133,4,53),(134,4,54),(135,4,55),(136,4,56),(137,4,57),(138,4,58),(139,4,59),(140,4,60),(141,4,61),(142,4,62),(143,4,63),(144,4,64),(145,4,65),(146,4,66),(147,4,67),(148,4,68),(149,4,69),(150,4,70),(151,4,71),(152,4,72),(153,4,73),(154,4,74),(155,4,75),(156,4,76),(157,4,77),(158,4,78),(159,4,79),(160,4,80),(161,5,1),(162,5,2),(163,5,3),(164,5,4),(165,5,5),(166,5,6),(167,5,7),(168,5,8),(169,5,9),(170,5,10),(171,5,11),(172,5,12),(173,5,13),(174,5,14),(175,5,15),(176,5,16),(177,5,17),(178,5,18),(179,5,19),(180,5,20),(181,5,21),(182,5,22),(183,5,23),(184,5,24),(185,5,25),(186,5,26),(187,5,27),(188,5,28),(189,5,29),(190,5,30),(191,5,31),(192,5,32),(193,5,33),(194,5,34),(195,5,35),(196,5,36),(197,5,37),(198,5,38),(199,5,39),(200,5,40),(201,5,41),(202,5,42),(203,5,43),(204,5,44),(205,5,45),(206,5,46),(207,5,47),(208,5,48),(209,5,49),(210,5,50),(211,5,51),(212,5,52),(213,5,53),(214,5,54),(215,5,55),(216,5,56),(217,5,57),(218,5,58),(219,5,59),(220,5,60),(221,5,61),(222,5,62),(223,5,63),(224,5,64),(225,5,65),(226,5,66),(227,5,67),(228,5,68),(229,5,69),(230,5,70),(231,5,71),(232,5,72),(233,5,73),(234,5,74),(235,5,75),(236,5,76),(237,5,77),(238,5,78),(239,5,79),(240,5,80);
+/*!40000 ALTER TABLE `StoreRegisteredProduct` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `StoreSOSMaster`
+--
+
+DROP TABLE IF EXISTS `StoreSOSMaster`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `StoreSOSMaster` (
+  `StoreSOSMasterID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `StoreID` bigint(20) NOT NULL,
+  `BrandGroupID` bigint(20) NOT NULL,
+  `ShelfInMain` int(11) NOT NULL,
+  `TrayInShelf` int(11) NOT NULL,
+  `LengthOfTray` float NOT NULL,
+  PRIMARY KEY (`StoreSOSMasterID`),
+  UNIQUE KEY `UQ_StoreSOSMaster` (`StoreID`,`BrandGroupID`),
+  KEY `FK_StoreSOSMaster_Store` (`StoreID`),
+  KEY `FK_StoreSOSMaster_BrandGroup` (`BrandGroupID`),
+  CONSTRAINT `FK_StoreSOSMaster_BrandGroup` FOREIGN KEY (`BrandGroupID`) REFERENCES `BrandGroup` (`BrandGroupID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_StoreSOSMaster_Store` FOREIGN KEY (`StoreID`) REFERENCES `Store` (`StoreID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `StoreSOSMaster`
+--
+
+LOCK TABLES `StoreSOSMaster` WRITE;
+/*!40000 ALTER TABLE `StoreSOSMaster` DISABLE KEYS */;
+INSERT INTO `StoreSOSMaster` VALUES (1,1,1,7,4,2.66),(2,1,2,9,3,2.66),(3,4,1,7,4,2.66),(4,4,2,9,4,2.66),(5,5,1,7,4,2.66),(6,5,2,7,4,2.66);
+/*!40000 ALTER TABLE `StoreSOSMaster` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Unit`
+--
+
+DROP TABLE IF EXISTS `Unit`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Unit` (
+  `UnitID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `Unit` varchar(255) NOT NULL,
+  PRIMARY KEY (`UnitID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Unit`
+--
+
+LOCK TABLES `Unit` WRITE;
+/*!40000 ALTER TABLE `Unit` DISABLE KEYS */;
+INSERT INTO `Unit` VALUES (1,'Thùng'),(2,'Hộp/Lon'),(3,'VND');
+/*!40000 ALTER TABLE `Unit` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `User` (
+  `UserID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `UserName` varchar(255) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Fullname` varchar(255) DEFAULT NULL,
+  `Email` varchar(255) NOT NULL,
+  `Status` int(11) NOT NULL,
+  `Role` varchar(45) NOT NULL,
+  PRIMARY KEY (`UserID`),
+  UNIQUE KEY `UserName_UNIQUE` (`UserName`),
+  UNIQUE KEY `Email_UNIQUE` (`Email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `User`
+--
+
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES (1,'admin','FmMBvO967Ew=','Administrator','vien.nguyen@banvien.com',1,'ADMIN');
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2012-06-21 10:16:20

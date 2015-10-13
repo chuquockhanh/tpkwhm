@@ -1,0 +1,18 @@
+-- -----------------------------------------------------
+-- Table `FCVAuditData`.`StoreAuditPicture`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCVAuditData`.`StoreAuditPicture` ;
+
+CREATE  TABLE IF NOT EXISTS `FCVAuditData`.`StoreAuditPicture` (
+  `StoreAuditPicture` BIGINT NOT NULL AUTO_INCREMENT ,
+  `StoreAuditResultID` BIGINT NOT NULL ,
+  `Description` VARCHAR(255) NULL ,
+  `Path` VARCHAR(255) NOT NULL ,
+  PRIMARY KEY (`StoreAuditPicture`) ,
+  INDEX `FK_StoreAuditPicture_OAR` (`StoreAuditResultID` ASC) ,
+  CONSTRAINT `FK_StoreAuditPicture_OAR`
+    FOREIGN KEY (`StoreAuditResultID` )
+    REFERENCES `FCVAuditData`.`StoreAuditResult` (`StoreAuditResultID` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;

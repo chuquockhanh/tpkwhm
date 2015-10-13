@@ -1,0 +1,74 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Oarpromotion;
+import com.banvien.fcv.core.domain.Outletbrand;
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: BAN
+ * Date: 7/2/12
+ * Time: 12:01 PM
+ */
+public class PromotionReportInfo {
+    private List<Oarpromotion> oarpromotions;
+
+    private Map<Long,Integer> awarenessMap = new  HashMap<Long,Integer>();
+    private Map<Long,Integer> complianceMap = new HashMap<Long, Integer>();
+
+
+    public PromotionReportInfo(List<Oarpromotion> oarpromotions) {
+        setOarpromotions(oarpromotions);
+        if (oarpromotions.size() > 0) {
+            for (Oarpromotion o: oarpromotions) {
+
+                if (o.getKnown() <= 0) {
+                    awarenessMap.put(o.getPromotion().getPromotionID(),0);
+                } else {
+                    awarenessMap.put(o.getPromotion().getPromotionID(),10);
+                    if (o.getCorrect() > 0) {
+                        awarenessMap.put(o.getPromotion().getPromotionID(),11);
+                        complianceMap.put(o.getPromotion().getPromotionID(), 1);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+
+    public List<Oarpromotion> getOarpromotions() {
+        return oarpromotions;
+    }
+
+    public void setOarpromotions(List<Oarpromotion> oarpromotions) {
+        this.oarpromotions = oarpromotions;
+    }
+
+    public Map<Long, Integer> getAwarenessMap() {
+        return awarenessMap;
+    }
+
+    public void setAwarenessMap(Map<Long, Integer> awarenessMap) {
+        this.awarenessMap = awarenessMap;
+    }
+
+    public Map<Long, Integer> getComplianceMap() {
+        return complianceMap;
+    }
+
+    public void setComplianceMap(Map<Long, Integer> complianceMap) {
+        this.complianceMap = complianceMap;
+    }
+
+    public boolean isMechanismCompliance() {
+        if (oarpromotions.size() == complianceMap.size()) {
+            return true;
+        }
+        return false;
+    }
+}

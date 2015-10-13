@@ -1,0 +1,827 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto
+END
+OarfullrangeskuDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarfullrangeskuDTO.java
+END
+PerformanceDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/338/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PerformanceDTO.java
+END
+GTDetailOutletReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/960/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/GTDetailOutletReportBean.java
+END
+PackinggroupDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PackinggroupDTO.java
+END
+BrandgroupBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/172/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/BrandgroupBean.java
+END
+PowerskuDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/390/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PowerskuDTO.java
+END
+GTReportBeanByYear.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/1005/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/GTReportBeanByYear.java
+END
+BrandGroupImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/BrandGroupImportDTO.java
+END
+SosbrandBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/174/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SosbrandBean.java
+END
+UserImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/816/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/UserImportBean.java
+END
+AccountBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/178/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AccountBean.java
+END
+OutletFacingRegisterDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/914/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletFacingRegisterDTO.java
+END
+OutletDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletDTO.java
+END
+GTReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/984/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/GTReportBean.java
+END
+OutletImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/958/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletImportDTO.java
+END
+StoreInfoList.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreInfoList.java
+END
+StorePictureBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/334/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StorePictureBean.java
+END
+MTReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/344/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTReportBean.java
+END
+SubFullRangeBrandBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SubFullRangeBrandBean.java
+END
+AuditScheduleViewBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/580/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AuditScheduleViewBean.java
+END
+PackinggroupBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PackinggroupBean.java
+END
+MTSODReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/505/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTSODReportBean.java
+END
+NoOfFacingsReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1037/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/NoOfFacingsReportInfo.java
+END
+MTPromotionReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/574/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTPromotionReportInfo.java
+END
+OutletposmDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletposmDTO.java
+END
+OutletInfoList.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletInfoList.java
+END
+LevelRegisterBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/864/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/LevelRegisterBean.java
+END
+AgentBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AgentBean.java
+END
+OutletTaskDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletTaskDTO.java
+END
+OutletAuditSummaryImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletAuditSummaryImportBean.java
+END
+ProductImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/ProductImportDTO.java
+END
+StoreauditresultDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreauditresultDTO.java
+END
+OarposmDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarposmDTO.java
+END
+SalemanBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/930/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SalemanBean.java
+END
+AuditScheduleBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AuditScheduleBean.java
+END
+SarposmDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SarposmDTO.java
+END
+SettingBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/466/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SettingBean.java
+END
+RegionWithOutletNumDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/995/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/RegionWithOutletNumDTO.java
+END
+MTSODDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/505/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTSODDTO.java
+END
+MTOutOfStockReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/451/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTOutOfStockReportBean.java
+END
+BrandDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/BrandDTO.java
+END
+OutletLocationRegisterBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/864/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletLocationRegisterBean.java
+END
+OutletAuditResultDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletAuditResultDTO.java
+END
+UnitBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/528/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/UnitBean.java
+END
+PromotionBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/166/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PromotionBean.java
+END
+SarsbrandlocationDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SarsbrandlocationDTO.java
+END
+FullrangeskuDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/917/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/FullrangeskuDTO.java
+END
+SosbrandDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SosbrandDTO.java
+END
+AuditorBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/167/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AuditorBean.java
+END
+OutOfStockDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/451/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutOfStockDTO.java
+END
+WardBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/463/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/WardBean.java
+END
+OutletBrandBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/910/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletBrandBean.java
+END
+AgentRegionBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AgentRegionBean.java
+END
+SalemanImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/903/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SalemanImportBean.java
+END
+PerformanceBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/407/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PerformanceBean.java
+END
+MTPromotionReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/563/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTPromotionReportBean.java
+END
+StorepromotionproductBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StorepromotionproductBean.java
+END
+PromotionDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/918/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PromotionDTO.java
+END
+AuditorTaskDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AuditorTaskDTO.java
+END
+PowerSKUReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PowerSKUReportInfo.java
+END
+StoreImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreImportBean.java
+END
+OutletSalemanBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/893/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletSalemanBean.java
+END
+RightLocationReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/RightLocationReportInfo.java
+END
+DistributorWithOutletNumDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/1000/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/DistributorWithOutletNumDTO.java
+END
+AbstractBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/130/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AbstractBean.java
+END
+PowerSKUBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/132/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PowerSKUBean.java
+END
+ProductBrandBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/ProductBrandBean.java
+END
+PromotionReportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/569/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PromotionReportDTO.java
+END
+OutletTaskImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/580/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletTaskImportDTO.java
+END
+OarLatestBonusBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/974/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarLatestBonusBean.java
+END
+PromotionReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/950/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PromotionReportInfo.java
+END
+OarnofacingDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarnofacingDTO.java
+END
+OutletImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/193/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletImportBean.java
+END
+OutletPictureBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletPictureBean.java
+END
+ProductGroupBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/145/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/ProductGroupBean.java
+END
+DBBPosmRegisteredDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/DBBPosmRegisteredDTO.java
+END
+ProductBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/159/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/ProductBean.java
+END
+DistrictBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/141/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/DistrictBean.java
+END
+UnitDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/dcs/!svn/ver/308/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/UnitDTO.java
+END
+OutletSummaryReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1037/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletSummaryReportInfo.java
+END
+PosmReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PosmReportInfo.java
+END
+ReAuditOutletReportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/336/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/ReAuditOutletReportBean.java
+END
+DistributorBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/146/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/DistributorBean.java
+END
+SarregisterproductDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SarregisterproductDTO.java
+END
+OarfullrangefacingDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/748/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarfullrangefacingDTO.java
+END
+MTOutOfStockReportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/451/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTOutOfStockReportDTO.java
+END
+StorepromotionproductDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StorepromotionproductDTO.java
+END
+OutletImportSubDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/958/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletImportSubDTO.java
+END
+OutletReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletReportInfo.java
+END
+AuditSummaryReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/1024/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/AuditSummaryReportInfo.java
+END
+OarpowerskuDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarpowerskuDTO.java
+END
+SarshareofshelfDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SarshareofshelfDTO.java
+END
+MTReportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/505/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTReportDTO.java
+END
+MTPromotionDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/574/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTPromotionDTO.java
+END
+IftdisplaylocationDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/IftdisplaylocationDTO.java
+END
+StoreDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/275/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreDTO.java
+END
+POSMMiniValueDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/POSMMiniValueDTO.java
+END
+OarStorepromotionDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarStorepromotionDTO.java
+END
+OutletLocationRegisterDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/955/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletLocationRegisterDTO.java
+END
+LatestBonusReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/976/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/LatestBonusReportInfo.java
+END
+StoreImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreImportDTO.java
+END
+StorepromotionBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StorepromotionBean.java
+END
+IFTDisplayLocationBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/134/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/IFTDisplayLocationBean.java
+END
+ProductDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/ProductDTO.java
+END
+SarshareofdisplayDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/473/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SarshareofdisplayDTO.java
+END
+OutletSummaryReportInfoByMonth.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/1005/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletSummaryReportInfoByMonth.java
+END
+OutletTaskImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/571/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletTaskImportBean.java
+END
+StoreposmDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreposmDTO.java
+END
+OarFacingRegisteredDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/936/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarFacingRegisteredDTO.java
+END
+OutletAuditSummaryImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletAuditSummaryImportDTO.java
+END
+OarDBBPosmRegisteredDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarDBBPosmRegisteredDTO.java
+END
+SubFullRangeSKUBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/SubFullRangeSKUBean.java
+END
+OarPosmMiniValueDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarPosmMiniValueDTO.java
+END
+OarpromotionDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/231/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarpromotionDTO.java
+END
+StoreTaskDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreTaskDTO.java
+END
+OutletBrandGroupBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/916/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletBrandGroupBean.java
+END
+UserDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/dcs/!svn/ver/838/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/UserDTO.java
+END
+BrandImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/BrandImportDTO.java
+END
+StoreBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StoreBean.java
+END
+POSMMiniValueBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/POSMMiniValueBean.java
+END
+FullRangeReportInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/FullRangeReportInfo.java
+END
+OutletAuditImportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletAuditImportDTO.java
+END
+StorePOSMBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/168/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StorePOSMBean.java
+END
+MTSODReportDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/505/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/MTSODReportDTO.java
+END
+OarLocationRegisteredDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/951/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarLocationRegisteredDTO.java
+END
+OarLatestBonusDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/974/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarLatestBonusDTO.java
+END
+RegionBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/140/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/RegionBean.java
+END
+OutletAuditImportBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletAuditImportBean.java
+END
+FullRangeSKUBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/133/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/FullRangeSKUBean.java
+END
+OutletBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/917/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletBean.java
+END
+StorepromotionDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/StorepromotionDTO.java
+END
+PromotionproductBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PromotionproductBean.java
+END
+UserBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/813/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/UserBean.java
+END
+OarfacingiftdisplayDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OarfacingiftdisplayDTO.java
+END
+BrandBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dcs/!svn/ver/173/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/BrandBean.java
+END
+OutletPOSMBean.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/137/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/OutletPOSMBean.java
+END
+PromotionproductDTO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/431/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dto/PromotionproductDTO.java
+END

@@ -1,0 +1,143 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE StoreSOSMaster</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storesosmaster implements Serializable {
+
+	/**
+	 * Attribute storeSOSMasterID.
+	 */
+	private Long storeSOSMasterID;
+	
+	/**
+	 * Attribute store
+	 */
+	 private Store store;	
+
+	/**
+	 * Attribute brandgroup
+	 */
+	 private Brandgroup brandgroup;	
+
+	/**
+	 * Attribute shelfInMain.
+	 */
+	private Integer shelfInMain;
+	
+	/**
+	 * Attribute trayInShelf.
+	 */
+	private Integer trayInShelf;
+	
+	/**
+	 * Attribute lengthOfTray.
+	 */
+	private Float lengthOfTray;
+	
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storeSOSMasterID
+	 */
+	public Long getStoreSOSMasterID() {
+		return storeSOSMasterID;
+	}
+
+	/**
+	 * @param storeSOSMasterID new value for storeSOSMasterID 
+	 */
+	public void setStoreSOSMasterID(Long storeSOSMasterID) {
+		this.storeSOSMasterID = storeSOSMasterID;
+	}
+	
+	/**
+	 * get store
+	 */
+	public Store getStore() {
+		return this.store;
+	}
+	
+	/**
+	 * set store
+	 */
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	/**
+	 * get brandgroup
+	 */
+	public Brandgroup getBrandgroup() {
+		return this.brandgroup;
+	}
+	
+	/**
+	 * set brandgroup
+	 */
+	public void setBrandgroup(Brandgroup brandgroup) {
+		this.brandgroup = brandgroup;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return shelfInMain
+	 */
+	public Integer getShelfInMain() {
+		return shelfInMain;
+	}
+
+	/**
+	 * @param shelfInMain new value for shelfInMain 
+	 */
+	public void setShelfInMain(Integer shelfInMain) {
+		this.shelfInMain = shelfInMain;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return trayInShelf
+	 */
+	public Integer getTrayInShelf() {
+		return trayInShelf;
+	}
+
+	/**
+	 * @param trayInShelf new value for trayInShelf 
+	 */
+	public void setTrayInShelf(Integer trayInShelf) {
+		this.trayInShelf = trayInShelf;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return lengthOfTray
+	 */
+	public Float getLengthOfTray() {
+		return lengthOfTray;
+	}
+
+	/**
+	 * @param lengthOfTray new value for lengthOfTray 
+	 */
+	public void setLengthOfTray(Float lengthOfTray) {
+		this.lengthOfTray = lengthOfTray;
+	}
+	
+
+
+}

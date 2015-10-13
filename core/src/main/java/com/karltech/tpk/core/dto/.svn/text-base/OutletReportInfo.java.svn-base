@@ -1,0 +1,417 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.util.GpsUtil;
+
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * User: BAN
+ * Date: 7/1/12
+ * Time: 2:26 PM
+ */
+public class OutletReportInfo {
+    /**
+	 * Attribute outletID.
+	 */
+	private Long outletID;
+
+	/**
+	 * Attribute distributor
+	 */
+    private Long distributorID;
+
+	private String distributorName;
+
+    private String distributorSapCode;
+
+	/**
+	 * Attribute dmsCode.
+	 */
+	private String dmsCode;
+
+	/**
+	 * Attribute region
+	 */
+
+    private Long regionID;
+
+
+	 private String region;
+
+	/**
+	 * Attribute address.
+	 */
+	private String address;
+
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Float gpsLatitude;
+
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Float gpsLongtitude;
+
+    private Float gpsLatitudeOrg;
+
+	private Float gpsLongtitudeOrg;
+
+    private Integer activeStatus;
+
+    private PowerSKUReportInfo powerSKUReportInfo;
+
+    private FullRangeReportInfo fullRangeReportInfo;
+
+    private NoOfFacingsReportInfo noOfFacingsReportInfo;
+
+    private RightLocationReportInfo rightLocationReportInfo;
+
+    private PromotionReportInfo promotionReportInfo;
+
+    private PosmReportInfo posmReportInfo;
+
+    private LatestBonusReportInfo latestBonusReportInfo;
+
+    private AuditSummaryReportInfo auditSummaryReportInfo;
+
+    private Map<Long, Boolean> meetMap = new HashMap<Long, Boolean>();
+
+    private String rootCause;
+
+    private String notes;
+
+    private Timestamp auditDate;
+
+    private Timestamp submittedDate;
+
+    private Integer isImport;
+
+    public OutletReportInfo(Outletauditresult o, List<Outletbrand> outletbrands) {
+        updateThis(o, outletbrands);
+    }
+
+    private void updateThis(Outletauditresult o, List<Outletbrand> outletbrands) {
+        Outlet outlet = o.getAuditoroutlettask().getOutlet();
+        setAddress(outlet.getAddress());
+        setDistributorID(outlet.getDistributor().getDistributorID());
+        setDistributorName(outlet.getDistributor().getName());
+        setDistributorSapCode(outlet.getDistributor().getSapCode());
+        setDmsCode(outlet.getDmsCode());
+        setOutletID(outlet.getOutletID());
+        setRegion(outlet.getRegion().getName());
+        setRegionID(outlet.getRegion().getRegionID());
+        setGpsLatitudeOrg(outlet.getGpsLatitude());
+        setGpsLongtitudeOrg(outlet.getGpsLongtitude());
+
+        setGpsLatitude(o.getGpsLatitude());
+        setGpsLongtitude(o.getGpsLongtitude());
+        setActiveStatus(o.getActiveStatus());
+        setNotes(o.getNotes());
+        setNotes(o.getNotes());
+        setAuditDate(o.getAuditDate());
+        setSubmittedDate(o.getSubmittedDate());
+
+        powerSKUReportInfo = new PowerSKUReportInfo(o.getOarpowerskus(), outletbrands);
+        noOfFacingsReportInfo = new NoOfFacingsReportInfo(o.getOarnofacings(), o.getOarfacingregistereds() ,outletbrands);
+        fullRangeReportInfo = new FullRangeReportInfo(o.getOarfullrangeskus(), o.getOarfullrangefacings(), outletbrands, noOfFacingsReportInfo, o.getOarpowerskus(), o.getOarMiniValuePosms(), o.getOarposms());
+        rightLocationReportInfo = new RightLocationReportInfo(o.getOarfacingiftdisplays(), o.getOarlocationregistereds(), outletbrands);
+        promotionReportInfo = new PromotionReportInfo(o.getOarpromotions());
+        posmReportInfo = new PosmReportInfo(o.getOarposms(), outletbrands);
+        latestBonusReportInfo = new LatestBonusReportInfo(o.getOarlatestbonuses());
+        auditSummaryReportInfo = new AuditSummaryReportInfo(o.getOarAuditSummaries());
+
+        for (Outletbrand outletbrand : outletbrands) {
+            Boolean powerSKUMeet = powerSKUReportInfo.getPowerMeetMap().get(outletbrand.getOutletBrandID());
+            Boolean fullRangeSKUMeet = fullRangeReportInfo.getFullRangeMeetMap().get(outletbrand.getOutletBrandID());
+            Boolean facingMeet = noOfFacingsReportInfo.getNoFacingMeetMap().get(outletbrand.getOutletBrandID());
+            Boolean rightLocationMeet = rightLocationReportInfo.getMeetMap().get(outletbrand.getOutletBrandID());
+            Boolean posmMeet = posmReportInfo.getPosmMeetMap().get(outletbrand.getOutletBrandID());
+
+            if (powerSKUMeet != null && powerSKUMeet && fullRangeSKUMeet != null && fullRangeSKUMeet && facingMeet != null && facingMeet
+                    && rightLocationMeet != null && rightLocationMeet && posmMeet != null && posmMeet) {
+                meetMap.put(outletbrand.getOutletBrandID(), true);
+            }else{
+                meetMap.put(outletbrand.getOutletBrandID(), false);
+            }
+        }
+    }
+
+    public PosmReportInfo getPosmReportInfo() {
+        return posmReportInfo;
+    }
+
+    public Integer getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(Integer activeStatus) {
+        this.activeStatus = activeStatus;
+    }
+
+    public boolean getReAudit() {
+
+        rootCause = "";
+
+        if (noOfFacingsReportInfo != null) {
+            Set<Long> keys = noOfFacingsReportInfo.getNoFacingMeetMap().keySet();
+
+            for(Long outletBrandID : keys)
+            {
+                if(noOfFacingsReportInfo.getNoFacingRegisterMap().get(outletBrandID) - noOfFacingsReportInfo.getNoFacingActualMap().get(outletBrandID) >  Constants.RE_AUDIT_NO_FACINGS)
+                {
+                    rootCause = "Facing";
+                    return true;
+                }
+            }
+        }
+        if (gpsLatitude != null && gpsLongtitude != null && gpsLatitudeOrg != null && gpsLongtitudeOrg != null) {
+
+            if(rootCause != "")
+            {
+                rootCause += ", GPS";
+            }
+            else
+            {
+                rootCause = "GPS";
+            }
+
+             if (GpsUtil.distFrom(gpsLatitudeOrg, gpsLongtitudeOrg, gpsLatitude, gpsLongtitude) > Constants.RE_AUDIT_GPS_DISTANCE) {
+                 return true;
+             }
+        }
+        else
+        {
+            rootCause = "GPS";
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public Float getGpsLatitudeOrg() {
+        return gpsLatitudeOrg;
+    }
+
+    public void setGpsLatitudeOrg(Float gpsLatitudeOrg) {
+        this.gpsLatitudeOrg = gpsLatitudeOrg;
+    }
+
+    public Float getGpsLongtitudeOrg() {
+        return gpsLongtitudeOrg;
+    }
+
+    public void setGpsLongtitudeOrg(Float gpsLongtitudeOrg) {
+        this.gpsLongtitudeOrg = gpsLongtitudeOrg;
+    }
+
+    public Long getOutletID() {
+        return outletID;
+    }
+
+    public void setOutletID(Long outletID) {
+        this.outletID = outletID;
+    }
+
+    public Long getDistributorID() {
+        return distributorID;
+    }
+
+    public void setDistributorID(Long distributorID) {
+        this.distributorID = distributorID;
+    }
+
+    public String getDistributorName() {
+        return distributorName;
+    }
+
+    public void setDistributorName(String distributorName) {
+        this.distributorName = distributorName;
+    }
+
+    public String getDistributorSapCode() {
+        return distributorSapCode;
+    }
+
+    public void setDistributorSapCode(String distributorSapCode) {
+        this.distributorSapCode = distributorSapCode;
+    }
+
+    public String getDmsCode() {
+        return dmsCode;
+    }
+
+    public void setDmsCode(String dmsCode) {
+        this.dmsCode = dmsCode;
+    }
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Float getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Float gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Float getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Float gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public PowerSKUReportInfo getPowerSKUReportInfo() {
+        return powerSKUReportInfo;
+    }
+
+    public void setPowerSKUReportInfo(PowerSKUReportInfo powerSKUReportInfo) {
+        this.powerSKUReportInfo = powerSKUReportInfo;
+    }
+
+    public FullRangeReportInfo getFullRangeReportInfo() {
+        return fullRangeReportInfo;
+    }
+
+    public void setFullRangeReportInfo(FullRangeReportInfo fullRangeReportInfo) {
+        this.fullRangeReportInfo = fullRangeReportInfo;
+    }
+
+    public NoOfFacingsReportInfo getNoOfFacingsReportInfo() {
+        return noOfFacingsReportInfo;
+    }
+
+    public void setNoOfFacingsReportInfo(NoOfFacingsReportInfo noOfFacingsReportInfo) {
+        this.noOfFacingsReportInfo = noOfFacingsReportInfo;
+    }
+
+    public RightLocationReportInfo getRightLocationReportInfo() {
+        return rightLocationReportInfo;
+    }
+
+    public void setRightLocationReportInfo(RightLocationReportInfo rightLocationReportInfo) {
+        this.rightLocationReportInfo = rightLocationReportInfo;
+    }
+
+    public PromotionReportInfo getPromotionReportInfo() {
+        return promotionReportInfo;
+    }
+
+    public void setPromotionReportInfo(PromotionReportInfo promotionReportInfo) {
+        this.promotionReportInfo = promotionReportInfo;
+    }
+
+    public AuditSummaryReportInfo getAuditSummaryReportInfo() {
+        return auditSummaryReportInfo;
+    }
+
+    public void setAuditSummaryReportInfo(AuditSummaryReportInfo auditSummaryReportInfo) {
+        this.auditSummaryReportInfo = auditSummaryReportInfo;
+    }
+
+    public boolean getPerfect() {
+        if (getReAudit()) return false;
+        if (!getFullRangeReportInfo().isMeet()) return false;
+        if (!getNoOfFacingsReportInfo().isMeet()) return false;
+        if (!getPowerSKUReportInfo().isMeet()) return false;
+        if (!getPromotionReportInfo().isMechanismCompliance()) return false;
+        return true;
+    }
+
+    public boolean isPerformance() {
+        if (!getFullRangeReportInfo().isMeet()) return false;
+        if (!getNoOfFacingsReportInfo().isMeet()) return false;
+        if (!getPowerSKUReportInfo().isMeet()) return false;
+        if (!getRightLocationReportInfo().isMeet()) return false;
+        return true;
+    }
+
+    public Map<Long, Boolean> getMeetMap() {
+        return meetMap;
+    }
+
+    public void setMeetMap(Map<Long, Boolean> meetMap) {
+        this.meetMap = meetMap;
+    }
+
+    public String getRootCause() {
+        return rootCause;
+    }
+
+    public void setRootCause(String rootCause) {
+        this.rootCause = rootCause;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public LatestBonusReportInfo getLatestBonusReportInfo() {
+        return latestBonusReportInfo;
+    }
+
+    public void setLatestBonusReportInfo(LatestBonusReportInfo latestBonusReportInfo) {
+        this.latestBonusReportInfo = latestBonusReportInfo;
+    }
+
+    public Timestamp getAuditDate() {
+        return auditDate;
+    }
+
+    public void setAuditDate(Timestamp auditDate) {
+        this.auditDate = auditDate;
+    }
+
+    public Integer getImport() {
+        return isImport;
+    }
+
+    public void setImport(Integer anImport) {
+        isImport = anImport;
+    }
+
+    public Timestamp getSubmittedDate() {
+        return submittedDate;
+    }
+
+    public void setSubmittedDate(Timestamp submittedDate) {
+        this.submittedDate = submittedDate;
+    }
+
+}

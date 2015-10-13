@@ -1,0 +1,93 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE OARPowerSKU</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Oarpowersku implements Serializable {
+
+	/**
+	 * Attribute oarPowerSKUID.
+	 */
+	private Long oarPowerSKUID;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute powersku
+	 */
+	 private Powersku powersku;	
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+
+    public Long getOarPowerSKUID() {
+        return oarPowerSKUID;
+    }
+
+    public void setOarPowerSKUID(Long oarPowerSKUID) {
+        this.oarPowerSKUID = oarPowerSKUID;
+    }
+
+    /**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * get powersku
+	 */
+	public Powersku getPowersku() {
+		return this.powersku;
+	}
+	
+	/**
+	 * set powersku
+	 */
+	public void setPowersku(Powersku powersku) {
+		this.powersku = powersku;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return has
+	 */
+	public Byte getHas() {
+		return has;
+	}
+
+	/**
+	 * @param has new value for has 
+	 */
+	public void setHas(Byte has) {
+		this.has = has;
+	}
+	
+
+
+}

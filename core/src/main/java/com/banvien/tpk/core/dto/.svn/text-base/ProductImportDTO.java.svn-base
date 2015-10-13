@@ -1,0 +1,54 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Productbrand;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/20/12
+ * Time: 1:04 PM
+ */
+public class ProductImportDTO implements Serializable {
+    private BrandGroupImportDTO brandGroupImportDTO;
+
+    private BrandImportDTO brandImportDTO;
+
+    private String name;
+
+    private Productbrand productbrand;
+
+    public BrandGroupImportDTO getBrandGroupImportDTO() {
+        return brandGroupImportDTO;
+    }
+
+    public void setBrandGroupImportDTO(BrandGroupImportDTO brandGroupImportDTO) {
+        this.brandGroupImportDTO = brandGroupImportDTO;
+    }
+
+    public BrandImportDTO getBrandImportDTO() {
+        return brandImportDTO;
+    }
+
+    public void setBrandImportDTO(BrandImportDTO brandImportDTO) {
+        this.brandImportDTO = brandImportDTO;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Productbrand getProductbrand() {
+        return productbrand;
+    }
+
+    public void setProductbrand(Productbrand productbrand) {
+        this.productbrand = productbrand;
+    }
+}
+

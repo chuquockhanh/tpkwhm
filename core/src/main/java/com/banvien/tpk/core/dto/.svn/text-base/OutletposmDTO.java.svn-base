@@ -1,0 +1,165 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outletposm;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 1:47 PM
+ */
+public class OutletposmDTO {
+    /**
+	 * Attribute outletPOSM.
+	 */
+	private Long outletPOSM;
+
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute active.
+	 */
+	private Integer active;
+
+	/**
+	 * Attribute outletbrand
+	 */
+	 private String outletbrand;
+
+    private String outletBrandCode;
+
+    private Long outletbrandID;
+
+    private String brandGroupName;
+
+    public OutletposmDTO(Outletposm o) {
+        setCode(o.getCode());
+        setName(o.getName());
+        setActive(o.getActive());
+        setOutletBrandCode(o.getOutletbrand().getCode());
+        setOutletbrand(o.getOutletbrand().getName());
+        setOutletPOSM(o.getOutletPOSMID());
+        setOutletbrandID(o.getOutletbrand().getOutletBrandID());
+        setBrandGroupName(o.getOutletbrand().getOutletBrandGroup().getName());
+    }
+
+    public OutletposmDTO() {
+
+    }
+
+
+    /**
+	 * <p>
+	 * </p>
+	 * @return outletPOSM
+	 */
+	public Long getOutletPOSM() {
+		return outletPOSM;
+	}
+
+	/**
+	 * @param outletPOSM new value for outletPOSM
+	 */
+	public void setOutletPOSM(Long outletPOSM) {
+		this.outletPOSM = outletPOSM;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	/**
+	 * <p>
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public String getOutletBrandCode() {
+        return outletBrandCode;
+    }
+
+    public void setOutletBrandCode(String outletBrandCode) {
+        this.outletBrandCode = outletBrandCode;
+    }
+
+    /**
+	 * <p>
+	 * </p>s
+	 * @return active
+	 */
+
+
+    public String getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(String outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setCode(o.getString("code"));
+        setName(o.getString("name"));
+        setActive(o.getInt("active"));
+        setOutletbrand(o.getString("outletbrand"));
+        setOutletPOSM(o.getLong("outletPOSM"));
+        setOutletbrandID(o.getLong("outletbrandID"));
+        setOutletBrandCode(o.getString("outletBrandCode"));
+        setBrandGroupName(o.getString("brandGroupName"));
+    }
+
+    public Long getOutletbrandID() {
+        return outletbrandID;
+    }
+
+    public void setOutletbrandID(Long outletbrandID) {
+        this.outletbrandID = outletbrandID;
+    }
+
+    public String getBrandGroupName() {
+        return brandGroupName;
+    }
+
+    public void setBrandGroupName(String brandGroupName) {
+        this.brandGroupName = brandGroupName;
+    }
+}

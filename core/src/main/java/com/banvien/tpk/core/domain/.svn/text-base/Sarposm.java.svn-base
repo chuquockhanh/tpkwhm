@@ -1,0 +1,93 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE SARPosm</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Sarposm implements Serializable {
+
+	/**
+	 * Attribute sARPosmID.
+	 */
+	private Long sarPosmID;
+	
+	/**
+	 * Attribute storeauditresult
+	 */
+	 private Storeauditresult storeauditresult;	
+
+	/**
+	 * Attribute storeposm
+	 */
+	 private Storeposm storeposm;	
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+
+    public Long getSarPosmID() {
+        return sarPosmID;
+    }
+
+    public void setSarPosmID(Long sarPosmID) {
+        this.sarPosmID = sarPosmID;
+    }
+
+    /**
+	 * get storeauditresult
+	 */
+	public Storeauditresult getStoreauditresult() {
+		return this.storeauditresult;
+	}
+	
+	/**
+	 * set storeauditresult
+	 */
+	public void setStoreauditresult(Storeauditresult storeauditresult) {
+		this.storeauditresult = storeauditresult;
+	}
+
+	/**
+	 * get storeposm
+	 */
+	public Storeposm getStoreposm() {
+		return this.storeposm;
+	}
+	
+	/**
+	 * set storeposm
+	 */
+	public void setStoreposm(Storeposm storeposm) {
+		this.storeposm = storeposm;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return has
+	 */
+	public Byte getHas() {
+		return has;
+	}
+
+	/**
+	 * @param has new value for has 
+	 */
+	public void setHas(Byte has) {
+		this.has = has;
+	}
+	
+
+
+}

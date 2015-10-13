@@ -1,0 +1,108 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE PowerSKU</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Powersku implements Serializable {
+
+    public static final String FIELD_NAME = "name";
+    public static final String FIELD_DISPLAY_ORDER = "displayOrder";
+
+
+	/**
+	 * Attribute powerSKUID.
+	 */
+	private Long powerSKUID;
+	
+	/**
+	 * Attribute outletbrand
+	 */
+	 private Outletbrand outletbrand;	
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return powerSKUID
+	 */
+	public Long getPowerSKUID() {
+		return powerSKUID;
+	}
+
+	/**
+	 * @param powerSKUID new value for powerSKUID 
+	 */
+	public void setPowerSKUID(Long powerSKUID) {
+		this.powerSKUID = powerSKUID;
+	}
+	
+	/**
+	 * get outletbrand
+	 */
+	public Outletbrand getOutletbrand() {
+		return this.outletbrand;
+	}
+	
+	/**
+	 * set outletbrand
+	 */
+	public void setOutletbrand(Outletbrand outletbrand) {
+		this.outletbrand = outletbrand;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder 
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+
+
+}

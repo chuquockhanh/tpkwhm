@@ -1,0 +1,43 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.District;
+import com.banvien.fcv.core.domain.District;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Districts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class DistrictHibernateDAO extends
+		AbstractHibernateDAO<District, Long> implements
+		DistrictDAO {
+
+    public DistrictHibernateDAO() {
+		super(District.class);
+	}
+
+    @Override
+    public District findByNameAndRegion(final String name, final Long regionID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<District>() {
+                public District doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM District o WHERE o.name = :name AND o.region.regionID = :regionID");
+                    query.setParameter("name", name);
+                    query.setParameter("regionID", regionID);
+                    return (District) query.uniqueResult();
+                }
+            });
+    }
+}

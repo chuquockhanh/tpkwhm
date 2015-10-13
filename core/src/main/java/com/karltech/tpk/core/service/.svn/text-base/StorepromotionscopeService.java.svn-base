@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storepromotionscope;
+
+
+public interface StorepromotionscopeService extends GenericService<Storepromotionscope,Long> {
+
+}

@@ -1,0 +1,94 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE OARFullRangeSKU</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Oarfullrangesku implements Serializable {
+
+	/**
+	 * Attribute oarFullRangeSKUID.
+	 */
+	private Long oarFullRangeSKUID;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute fullrangesku
+	 */
+	 private Fullrangesku fullrangesku;	
+
+	/**
+	 * Attribute facing.
+	 */
+	private Integer facing;
+
+    /**
+     * Attribute facing.
+     */
+    private Outletposm outletPosm;
+
+    public Long getOarFullRangeSKUID() {
+        return oarFullRangeSKUID;
+    }
+
+    public void setOarFullRangeSKUID(Long oarFullRangeSKUID) {
+        this.oarFullRangeSKUID = oarFullRangeSKUID;
+    }
+
+    /**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * get fullrangesku
+	 */
+	public Fullrangesku getFullrangesku() {
+		return this.fullrangesku;
+	}
+	
+	/**
+	 * set fullrangesku
+	 */
+	public void setFullrangesku(Fullrangesku fullrangesku) {
+		this.fullrangesku = fullrangesku;
+	}
+
+    public Integer getFacing() {
+        return facing;
+    }
+
+    public void setFacing(Integer facing) {
+        this.facing = facing;
+    }
+
+    public Outletposm getOutletPosm() {
+        return outletPosm;
+    }
+
+    public void setOutletPosm(Outletposm outletPosm) {
+        this.outletPosm = outletPosm;
+    }
+}

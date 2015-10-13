@@ -1,0 +1,36 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+public class StoreTaskDTO implements Serializable{
+	private Long storeID;
+	private String storeName;
+	private String auditorName;
+	private Integer status;
+	
+	public Long getStoreID() {
+		return storeID;
+	}
+	public void setStoreID(Long storeID) {
+		this.storeID = storeID;
+	}
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public String getAuditorName() {
+		return auditorName;
+	}
+	public void setAuditorName(String auditorName) {
+		this.auditorName = auditorName;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
+}

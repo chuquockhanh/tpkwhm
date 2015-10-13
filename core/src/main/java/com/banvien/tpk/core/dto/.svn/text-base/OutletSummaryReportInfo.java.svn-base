@@ -1,0 +1,465 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.OarLatestBonus;
+import com.banvien.fcv.core.domain.Outletbrand;
+
+import java.util.*;
+
+/**
+ * User: BAN
+ * Date: 7/3/12
+ * Time: 10:55 AM
+ */
+public class OutletSummaryReportInfo {
+
+    private Long regionID;
+
+	private String region;
+
+    private Long distributorID;
+
+	private String distributorName;
+
+    private String distributorSapCode;
+
+    private int totalOutlets = 0;
+
+    private Integer auditedOutlets = 0;
+
+    private Map<Long, Integer> meetMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> powerMeet = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> fullRangeMeetMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> noOfFacingRegisteredMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> noOfFacingActualMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> noOfFacingMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Map<Long, Integer>> rightLocationMap = new HashMap<Long, Map<Long, Integer>>();
+
+    private Map<Long, Map<Long, Integer>> rightLocationMapRegister = new HashMap<Long, Map<Long, Integer>>();
+
+    private Map<Long, Map<Long, Integer>> posmMap = new HashMap<Long, Map<Long, Integer>>();
+
+    private Map<Long, Integer> posmActualMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> commissionMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> awarenessMap = new HashMap<Long, Integer>();
+
+    private Map<Long, Integer> complianceMap = new HashMap<Long, Integer>();
+
+    private Integer performance = 0;
+
+    public OutletSummaryReportInfo(List<OutletReportInfo> outletReportInfos, List<Outletbrand> outletbrands) {
+        if (outletReportInfos.size() <= 0) {
+            return;
+        }
+        OutletReportInfo f = outletReportInfos.get(0);
+        setDistributorID(f.getDistributorID());
+        setDistributorName(f.getDistributorName());
+        setDistributorSapCode(f.getDistributorSapCode());
+        setRegion(f.getRegion());
+        setRegionID(f.getRegionID());
+        for (OutletReportInfo o : outletReportInfos) {
+            auditedOutlets++;
+            for (Outletbrand outletbrand : outletbrands) {
+                Integer meet = meetMap.get(outletbrand.getOutletBrandID());
+                if (meet == null) {
+                    meet = 0;
+                }
+                Boolean outletGeneralMeet = o.getMeetMap().get(outletbrand.getOutletBrandID());
+                if (outletGeneralMeet != null && outletGeneralMeet) {
+                    meet++;
+                }
+                meetMap.put(outletbrand.getOutletBrandID(), meet);
+
+                //Power SKU
+                Integer powerSKUMeet = powerMeet.get(outletbrand.getOutletBrandID());
+                if (powerSKUMeet == null) {
+                    powerSKUMeet = 0;
+                }
+
+                Boolean outletPowerSKUMeet = o.getPowerSKUReportInfo().getPowerMeetMap().get(outletbrand.getOutletBrandID());
+                if (outletPowerSKUMeet != null && outletPowerSKUMeet) {
+                    powerSKUMeet++;
+                }
+                powerMeet.put(outletbrand.getOutletBrandID(), powerSKUMeet);
+                //Full range
+                Integer fullRangeMeet = fullRangeMeetMap.get(outletbrand.getOutletBrandID());
+                if(fullRangeMeet == null)
+                {
+                    fullRangeMeet = 0;
+                }
+
+                Boolean outletFullRangeMeet = o.getFullRangeReportInfo().getFullRangeMeetMap().get(outletbrand.getOutletBrandID());
+                if(outletFullRangeMeet != null && outletFullRangeMeet)
+                {
+                    fullRangeMeet ++;
+                }
+                fullRangeMeetMap.put(outletbrand.getOutletBrandID(), fullRangeMeet);
+
+                //Right location
+                Map<Long, Integer> outletRightLocation = o.getRightLocationReportInfo().getRightLocations().get(outletbrand.getOutletBrandID());
+                Map<Long, Integer> outletRegisterRightLocation = o.getRightLocationReportInfo().getRightLocationRegisteredMap().get(outletbrand.getOutletBrandID());
+
+                Map<Long, Integer> brandLocationRegistered = rightLocationMapRegister.get(outletbrand.getOutletBrandID());
+                if (brandLocationRegistered == null) {
+                    brandLocationRegistered = new HashMap<Long, Integer>();
+                }
+
+                Map<Long, Integer> brandRightLocation = rightLocationMap.get(outletbrand.getOutletBrandID());
+                if (brandRightLocation == null) {
+                    brandRightLocation = new HashMap<Long, Integer>();
+                }
+                if (outletRightLocation != null) {
+                    for (Long locationID : outletRightLocation.keySet()) {
+                        Integer rightLoc = outletRightLocation.get(locationID);
+                        Integer right = brandRightLocation.get(locationID);
+                        if (right == null) {
+                            right = 0;
+                        }
+                        if (rightLoc != null && rightLoc > 0) {
+                            right++;
+                        }
+                        brandRightLocation.put(locationID, right);
+                    }
+                    rightLocationMap.put(outletbrand.getOutletBrandID(), brandRightLocation);
+                }
+
+                if (outletRegisterRightLocation != null) {
+                    for (Long locationID : outletRegisterRightLocation.keySet()) {
+                        Integer oReg = outletRegisterRightLocation.get(locationID);
+                        Integer register = brandLocationRegistered.get(locationID);
+                        if (register == null) {
+                            register = 0;
+                        }
+                        if (oReg != null && oReg > 0) {
+                            register++;
+                        }
+                        brandLocationRegistered.put(locationID, register);
+                    }
+                    rightLocationMapRegister.put(outletbrand.getOutletBrandID(), brandLocationRegistered);
+                }
+
+                //POSM
+                Integer posmMeet = posmActualMap.get(outletbrand.getOutletBrandID());
+                if(posmMeet == null)
+                {
+                    posmMeet = 0;
+                }
+
+                Boolean outletPosmMeet = o.getPosmReportInfo().getPosmMeetMap().get(outletbrand.getOutletBrandID());
+                if(outletPosmMeet != null && outletPosmMeet)
+                {
+                    posmMeet++;
+                }
+                posmActualMap.put(outletbrand.getOutletBrandID(), posmMeet);
+
+                Map<Long, Byte> outletPosmMap = o.getPosmReportInfo().getOarposmMap();
+                Map<Long, Integer> brandPosmMap = posmMap.get(outletbrand.getOutletBrandID());
+                if (brandPosmMap == null) {
+                    brandPosmMap = new HashMap<Long, Integer>();
+                }
+
+                if (outletPosmMap != null) {
+                    for (Long posmID : outletPosmMap.keySet()) {
+                        Byte b = outletPosmMap.get(posmID);
+                        Integer brandPosm = brandPosmMap.get(posmID);
+                        if (brandPosm == null) {
+                            brandPosm = 0;
+                        }
+                        if (b != null && b > 0) {
+                            brandPosm++;
+                        }
+                        brandPosmMap.put(posmID, brandPosm);
+                    }
+                    posmMap.put(outletbrand.getOutletBrandID(), brandPosmMap);
+                }
+                // NO FACING
+                Integer noActualFacing = noOfFacingMap.get(outletbrand.getOutletBrandID());
+                if(noActualFacing == null)
+                {
+                    noActualFacing = 0;
+                }
+
+                Integer outletActualFacing = o.getNoOfFacingsReportInfo().getNoFacingActualMap().get(outletbrand.getOutletBrandID());
+                if(outletActualFacing != null)
+                {
+                    noActualFacing += outletActualFacing;
+                }
+                noOfFacingMap.put(outletbrand.getOutletBrandID(), noActualFacing);
+
+                    // NO FACING Register
+                Integer noFacingRegister = noOfFacingRegisteredMap.get(outletbrand.getOutletBrandID());
+                if(noFacingRegister == null)
+                {
+                    noFacingRegister = 0;
+                }
+
+                Integer outletFacingRegister = o.getNoOfFacingsReportInfo().getNoFacingRegisterMap().get(outletbrand.getOutletBrandID());
+                if(outletFacingRegister != null && outletFacingRegister > 0)
+                {
+                    noFacingRegister += outletFacingRegister;
+                }
+                noOfFacingRegisteredMap.put(outletbrand.getOutletBrandID(), noFacingRegister);
+
+                    // NO FACING Actual
+                Integer noFacingActual = noOfFacingActualMap.get(outletbrand.getOutletBrandID());
+                if(noFacingActual == null)
+                {
+                    noFacingActual = 0;
+                }
+
+                Integer outletFacingActual = o.getNoOfFacingsReportInfo().getNoFacingActualMap().get(outletbrand.getOutletBrandID());
+                if(outletFacingActual != null && outletFacingActual > 0)
+                {
+                    noFacingActual += noFacingActual;
+                }
+                noOfFacingActualMap.put(outletbrand.getOutletBrandID(), noFacingRegister);
+
+                //Commission
+                OarLatestBonus oarLatestBonus = o.getLatestBonusReportInfo().getLatestBonusMap().get(outletbrand.getOutletBrandID());
+                Integer commissionMeet = commissionMap.get(outletbrand.getOutletBrandID());
+                if (commissionMeet == null) {
+                    commissionMeet = 0;
+                }
+                if (oarLatestBonus != null)
+                {
+                    if(oarLatestBonus.getCorrect() != null)
+                    {
+                        if(oarLatestBonus.getCorrect() > 0)
+                        {
+                            commissionMeet++;
+                        }
+                    }
+                }
+                commissionMap.put(outletbrand.getOutletBrandID(), commissionMeet);
+
+                // PROMOTION Awareness
+                Map<Long, Integer> awarenessMapReportInfo = o.getPromotionReportInfo().getAwarenessMap();
+                if (awarenessMapReportInfo != null) {
+                    for(Long promotionID : awarenessMapReportInfo.keySet())
+                    {
+                        Integer awarenessMapInteger = awarenessMap.get(promotionID);
+                        if(awarenessMapInteger == null)
+                        {
+                            awarenessMapInteger = 0;
+                        }
+
+                        Integer outletAwareness = o.getPromotionReportInfo().getAwarenessMap().get(promotionID);
+                        if(outletAwareness != null && outletAwareness > 0)
+                        {
+                            awarenessMapInteger = awarenessMapInteger++;
+                        }
+                        awarenessMap.put(promotionID, awarenessMapInteger);
+                    }
+                }
+
+                // PROMOTION Compliance
+                Map<Long, Integer> complianceMapReportInfo = o.getPromotionReportInfo().getComplianceMap();
+                if (complianceMapReportInfo != null) {
+                    for(Long promotionID : complianceMapReportInfo.keySet())
+                    {
+                        Integer complianceMapInteger = complianceMap.get(promotionID);
+                        if(complianceMapInteger == null)
+                        {
+                            complianceMapInteger = 0;
+                        }
+
+                        Integer outletCompliance = o.getPromotionReportInfo().getComplianceMap().get(promotionID);
+                        if(outletCompliance != null && complianceMapInteger > 0)
+                        {
+                            complianceMapInteger = complianceMapInteger++;
+                        }
+                        complianceMap.put(promotionID, complianceMapInteger);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+
+
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public Long getDistributorID() {
+        return distributorID;
+    }
+
+    public void setDistributorID(Long distributorID) {
+        this.distributorID = distributorID;
+    }
+
+    public String getDistributorName() {
+        return distributorName;
+    }
+
+    public void setDistributorName(String distributorName) {
+        this.distributorName = distributorName;
+    }
+
+    public String getDistributorSapCode() {
+        return distributorSapCode;
+    }
+
+    public void setDistributorSapCode(String distributorSapCode) {
+        this.distributorSapCode = distributorSapCode;
+    }
+
+
+
+
+    public int getTotalOutlets() {
+        return totalOutlets;
+    }
+
+    public void setTotalOutlets(int totalOutlets) {
+        this.totalOutlets = totalOutlets;
+    }
+
+    public Integer getAuditedOutlets() {
+        return auditedOutlets;
+    }
+
+    public void setAuditedOutlets(Integer auditedOutlets) {
+        this.auditedOutlets = auditedOutlets;
+    }
+
+    public Map<Long, Integer> getMeetMap() {
+        return meetMap;
+    }
+
+    public void setMeetMap(Map<Long, Integer> meetMap) {
+        this.meetMap = meetMap;
+    }
+
+    public Map<Long, Integer> getPowerMeet() {
+        return powerMeet;
+    }
+
+    public void setPowerMeet(Map<Long, Integer> powerMeet) {
+        this.powerMeet = powerMeet;
+    }
+
+    public Map<Long, Integer> getFullRangeMeetMap() {
+        return fullRangeMeetMap;
+    }
+
+    public void setFullRangeMeetMap(Map<Long, Integer> fullRangeMeetMap) {
+        this.fullRangeMeetMap = fullRangeMeetMap;
+    }
+
+    public Map<Long, Integer> getNoOfFacingRegisteredMap() {
+        return noOfFacingRegisteredMap;
+    }
+
+    public void setNoOfFacingRegisteredMap(Map<Long, Integer> noOfFacingRegisteredMap) {
+        this.noOfFacingRegisteredMap = noOfFacingRegisteredMap;
+    }
+
+    public Map<Long, Integer> getNoOfFacingActualMap() {
+        return noOfFacingActualMap;
+    }
+
+    public void setNoOfFacingActualMap(Map<Long, Integer> noOfFacingActualMap) {
+        this.noOfFacingActualMap = noOfFacingActualMap;
+    }
+
+    public Map<Long, Map<Long, Integer>> getRightLocationMap() {
+        return rightLocationMap;
+    }
+
+    public void setRightLocationMap(Map<Long, Map<Long, Integer>> rightLocationMap) {
+        this.rightLocationMap = rightLocationMap;
+    }
+
+
+
+    public Map<Long, Map<Long, Integer>> getRightLocationMapRegister() {
+        return rightLocationMapRegister;
+    }
+
+    public void setRightLocationMapRegister(Map<Long, Map<Long, Integer>> rightLocationMapRegister) {
+        this.rightLocationMapRegister = rightLocationMapRegister;
+    }
+
+    public Map<Long, Map<Long, Integer>> getPosmMap() {
+        return posmMap;
+    }
+
+    public void setPosmMap(Map<Long, Map<Long, Integer>> posmMap) {
+        this.posmMap = posmMap;
+    }
+
+    public Map<Long, Integer> getPosmActualMap() {
+        return posmActualMap;
+    }
+
+    public void setPosmActualMap(Map<Long, Integer> posmActualMap) {
+        this.posmActualMap = posmActualMap;
+    }
+
+    public Map<Long, Integer> getCommissionMap() {
+        return commissionMap;
+    }
+
+    public void setCommissionMap(Map<Long, Integer> commissionMap) {
+        this.commissionMap = commissionMap;
+    }
+
+    public Map<Long, Integer> getAwarenessMap() {
+        return awarenessMap;
+    }
+
+    public void setAwarenessMap(Map<Long, Integer> awarenessMap) {
+        this.awarenessMap = awarenessMap;
+    }
+
+    public Map<Long, Integer> getComplianceMap() {
+        return complianceMap;
+    }
+
+    public void setComplianceMap(Map<Long, Integer> complianceMap) {
+        this.complianceMap = complianceMap;
+    }
+
+    public Integer getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(Integer performance) {
+        this.performance = performance;
+    }
+
+    public Map<Long, Integer> getNoOfFacingMap() {
+        return noOfFacingMap;
+    }
+
+    public void setNoOfFacingMap(Map<Long, Integer> noOfFacingMap) {
+        this.noOfFacingMap = noOfFacingMap;
+    }
+
+
+
+}

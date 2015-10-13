@@ -1,0 +1,161 @@
+package com.banvien.fcv.core;
+
+
+/**
+ * Constant values used throughout the application.
+ *
+ */
+public final class Constants {
+
+
+
+    private Constants() {
+        // hide me
+    }
+    //~ Static fields/initializers =============================================
+    
+    public static final String DATE_FORMAT = "MM/dd/yyyy";
+    /**
+     * The Alphabet number for search query
+     */
+    public static final String ALPHABET_SEARCH_PREFIX = "^$^";
+    /**
+     * The name of the ResourceBundle used in this application
+     */
+    public static final String BUNDLE_KEY = "ApplicationResources";
+
+    /**
+     * File separator from System properties
+     */
+    public static final String FILE_SEP = System.getProperty("file.separator");
+
+    /**
+     * User home from System properties
+     */
+    public static final String USER_HOME = System.getProperty("user.home") + FILE_SEP;
+
+    /**
+     * The name of the configuration hashmap stored in application scope.
+     */
+    public static final String CONFIG = "appConfig";
+
+    /**
+     * Session scope attribute that holds the locale set by the user. By setting this key
+     * to the same one that Struts uses, we get synchronization in Struts w/o having
+     * to do extra work or have two session-level variables.
+     */
+    public static final String PREFERRED_LOCALE_KEY = "org.apache.struts2.action.LOCALE";
+
+    /**
+     * The request scope attribute that holds the list form
+     */
+    public static final String LIST_MODEL_KEY = "items";
+    
+    /**
+     * The request scope attribute that holds the form
+     */
+    public static final String FORM_MODEL_KEY = "item";
+    
+
+    /**
+     * The name of the Administrator role, as specified in web.xml
+     */
+    public static final String ADMIN_ROLE = "ADMIN";
+    
+    public static final String SUPPORT_ROLE = "SUPPORT";
+
+
+    /**
+     * The name of the user's role list, a request-scoped attribute
+     * when adding/editing a user.
+     */
+    public static final String USER_ROLES = "userRoles";
+
+    /**
+     * The name of the available roles list, a request-scoped attribute
+     * when adding/editing a user.
+     */
+    public static final String AVAILABLE_ROLES = "availableRoles";
+
+    /**
+     * The name of the CSS Theme setting.
+     */
+    public static final String CSS_THEME = "csstheme";
+    
+    /**
+     * Sort direction constants
+     */
+    public static final String SORT_ASC = "2";
+    public static final String SORT_DESC = "1";
+
+    /**
+     * Acegi security constants
+     */
+    
+    public static final String ACEGI_SECURITY_FORM_USERNAME_KEY = "j_username";
+	public static final String ACEGI_SECURITY_FORM_PASSWORD_KEY = "j_password";
+
+	public static final String ACEGI_SECURITY_LAST_USERNAME_KEY = "ACEGI_SECURITY_LAST_USERNAME";
+
+    /**
+     * Crudaction
+     */
+    public static final String ACTION_DELETE = "delete";
+    public static final String ACTION_SEARCH = "search";
+    public static final String ACTION_INSERT_UPDATE = "insert-update";
+    public static final String ACTION_IMPORT = "import";
+    public static final String ACTION_EXPORT = "export";
+
+    public static final String MESSAGE_RESPONSE_MODEL_KEY = "messageResponse";
+
+    /**
+     * Audit status
+     */
+    public static final int AUDIT_FINISHED = 0;
+    public static final int AUDIT_NOT_YET = 1;
+
+    /**
+     * Brand Group
+     */
+    public static final String BRAND_GROUP_IFT = "IFT";
+    public static final String BRAND_GROUP_DBB = "DBB";
+
+    /**
+     * Outlet brand
+     */
+    public static final String FRISO = "FRISO";
+    public static final String DLITF = "DLIFT";
+    public static final String DBB = "SD_DBB";
+
+
+    // re-audit
+    public static final int RE_AUDIT_NO_FACINGS = 5;
+
+    public static final int RE_AUDIT_GPS_DISTANCE = 1000; //meter
+
+    /**
+     * Outlet Active status
+     */
+    public static final int OUTLET_STATUS_ACTIVE = 1;
+    public static final int OUTLET_STATUS_CLOSED = 2;
+    public static final int OUTLET_STATUS_CHANGE_BUSINESS = 3;
+    public static final int OUTLET_STATUS_NOT_FOUND = 4;
+    public static final int OUTLET_STATUS_REFUSE_AUDIT = 5;
+    public static final int OUTLET_STATUS_NO_FACING = 6;
+    public static final int OUTLET_STATUS_NO_SELL = 7;
+
+
+    public static final int MAX_JSON_ITEM = 20;
+
+    
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_GT = "GT";
+    public static final String ROLE_MT = "MT";
+    public static final String ROLE_MODERATOR = "MODERATOR";
+
+    /**
+     * Utils
+     */
+    public static final String COMMA_SEP = ",";
+
+}

@@ -1,0 +1,75 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OarLatestBonusDAO;
+import com.banvien.fcv.core.domain.OarLatestBonus;
+import com.banvien.fcv.core.dto.OarLatestBonusBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class OarLatestBonusServiceImpl extends GenericServiceImpl<OarLatestBonus,Long>
+                                                    implements OarLatestBonusService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OarLatestBonusDAO oarLatestBonusDAO;
+
+    public void setOarLatestBonusDAO(OarLatestBonusDAO oarLatestBonusDAO) {
+        this.oarLatestBonusDAO = oarLatestBonusDAO;
+    }
+
+    @Override
+	protected GenericDAO<OarLatestBonus, Long> getGenericDAO() {
+		return oarLatestBonusDAO;
+	}
+
+    @Override
+    public void updateItem(OarLatestBonusBean oarLastedBonusBean) throws ObjectNotFoundException, DuplicateException {
+        OarLatestBonus dbItem = this.oarLatestBonusDAO.findByIdNoAutoCommit(oarLastedBonusBean.getPojo().getOarLatestBonusID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found account " + oarLastedBonusBean.getPojo().getOarLatestBonusID());
+
+        OarLatestBonus pojo = oarLastedBonusBean.getPojo();
+
+        this.oarLatestBonusDAO.detach(dbItem);
+        this.oarLatestBonusDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OarLatestBonusBean oarLastedBonusBean) throws DuplicateException {
+        OarLatestBonus pojo = oarLastedBonusBean.getPojo();
+        pojo = this.oarLatestBonusDAO.save(pojo);
+        oarLastedBonusBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                oarLatestBonusDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OarLatestBonusBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (bean.getPojo().getOutletauditresult() != null && bean.getPojo().getOutletauditresult().getOutletAuditResultID() > 0) {
+            properties.put(OarLatestBonus.FIELD_OUTLETAUDITRESUTL, bean.getPojo().getOutletauditresult().getOutletAuditResultID());
+        }
+
+        if (bean.getPojo().getOutletBrand() != null && bean.getPojo().getOutletBrand().getOutletBrandID() > 0) {
+            properties.put(OarLatestBonus.FIELD_OUTLETBRAND, bean.getPojo().getOutletBrand().getOutletBrandID());
+        }
+
+        return this.oarLatestBonusDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+}

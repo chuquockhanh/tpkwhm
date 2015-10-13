@@ -1,0 +1,19 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Region;
+import com.banvien.fcv.core.dto.RegionWithOutletNumDTO;
+
+import java.util.List;
+
+/**
+ * <p>Generic DAO layer for Regions</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface RegionDAO extends GenericDAO<Region,Long> {
+
+    Region findRegionByName(final String name);
+
+    List<RegionWithOutletNumDTO> findRegionWithOutletNum(List<Long> regionIDs, String whereClause);
+}

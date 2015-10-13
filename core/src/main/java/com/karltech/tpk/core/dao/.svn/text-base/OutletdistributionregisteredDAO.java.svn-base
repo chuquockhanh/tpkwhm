@@ -1,0 +1,21 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Outletdistributionregistered;
+
+import java.util.List;
+/**
+ * <p>Generic DAO layer for Outletdistributionregistereds</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface OutletdistributionregisteredDAO extends GenericDAO<Outletdistributionregistered,Long> {
+
+    Outletdistributionregistered findByOutletIDAndOutletBrandAndLevel(final Long outletID, final Long outletBrandID, final Long levelID);
+
+    List<Outletdistributionregistered> findByOutletIDs(List<Long> outletIds);
+
+    void clearOutletFacingExcept(List<Long> outletIds);
+
+    List<Outletdistributionregistered> findByOutletIDAndBrand(final Long outletId, final Long outletBrandID);
+}

@@ -1,0 +1,117 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE IFTDisplayLocation</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Iftdisplaylocation implements Serializable {
+
+    public static final String FIELD_CODE = "code";
+
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_DISPLAY_ORDER = "displayOrder";
+
+	/**
+	 * Attribute iftDisplayLocation.
+	 */
+	private Long iftDisplayLocationID;
+	
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+	
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+    /**
+     * Attribute outletBrand.
+     */
+    private Outletbrand outletBrand;
+
+    public Long getIftDisplayLocationID() {
+        return iftDisplayLocationID;
+    }
+
+    public void setIftDisplayLocationID(Long iftDisplayLocationID) {
+        this.iftDisplayLocationID = iftDisplayLocationID;
+    }
+
+    /* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return code
+	 */
+	public String getCode() {
+		return code;
+	}
+
+	/**
+	 * @param code new value for code 
+	 */
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name new value for name 
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return displayOrder
+	 */
+	public Integer getDisplayOrder() {
+		return displayOrder;
+	}
+
+	/**
+	 * @param displayOrder new value for displayOrder 
+	 */
+	public void setDisplayOrder(Integer displayOrder) {
+		this.displayOrder = displayOrder;
+	}
+
+
+    public Outletbrand getOutletBrand() {
+        return outletBrand;
+    }
+
+    public void setOutletBrand(Outletbrand outletBrand) {
+        this.outletBrand = outletBrand;
+    }
+
+}

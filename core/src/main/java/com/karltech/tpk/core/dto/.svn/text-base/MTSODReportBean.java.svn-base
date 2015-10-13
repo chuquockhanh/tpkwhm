@@ -1,0 +1,39 @@
+package com.banvien.fcv.core.dto;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/25/12
+ * Time: 7:22 AM
+ */
+public class MTSODReportBean extends AbstractBean<MTSODReportDTO>{
+    private Timestamp fromDate;
+    private Timestamp toDate;
+    private Long accountID;
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+
+    public Long getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(Long accountID) {
+        this.accountID = accountID;
+    }
+}

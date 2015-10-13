@@ -1,0 +1,82 @@
+ALTER TABLE OARFullRangeSKU
+ADD
+(
+  POSMID bigint(11) DEFAULT NULL
+);
+
+ALTER TABLE OARPosm
+ADD
+(
+  StatusPosm Text DEFAULT NULL
+);
+
+ALTER TABLE IFTDisplayLocation
+ADD
+(
+  OutletBrandID bigint(11) DEFAULT NULL,
+  KEY `FK_IFTDisplayLocation_OutletBrand` (`OutletBrandID`),
+  CONSTRAINT `FK_IFTDisplayLocation_OutletBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `OutletBrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+DROP TABLE IF EXISTS `POSMMiniValue`;
+CREATE TABLE `POSMMiniValue` (
+  `POSMMiniValueID` int(11) NOT NULL AUTO_INCREMENT,
+  POSMID bigint(11) DEFAULT NULL,
+  Value int DEFAULT  NULL,
+  PRIMARY KEY (`POSMMiniValueID`),
+  KEY `FK_POSMMiniValue_OutletPOSM` (`POSMID`),
+  CONSTRAINT `FK_POSMMiniValue_OutletPOSM` FOREIGN KEY (`POSMID`) REFERENCES `OutletPosm` (`OutletPOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+DROP TABLE IF EXISTS `oarminivalueposm`;
+CREATE TABLE `oarminivalueposm` (
+  `OarMiniValuePosmID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletAuditResultID` bigint(20) DEFAULT NULL,
+  `PosmID` bigint(20) DEFAULT NULL,
+  `Value` int(11) DEFAULT NULL,
+  PRIMARY KEY (`OarMiniValuePosmID`),
+  KEY `FK_1` (`OutletAuditResultID`),
+  KEY `FK_2` (`PosmID`),
+  CONSTRAINT `FK_1` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `outletauditresult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_2` FOREIGN KEY (`PosmID`) REFERENCES `outletposm` (`OutletPOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of oarminivalueposm
+-- ----------------------------
+INSERT INTO `oarminivalueposm` VALUES ('1', '10', '21', '126');
+INSERT INTO `oarminivalueposm` VALUES ('2', '10', '22', '57');
+
+DROP TABLE IF EXISTS `dbbposmregistered`;
+CREATE TABLE `dbbposmregistered` (
+  `DBBPosmRegisteredID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletID` bigint(20) DEFAULT NULL,
+  `OutletBrandID` bigint(20) DEFAULT NULL,
+  `PosmID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`DBBPosmRegisteredID`),
+  UNIQUE KEY `UQ_OutletID_PosmID_OutletPosmID_DBBRegistered` (`OutletID`,`OutletBrandID`,`PosmID`),
+  KEY `FK_DBBRegister_OutletBrand` (`OutletBrandID`),
+  KEY `FK_DBBRegister_OutletPosm` (`PosmID`),
+  CONSTRAINT `FK_DBBRegister_OutletPosm` FOREIGN KEY (`PosmID`) REFERENCES `outletposm` (`OutletPOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_DBBRegister_Outlet` FOREIGN KEY (`OutletID`) REFERENCES `outlet` (`OutletID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_DBBRegister_OutletBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `outletbrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `oardbbposmregistered`;
+CREATE TABLE `oardbbposmregistered` (
+  `oardbbposmregisteredID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `OutletID` bigint(20) DEFAULT NULL,
+  `OutletBrandID` bigint(20) DEFAULT NULL,
+  `PosmID` bigint(20) DEFAULT NULL,
+  `OutletAuditResultID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`oardbbposmregisteredID`),
+  UNIQUE KEY `UQ_OutletID_PosmID_OutletPosmID_OARDBBRegistered` (`OutletID`,`OutletBrandID`,`PosmID`),
+  KEY `FK_OARDBBRegister_OutletBrand` (`OutletBrandID`),
+  KEY `FK_OARDBBRegister_OutletPosm` (`PosmID`),
+  CONSTRAINT `FK_OARDBBRegister_OutletPosm` FOREIGN KEY (`PosmID`) REFERENCES `outletposm` (`OutletPOSMID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARDBBRegister_Outlet` FOREIGN KEY (`OutletID`) REFERENCES `outlet` (`OutletID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARDBBRegister_OutletBrand` FOREIGN KEY (`OutletBrandID`) REFERENCES `outletbrand` (`OutletBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_OARDBBRegister_OutletAuditResult` FOREIGN KEY (`OutletAuditResultID`) REFERENCES `OutletAuditResult` (`OutletAuditResultID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+

@@ -1,0 +1,388 @@
+package com.banvien.fcv.core.dto;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.banvien.fcv.core.Constants;
+
+/**
+ * User: BAN
+ * Date: 6/15/12
+ * Time: 2:05 PM
+ */
+public class OutletInfoList {
+
+    private String auditorCode;
+    
+    private Integer maxItems = Constants.MAX_JSON_ITEM;
+    
+    private Integer totalItems;
+
+    private List<OutletDTO> outletDTOs;
+
+    private List<IftdisplaylocationDTO> iftdisplaylocationDTOs;
+
+    private List<OutletposmDTO> outletposmDTOs;
+
+    private List<PowerskuDTO> powerskuDTOs;
+
+    private List<FullrangeskuDTO> fullrangeskuDTOs;
+
+    private List<PromotionDTO> promotionDTOs;
+
+    private Map<Long,List<Long>> regionPromotions;
+
+    private Map<Long,List<Long>> promotionProductToHandheld;
+
+    private List<PromotionproductDTO> promotionproductDTOs;
+
+    private List<UnitDTO> unitDTOs;
+
+    private List<POSMMiniValueDTO> posmMiniValueDTOs;
+
+    public List<OutletDTO> getOutletDTOs() {
+        return outletDTOs;
+    }
+
+    public void setOutletDTOs(List<OutletDTO> outletDTOs) {
+        this.outletDTOs = outletDTOs;
+    }
+
+    public List<IftdisplaylocationDTO> getIftdisplaylocationDTOs() {
+        return iftdisplaylocationDTOs;
+    }
+
+    public void setIftdisplaylocationDTOs(List<IftdisplaylocationDTO> iftdisplaylocationDTOs) {
+        this.iftdisplaylocationDTOs = iftdisplaylocationDTOs;
+    }
+
+    public List<OutletposmDTO> getOutletposmDTOs() {
+        return outletposmDTOs;
+    }
+
+    public void setOutletposmDTOs(List<OutletposmDTO> outletposmDTOs) {
+        this.outletposmDTOs = outletposmDTOs;
+    }
+
+    public List<PowerskuDTO> getPowerskuDTOs() {
+        return powerskuDTOs;
+    }
+
+    public void setPowerskuDTOs(List<PowerskuDTO> powerskuDTOs) {
+        this.powerskuDTOs = powerskuDTOs;
+    }
+
+    public List<FullrangeskuDTO> getFullrangeskuDTOs() {
+        return fullrangeskuDTOs;
+    }
+
+    public void setFullrangeskuDTOs(List<FullrangeskuDTO> fullrangeskuDTOs) {
+        this.fullrangeskuDTOs = fullrangeskuDTOs;
+    }
+
+    public List<PromotionDTO> getPromotionDTOs() {
+        return promotionDTOs;
+    }
+
+    public void setPromotionDTOs(List<PromotionDTO> promotionDTOs) {
+        this.promotionDTOs = promotionDTOs;
+    }
+
+    public String getAuditorCode() {
+        return auditorCode;
+    }
+
+    public void setAuditorCode(String auditorCode) {
+        this.auditorCode = auditorCode;
+    }
+
+    public List<POSMMiniValueDTO> getPosmMiniValueDTOs() {
+        return posmMiniValueDTOs;
+    }
+
+    public void setPosmMiniValueDTOs(List<POSMMiniValueDTO> posmMiniValueDTOs) {
+        this.posmMiniValueDTOs = posmMiniValueDTOs;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setAuditorCode(o.getString("auditorCode"));
+        updateFullrangeskuDTOs(o.getJSONArray("fullrangeskuDTOs"));
+        updateOutletDTOs(o.getJSONArray("outletDTOs"));
+        updateIftdisplaylocationDTOs(o.getJSONArray("iftdisplaylocationDTOs"));
+        updateOutletposmDTOs(o.getJSONArray("outletposmDTOs"));
+        updatePowerskuDTOs(o.getJSONArray("powerskuDTOs"));
+        updatePromotionDTOs(o.getJSONArray("promotionDTOs"));
+        updateRegionPromotions(o.getJSONObject("regionPromotions"));
+        updatePromotionProductToHandheld(o.getJSONObject("promotionProductToHandheld"));
+        updatePromotionproductDTOs(o.getJSONArray("promotionproductDTOs"));
+        updateUnitDTOs(o.getJSONArray("unitDTOs"));
+        updatePOSMMiniDTOs(o.getJSONArray("posmMiniValueDTOs"));
+    }
+
+    private void updateUnitDTOs(JSONArray a) throws JSONException {
+        if (unitDTOs == null) {
+            unitDTOs = new ArrayList<UnitDTO>();
+        } else {
+            unitDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            UnitDTO bean = new UnitDTO();
+            bean.unserializeJSON(o);
+            unitDTOs.add(bean);
+        }
+    }
+
+    private void updatePromotionproductDTOs(JSONArray a) throws JSONException {
+        if (promotionproductDTOs == null) {
+            promotionproductDTOs = new ArrayList<PromotionproductDTO>();
+        } else {
+            promotionproductDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            PromotionproductDTO bean = new PromotionproductDTO();
+            bean.unserializeJSON(o);
+            promotionproductDTOs.add(bean);
+        }
+    }
+
+    private void updatePromotionProductToHandheld(JSONObject o) throws JSONException {
+        if (promotionProductToHandheld == null) {
+            promotionProductToHandheld = new HashMap<Long, List<Long>>();
+        } else {
+            promotionProductToHandheld.clear();
+        }
+        Iterator  iter = o.keys();
+        while(iter.hasNext()) {
+            String key = (String)iter.next();
+            Long promotionID = Long.valueOf(key);
+            List<Long> products;
+            if (promotionProductToHandheld.containsKey(promotionID)) {
+                products = promotionProductToHandheld.get(promotionID);
+            } else {
+                products = new ArrayList<Long>();
+            }
+            JSONArray a = o.getJSONArray(key);
+            for (int i = 0; i < a.length(); i++) {
+                products.add(a.getLong(i));
+            }
+            promotionProductToHandheld.put(promotionID,products);
+        }
+    }
+
+    private void updateRegionPromotions(JSONObject o) throws JSONException {
+        if (regionPromotions == null) {
+            regionPromotions = new HashMap<Long, List<Long>>();
+        } else {
+            regionPromotions.clear();
+        }
+        Iterator  iter = o.keys();
+        while(iter.hasNext()) {
+            String key = (String)iter.next();
+            Long regionID = Long.valueOf(key);
+            List<Long> promotions;
+            if (regionPromotions.containsKey(regionID)) {
+                promotions = regionPromotions.get(regionID);
+            } else {
+                promotions = new ArrayList<Long>();
+            }
+            JSONArray a = o.getJSONArray(key);
+            for (int i = 0; i < a.length(); i++) {
+                promotions.add(a.getLong(i));
+            }
+            regionPromotions.put(regionID,promotions);
+        }
+    }
+
+
+    private void updatePromotionDTOs(JSONArray a) throws JSONException {
+        if (promotionDTOs == null) {
+            promotionDTOs = new ArrayList<PromotionDTO>();
+        } else {
+            promotionDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            PromotionDTO bean = new PromotionDTO();
+            bean.unserializeJSON(o);
+            promotionDTOs.add(bean);
+        }
+    }
+
+
+    private void updatePowerskuDTOs(JSONArray a) throws JSONException {
+        if (powerskuDTOs == null) {
+            powerskuDTOs = new ArrayList<PowerskuDTO>();
+        } else {
+            powerskuDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            PowerskuDTO bean = new PowerskuDTO();
+            bean.unserializeJSON(o);
+            powerskuDTOs.add(bean);
+        }
+    }
+
+    private void updateOutletposmDTOs(JSONArray a) throws JSONException {
+        if (outletposmDTOs == null) {
+            outletposmDTOs = new ArrayList<OutletposmDTO>();
+        } else {
+            outletposmDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OutletposmDTO bean = new OutletposmDTO();
+            bean.unserializeJSON(o);
+            outletposmDTOs.add(bean);
+        }
+    }
+
+    private void updateIftdisplaylocationDTOs(JSONArray a) throws JSONException {
+        if (iftdisplaylocationDTOs == null) {
+            iftdisplaylocationDTOs = new ArrayList<IftdisplaylocationDTO>();
+        } else {
+            iftdisplaylocationDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            IftdisplaylocationDTO bean = new IftdisplaylocationDTO();
+            bean.unserializeJSON(o);
+            iftdisplaylocationDTOs.add(bean);
+        }
+    }
+
+    private void updateOutletDTOs(JSONArray a) throws JSONException {
+        if (outletDTOs == null) {
+            outletDTOs = new ArrayList<OutletDTO>();
+        } else {
+            outletDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OutletDTO bean = new OutletDTO();
+            bean.unserializeJSON(o);
+            outletDTOs.add(bean);
+        }
+    }
+
+
+    private void updateFullrangeskuDTOs(JSONArray a) throws JSONException {
+        if (fullrangeskuDTOs == null) {
+            fullrangeskuDTOs = new ArrayList<FullrangeskuDTO>();
+        } else {
+            fullrangeskuDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            FullrangeskuDTO sku = new FullrangeskuDTO();
+            sku.unserializeJSON(o);
+            fullrangeskuDTOs.add(sku);
+        }
+    }
+
+    private void updatePOSMMiniDTOs(JSONArray a) throws JSONException {
+        if (posmMiniValueDTOs == null) {
+            posmMiniValueDTOs = new ArrayList<POSMMiniValueDTO>();
+        } else {
+            posmMiniValueDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            POSMMiniValueDTO dto = new POSMMiniValueDTO();
+            dto.unserializeJSON(o);
+            posmMiniValueDTOs.add(dto);
+        }
+    }
+
+    public JSONObject serializeJSON() throws JSONException {
+        JSONObject o = new JSONObject();
+        o.put("auditorCode", auditorCode);
+        o.put("totalItems", totalItems);
+        o.put("maxItems", maxItems);
+        o.put("outletDTOs", outlet2JSONArray(outletDTOs));
+        o.put("iftdisplaylocationDTOs", toJSONArray(iftdisplaylocationDTOs));
+        o.put("outletposmDTOs", toJSONArray(outletposmDTOs));
+        o.put("powerskuDTOs", toJSONArray(powerskuDTOs));
+        o.put("fullrangeskuDTOs", toJSONArray(fullrangeskuDTOs));
+        o.put("promotionDTOs", toJSONArray(promotionDTOs));
+        o.put("regionPromotions",new JSONObject(regionPromotions));
+        o.put("promotionProductToHandheld", new JSONObject(promotionProductToHandheld));
+        o.put("promotionproductDTOs", toJSONArray(promotionproductDTOs));
+        o.put("unitDTOs", toJSONArray(unitDTOs));
+        o.put("posmMiniValueDTOs", toJSONArray(posmMiniValueDTOs));
+        return o;
+    }
+
+    private JSONArray toJSONArray(List objects) {
+        JSONArray a = new JSONArray();
+        for (Object o: objects) {
+            a.put(new JSONObject(o));
+        }
+        return a;
+    }
+    private JSONArray outlet2JSONArray(List<OutletDTO> outlets) throws JSONException{
+        JSONArray a = new JSONArray();
+        for (OutletDTO o: outlets) {
+            a.put(o.serializeJSON());
+        }
+        return a;
+    }
+
+    public Map<Long, List<Long>> getRegionPromotions() {
+        return regionPromotions;
+    }
+
+    public void setRegionPromotions(Map<Long, List<Long>> regionPromotions) {
+        this.regionPromotions = regionPromotions;
+    }
+
+    public Map<Long, List<Long>> getPromotionProductToHandheld() {
+        return promotionProductToHandheld;
+    }
+
+    public void setPromotionProductToHandheld(Map<Long, List<Long>> promotionProductToHandheld) {
+        this.promotionProductToHandheld = promotionProductToHandheld;
+    }
+
+    public List<PromotionproductDTO> getPromotionproductDTOs() {
+        return promotionproductDTOs;
+    }
+
+    public void setPromotionproductDTOs(List<PromotionproductDTO> promotionproductDTOs) {
+        this.promotionproductDTOs = promotionproductDTOs;
+    }
+
+    public List<UnitDTO> getUnitDTOs() {
+        return unitDTOs;
+    }
+
+    public void setUnitDTOs(List<UnitDTO> unitDTOs) {
+        this.unitDTOs = unitDTOs;
+    }
+
+	public Integer getTotalItems() {
+		return totalItems;
+	}
+
+	public void setTotalItems(Integer totalItems) {
+		this.totalItems = totalItems;
+	}
+
+	public Integer getMaxItems() {
+		return maxItems;
+	}
+
+	public void setMaxItems(Integer maxItems) {
+		this.maxItems = maxItems;
+	}
+    
+}

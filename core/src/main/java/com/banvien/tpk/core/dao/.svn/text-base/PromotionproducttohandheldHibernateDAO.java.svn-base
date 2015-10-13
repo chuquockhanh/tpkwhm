@@ -1,0 +1,41 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Promotionproducttohandheld;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Promotionproducttohandhelds</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class PromotionproducttohandheldHibernateDAO extends
+		AbstractHibernateDAO<Promotionproducttohandheld, Integer> implements
+		PromotionproducttohandheldDAO {
+
+    public PromotionproducttohandheldHibernateDAO() {
+		super(Promotionproducttohandheld.class);
+	}
+
+    @Override
+    public void deleteByPromotionID(final Long promotionID) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Integer>() {
+                public Integer doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM Promotionproducttohandheld WHERE promotion.promotionID = :promotionID");
+                    query.setParameter("promotionID", promotionID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+}

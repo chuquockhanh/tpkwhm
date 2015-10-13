@@ -1,0 +1,14 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Iftdisplaylocation;
+/**
+ * <p>Generic DAO layer for Iftdisplaylocations</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface IftdisplaylocationDAO extends GenericDAO<Iftdisplaylocation,Long> {
+    Iftdisplaylocation findByCode(String Code);
+
+    Iftdisplaylocation findByName(String Name);
+}

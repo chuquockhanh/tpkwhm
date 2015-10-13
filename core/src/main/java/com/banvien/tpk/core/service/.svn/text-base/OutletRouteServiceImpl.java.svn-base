@@ -1,0 +1,98 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletSalemanDAO;
+import com.banvien.fcv.core.domain.OutletSaleman;
+import com.banvien.fcv.core.dto.OutletSalemanBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class OutletSalemanServiceImpl extends GenericServiceImpl<OutletSaleman,Long>
+                                                    implements OutletSalemanService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletSalemanDAO outletSalemanDAO;
+
+    public OutletSalemanDAO getOutletSalemanDAO() {
+        return outletSalemanDAO;
+    }
+
+    public void setOutletSalemanDAO(OutletSalemanDAO outletSalemanDAO) {
+        this.outletSalemanDAO = outletSalemanDAO;
+    }
+
+    @Override
+	protected GenericDAO<OutletSaleman, Long> getGenericDAO() {
+		return outletSalemanDAO;
+	}
+
+    @Override
+    public void updateItem(OutletSalemanBean outletSalemanBean) throws ObjectNotFoundException, DuplicateException {
+        OutletSaleman dbItem = this.outletSalemanDAO.findByIdNoAutoCommit(outletSalemanBean.getPojo().getOutletSalemanID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + outletSalemanBean.getPojo().getOutletSalemanID());
+
+        OutletSaleman pojo = outletSalemanBean.getPojo();
+
+        this.outletSalemanDAO.detach(dbItem);
+        this.outletSalemanDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OutletSalemanBean outletSalemanBean) throws DuplicateException {
+        OutletSaleman pojo = outletSalemanBean.getPojo();
+        pojo = this.outletSalemanDAO.save(pojo);
+        outletSalemanBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                outletSalemanDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OutletSalemanBean outletSalemanBean)
+    {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (outletSalemanBean.getPojo().getSaleman() != null && outletSalemanBean.getPojo().getSaleman().getSalemanID() != null && outletSalemanBean.getPojo().getSaleman().getSalemanID() > 0) {
+            properties.put("saleman.salemanID", outletSalemanBean.getPojo().getSaleman().getSalemanID());
+        }
+
+        if (outletSalemanBean.getPojo().getOutletbrand() != null && outletSalemanBean.getPojo().getOutletbrand().getOutletBrandID() != null && outletSalemanBean.getPojo().getOutletbrand().getOutletBrandID() > 0) {
+            properties.put("outletbrand.outletBrandID", outletSalemanBean.getPojo().getOutletbrand().getOutletBrandID());
+        }
+
+        if (outletSalemanBean.getPojo().getOutlet() != null && outletSalemanBean.getPojo().getOutlet().getOutletID() != null && outletSalemanBean.getPojo().getOutlet().getOutletID() > 0) {
+            properties.put("outlet.outletID", outletSalemanBean.getPojo().getOutlet().getOutletID());
+        }
+
+        return this.outletSalemanDAO.searchByProperties(properties, outletSalemanBean.getFirstItem(), outletSalemanBean.getMaxPageItems(), outletSalemanBean.getSortExpression(), outletSalemanBean.getSortDirection(), true);
+    }
+
+    @Override
+    public List<OutletSaleman> findListByOutletID(final Long outletID)
+    {
+        return outletSalemanDAO.findListByOutletID(outletID);
+    }
+
+    @Override
+    public List<OutletSaleman> findListBySalemanID(final Long salemanID)
+    {
+        return outletSalemanDAO.findListBySalemanID(salemanID);
+    }
+
+}

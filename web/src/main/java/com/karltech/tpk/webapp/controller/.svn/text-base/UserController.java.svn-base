@@ -1,0 +1,416 @@
+package com.banvien.fcv.webapp.controller;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.*;
+import com.banvien.fcv.core.dto.DistributorBean;
+import com.banvien.fcv.core.dto.UserBean;
+import com.banvien.fcv.core.dto.UserDTO;
+import com.banvien.fcv.core.dto.UserImportBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import com.banvien.fcv.core.service.AgentService;
+import com.banvien.fcv.core.service.DistributorService;
+import com.banvien.fcv.core.service.RegionService;
+import com.banvien.fcv.core.service.UserService;
+import com.banvien.fcv.core.util.CacheUtil;
+import com.banvien.fcv.core.util.StringUtil;
+import com.banvien.fcv.webapp.editor.CustomDateEditor;
+import com.banvien.fcv.webapp.editor.PojoEditor;
+import com.banvien.fcv.webapp.util.CommonUtil;
+import com.banvien.fcv.webapp.util.ExcelUtil;
+import com.banvien.fcv.webapp.util.FileUtils;
+import com.banvien.fcv.webapp.util.RequestUtil;
+import com.banvien.fcv.webapp.validator.UserValidator;
+import jxl.*;
+import jxl.read.biff.BiffException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ApplicationObjectSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.*;
+
+
+/**
+ * Created by Ban Vien Ltd.
+ * Author: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 9:26 AM
+ */
+@Controller
+public class UserController extends ApplicationObjectSupport {
+    private transient final Log log = LogFactory.getLog(getClass());
+
+    private static final int COL_FULLNAME = 1;
+    private static final int COL_PASSWORD = 2;
+    private static final int COL_EMAIL = 3;
+    private static final int COL_REGION = 4;
+    private static final int COL_DISTRIBUTOR = 5;
+
+    private static final int SHEET_INDEX = 0;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RegionService regionService;
+
+    @Autowired
+    private UserValidator userValidator;
+
+    @Autowired
+    private DistributorService distributorService;
+
+    @Autowired
+    private AgentService agentService;
+
+    private static final String USER_KEY = "userkey";
+
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+    	binder.registerCustomEditor(Date.class, new CustomDateEditor());
+        binder.registerCustomEditor(Agent.class, new PojoEditor(Agent.class, "agentID", Long.class));
+	}
+    
+    @RequestMapping("/admin/user/edit.html")
+	public ModelAndView edit(@ModelAttribute(Constants.FORM_MODEL_KEY) UserBean userBean, BindingResult bindingResult, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/admin/user/edit");
+
+		String crudaction = userBean.getCrudaction();
+		User pojo = userBean.getPojo();
+		if(StringUtils.isNotBlank(crudaction) && crudaction.equals("insert-update")) {
+			try {
+				//validate
+				userValidator.validate(userBean, bindingResult);
+
+				if(!bindingResult.hasErrors()) {
+					if(pojo.getUserID() != null && pojo.getUserID() > 0) {
+						this.userService.updateItem(userBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.update.successful"));
+					} else {
+						this.userService.addNew(userBean);
+						mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.add.successful"));
+					}
+					mav.addObject("success", true);
+
+				}
+			}catch (ObjectNotFoundException oe) {
+				logger.error(oe.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.keynotfound"));
+			}catch (DuplicateException de) {
+				logger.error(de.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("database.exception.duplicate"));
+			}catch(Exception e) {
+				logger.error(e.getMessage());
+				mav.addObject("messageResponse", this.getMessageSourceAccessor().getMessage("general.exception.msg"));
+			}
+		}
+		if(!bindingResult.hasErrors()&& userBean.getPojo().getUserID() != null && userBean.getPojo().getUserID() > 0) {
+			try {
+				User itemObj = this.userService.findById(pojo.getUserID());
+                itemObj.setPassword("");
+				userBean.setPojo(itemObj);
+                if (itemObj.getRegions() != null && itemObj.getRegions().size() > 0) {
+                    Long[] regions = new Long[itemObj.getRegions().size()];
+                    int i = 0;
+                    for (Region region : itemObj.getRegions()) {
+                        regions[i] = region.getRegionID();
+                        i++;
+                    }
+                    userBean.setRegions(regions);
+                }
+			}
+			catch (Exception e) {
+				logger.error("Could not found news " + userBean.getPojo().getUserID(), e);
+			}
+		}
+
+        if(userBean.getDistributorBean() == null)
+        {
+            userBean.setDistributorBean(new DistributorBean());
+        }
+
+        executeSearchDistributor(userBean.getDistributorBean(), request);
+        executeSearchDistributor4User(mav, userBean);
+		mav.addObject(Constants.FORM_MODEL_KEY, userBean);
+        mav.addObject("regions", regionService.findAllInAgent());
+        mav.addObject("agents", agentService.findAll());
+		return mav;
+	}
+    
+    
+    @RequestMapping(value={"/admin/user/list.html"})
+    public ModelAndView list(UserBean bean, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("/admin/user/list");
+		if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_DELETE)) {
+			Integer totalDeleted = 0;
+			try {
+				totalDeleted = userService.deleteItems(bean.getCheckList());
+				mav.addObject("totalDeleted", totalDeleted);
+			}catch (Exception e) {
+				log.error(e.getMessage());
+				mav.addObject(Constants.MESSAGE_RESPONSE_MODEL_KEY, this.getMessageSourceAccessor().getMessage("database.multipledelete.exception"));
+			}
+		}
+        executeSearch(bean, request);
+        mav.addObject(Constants.LIST_MODEL_KEY, bean);
+        return mav;
+    }
+
+    @RequestMapping("/admin/user/import.html")
+    public ModelAndView importData(UserBean bean, HttpServletRequest request) throws IOException, ServletException, BiffException {
+        ModelAndView mav = new ModelAndView("/admin/user/importSE");
+        mav.addObject(Constants.FORM_MODEL_KEY, bean);
+        if (RequestMethod.GET.toString().equals(request.getMethod())) {
+			//Clear cache
+			CacheUtil.getInstance().remove(request.getSession().getId() + USER_KEY);
+		} else if (RequestMethod.POST.toString().equals(request.getMethod())) {
+
+            try{
+                if(StringUtils.isNotBlank(bean.getCrudaction()) && bean.getCrudaction().equals(Constants.ACTION_IMPORT)) {
+                    String destFolder = CommonUtil.getBaseFolder() + CommonUtil.getTempFolderName();
+                    MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request;
+                    Map<String, MultipartFile> map = mRequest.getFileMap();
+                    MultipartFile csvfile = (MultipartFile) map.get("dataFile");
+                    String fileName = FileUtils.upload(mRequest, destFolder, csvfile);
+                    String destFileName = request.getSession().getServletContext().getRealPath(destFolder + "/" + fileName);
+
+                    List<UserDTO> importedUsers = new ArrayList<UserDTO>();
+                    extractExcelData2UserSE(destFileName, importedUsers, SHEET_INDEX);
+
+                    // merger distributorCode
+                    mergeDistributorCode(importedUsers);
+
+                    log.debug("Remove temp file: " + destFileName);
+                    try{
+                        FileUtils.remove(destFileName);
+                    }catch (Exception e) {
+                        log.debug("Temporary File could not be deleted" + e.getMessage());
+                    }
+                    String sessionId = request.getSession().getId();
+                    CacheUtil.getInstance().putValue(sessionId + USER_KEY, importedUsers);
+                }
+                mav = new ModelAndView("redirect:/admin/user/importlist.html");
+            }
+            catch (Exception ex)
+            {
+                mav = new ModelAndView("/admin/user/importSE");
+                mav.addObject(Constants.FORM_MODEL_KEY, bean);
+                mav.addObject("messageResponse", "Could not extract excel data");
+            }
+        }
+        return mav;
+    }
+
+    @RequestMapping(value="/admin/user/importlist.html", method=RequestMethod.GET)
+    public ModelAndView importOutletList(HttpServletRequest request, UserImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<UserDTO> importedUsers = (List<UserDTO>) CacheUtil.getInstance().getValue(sessionId + USER_KEY);
+		if (importedUsers == null || importedUsers.size() == 0) {
+			return new ModelAndView("redirect:/admin/user/import.html");
+		}
+
+		List<UserDTO> displayUsers = importedUsers;
+
+		RequestUtil.initSearchBean(request, bean);
+        if (displayUsers.size() > 0) {
+	        Integer lastIndex = bean.getPage() * bean.getMaxPageItems();
+	        if (lastIndex > displayUsers.size()) {
+	        	lastIndex = displayUsers.size();
+	        }
+	        if (bean.getFirstItem() > displayUsers.size()) {
+	        	bean.setFirstItem(0);
+	        }
+
+        	bean.setListResult((List<UserDTO>)displayUsers.subList(bean.getFirstItem(), lastIndex));
+        }
+        bean.setTotalItems(displayUsers.size());
+
+		return new ModelAndView("/admin/user/importList", Constants.LIST_MODEL_KEY, bean);
+	}
+
+
+    private void mergeDistributorCode(List<UserDTO> lstUserDTO)
+    {
+        UserDTO temp = new UserDTO();
+        for(int i = 0; i < lstUserDTO.size() - 1; i ++)
+        {
+            temp = lstUserDTO.get(i);
+            for(int j = i + 1; j <  lstUserDTO.size();)
+            {
+                if(lstUserDTO.get(j).getUserName().compareTo(temp.getUserName()) == 0 && lstUserDTO.get(j).getEmail().compareTo(temp.getEmail()) == 0)
+                {
+                    temp.getDistributor().add(lstUserDTO.get(j).getDistributor().get(0));
+                    lstUserDTO.remove(j);
+                }
+                else
+                {
+                    j ++;
+                }
+            }
+            temp.getDistributor();
+        }
+    }
+
+
+
+
+    private void extractExcelData2UserSE(String dbFileName, List<UserDTO> importedUsers, int sheetIndex) throws BiffException, IOException {
+        WorkbookSettings ws = null;
+		Workbook workbook = null;
+		Sheet s = null;
+		Cell rowData[] = null;
+		int rowCount = 0;
+		int columnCount = 0;
+		DateCell dc = null;
+		int totalSheet = 0;
+        FileInputStream fs = new FileInputStream(new File(dbFileName));
+        ws = new WorkbookSettings();
+        ExcelUtil.setEncoding4Workbook(ws);
+        workbook = Workbook.getWorkbook(fs,ws);
+        s = workbook.getSheet(sheetIndex);
+        rowCount = s.getRows();
+        boolean beginParseOutletData = false;
+        for (int i = 0; i < rowCount; i++) {
+            rowData = s.getRow(i);
+            if (rowData.length == 0) {
+                continue;
+            }
+
+            //Identify column header
+            if (rowData[0].getContents().equals("STT")) {
+                beginParseOutletData = true;
+            }else if (beginParseOutletData) {
+                if (StringUtils.isNotBlank(rowData[COL_FULLNAME].getContents()) && StringUtils.isNotBlank(rowData[COL_FULLNAME].getContents())) {
+                    int index = -1;
+                    UserDTO userDTO = new UserDTO();
+                    userDTO.setUserName(StringUtil.convertStringNotUTF8(StringUtils.deleteSpaces(rowData[COL_FULLNAME].getContents())));
+                    userDTO.setEmail(rowData[COL_EMAIL].getContents());
+                    if(userValidator.validateImportDuplicateUSERNAME(userDTO.getUserName()) == -1 && userValidator.validateImportDuplicateEMAIL(userDTO.getEmail()) != -1)
+                    {
+                        int k = 1;
+                        do
+                        {
+                            StringBuffer username = new StringBuffer("");
+                            username.append(userDTO.getUserName()).append(String.valueOf(k));
+                            userDTO.setUserName(username.toString());
+                        }
+                        while(userValidator.validateImportDuplicateUSERNAME(userDTO.getUserName()) == -1);
+                    }
+
+
+                    userDTO.setPassword(rowData[COL_PASSWORD].getContents());
+                    userDTO.setFullName(rowData[COL_FULLNAME].getContents());
+                    userDTO.setRegion(rowData[COL_REGION].getContents());
+                    userDTO.setDistributor(new ArrayList<String>());
+                    userDTO.getDistributor().add(rowData[COL_DISTRIBUTOR].getContents());//setDistributor(rowData[COL_DISTRIBUTOR].getContents());
+                    userDTO.setSuccess("Add");
+                    if(userDTO.getUserName().length() == 0 || userDTO.getEmail().length() == 0 || userDTO.getPassword().length() == 0 )
+                    {
+                        userDTO.setSuccess("Fail");
+                    }
+                    if((userValidator.validateImportDuplicateEMAIL(userDTO.getEmail()) == -1 && userValidator.validateImportDuplicateUSERNAME(userDTO.getUserName()) == -1))
+                    {
+                        userDTO.setSuccess("Update");
+                    }
+                    userDTO.setRole("SUPPORT");
+                    userDTO.setStatus(1);
+
+                    importedUsers.add(userDTO);
+                }
+            }
+        }
+    }
+
+    @RequestMapping(value="/admin/user/importsave.html", method=RequestMethod.GET)
+    public ModelAndView importOutletSave(HttpServletRequest request, UserImportBean bean) throws Exception {
+		String sessionId = request.getSession().getId();
+		List<UserDTO> importedUsers = (List<UserDTO>) CacheUtil.getInstance().getValue(sessionId + USER_KEY);
+		if (importedUsers == null || importedUsers.size() == 0) {
+			return new ModelAndView("redirect:/admin/user/import.html");
+		}
+
+		/**
+		 * Save/update outlets
+		 */
+		int totalSuccess = 0;
+        List<Long> userIds = new ArrayList<Long>();
+		for (UserDTO userImport : importedUsers) {
+            try{
+                if(userImport.getSuccess().compareTo("Add") == 0)
+                {
+                    Long userID = userService.importUser(userImport);
+                    userIds.add(userID);
+                    totalSuccess++;
+                }
+                if(userImport.getSuccess().compareTo("Update") == 0)
+                {
+                    userService.updateItemImport(userImport);
+                    totalSuccess++;
+                }
+
+            }catch (Exception ex) {
+                log.error("Could not import outlet " + userImport.getUserName() + " - " + userImport.getUserName(), ex);
+            }
+
+		}
+
+        //Clear facing for outlet not specify in excel file
+
+
+		CacheUtil.getInstance().remove(sessionId + USER_KEY);
+		ModelAndView mav = new ModelAndView("/admin/user/importReport");
+		mav.addObject("success", true);
+		mav.addObject("totalItems", importedUsers.size());
+		mav.addObject("totalSuccess", Integer.valueOf(totalSuccess));
+
+		return mav;
+	}
+
+
+
+
+
+
+    private void executeSearch(UserBean bean, HttpServletRequest request) {
+        RequestUtil.initSearchBean(request, bean);
+
+        Object[] results = this.userService.search(bean);
+        bean.setListResult((List<User>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+
+    private void executeSearchDistributor(DistributorBean bean, HttpServletRequest request)
+    {
+        RequestUtil.initSearchBean(request, bean);
+        Object[] results = this.distributorService.search(bean);
+        bean.setListResult((List<Distributor>)results[1]);
+        bean.setTotalItems(Integer.valueOf(results[0].toString()));
+    }
+
+    private void executeSearchDistributor4User(ModelAndView mav, UserBean bean)
+    {
+        Object obj[] = userService.searchDistributor4User(bean);
+        List<Userdistributor> lst = (List<Userdistributor>)obj[1];
+        mav.addObject("UserDistributorS", lst);
+    }
+
+}

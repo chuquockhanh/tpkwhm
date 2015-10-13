@@ -1,0 +1,14 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.OarFacingRegistered;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 2/26/13
+ * Time: 3:04 PM
+ */
+public interface OarFacingRegisteredDAO extends GenericDAO<OarFacingRegistered, Long> {
+	void deleteByOutletAuditResult(Long outletAuditResultID);
+}

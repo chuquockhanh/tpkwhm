@@ -1,0 +1,228 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+import java.util.HashMap;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.Region;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/19/12
+ * Time: 4:42 PM
+ */
+public class OutletImportDTO implements Serializable {
+    private String dmsCode;
+
+    private String distributor;
+
+    private String district;
+
+    private String ward;
+
+    private String name;
+    
+    private String address;
+
+    private String sapCode;
+
+    private String registeredFacing;
+
+    private Region region;
+
+    private String registeredFacingFriso;
+
+    private String registeredFacingDL;
+
+    private String codeFrisoLevelRegister;
+
+    private String codeDlLevelRegister;
+
+    private String locations;
+
+    private String salemans;
+
+    private String validate;
+
+    private String rootCause;
+
+    private HashMap<String,Integer> hashSalemanOutletBrand = new HashMap<String, Integer>();
+
+    private HashMap<String, OutletImportSubDTO> hashOutletSubOutletBrand = new HashMap<String, OutletImportSubDTO>();
+    
+    private HashMap<Long, OutletImportSubDTO> outletBrandFacingMap = new HashMap<Long, OutletImportSubDTO>();
+    
+    private Outlet dbOutlet;
+
+    public String getDmsCode() {
+        return dmsCode;
+    }
+
+    public void setDmsCode(String dmsCode) {
+        this.dmsCode = dmsCode;
+    }
+
+    public String getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(String distributor) {
+        this.distributor = distributor;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getWard() {
+        return ward;
+    }
+
+    public void setWard(String ward) {
+        this.ward = ward;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getSapCode() {
+        return sapCode;
+    }
+
+    public void setSapCode(String sapCode) {
+        this.sapCode = sapCode;
+    }
+
+    public String getRegisteredFacing() {
+        return registeredFacing;
+    }
+
+    public void setRegisteredFacing(String registeredFacing) {
+        this.registeredFacing = registeredFacing;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public String getRegisteredFacingFriso() {
+        return registeredFacingFriso;
+    }
+
+    public void setRegisteredFacingFriso(String registeredFacingFriso) {
+        this.registeredFacingFriso = registeredFacingFriso;
+    }
+
+    public String getRegisteredFacingDL() {
+        return registeredFacingDL;
+    }
+
+    public void setRegisteredFacingDL(String registeredFacingDL) {
+        this.registeredFacingDL = registeredFacingDL;
+    }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+    public String getCodeFrisoLevelRegister() {
+        return codeFrisoLevelRegister;
+    }
+
+    public void setCodeFrisoLevelRegister(String codeFrisoLevelRegister) {
+        this.codeFrisoLevelRegister = codeFrisoLevelRegister;
+    }
+
+    public String getCodeDlLevelRegister() {
+        return codeDlLevelRegister;
+    }
+
+    public void setCodeDlLevelRegister(String codeDlLevelRegister) {
+        this.codeDlLevelRegister = codeDlLevelRegister;
+    }
+
+    public String getLocations() {
+        return locations;
+    }
+
+    public void setLocations(String locations) {
+        this.locations = locations;
+    }
+
+    public String getSalemans() {
+        return salemans;
+    }
+
+    public void setSalemans(String salemans) {
+        this.salemans = salemans;
+    }
+
+    public String getValidate() {
+        return validate;
+    }
+
+    public void setValidate(String validate) {
+        this.validate = validate;
+    }
+
+    public HashMap<String, Integer> getHashSalemanOutletBrand() {
+        return hashSalemanOutletBrand;
+    }
+
+    public void setHashSalemanOutletBrand(HashMap<String, Integer> hashSalemanOutletBrand) {
+        this.hashSalemanOutletBrand = hashSalemanOutletBrand;
+    }
+
+    public HashMap<String, OutletImportSubDTO> getHashOutletSubOutletBrand() {
+        return hashOutletSubOutletBrand;
+    }
+
+    public void setHashOutletSubOutletBrand(HashMap<String, OutletImportSubDTO> hashOutletSubOutletBrand) {
+        this.hashOutletSubOutletBrand = hashOutletSubOutletBrand;
+    }
+
+
+    public String getRootCause() {
+        return rootCause;
+    }
+
+    public void setRootCause(String rootCause) {
+        this.rootCause = rootCause;
+    }
+
+	public Outlet getDbOutlet() {
+		return dbOutlet;
+	}
+
+	public void setDbOutlet(Outlet dbOutlet) {
+		this.dbOutlet = dbOutlet;
+	}
+
+	public HashMap<Long, OutletImportSubDTO> getOutletBrandFacingMap() {
+		return outletBrandFacingMap;
+	}
+
+	public void setOutletBrandFacingMap(
+			HashMap<Long, OutletImportSubDTO> outletBrandFacingMap) {
+		this.outletBrandFacingMap = outletBrandFacingMap;
+	}
+	
+}

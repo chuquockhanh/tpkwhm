@@ -1,0 +1,56 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:28 AM
+ */
+public class OarposmDTO {
+    /**
+	 * Attribute outletposm
+	 */
+	 private Long outletposmID;
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+	
+	/**
+	 * Attribute statusPosm.
+	 */
+	private String statusPosm;	
+
+    public Long getOutletposmID() {
+        return outletposmID;
+    }
+
+    public void setOutletposmID(Long outletposmID) {
+        this.outletposmID = outletposmID;
+    }
+
+    public Byte getHas() {
+        return has;
+    }
+
+    public void setHas(Byte has) {
+        this.has = has;
+    }
+    
+	public String getStatusPosm() {
+		return statusPosm;
+	}
+
+	public void setStatusPosm(String statusPosm) {
+		this.statusPosm = statusPosm;
+	}    
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setHas(Byte.valueOf(o.getString("has")));
+        setOutletposmID(o.getLong("outletposmID"));
+        setStatusPosm(o.getString("statusPosm"));
+    }
+}

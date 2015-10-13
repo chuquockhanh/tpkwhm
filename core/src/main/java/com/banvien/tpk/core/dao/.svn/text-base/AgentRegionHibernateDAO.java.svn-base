@@ -1,0 +1,40 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.AgentRegion;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+
+
+/**
+ * <p>Hibernate DAO layer for Districts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class AgentRegionHibernateDAO extends
+		AbstractHibernateDAO<AgentRegion, Long> implements
+		AgentRegionDAO {
+
+    public AgentRegionHibernateDAO() {
+		super(AgentRegion.class);
+	}
+
+    @Override
+    public void deleteByAgent(final Long agentID) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Object>() {
+                public Object doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM AgentRegion WHERE agent.agentID = :agentID");
+                    query.setParameter("agentID", agentID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+
+}

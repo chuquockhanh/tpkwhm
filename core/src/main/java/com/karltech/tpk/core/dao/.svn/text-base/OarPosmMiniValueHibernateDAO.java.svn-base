@@ -1,0 +1,42 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Agent;
+import com.banvien.fcv.core.domain.OarPosmMiniValue;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+
+
+/**
+ * <p>Hibernate DAO layer for Districts</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OarPosmMiniValueHibernateDAO extends
+		AbstractHibernateDAO<OarPosmMiniValue, Long> implements
+		OARPosmMiniValueDAO {
+
+    public OarPosmMiniValueHibernateDAO() {
+		super(OarPosmMiniValue.class);
+	}
+
+    @Override
+    public void deleteByOutletAuditResult(final Long outletAuditResultID) {
+        getHibernateTemplate().execute(
+                new HibernateCallback<Integer>() {
+                    public Integer doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                        Query query = session
+                                .createQuery("DELETE FROM OarPosmMiniValue WHERE outletAuditResult.outletAuditResultID = :outletAuditResultID");
+                        query.setParameter("outletAuditResultID", outletAuditResultID);
+                        return query.executeUpdate();
+                    }
+                });
+
+    }
+
+}

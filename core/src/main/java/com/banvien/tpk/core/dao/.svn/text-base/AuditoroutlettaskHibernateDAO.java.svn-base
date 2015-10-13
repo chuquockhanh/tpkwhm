@@ -1,0 +1,184 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Auditoroutlettask;
+import com.banvien.fcv.core.dto.OutletTaskDTO;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Auditoroutlettasks</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class AuditoroutlettaskHibernateDAO extends
+		AbstractHibernateDAO<Auditoroutlettask, Long> implements
+		AuditoroutlettaskDAO {
+
+    public AuditoroutlettaskHibernateDAO() {
+		super(Auditoroutlettask.class);
+	}
+
+    @Override
+    public List<Auditoroutlettask> findByAuditorOfSchedule(final Long auditorID, final Long auditScheduleID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Auditoroutlettask>>() {
+                public List<Auditoroutlettask> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Auditoroutlettask a WHERE a.auditschedule.auditScheduleID = :auditScheduleID AND a.auditor.auditorID = :auditorID");
+                    query.setParameter("auditScheduleID", auditScheduleID);
+                    query.setParameter("auditorID", auditorID);
+                    return (List<Auditoroutlettask>) query.list();
+                }
+            });
+    }
+    
+    @Override
+    public Auditoroutlettask findByOutletIDandAuditorCode(final Long outletID, final String auditorCode) {
+        List<Auditoroutlettask> list = getHibernateTemplate().execute(
+            new HibernateCallback<List<Auditoroutlettask>>() {
+                public List<Auditoroutlettask> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Auditoroutlettask a WHERE DATE(a.auditschedule.fromDate) <= DATE(NOW()) AND DATE(a.auditschedule.toDate) >= DATE(NOW()) AND a.outlet.outletID = :outletID and a.auditor.code = :code ORDER BY a.auditorOutletTaskID DESC");
+                    query.setParameter("outletID", outletID);
+                    query.setParameter("code", auditorCode);
+                    return (List<Auditoroutlettask>) query.list();
+                }
+            });
+
+        if (list != null && list.size() == 1) {
+            return list.get(0);
+        }
+        return null;
+    }
+
+	@Override
+	public Object[] findTaskByAuditScheduleID(final Long auditScheduleID, final Long distributorID, final Long auditorID, final Integer statusID, final Integer firstIItem, final Integer maxItems, final String sortExpression, final String sortDirection) {
+		return getHibernateTemplate().execute(
+	            new HibernateCallback<Object[]>() {
+	                public Object[] doInHibernate(Session session)
+	                        throws HibernateException, SQLException {
+	                    StringBuffer sqlQuery = new StringBuffer("SELECT ot.OutletID as outletID, CONCAT(d.Name, ' - ', ol.dmsCode, ' - ', d.sapCode, ' - ', ol.Address) AS outletName, ot.Status AS status, au.Name AS auditorName");
+	                    sqlQuery.append(" FROM AuditorOutletTask ot, Auditor au, Outlet ol, Distributor d");
+	                    sqlQuery.append(" WHERE ot.AuditorScheduleID = :auditScheduleID AND au.AuditorID = ot.AuditorID AND ot.OutletID = ol.OutletID AND ol.DistributorID = d.DistributorID");
+	                    if(distributorID != null) {
+	                    	sqlQuery.append(" AND d.DistributorID = :distributorID");
+	                    }
+	                    if(auditorID != null) {
+	                    	sqlQuery.append(" AND au.AuditorID = :auditorID");
+	                    }
+	                    if(statusID != null) {
+	                    	sqlQuery.append(" AND ot.Status = :statusID");
+	                    }
+	                    if (StringUtils.isNotBlank(sortExpression)) {
+							sqlQuery.append(" ORDER BY ").append(sortExpression).append(" ");
+							sqlQuery.append((StringUtils.isNotBlank(sortDirection) &&
+									sortDirection.equalsIgnoreCase(Constants.SORT_ASC)) ? "ASC" : (StringUtils.isNotBlank(sortDirection) ? "DESC" : "ASC"));
+						} else {
+							sqlQuery.append(" ORDER BY outletName ASC");
+						}
+	                    
+	                    SQLQuery query = session.createSQLQuery(sqlQuery.toString());
+	                    
+	                    if(firstIItem != null) {
+	                    	query.setFirstResult(firstIItem);
+	                    }
+	                    if(maxItems != null) {
+	                    	query.setMaxResults(maxItems);
+	                    }
+                        query.setParameter("auditScheduleID", auditScheduleID);
+                        if(distributorID != null) {
+                        	query.setParameter("distributorID", distributorID);
+	                    }
+	                    if(auditorID != null) {
+	                    	query.setParameter("auditorID", auditorID);
+	                    }
+	                    if(statusID != null) {
+	                    	query.setParameter("statusID", statusID);
+	                    }
+	                    
+                        query.addScalar("outletID", StandardBasicTypes.LONG);
+                        query.addScalar("outletName", StandardBasicTypes.STRING);
+	                    query.addScalar("auditorName", StandardBasicTypes.STRING);
+	                    query.addScalar("status", StandardBasicTypes.INTEGER);
+	                    
+	                    query.setResultTransformer(Transformers.aliasToBean(OutletTaskDTO.class));
+	                    
+	                    
+	                    StringBuffer countQueryBuff = new StringBuffer("SELECT COUNT(DISTINCT ot.OutletID)");
+	                    countQueryBuff.append(" FROM AuditorOutletTask ot, Auditor au, Outlet ol, Distributor d");
+	                    countQueryBuff.append(" WHERE ot.AuditorScheduleID = :auditScheduleID AND au.AuditorID = ot.AuditorID AND ot.OutletID = ol.OutletID AND ol.DistributorID = d.DistributorID");
+	                    if(distributorID != null) {
+	                    	countQueryBuff.append(" AND d.DistributorID = :distributorID");
+	                    }
+	                    if(auditorID != null) {
+	                    	countQueryBuff.append(" AND au.AuditorID = :auditorID");
+	                    }
+	                    if(statusID != null) {
+	                    	countQueryBuff.append(" AND ot.Status = :statusID");
+	                    }
+	                    SQLQuery countQuery = session.createSQLQuery(countQueryBuff.toString());
+	                    
+	                    countQuery.setParameter("auditScheduleID", auditScheduleID);
+	                    if(distributorID != null) {
+	                    	countQuery.setParameter("distributorID", distributorID);
+	                    }
+	                    if(auditorID != null) {
+	                    	countQuery.setParameter("auditorID", auditorID);
+	                    }
+	                    if(statusID != null) {
+	                    	countQuery.setParameter("statusID", statusID);
+	                    }
+	                    
+	                    return new Object[] {countQuery.uniqueResult(), (List<OutletTaskDTO>) query.list() };
+	                }
+	            });
+	}
+
+	@Override
+	public Auditoroutlettask findByAuditorIDAndOutletID(final Long auditorID,
+			final Long outletID, final Long scheduleID) {
+		return getHibernateTemplate().execute(
+	            new HibernateCallback<Auditoroutlettask>() {
+	                public Auditoroutlettask doInHibernate(Session session)
+	                        throws HibernateException, SQLException {
+	                    Query query = session
+	                            .createQuery("FROM Auditoroutlettask a WHERE a.outlet.outletID = :outletID AND a.auditor.auditorID = :auditorID AND a.auditschedule.auditScheduleID = :auditScheduleID");
+	                    query.setParameter("outletID", outletID);
+	                    query.setParameter("auditorID", auditorID);
+                        query.setParameter("auditScheduleID", scheduleID);
+	                    return (Auditoroutlettask )query.uniqueResult();
+	                }
+	            });
+	}
+
+    @Override
+   	public Auditoroutlettask findByAuditScheduleIDAndOutletID(final Long outletID, final Long scheduleID) {
+   		return getHibernateTemplate().execute(
+   	            new HibernateCallback<Auditoroutlettask>() {
+   	                public Auditoroutlettask doInHibernate(Session session)
+   	                        throws HibernateException, SQLException {
+   	                    Query query = session
+   	                            .createQuery("FROM Auditoroutlettask a WHERE a.outlet.outletID = :outletID AND a.auditschedule.auditScheduleID = :auditScheduleID");
+   	                    query.setParameter("outletID", outletID);
+                        query.setParameter("auditScheduleID", scheduleID);
+                        return (Auditoroutlettask) query.uniqueResult();
+   	                }
+   	            });
+   	}
+}

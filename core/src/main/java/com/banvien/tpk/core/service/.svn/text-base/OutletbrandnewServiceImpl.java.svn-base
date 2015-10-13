@@ -1,0 +1,77 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletbrandDAO;
+import com.banvien.fcv.core.domain.Outletbrand;
+import com.banvien.fcv.core.dto.OutletBrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class OutletbrandServiceImpl extends GenericServiceImpl<Outletbrand,Long> 
+                                                    implements OutletbrandService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletbrandDAO outletbrandDAO;
+
+    public void setOutletbrandDAO(OutletbrandDAO outletbrandDAO) {
+        this.outletbrandDAO = outletbrandDAO;
+    }
+
+    @Override
+	protected GenericDAO<Outletbrand, Long> getGenericDAO() {
+		return outletbrandDAO;
+	}
+
+    @Override
+    public void updateItem(OutletBrandBean outletBrandBean) throws ObjectNotFoundException, DuplicateException {
+        Outletbrand dbItem = this.outletbrandDAO.findByIdNoAutoCommit(outletBrandBean.getPojo().getOutletBrandID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + outletBrandBean.getPojo().getOutletBrandID());
+
+        Outletbrand pojo = outletBrandBean.getPojo();
+        this.outletbrandDAO.detach(dbItem);
+        this.outletbrandDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OutletBrandBean outletBrandBean) throws DuplicateException {
+        Outletbrand pojo = outletBrandBean.getPojo();
+        pojo = this.outletbrandDAO.save(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                outletbrandDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OutletBrandBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Outletbrand.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.outletbrandDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public Outletbrand findByCode(String Code)
+    {
+        return outletbrandDAO.findByCode(Code);
+    }
+
+}

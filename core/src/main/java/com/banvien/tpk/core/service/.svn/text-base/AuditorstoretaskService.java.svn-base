@@ -1,0 +1,11 @@
+package com.banvien.fcv.core.service;
+
+import java.util.List;
+
+import com.banvien.fcv.core.domain.Auditorstoretask;
+import com.banvien.fcv.core.dto.StoreTaskDTO;
+
+
+public interface AuditorstoretaskService extends GenericService<Auditorstoretask,Long> {
+	public List<StoreTaskDTO> findTaskByAuditScheduleID(Long auditScheduleID);;
+}

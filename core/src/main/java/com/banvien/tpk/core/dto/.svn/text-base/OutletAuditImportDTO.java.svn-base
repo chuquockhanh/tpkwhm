@@ -1,0 +1,249 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Auditor;
+import com.banvien.fcv.core.domain.Auditschedule;
+import com.banvien.fcv.core.domain.OarLatestBonus;
+import com.banvien.fcv.core.domain.Outlet;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashMap;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/19/12
+ * Time: 4:42 PM
+ */
+public class OutletAuditImportDTO implements Serializable {
+
+    private Auditor auditor;
+
+    private Auditschedule auditSchedule;
+
+    private OutletAuditResultDTO outletAuditResult;
+
+    private Outlet dbOutlet;
+
+    private String sapCode;
+
+    private String dmsCode;
+
+    private String distributor;
+
+    private String success;
+
+    private String rootCause;
+
+    private String notes;
+
+    private String auditDate;
+
+    private Date auditedDate;
+
+    private String submittedDate;
+
+    private Integer outletStatus;
+
+    private HashMap<Long,HashMap<Long,Integer>> hashIFTLocationRegistered = new HashMap<Long, HashMap<Long,Integer>>();
+
+    private HashMap<Long,HashMap<Long,Integer>> hashIFTLocation = new HashMap<Long, HashMap<Long,Integer>>();
+
+    private HashMap<Long,HashMap<Long,Integer>> hashPowerSKU = new HashMap<Long, HashMap<Long,Integer>>();
+
+    private HashMap<Long,HashMap<Long,Integer>> hashFullRangeSKU = new HashMap<Long, HashMap<Long,Integer>>();
+
+    private HashMap<Long, Integer> hashNoFacingActual = new HashMap<Long, Integer>();
+
+    private HashMap<Long,HashMap<Long,Integer>> hashNoFacingRegister = new HashMap<Long, HashMap<Long,Integer>>();
+
+    private HashMap<Long,HashMap<Long,Integer>> hashPOSM = new HashMap<Long, HashMap<Long,Integer>>();
+
+    private HashMap<Long,HashMap<Long,HashMap<String, Integer>>> hashPromotion = new HashMap<Long, HashMap<Long, HashMap<String, Integer>>>();
+
+    private HashMap<Long, OarLatestBonus> oarLatestBonus = new HashMap<Long, OarLatestBonus>();
+
+    public Integer getOutletStatus() {
+        return outletStatus;
+    }
+
+    public void setOutletStatus(Integer outletStatus) {
+        this.outletStatus = outletStatus;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getAuditDate() {
+        return auditDate;
+    }
+
+    public void setAuditDate(String auditDate) {
+        this.auditDate = auditDate;
+    }
+
+    public HashMap<Long, OarLatestBonus> getOarLatestBonus() {
+        return oarLatestBonus;
+    }
+
+    public void setOarLatestBonus(HashMap<Long, OarLatestBonus> oarLatestBonus) {
+        this.oarLatestBonus = oarLatestBonus;
+    }
+
+    public OutletAuditResultDTO getOutletAuditResult() {
+        return outletAuditResult;
+    }
+
+    public void setOutletAuditResult(OutletAuditResultDTO outletAuditResult) {
+        this.outletAuditResult = outletAuditResult;
+    }
+
+    public Auditor getAuditor() {
+        return auditor;
+    }
+
+    public void setAuditor(Auditor auditor) {
+        this.auditor = auditor;
+    }
+
+    public Auditschedule getAuditSchedule() {
+        return auditSchedule;
+    }
+
+    public void setAuditSchedule(Auditschedule auditSchedule) {
+        this.auditSchedule = auditSchedule;
+    }
+
+    public String getSapCode() {
+        return sapCode;
+    }
+
+    public void setSapCode(String sapCode) {
+        this.sapCode = sapCode;
+    }
+
+    public String getDmsCode() {
+        return dmsCode;
+    }
+
+    public void setDmsCode(String dmsCode) {
+        this.dmsCode = dmsCode;
+    }
+
+    public String getDistributor() {
+        return distributor;
+    }
+
+    public void setDistributor(String distributor) {
+        this.distributor = distributor;
+    }
+
+    public HashMap<Long, HashMap<Long, Integer>> getHashIFTLocationRegistered() {
+        return hashIFTLocationRegistered;
+    }
+
+    public void setHashIFTLocationRegistered(HashMap<Long, HashMap<Long, Integer>> hashIFTLocationRegistered) {
+        this.hashIFTLocationRegistered = hashIFTLocationRegistered;
+    }
+
+    public HashMap<Long, HashMap<Long, Integer>> getHashIFTLocation() {
+        return hashIFTLocation;
+    }
+
+    public void setHashIFTLocation(HashMap<Long, HashMap<Long, Integer>> hashIFTLocation) {
+        this.hashIFTLocation = hashIFTLocation;
+    }
+
+    public HashMap<Long, HashMap<Long, Integer>> getHashPowerSKU() {
+        return hashPowerSKU;
+    }
+
+    public void setHashPowerSKU(HashMap<Long, HashMap<Long, Integer>> hashPowerSKU) {
+        this.hashPowerSKU = hashPowerSKU;
+    }
+
+    public HashMap<Long, HashMap<Long, Integer>> getHashFullRangeSKU() {
+        return hashFullRangeSKU;
+    }
+
+    public void setHashFullRangeSKU(HashMap<Long, HashMap<Long, Integer>> hashFullRangeSKU) {
+        this.hashFullRangeSKU = hashFullRangeSKU;
+    }
+
+    public HashMap<Long, HashMap<Long, Integer>> getHashNoFacingRegistered() {
+        return hashNoFacingRegister;
+    }
+
+    public void setHashNoFacingRegistered(HashMap<Long, HashMap<Long, Integer>> hashNoFacing) {
+        this.hashNoFacingRegister = hashNoFacing;
+    }
+
+    public HashMap<Long, HashMap<Long, Integer>> getHashPOSM() {
+        return hashPOSM;
+    }
+
+    public void setHashPOSM(HashMap<Long, HashMap<Long, Integer>> hashPOSM) {
+        this.hashPOSM = hashPOSM;
+    }
+
+    public HashMap<Long, Integer> getHashNoFacingActual() {
+        return hashNoFacingActual;
+    }
+
+    public void setHashNoFacingActual(HashMap<Long, Integer> hashNoFacingActual) {
+        this.hashNoFacingActual = hashNoFacingActual;
+    }
+
+    public String getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(String success) {
+        this.success = success;
+    }
+
+    public String getRootCause() {
+        return rootCause;
+    }
+
+    public void setRootCause(String rootCause) {
+        this.rootCause = rootCause;
+    }
+
+    public Outlet getDbOutlet() {
+        return dbOutlet;
+    }
+
+    public void setDbOutlet(Outlet dbOutlet) {
+        this.dbOutlet = dbOutlet;
+    }
+
+    public HashMap<Long, HashMap<Long, HashMap<String, Integer>>> getHashPromotion() {
+        return hashPromotion;
+    }
+
+    public void setHashPromotion(HashMap<Long, HashMap<Long, HashMap<String, Integer>>> hashPromotion) {
+        this.hashPromotion = hashPromotion;
+    }
+
+    public String getSubmittedDate() {
+        return submittedDate;
+    }
+
+    public void setSubmittedDate(String submittedDate) {
+        this.submittedDate = submittedDate;
+    }
+
+    public Date getAuditedDate() {
+        return auditedDate;
+    }
+
+    public void setAuditedDate(Date auditedDate) {
+        this.auditedDate = auditedDate;
+    }
+}

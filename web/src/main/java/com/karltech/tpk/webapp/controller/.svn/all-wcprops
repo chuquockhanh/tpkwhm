@@ -1,0 +1,239 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller
+END
+RegionController.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/RegionController.java
+END
+OutletAuditImportController.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/OutletAuditImportController.java
+END
+SOSBrandController.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/SOSBrandController.java
+END
+FullRangeSKUController.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/FullRangeSKUController.java
+END
+OutletController.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/OutletController.java
+END
+StorePromotionProductController.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/StorePromotionProductController.java
+END
+UserController.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/UserController.java
+END
+BrandController.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/173/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/BrandController.java
+END
+LevelRegisterController.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/864/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/LevelRegisterController.java
+END
+OutletPOSMController.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/146/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/OutletPOSMController.java
+END
+AgentController.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/AgentController.java
+END
+IFTDisplayLocationController.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/dcs/!svn/ver/146/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/IFTDisplayLocationController.java
+END
+PowerSKUController.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/146/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/PowerSKUController.java
+END
+ProductBrandController.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/ProductBrandController.java
+END
+PackingGroupController.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/177/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/PackingGroupController.java
+END
+SalemanController.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/1006/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/SalemanController.java
+END
+AuditScheduleController.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/962/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/AuditScheduleController.java
+END
+ProductGroupController.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/146/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/ProductGroupController.java
+END
+SettingController.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/466/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/SettingController.java
+END
+ProductController.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/ProductController.java
+END
+SubFullRangeSKUController.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/1039/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/SubFullRangeSKUController.java
+END
+DistrictController.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/759/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/DistrictController.java
+END
+AccountController.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/178/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/AccountController.java
+END
+OutletFacingImportController.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/dcs/!svn/ver/1014/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/OutletFacingImportController.java
+END
+PromotionProductController.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/823/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/PromotionProductController.java
+END
+OutletSalemanImportController.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/dcs/!svn/ver/975/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/OutletSalemanImportController.java
+END
+DistributorController.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/146/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/DistributorController.java
+END
+UnitController.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/528/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/UnitController.java
+END
+PromotionController.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/PromotionController.java
+END
+StorePromotionController.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/477/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/StorePromotionController.java
+END
+StoreController.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/962/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/StoreController.java
+END
+MobileWSController.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/926/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/MobileWSController.java
+END
+AuditorController.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/167/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/AuditorController.java
+END
+PictureController.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/853/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/PictureController.java
+END
+MyProfileController.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/333/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/MyProfileController.java
+END
+WardController.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/759/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/WardController.java
+END
+StorePOSMController.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/168/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/StorePOSMController.java
+END
+OutletBrandController.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/949/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/OutletBrandController.java
+END
+BrandGroupController.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/172/trunk/outlet-audit/web/src/main/java/com/banvien/fcv/webapp/controller/BrandGroupController.java
+END

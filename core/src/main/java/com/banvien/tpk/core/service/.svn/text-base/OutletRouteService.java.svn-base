@@ -1,0 +1,24 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.OutletSaleman;
+import com.banvien.fcv.core.dto.OutletSalemanBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+
+public interface OutletSalemanService extends GenericService<OutletSaleman,Long> {
+
+    void updateItem(OutletSalemanBean outletSalemanBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(OutletSalemanBean outletSalemanBean) throws ObjectNotFoundException, DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(OutletSalemanBean outletSalemanBean);
+
+    List<OutletSaleman> findListByOutletID(final Long outletID);
+
+    List<OutletSaleman> findListBySalemanID(final Long salemanID);
+}

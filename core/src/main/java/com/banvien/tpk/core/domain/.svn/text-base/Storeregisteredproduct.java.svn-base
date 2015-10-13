@@ -1,0 +1,80 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE StoreRegisteredProduct</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:14 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storeregisteredproduct implements Serializable {
+
+	/**
+	 * Attribute storeRegisteredProductID.
+	 */
+	private Long storeRegisteredProductID;
+	
+	/**
+	 * Attribute store
+	 */
+	 private Store store;	
+
+	/**
+	 * Attribute product
+	 */
+	 private Product product;	
+
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return storeRegisteredProductID
+	 */
+	public Long getStoreRegisteredProductID() {
+		return storeRegisteredProductID;
+	}
+
+	/**
+	 * @param storeRegisteredProductID new value for storeRegisteredProductID 
+	 */
+	public void setStoreRegisteredProductID(Long storeRegisteredProductID) {
+		this.storeRegisteredProductID = storeRegisteredProductID;
+	}
+	
+	/**
+	 * get store
+	 */
+	public Store getStore() {
+		return this.store;
+	}
+	
+	/**
+	 * set store
+	 */
+	public void setStore(Store store) {
+		this.store = store;
+	}
+
+	/**
+	 * get product
+	 */
+	public Product getProduct() {
+		return this.product;
+	}
+	
+	/**
+	 * set product
+	 */
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+
+
+}

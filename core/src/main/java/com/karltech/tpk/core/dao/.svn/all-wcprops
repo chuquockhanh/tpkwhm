@@ -1,0 +1,965 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao
+END
+OarpromotionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarpromotionDAO.java
+END
+AgentDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/859/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AgentDAO.java
+END
+PromotionproducttohandheldHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/dcs/!svn/ver/166/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionproducttohandheldHibernateDAO.java
+END
+UserDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UserDAO.java
+END
+LevelRegisterHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/919/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/LevelRegisterHibernateDAO.java
+END
+AgentHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/859/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AgentHibernateDAO.java
+END
+OarnofacingHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarnofacingHibernateDAO.java
+END
+OarLocationRegisteredDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/951/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarLocationRegisteredDAO.java
+END
+OutletbrandHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/910/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletbrandHibernateDAO.java
+END
+StoreposmhistoryHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreposmhistoryHibernateDAO.java
+END
+OarLatestBonusDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/974/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarLatestBonusDAO.java
+END
+OarposmHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarposmHibernateDAO.java
+END
+SalemanHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/903/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SalemanHibernateDAO.java
+END
+DBBPosmRegisterDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/DBBPosmRegisterDAO.java
+END
+SettingHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/458/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SettingHibernateDAO.java
+END
+StorepromotionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/569/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionDAO.java
+END
+OarfullrangeskuHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarfullrangeskuHibernateDAO.java
+END
+StoreauditpictureDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/237/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreauditpictureDAO.java
+END
+OarfacingiftdisplayDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarfacingiftdisplayDAO.java
+END
+PromotionproductDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionproductDAO.java
+END
+StorepromotionproducttohandheldDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionproducttohandheldDAO.java
+END
+AccountDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AccountDAO.java
+END
+OutletLocationRegisterHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/dcs/!svn/ver/1026/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletLocationRegisterHibernateDAO.java
+END
+UnitHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UnitHibernateDAO.java
+END
+OarfullrangeskuDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarfullrangeskuDAO.java
+END
+PromotionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1000/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionHibernateDAO.java
+END
+ProductgroupDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/ProductgroupDAO.java
+END
+AuditorHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditorHibernateDAO.java
+END
+RegionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/dcs/!svn/ver/995/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/RegionDAO.java
+END
+PackinggroupDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PackinggroupDAO.java
+END
+WardHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/463/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/WardHibernateDAO.java
+END
+PowerskuDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/150/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PowerskuDAO.java
+END
+StoresosmasterDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoresosmasterDAO.java
+END
+ProductbrandDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/ProductbrandDAO.java
+END
+AgentRegionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AgentRegionHibernateDAO.java
+END
+PowerskuHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/150/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PowerskuHibernateDAO.java
+END
+StoresosmasterHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoresosmasterHibernateDAO.java
+END
+ProductbrandHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/ProductbrandHibernateDAO.java
+END
+OarLocationRegisteredHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/951/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarLocationRegisteredHibernateDAO.java
+END
+UserdistributorDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/813/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UserdistributorDAO.java
+END
+OutletdistributionregisteredHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/dcs/!svn/ver/1026/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletdistributionregisteredHibernateDAO.java
+END
+AuditscheduleHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditscheduleHibernateDAO.java
+END
+ProductgroupHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/ProductgroupHibernateDAO.java
+END
+StorepromotionproductHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionproductHibernateDAO.java
+END
+StoreregisteredproductHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreregisteredproductHibernateDAO.java
+END
+OutletauditresultHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/1028/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletauditresultHibernateDAO.java
+END
+LevelRegisterDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/864/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/LevelRegisterDAO.java
+END
+OARAuditSummaryDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OARAuditSummaryDAO.java
+END
+OutletSalemanHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/1009/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletSalemanHibernateDAO.java
+END
+OutletDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/1028/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletDAO.java
+END
+AbstractHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/820/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AbstractHibernateDAO.java
+END
+SettingDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/458/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SettingDAO.java
+END
+OarMiniValuePosmDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarMiniValuePosmDAO.java
+END
+OarDBBPosmRegisteredHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarDBBPosmRegisteredHibernateDAO.java
+END
+AgentRegionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/861/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AgentRegionDAO.java
+END
+OarLatestBonusHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/977/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarLatestBonusHibernateDAO.java
+END
+StorepromotiontypeDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotiontypeDAO.java
+END
+PromotiontypeDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotiontypeDAO.java
+END
+OarDbbPosmRegisterDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarDbbPosmRegisterDAO.java
+END
+ProductHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/ProductHibernateDAO.java
+END
+DistrictHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/193/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/DistrictHibernateDAO.java
+END
+OutletBrandGroupDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/916/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletBrandGroupDAO.java
+END
+OutletposmDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletposmDAO.java
+END
+DistributorHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/1028/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/DistributorHibernateDAO.java
+END
+AuditscheduleDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/1041/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditscheduleDAO.java
+END
+StoreauditresultDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/563/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreauditresultDAO.java
+END
+OarposmDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarposmDAO.java
+END
+SubfullrangebrandDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SubfullrangebrandDAO.java
+END
+SarposmDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarposmDAO.java
+END
+OarMiniValuePosmHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarMiniValuePosmHibernateDAO.java
+END
+SarshareofdisplayHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarshareofdisplayHibernateDAO.java
+END
+OutletposmhistoryHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletposmhistoryHibernateDAO.java
+END
+SarsbrandlocationHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarsbrandlocationHibernateDAO.java
+END
+BrandDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/BrandDAO.java
+END
+OARAuditSummaryHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/1017/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OARAuditSummaryHibernateDAO.java
+END
+AuditorstoretaskHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditorstoretaskHibernateDAO.java
+END
+OutletauditresultDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1028/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletauditresultDAO.java
+END
+SarsbrandlocationDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarsbrandlocationDAO.java
+END
+FullrangeskuDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/FullrangeskuDAO.java
+END
+AuditoroutlettaskDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/1018/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditoroutlettaskDAO.java
+END
+OutletauditpictureDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletauditpictureDAO.java
+END
+SosbrandDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SosbrandDAO.java
+END
+StorepromotionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/569/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionHibernateDAO.java
+END
+OarPosmMiniValueHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarPosmMiniValueHibernateDAO.java
+END
+IftdisplaylocationHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/1038/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/IftdisplaylocationHibernateDAO.java
+END
+OutletdistributionregisteredDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/dcs/!svn/ver/1026/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletdistributionregisteredDAO.java
+END
+UserregionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UserregionHibernateDAO.java
+END
+DBBPosmRegisteredHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/DBBPosmRegisteredHibernateDAO.java
+END
+SarposmHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarposmHibernateDAO.java
+END
+StorepromotiontypeHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotiontypeHibernateDAO.java
+END
+BrandgroupDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/BrandgroupDAO.java
+END
+OarpowerskuHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarpowerskuHibernateDAO.java
+END
+OutletbrandDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/910/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletbrandDAO.java
+END
+SarshareofshelfHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarshareofshelfHibernateDAO.java
+END
+StoreposmhistoryDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreposmhistoryDAO.java
+END
+PromotionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/1000/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionDAO.java
+END
+BrandproductHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/BrandproductHibernateDAO.java
+END
+SarregisterproductHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarregisterproductHibernateDAO.java
+END
+OarfullrangefacingHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarfullrangefacingHibernateDAO.java
+END
+StoreregisteredproductDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/185/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreregisteredproductDAO.java
+END
+OutletbrandgroupHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/916/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletbrandgroupHibernateDAO.java
+END
+OutletposmhistoryDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletposmhistoryDAO.java
+END
+StoreHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/498/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreHibernateDAO.java
+END
+POSMMiniValueHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/POSMMiniValueHibernateDAO.java
+END
+StorepromotionscopeDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionscopeDAO.java
+END
+SalemanDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/893/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SalemanDAO.java
+END
+PromotiontypeHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotiontypeHibernateDAO.java
+END
+UserdistributorHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/dcs/!svn/ver/813/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UserdistributorHibernateDAO.java
+END
+StoreposmHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreposmHibernateDAO.java
+END
+OarnofacingDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarnofacingDAO.java
+END
+WardDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/dcs/!svn/ver/463/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/WardDAO.java
+END
+RegionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/995/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/RegionHibernateDAO.java
+END
+UserregionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/dcs/!svn/ver/758/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UserregionDAO.java
+END
+PromotionscopeHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/166/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionscopeHibernateDAO.java
+END
+FullrangeskuHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/FullrangeskuHibernateDAO.java
+END
+UnitDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UnitDAO.java
+END
+OutletHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/1028/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletHibernateDAO.java
+END
+PromotionproductHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/425/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionproductHibernateDAO.java
+END
+StorepromotionproducttohandheldHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionproducttohandheldHibernateDAO.java
+END
+UserHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/110/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/UserHibernateDAO.java
+END
+BrandproductDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/BrandproductDAO.java
+END
+SarregisterproductDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarregisterproductDAO.java
+END
+OarfullrangefacingDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/dcs/!svn/ver/936/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarfullrangefacingDAO.java
+END
+BrandHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/BrandHibernateDAO.java
+END
+PromotionproducttohandheldDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/166/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionproducttohandheldDAO.java
+END
+OutletposmHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletposmHibernateDAO.java
+END
+StorepromotionproductDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionproductDAO.java
+END
+DistrictDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/dcs/!svn/ver/193/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/DistrictDAO.java
+END
+StoreauditpictureHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/237/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreauditpictureHibernateDAO.java
+END
+OarpromotionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarpromotionHibernateDAO.java
+END
+OarStorepromotionHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarStorepromotionHibernateDAO.java
+END
+PromotionscopeDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/166/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PromotionscopeDAO.java
+END
+GenericDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/GenericDAO.java
+END
+OarpowerskuDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarpowerskuDAO.java
+END
+SarshareofshelfDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarshareofshelfDAO.java
+END
+BrandgroupHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/BrandgroupHibernateDAO.java
+END
+StoreauditresultHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/dcs/!svn/ver/954/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreauditresultHibernateDAO.java
+END
+IftdisplaylocationDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/1038/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/IftdisplaylocationDAO.java
+END
+StoreDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/dcs/!svn/ver/498/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreDAO.java
+END
+POSMMiniValueDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/POSMMiniValueDAO.java
+END
+AuditoroutlettaskHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditoroutlettaskHibernateDAO.java
+END
+OutletauditpictureHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletauditpictureHibernateDAO.java
+END
+SosbrandHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SosbrandHibernateDAO.java
+END
+OarStorepromotionDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/481/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarStorepromotionDAO.java
+END
+AccountHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AccountHibernateDAO.java
+END
+OutletLocationRegisterDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/dcs/!svn/ver/1026/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletLocationRegisterDAO.java
+END
+OutletSalemanDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/dcs/!svn/ver/973/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OutletSalemanDAO.java
+END
+DistributorDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/dcs/!svn/ver/1000/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/DistributorDAO.java
+END
+AuditorstoretaskDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/dcs/!svn/ver/471/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditorstoretaskDAO.java
+END
+OarfacingiftdisplayHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/783/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarfacingiftdisplayHibernateDAO.java
+END
+ProductDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/216/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/ProductDAO.java
+END
+SarshareofdisplayDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/105/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SarshareofdisplayDAO.java
+END
+OarFacingRegisteredHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/936/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarFacingRegisteredHibernateDAO.java
+END
+SubFullRangeBrandHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/dcs/!svn/ver/1032/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/SubFullRangeBrandHibernateDAO.java
+END
+StoreposmDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StoreposmDAO.java
+END
+PackinggroupHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/dcs/!svn/ver/221/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/PackinggroupHibernateDAO.java
+END
+OarFacingRegisteredDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/dcs/!svn/ver/936/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OarFacingRegisteredDAO.java
+END
+AuditorDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/dcs/!svn/ver/571/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/AuditorDAO.java
+END
+StorepromotionscopeHibernateDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/dcs/!svn/ver/476/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/StorepromotionscopeHibernateDAO.java
+END
+OARPosmMiniValueDAO.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/dcs/!svn/ver/1043/trunk/outlet-audit/core/src/main/java/com/banvien/fcv/core/dao/OARPosmMiniValueDAO.java
+END

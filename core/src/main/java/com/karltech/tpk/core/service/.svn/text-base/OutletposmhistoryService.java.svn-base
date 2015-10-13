@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outletposmhistory;
+
+
+public interface OutletposmhistoryService extends GenericService<Outletposmhistory,Long> {
+
+}

@@ -1,0 +1,69 @@
+<%@page trimDirectiveWhitespaces="true"%>
+<%@ include file="/common/taglibs.jsp"%>
+<div class="navigation">
+    <h2>Reports</h2>
+    <ul>
+        <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+        <li class="submenu"><a id="gt_reports" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">GT Reports</a>
+            <div id="gt_reports_sub" class="hidden">
+                <ul>
+                    <li><a class="first " href="<c:url value="/report/gt/gtreportbyregion.html"/>">Summary Report by Region</a></li>
+                    <li><a class=" " href="<c:url value="/report/gt/gtreportbydistributor.html"/>">Summary Report by Distributor</a></li>
+                    <li><a class=" " href="<c:url value="/report/gt/gtreportbyoutlet.html"/>">Detailed by Outlet</a></li>
+                    <li><a class=" " href="<c:url value="/report/gt/gtreportbyyear.html"/>">Summary Report by Year</a></li>
+                </ul>
+            </div>
+        </li>
+        </security:authorize>
+        <security:authorize ifAnyGranted="ADMIN,MT">
+        <li><a id="mt_reports_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">MT Reports</a>
+            <div id="mt_reports_menu_sub" class="hidden">
+                <ul>
+                    <li><a class="first " href="<c:url value="/support/mt/report/mtreportbyaccount.html"/>">Summary Report by Account</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtreportbystore.html"/>">Summary Report by Store</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtOutOfStockDaily.html"/>">Out Of Stock Daily Report</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtOutOfStockWeekly.html"/>">Out Of Stock Weekly Report</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtOutOfStockMonthly.html"/>">Out Of Stock Monthly Report</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtSODDaily.html"/>">Share of Display Daily Report</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtSODWeekly.html"/>">Share of Display Weekly Report</a></li>
+                    <li><a class=" " href="<c:url value="/support/mt/report/mtSODMonthly.html"/>">Share of Display Monthly Report</a></li>
+                    <li><a class=" " href="<c:url value="/report/mt/mtPromotion.html"/>">Promotion Report</a></li>
+                </ul>
+            </div>
+        </li>
+        </security:authorize>
+        <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+        <li><a id="pictures_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">Pictures</a>
+            <div id="pictures_menu_sub" class="hidden">
+                <ul>
+                    <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                    <li><a class="first " href="<c:url value="/report/gt/picture/outlet.html"/>">Outlet Pictures</a></li>
+                    </security:authorize>
+                    <security:authorize ifAnyGranted="ADMIN,MT">
+                    <li><a class=" " href="<c:url value="/report/mt/picture/store.html"/>">Store Pictures</a></li>
+                    </security:authorize>
+
+                </ul>
+            </div>
+        </li>
+        </security:authorize>
+        <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+            <security:authorize ifAnyGranted="ADMIN,GT">
+            <li><a id="performance_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">Performance</a>
+                <div id="performance_menu_sub" class="hidden">
+                    <ul>
+                        <li><a class="first " href="<c:url value="/report/gt/perfect.html"/>">Perfect Outlet</a></li>
+                        <li><a class=" " href="<c:url value="/report/gt/performance.html?performed=1"/>">Performed Outlet</a></li>
+                        <li><a class=" " href="<c:url value="/report/gt/performance.html?performed=0"/>">Non-Performed Outlet</a></li>
+
+                    </ul>
+                </div>
+            </li>
+            </security:authorize>
+            <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+            <li><a onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected_nochildren')" class="" href="<c:url value="/report/gt/reaudit.html"/>">Re-Audit</a></li>
+            </security:authorize>
+        </security:authorize>
+
+    </ul>
+</div>

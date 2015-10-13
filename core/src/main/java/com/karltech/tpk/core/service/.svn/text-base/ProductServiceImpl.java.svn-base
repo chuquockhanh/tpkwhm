@@ -1,0 +1,106 @@
+package com.banvien.fcv.core.service;
+import com.banvien.fcv.core.dao.ProductDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.dto.ProductBean;
+import com.banvien.fcv.core.dto.ProductBean;
+import com.banvien.fcv.core.dto.ProductImportDTO;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ProductServiceImpl extends GenericServiceImpl<Product,Long> 
+                                                    implements ProductService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private ProductDAO productDAO;
+
+    public void setProductDAO(ProductDAO productDAO) {
+        this.productDAO = productDAO;
+    }
+
+    @Override
+	protected GenericDAO<Product, Long> getGenericDAO() {
+		return productDAO;
+	}
+
+   @Override
+    public void updateItem(ProductBean productBean) throws ObjectNotFoundException, DuplicateException {
+        Product dbItem = this.productDAO.findByIdNoAutoCommit(productBean.getPojo().getProductID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found product " + productBean.getPojo().getProductID());
+
+        Product pojo = productBean.getPojo();
+
+        this.productDAO.detach(dbItem);
+        this.productDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(ProductBean productBean) throws DuplicateException {
+        Product pojo = productBean.getPojo();
+        pojo = this.productDAO.save(pojo);
+        productBean.setPojo(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                productDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(ProductBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (bean.getPojo().getProductbrand() != null && bean.getPojo().getProductbrand().getProductBrandID() != null && bean.getPojo().getProductbrand().getProductBrandID() > 0) {
+            properties.put("productbrand.productBrandID", bean.getPojo().getProductbrand().getProductBrandID());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Product.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (bean.getPojo().getProductgroup() != null && bean.getPojo().getProductgroup().getProductGroupID() != null) {
+            properties.put("productgroup.productGroupID", bean.getPojo().getProductgroup().getProductGroupID());
+        }
+
+        return this.productDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public List<Product> findRegisteredProductByStoreID(Long storeID) {
+        return this.productDAO.findRegisteredProductByStoreID(storeID);
+    }
+
+    @Override
+    public Map<String, Product> importProducts(List<ProductImportDTO> productImportDTOs) {
+        Map<String, Product> res = new HashMap<String, Product>();
+
+        for (ProductImportDTO productImportDTO : productImportDTOs) {
+            Product product = this.productDAO.findByNameAndProductBrand(productImportDTO.getName(), productImportDTO.getProductbrand().getProductBrandID());
+            if (product == null) {
+                product = new Product();
+                product.setName(productImportDTO.getName());
+                product.setProductbrand(productImportDTO.getProductbrand());
+                product = this.productDAO.save(product);
+            }
+            res.put(productImportDTO.getName() + "|" + productImportDTO.getProductbrand().getName(), product);
+        }
+
+        return res;
+    }
+}

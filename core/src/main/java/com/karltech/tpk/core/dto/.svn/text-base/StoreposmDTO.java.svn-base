@@ -1,0 +1,95 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Storeposm;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 12:27 PM
+ */
+public class StoreposmDTO {
+
+    private Long storePOSMID;
+
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute active.
+	 */
+	private Boolean active;
+
+	/**
+	 * Attribute brandgroup
+	 */
+	 private String brandgroup;
+
+    public StoreposmDTO(Storeposm o) {
+        setActive(o.getActive());
+        setBrandgroup(o.getBrandgroup().getName());
+        setCode(o.getCode());
+        setName(o.getName());
+        setStorePOSMID(o.getStorePOSMID());
+    }
+
+    public StoreposmDTO() {
+
+    }
+
+    public Long getStorePOSMID() {
+        return storePOSMID;
+    }
+
+    public void setStorePOSMID(Long storePOSMID) {
+        this.storePOSMID = storePOSMID;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getBrandgroup() {
+        return brandgroup;
+    }
+
+    public void setBrandgroup(String brandgroup) {
+        this.brandgroup = brandgroup;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setCode(o.getString("code"));
+        setName(o.getString("name"));
+        setActive(o.getBoolean("active"));
+        setBrandgroup(o.getString("brandgroup"));
+        setStorePOSMID(o.getLong("storePOSMID"));
+    }
+}

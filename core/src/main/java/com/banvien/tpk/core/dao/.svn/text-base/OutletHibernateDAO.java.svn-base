@@ -1,0 +1,241 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+/**
+ * <p>Hibernate DAO layer for Outlets</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OutletHibernateDAO extends
+		AbstractHibernateDAO<Outlet, Long> implements
+		OutletDAO {
+
+    public OutletHibernateDAO() {
+		super(Outlet.class);
+	}
+
+    @Override
+    public Object[] getOutletListByAuditorCode(final String auditorCode, final Integer firstItem, final Integer maxItems) throws ObjectNotFoundException {
+        
+        return getHibernateTemplate().execute(
+                new HibernateCallback<Object[]>() {
+                    public Object[] doInHibernate(Session session)
+                            throws HibernateException, SQLException {
+                    	
+                    	StringBuffer q = new StringBuffer();
+                        q.append("select distinct o from Outlet o, Auditoroutlettask at, Auditor a");
+                        q.append(" inner join fetch o.distributor");
+                        q.append(" inner join fetch o.region");
+                        q.append(" inner join fetch o.district");
+                        q.append(" left join fetch o.outletdistributionregistereds");
+                        q.append(" where a.code = ? and  at.status = 1 and o.outletID = at.outlet.outletID and at.auditor.auditorID = a.auditorID");
+                        q.append(" AND DATE(at.auditschedule.fromDate) <= DATE(NOW()) AND at.auditschedule.toDate >= DATE(NOW())");
+                        Query query = session
+                                .createQuery(q.toString());
+                        query.setParameter(0, auditorCode);
+                        if(firstItem != null) {
+                        	query.setFirstResult(firstItem);
+                        }
+                        if(maxItems != null) {
+                        	query.setMaxResults(maxItems);
+                        }
+                        
+                        List<Outlet> outlets = (List<Outlet>) query.list();
+                        
+                        q = new StringBuffer();
+                        q.append("select COUNT(distinct o.outletID) from Outlet o, Auditoroutlettask at, Auditor a");
+                        q.append(" where a.code = ? and  at.status = 1 and o.outletID = at.outlet.outletID and at.auditor.auditorID = a.auditorID");
+                        q.append(" AND DATE(at.auditschedule.fromDate) <= DATE(NOW()) AND at.auditschedule.toDate >= DATE(NOW())");
+                        query = session
+                                .createQuery(q.toString());
+                        query.setParameter(0, auditorCode);
+                        
+                        Integer count = Integer.valueOf(query.uniqueResult().toString());
+                        
+                        return new Object[]{outlets, count};
+                    }
+                });
+        
+    }
+
+    @Override
+    public Outlet findByDmsCodeAndDistributor(final String dmsCode, final Long distributorID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Outlet>() {
+                public Outlet doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outlet o WHERE o.dmsCode = :dmsCode AND o.distributor.distributorID = :distributorID");
+                    query.setParameter("dmsCode", dmsCode);
+                    query.setParameter("distributorID", distributorID);
+                    return (Outlet) query.uniqueResult();
+                }
+            });
+    }
+
+    @Override
+    public List<Outlet> findAssignedItemsByAuditAndAuditor(final Long auditScheduleID, final Long auditorID) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outlet>>() {
+                public List<Outlet> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("SELECT aot.outlet FROM Auditoroutlettask aot WHERE aot.auditschedule.auditScheduleID = :auditScheduleID AND aot.auditor.auditorID = :auditorID");
+                    query.setParameter("auditScheduleID", auditScheduleID);
+                    query.setParameter("auditorID", auditorID);
+                    return (List<Outlet>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public List<Outlet> findAssignedItemsByAuditIDRegionIDDistrictIDWardIDAddressAndNotAssigned(final Long auditScheduleID, final Long notAssignedAuditScheduleID, final Long regionID, final Long districtID, final Long wardID, final String address) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outlet>>() {
+                public List<Outlet> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                	StringBuffer buff = new StringBuffer("SELECT aot.outlet FROM Auditoroutlettask aot WHERE aot.auditschedule.auditScheduleID = :auditScheduleID");
+                	if(notAssignedAuditScheduleID != null) {
+                		buff.append(" AND aot.outlet.id NOT IN(SELECT aot2.outlet.id FROM Auditoroutlettask aot2 WHERE aot2.auditschedule.auditScheduleID = :notAssignedAuditScheduleID)");
+                	}
+                	if(regionID != null) {
+                		buff.append(" AND aot.outlet.region.id = :regionID");
+                	}
+                	if(districtID != null) {
+                		buff.append(" AND aot.outlet.district.id = :districtID");
+                	}
+                	if(wardID != null) {
+                		buff.append(" AND aot.outlet.ward.id = :wardID");
+                	}
+                	if(StringUtils.isNotBlank(address)) {
+                		buff.append(" AND aot.outlet.address LIKE :address");
+                	}
+                    Query query = session
+                            .createQuery(buff.toString());
+                    if(notAssignedAuditScheduleID != null) {
+                    	query.setParameter("notAssignedAuditScheduleID", notAssignedAuditScheduleID);
+                	}
+                    if(regionID != null) {
+                    	query.setParameter("regionID", regionID);
+                	}
+                	if(StringUtils.isNotBlank(address)) {
+                		query.setParameter("address", "%" + address + "%");
+                	}
+                	if(districtID != null) {
+                    	query.setParameter("districtID", districtID);
+                	}
+                	if(wardID != null) {
+                    	query.setParameter("wardID", wardID);
+                	}
+                    query.setParameter("auditScheduleID", auditScheduleID);
+                    return (List<Outlet>) query.list();
+                }
+            });
+    }
+    @Override
+    public Outlet findBySapCodeAndDmsCode(final String sapCode, final String dmsCode) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Outlet>() {
+                public Outlet doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outlet o WHERE o.dmsCode = :dmsCode AND o.distributor.sapCode = :sapCode");
+                    query.setParameter("dmsCode", dmsCode);
+                    query.setParameter("sapCode", sapCode);
+                    return (Outlet) query.uniqueResult();
+                }
+            });
+    }
+
+    @Override
+    public List<Outlet> findListBySapCodeAndDmsCode(final String sapCode, final String dmsCode) {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<List<Outlet>>() {
+                public List<Outlet> doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outlet o WHERE o.dmsCode = :dmsCode AND o.distributor.sapCode = :sapCode");
+                    query.setParameter("dmsCode", dmsCode);
+                    query.setParameter("sapCode", sapCode);
+                    return (List<Outlet>) query.list();
+                }
+            });
+    }
+
+    @Override
+    public Outlet findBySapCodeAndDmsCodeAndName(final String sapCode, final String dmsCode, final String name)
+    {
+        return getHibernateTemplate().execute(
+            new HibernateCallback<Outlet>() {
+                public Outlet doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("FROM Outlet o WHERE o.dmsCode = :dmsCode AND o.distributor.sapCode = :sapCode AND o.distributor.name like :name ");
+                    query.setParameter("dmsCode", dmsCode);
+                    query.setParameter("sapCode", sapCode);
+                    query.setParameter("name", name);
+                    return (Outlet) query.uniqueResult();
+                }
+            });
+    }
+
+	@Override
+	public List<Outlet> findAssignedItemsByRegionIDDistrictIDWardIDAddressOutletIDsAndNotAssigned(
+			final Long notAssignedAuditScheduleID, final List<Long> outletIDs,
+			final Long regionID, final Long districtID, final Long wardID, final String address) {
+		 return getHibernateTemplate().execute(
+		            new HibernateCallback<List<Outlet>>() {
+		                public List<Outlet> doInHibernate(Session session)
+		                        throws HibernateException, SQLException {
+		                	StringBuffer buff = new StringBuffer("SELECT o FROM Outlet o WHERE o.id IN (:outletIDs)");
+		                	if(notAssignedAuditScheduleID != null) {
+		                		buff.append(" AND o.id NOT IN(SELECT aot2.outlet.id FROM Auditoroutlettask aot2 WHERE aot2.auditschedule.auditScheduleID = :notAssignedAuditScheduleID)");
+		                	}
+		                	if(regionID != null) {
+		                		buff.append(" AND o.region.id = :regionID");
+		                	}
+		                	if(districtID != null) {
+		                		buff.append(" AND o.district.id = :districtID");
+		                	}
+		                	if(wardID != null) {
+		                		buff.append(" AND o.ward.id = :wardID");
+		                	}
+		                	if(StringUtils.isNotBlank(address)) {
+		                		buff.append(" AND o.address LIKE :address");
+		                	}
+		                    Query query = session
+		                            .createQuery(buff.toString());
+		                    if(notAssignedAuditScheduleID != null) {
+		                    	query.setParameter("notAssignedAuditScheduleID", notAssignedAuditScheduleID);
+		                	}
+		                    if(regionID != null) {
+		                    	query.setParameter("regionID", regionID);
+		                	}
+		                	if(StringUtils.isNotBlank(address)) {
+		                		query.setParameter("address", "%" + address + "%");
+		                	}
+		                	if(districtID != null) {
+		                    	query.setParameter("districtID", districtID);
+		                	}
+		                	if(wardID != null) {
+		                    	query.setParameter("wardID", wardID);
+		                	}
+		                    query.setParameterList("outletIDs", outletIDs);
+		                    return (List<Outlet>) query.list();
+		                }
+		            });
+	}
+}

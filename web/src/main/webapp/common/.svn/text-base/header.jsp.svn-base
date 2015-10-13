@@ -1,0 +1,206 @@
+<%@page trimDirectiveWhitespaces="true"%>
+<%@ include file="/common/taglibs.jsp"%>
+
+<script type="text/javascript" src="<c:url value='/scripts/tinymenu/tinydropdown.js'/>"></script>
+<link rel="stylesheet" type="text/css"
+          href="<c:url value='/styles/${appConfig["csstheme"]}/tinymenu/tinydropdown.css'/>"/>
+<div class="center">
+    <div class="left">
+        <img src="<c:url value="/images/logo.png"/>"/>
+    </div>
+</div>
+
+<div class="left">
+<div class="nav top_navigation">
+    <ul id="menu" class="menu">
+        <li class="nodiv"><a href="<c:url value="/"/>">Home &nbsp;|</a></li>
+        <li><a href="<c:url value="/support/outlet/list.html"/>">&nbsp; System Settings &nbsp;|</a>
+            <ul>
+                <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                    <li class="submenu">
+                        <span>GT System Settings</span>
+                        <ul>
+                            <security:authorize ifNotGranted="SUPPORT">
+                            <li><a class="first " href="<c:url value="/support/distributor/list.html"/>">Distributor Management</a></li>
+                            </security:authorize>
+                            <li><a class=" " href="<c:url value="/support/outlet/list.html"/>">Outlet Data</a></li>
+                            <security:authorize ifNotGranted="SUPPORT">
+                            <li><a class=" " href="<c:url value="/support/powersku/list.html"/>">Power SKUs</a></li>
+                            <li><a class=" " href="<c:url value="/support/fullrangesku/list.html"/>">Full Range SKUs</a></li>
+                            <li><a class=" " href="<c:url value="/support/iftdisplaylocation/list.html"/>">IFT Display Location</a></li>
+                            <li><a class=" " href="<c:url value="/support/outletposm/list.html"/>">POSM</a></li>
+                            <li><a class=" " href="<c:url value="/support/promotion/list.html"/>">Promotion</a></li>
+                            </security:authorize>
+                        </ul>
+                    </li>
+                </security:authorize>
+
+                <security:authorize ifAnyGranted="ADMIN,MT">
+                    <li class="submenu">
+                        <span>MT System Settings</span>
+                        <ul>
+                            <li><a class="first " href="<c:url value="/support/account/list.html"/>">Account Data</a></li>
+                            <li><a class=" " href="<c:url value="/support/store/list.html"/>">Store Data</a></li>
+                            <li><a class=" " href="<c:url value="/support/storepromotion/list.html"/>">Store Promotion</a></li>
+                            <li><a class=" " href="<c:url value="/support/brand/list.html"/>">Brand Location</a></li>
+                            <li><a class=" " href="<c:url value="/support/packinggroup/list.html"/>">Share of Shelf</a></li>
+                            <li><a class=" " href="<c:url value="/support/storeposm/list.html"/>">POSM</a></li>
+                        </ul>
+                    </li>
+                </security:authorize>
+
+                <security:authorize ifNotGranted="SUPPORT">
+                    <li class="submenu">
+                        <span>Auditor</span>
+                        <ul>
+                            <li><a class="first " href="<c:url value="/support/auditor/list.html"/>">Auditor Management</a></li>
+                            <li><a class=" " href="<c:url value="/support/auditschedule/list.html"/>">Audit Schedule</a></li>
+                        </ul>
+                    </li>
+                </security:authorize>
+
+                <security:authorize ifNotGranted="SUPPORT">
+                    <li class="submenu">
+                        <span>General Data</span>
+                        <ul>
+                            <security:authorize ifAllGranted="ADMIN">
+                            <li><a class="first " href="<c:url value="/admin/region/list.html"/>">Region</a></li>
+                            <li><a class=" " href="<c:url value="/admin/agent/list.html"/>">Agent</a></li>
+                            <li><a class=" " href="<c:url value="/admin/levelregister/list.html"/>">Level Register </a></li>
+                                <li><a class=" " href="<c:url value="/admin/subfullrangesku/list.html"/>">Sub FullRangeSKU </a></li>
+                            <li><a class=" " href="<c:url value="/admin/saleman/list.html"/>">Saleman </a></li>
+                            <li><a class=" " href="<c:url value="/admin/outletbrand/list.html"/>">Outlet Brand </a></li>
+                            </security:authorize>
+                            <li><a class=" " href="<c:url value="/support/district/list.html"/>">District</a></li>
+                            <li><a class=" " href="<c:url value="/support/ward/list.html"/>">Ward</a></li>
+                            <li><a class=" " href="<c:url value="/support/productgroup/list.html"/>">Product Group</a></li>
+                            <li><a class=" " href="<c:url value="/support/productbrand/list.html"/>">Product Brand</a></li>
+                            <li><a class=" " href="<c:url value="/support/product/list.html"/>">Product</a></li>
+                            <security:authorize ifAnyGranted="ADMIN,MT">
+                            <li><a class=" " href="<c:url value="/support/promotionproduct/list.html"/>">Promotion Product</a></li>
+                            <li><a class=" " href="<c:url value="/support/storepromotionproduct/list.html"/>">Store Promotion Product</a></li>
+                            <li><a class=" " href="<c:url value="/support/unit/list.html"/>">Unit</a></li>
+                            </security:authorize>
+                            <li><a class=" " href="<c:url value="/support/brandgroup/list.html"/>">Brand Group</a></li>
+                            <li><a class=" " href="<c:url value="/support/sosbrand/list.html"/>">SOS Brand</a></li>
+                        </ul>
+                    </li>
+                </security:authorize>
+
+                <security:authorize ifNotGranted="SUPPORT">
+                    <li><a class="" href="<c:url value="/support/setting/list.html"/>">Setting Audit Password</a></li>
+                </security:authorize>
+
+               <security:authorize ifAnyGranted="ADMIN">
+               <li><a href="<c:url value="/admin/user/list.html"/>">System User</a></li>
+               </security:authorize>
+               <security:authorize ifAllGranted="GT,MODERATOR">
+                   <li><a href="<c:url value="/admin/user/list.html"/>">System User</a></li>
+               </security:authorize>
+
+               <security:authorize ifAnyGranted="ADMIN">
+                    <li><a href="<c:url value="/support/outletaudit/import.html"/>">Import Outlet Audit</a></li>
+               </security:authorize>
+               <security:authorize ifAllGranted="GT">
+                    <li><a href="<c:url value="/support/outletaudit/import.html"/>">Import Outlet Audit </a></li>
+               </security:authorize>
+
+                <security:authorize ifAnyGranted="ADMIN">
+                     <li><a href="<c:url value="/support/outletauditsummary/import.html"/>">Import Outlet Audit Summary</a></li>
+                </security:authorize>
+                <security:authorize ifAllGranted="GT">
+                     <li><a href="<c:url value="/support/outletauditsummary/import.html"/>">Import Outlet Audit Summary</a></li>
+                </security:authorize>
+
+            </ul>
+        </li>
+        <li><span>
+                <security:authorize ifNotGranted="SUPPORT">
+                     <a href="<c:url value="/support/auditschedule/list.html"/>">&nbsp;Audit Calendar&nbsp;|</a>
+                </security:authorize>
+            </span>
+        </li>
+        <li>
+            <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                <a href="<c:url value="/report/gt/gtreportbyregion.html"/>">&nbsp;Reports&nbsp;|</a>
+
+
+            </security:authorize>
+            <security:authorize ifAllGranted="MT">
+                <a href="<c:url value="/support/mt/report/mtreportbyaccount.html"/>">&nbsp;Reports&nbsp;|</a>
+            </security:authorize>
+
+
+
+            <ul>
+                <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                    <li class="submenu">
+                        <span>GT Reports</span>
+                        <ul>
+                            <li><a href="<c:url value="/report/gt/gtreportbyregion.html"/>">Summary Report by Region</a></li>
+                            <li><a  href="<c:url value="/report/gt/gtreportbydistributor.html"/>">Summary Report by Distributor</a></li>
+                            <li><a  href="<c:url value="/report/gt/gtreportbyoutlet.html"/>">Detailed by Outlet</a></li>
+                            <li><a  href="<c:url value="/report/gt/gtreportsummarybyoutlet.html"/>">Summary Report by Outlet</a></li>
+                            <li><a  href="<c:url value="/report/gt/gtreportbyyear.html"/>">Summary Report by Year</a></li>
+                        </ul>
+                    </li>
+                </security:authorize>
+                <security:authorize ifAnyGranted="ADMIN,MT">
+                    <li class="submenu">
+                        <span>MT Reports</span>
+                        <ul>
+                            <li><a class="first " href="<c:url value="/support/mt/report/mtreportbyaccount.html"/>">Summary Report by Account</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtreportbystore.html"/>">Summary Report by Store</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtOutOfStockDaily.html"/>">Out Of Stock Daily Report</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtOutOfStockWeekly.html"/>">Out Of Stock Weekly Report</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtOutOfStockMonthly.html"/>">Out Of Stock Monthly Report</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtSODDaily.html"/>">Share of Display Daily Report</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtSODWeekly.html"/>">Share of Display Weekly Report</a></li>
+                            <li><a class=" " href="<c:url value="/support/mt/report/mtSODMonthly.html"/>">Share of Display Monthly Report</a></li>
+                            <li><a class=" " href="<c:url value="/report/mt/mtPromotion.html"/>">Promotion Report</a></li>
+                        </ul>
+                    </li>
+                </security:authorize>
+                <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                    <li class="submenu">
+                        <span>Pictures</span>
+                        <ul>
+                            <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                            <li><a class="first " href="<c:url value="/report/gt/picture/outlet.html"/>">Outlet Pictures</a></li>
+                            </security:authorize>
+                            <security:authorize ifAnyGranted="ADMIN,MT">
+                            <li><a class=" " href="<c:url value="/report/mt/picture/store.html"/>">Store Pictures</a></li>
+                            </security:authorize>
+                        </ul>
+                    </li>
+                </security:authorize>
+                <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                    <security:authorize ifAnyGranted="ADMIN,GT">
+                        <li class="submenu">
+                            <span>Performance</span>
+                            <ul>
+                                <li><a class="first " href="<c:url value="/report/gt/perfect.html"/>">Perfect Outlet</a></li>
+                                <li><a class=" " href="<c:url value="/report/gt/performance.html?performed=1"/>">Performed Outlet</a></li>
+                                <li><a class=" " href="<c:url value="/report/gt/performance.html?performed=0"/>">Non-Performed Outlet</a></li>
+                            </ul>
+                        </li>
+                    </security:authorize>
+                    <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+                        <li><a href="<c:url value="/report/gt/reaudit.html"/>">Re-Audit</a></li>
+                    </security:authorize>
+                </security:authorize>
+            </ul>
+        </li>
+        <li>
+            <a href="<c:url value="/profile.html"/>">&nbsp;My Profile&nbsp;|</a>
+        </li>
+        <li>
+            <a href="<c:url value="/logout.jsp"/>">&nbsp;Logout&nbsp;</a>
+        </li>
+
+    </ul>
+</div>
+</div>
+<script type="text/javascript">
+var dropdown=new TINY.dropdown.init("dropdown", {id:'menu', active:'menuhover'});
+</script>

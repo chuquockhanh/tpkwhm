@@ -1,0 +1,39 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/18/12
+ * Time: 11:23 AM
+ */
+public class OarnofacingDTO {
+
+    private Long outletbrand;
+	/**
+	 * Attribute facing.
+	 */
+	private Integer facing;
+
+    public Long getOutletbrand() {
+        return outletbrand;
+    }
+
+    public void setOutletbrand(Long outletbrand) {
+        this.outletbrand = outletbrand;
+    }
+
+    public Integer getFacing() {
+        return facing;
+    }
+
+    public void setFacing(Integer facing) {
+        this.facing = facing;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setOutletbrand(o.getLong("outletbrand"));
+        setFacing(o.getInt("facing"));
+    }
+}

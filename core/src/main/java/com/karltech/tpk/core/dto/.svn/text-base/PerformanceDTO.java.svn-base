@@ -1,0 +1,58 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/2/12
+ * Time: 4:46 PM
+ */
+public class PerformanceDTO implements Serializable {
+    private Long distributorID;
+    private String distributorName;
+    private String regionName;
+
+    private Integer totalOutlet;
+    private Integer totalPerformed;
+
+    public Long getDistributorID() {
+        return distributorID;
+    }
+
+    public void setDistributorID(Long distributorID) {
+        this.distributorID = distributorID;
+    }
+
+    public String getDistributorName() {
+        return distributorName;
+    }
+
+    public void setDistributorName(String distributorName) {
+        this.distributorName = distributorName;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    public Integer getTotalOutlet() {
+        return totalOutlet;
+    }
+
+    public void setTotalOutlet(Integer totalOutlet) {
+        this.totalOutlet = totalOutlet;
+    }
+
+    public Integer getTotalPerformed() {
+        return totalPerformed;
+    }
+
+    public void setTotalPerformed(Integer totalPerformed) {
+        this.totalPerformed = totalPerformed;
+    }
+}

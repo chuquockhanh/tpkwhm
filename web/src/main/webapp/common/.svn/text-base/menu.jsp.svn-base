@@ -1,0 +1,86 @@
+<%@page trimDirectiveWhitespaces="true"%>
+<%@ include file="/common/taglibs.jsp"%>
+<div class="navigation">
+    <h2>System Settings</h2>
+    <ul>
+        <security:authorize ifAnyGranted="ADMIN,GT,SUPPORT">
+        <li><a id="gt_setting_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">GT System Settings</a>
+            <div id="gt_setting_menu_sub" class="hidden">
+                <ul>
+                    <security:authorize ifNotGranted="SUPPORT">
+                    <li><a class="first " href="<c:url value="/support/distributor/list.html"/>">Distributor Management</a></li>
+                    </security:authorize>
+                    <li><a class=" " href="<c:url value="/support/outlet/list.html"/>">Outlet Data</a></li>
+                    <security:authorize ifNotGranted="SUPPORT">
+                    <li><a class=" " href="<c:url value="/support/powersku/list.html"/>">Power SKUs</a></li>
+                    <li><a class=" " href="<c:url value="/support/fullrangesku/list.html"/>">Full Range SKUs</a></li>
+                    <li><a class=" " href="<c:url value="/support/iftdisplaylocation/list.html"/>">IFT Display Location</a></li>
+                    <li><a class=" " href="<c:url value="/support/outletposm/list.html"/>">POSM</a></li>
+                    <li><a class=" " href="<c:url value="/support/promotion/list.html"/>">Promotion</a></li>
+                    </security:authorize>
+
+                </ul>
+            </div>
+        </li>
+        </security:authorize>
+        <security:authorize ifAnyGranted="ADMIN,MT">
+        <li><a id="mt_setting_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">MT System Settings</a>
+            <div id="mt_setting_menu_sub" class="hidden">
+                <ul>
+                    <li><a class="first " href="<c:url value="/support/account/list.html"/>">Account Data</a></li>
+                    <li><a class=" " href="<c:url value="/support/store/list.html"/>">Store Data</a></li>
+                    <li><a class=" " href="<c:url value="/support/storepromotion/list.html"/>">Store Promotion</a></li>
+                    <li><a class=" " href="<c:url value="/support/brand/list.html"/>">Brand Location</a></li>
+                    <li><a class=" " href="<c:url value="/support/packinggroup/list.html"/>">Share of Shelf</a></li>
+                    <li><a class=" " href="<c:url value="/support/storeposm/list.html"/>">POSM</a></li>
+                </ul>
+            </div>
+        </li>
+        </security:authorize>
+        <security:authorize ifNotGranted="SUPPORT">
+        <li><a id="auditor_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">Auditor</a>
+            <div id="auditor_menu_sub" class="hidden">
+                <ul>
+                    <li><a class="first " href="<c:url value="/support/auditor/list.html"/>">Auditor Management</a></li>
+                    <li><a class=" " href="<c:url value="/support/auditschedule/list.html"/>">Audit Schedule</a></li>
+
+                </ul>
+            </div>
+        </li>
+        <li><a id="general_data_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="#">General Data</a>
+            <div id="general_data_menu_sub" class="hidden">
+                <ul>
+                    <security:authorize ifAllGranted="ADMIN">
+                    <li><a class="first " href="<c:url value="/admin/region/list.html"/>">Region</a></li>
+                    <li><a class=" " href="<c:url value="/admin/agent/list.html"/>">Agent</a></li>
+                    <li><a class=" " href="<c:url value="/admin/levelregister/list.html"/>">Level Register </a></li>
+                    <li><a class=" " href="<c:url value="/admin/saleman/list.html"/>">Saleman </a></li>
+                    <li><a class=" " href="<c:url value="/admin/outletbrand/list.html"/>">Outlet Brand </a></li>
+                    </security:authorize>
+                    <li><a class=" " href="<c:url value="/support/district/list.html"/>">District</a></li>
+                    <li><a class=" " href="<c:url value="/support/ward/list.html"/>">Ward</a></li>
+                    <li><a class=" " href="<c:url value="/support/productgroup/list.html"/>">Product Group</a></li>
+                    <li><a class=" " href="<c:url value="/support/productbrand/list.html"/>">Product Brand</a></li>
+                    <li><a class=" " href="<c:url value="/support/product/list.html"/>">Product</a></li>
+                    <security:authorize ifAnyGranted="ADMIN,MT">
+                    <li><a class=" " href="<c:url value="/support/promotionproduct/list.html"/>">Promotion Product</a></li>
+                    <li><a class=" " href="<c:url value="/support/storepromotionproduct/list.html"/>">Store Promotion Product</a></li>
+                    <li><a class=" " href="<c:url value="/support/unit/list.html"/>">Unit</a></li>
+                    </security:authorize>
+                    <li><a class=" " href="<c:url value="/support/brandgroup/list.html"/>">Brand Group</a></li>
+                    <li><a class=" " href="<c:url value="/support/sosbrand/list.html"/>">SOS Brand</a></li>
+
+                </ul>
+            </div>
+        </li>
+
+        <li><a id="setting_data_menu" onclick="toggleMenu(this)" onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected')" class="" href="<c:url value="/support/setting/list.html"/>">Setting Audit Password</a></li>
+        </security:authorize>
+        <security:authorize ifAnyGranted="ADMIN">
+        <li><a onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected_nochildren')" class="" href="<c:url value="/admin/user/list.html"/>">System User</a></li>
+        </security:authorize>
+        <security:authorize ifAllGranted="GT,MODERATOR">
+            <li><a onmouseout="swapClass(this, '')" onmouseover="swapClass(this, 'selected_nochildren')" class="" href="<c:url value="/admin/user/list.html"/>">System User</a></li>
+        </security:authorize>
+    </ul>
+</div>

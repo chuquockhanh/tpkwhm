@@ -1,0 +1,235 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+import java.util.List;
+
+
+/**
+ * <p>Pojo mapping TABLE Outlet</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Outlet implements Serializable {
+
+    public static final String FIELD_DMSCODE = "dmsCode";
+    
+    public static final String FIELD_OUTLET_NAME = "outletName";
+
+    public static final String FIELD_ADDRESS = "address";
+	/**
+	 * Attribute outletID.
+	 */
+	private Long outletID;
+	
+	private String outletName;
+	
+	/**
+	 * Attribute distributor
+	 */
+	 private Distributor distributor;	
+
+	/**
+	 * Attribute dmsCode.
+	 */
+	private String dmsCode;
+	
+	/**
+	 * Attribute region
+	 */
+	 private Region region;	
+
+	/**
+	 * Attribute district
+	 */
+	 private District district;
+
+    /**
+     * Attribute ward
+     */
+    private Ward ward;
+
+	/**
+	 * Attribute address.
+	 */
+	private String address;
+	
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Float gpsLatitude;
+	
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Float gpsLongtitude;
+
+    private User createdBy;
+
+    private Agent agent;
+
+    /**
+	 * List of Outletdistributionregistered
+	 */
+	private List<Outletdistributionregistered> outletdistributionregistereds = null;
+
+    private List<OutletLocationRegister> outletLocationRegisters = null;
+
+    private List<DBBPosmRegistered> outletDbbPosmRegisters = null;
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return outletID
+	 */
+	public Long getOutletID() {
+		return outletID;
+	}
+
+	/**
+	 * @param outletID new value for outletID 
+	 */
+	public void setOutletID(Long outletID) {
+		this.outletID = outletID;
+	}
+	
+	/**
+	 * get distributor
+	 */
+	public Distributor getDistributor() {
+		return this.distributor;
+	}
+	
+	/**
+	 * set distributor
+	 */
+	public void setDistributor(Distributor distributor) {
+		this.distributor = distributor;
+	}
+
+    public String getDmsCode() {
+        return dmsCode;
+    }
+
+    public void setDmsCode(String dmsCode) {
+        this.dmsCode = dmsCode;
+    }
+
+    /**
+	 * get region
+	 */
+	public Region getRegion() {
+		return this.region;
+	}
+	
+	/**
+	 * set region
+	 */
+	public void setRegion(Region region) {
+		this.region = region;
+	}
+
+	/**
+	 * get district
+	 */
+	public District getDistrict() {
+		return this.district;
+	}
+	
+	/**
+	 * set district
+	 */
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+
+    public Ward getWard() {
+        return ward;
+    }
+
+    public void setWard(Ward ward) {
+        this.ward = ward;
+    }
+
+    /**
+	 * <p> 
+	 * </p>
+	 * @return address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address new value for address 
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+    public Float getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Float gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Float getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Float gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public List<Outletdistributionregistered> getOutletdistributionregistereds() {
+        return outletdistributionregistereds;
+    }
+
+    public void setOutletdistributionregistereds(List<Outletdistributionregistered> outletdistributionregistereds) {
+        this.outletdistributionregistereds = outletdistributionregistereds;
+    }
+
+	public String getOutletName() {
+		return outletName;
+	}
+
+	public void setOutletName(String outletName) {
+		this.outletName = outletName;
+	}
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
+    public List<OutletLocationRegister> getOutletLocationRegisters() {
+        return outletLocationRegisters;
+    }
+
+    public void setOutletLocationRegisters(List<OutletLocationRegister> outletLocationRegisters) {
+        this.outletLocationRegisters = outletLocationRegisters;
+    }
+
+    public List<DBBPosmRegistered> getOutletDbbPosmRegisters() {
+        return outletDbbPosmRegisters;
+    }
+
+    public void setOutletDbbPosmRegisters(List<DBBPosmRegistered> outletDbbPosmRegisters) {
+        this.outletDbbPosmRegisters = outletDbbPosmRegisters;
+    }
+}

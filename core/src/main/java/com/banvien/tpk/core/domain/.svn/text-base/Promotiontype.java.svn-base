@@ -1,0 +1,65 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE PromotionType</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Promotiontype implements Serializable {
+
+	/**
+	 * Attribute promotionTypeID.
+	 */
+	private Long promotionTypeID;
+	
+	/**
+	 * Attribute type.
+	 */
+	private String type;
+	
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return promotionTypeID
+	 */
+	public Long getPromotionTypeID() {
+		return promotionTypeID;
+	}
+
+	/**
+	 * @param promotionTypeID new value for promotionTypeID 
+	 */
+	public void setPromotionTypeID(Long promotionTypeID) {
+		this.promotionTypeID = promotionTypeID;
+	}
+	
+	/* liste transiente */
+	/**
+	 * <p> 
+	 * </p>
+	 * @return type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type new value for type 
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+
+
+}

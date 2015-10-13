@@ -1,0 +1,15 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Setting;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/11/12
+ * Time: 11:19 AM
+ */
+public class SettingBean extends AbstractBean<Setting>{
+    public SettingBean() {
+        this.pojo = new Setting();
+    }
+}

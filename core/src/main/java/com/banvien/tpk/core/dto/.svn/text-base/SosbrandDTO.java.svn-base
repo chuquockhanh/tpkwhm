@@ -1,0 +1,109 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Sosbrand;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 11:41 AM
+ */
+public class SosbrandDTO {
+
+    private Long sosBrandID;
+
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+	/**
+	 * Attribute brandgroup
+	 */
+	 private String brandgroup;
+
+	/**
+	 * Attribute displayOrder.
+	 */
+	private Integer displayOrder;
+
+    private List<PackinggroupDTO> packinggroupDTOs;
+
+    public SosbrandDTO(Sosbrand b) {
+        setBrandgroup(b.getBrandgroup().getName());
+        setName(b.getName());
+        setDisplayOrder(b.getDisplayOrder());
+        setSosBrandID(b.getSosBrandID());
+    }
+
+    public SosbrandDTO() {
+
+    }
+
+    public Long getSosBrandID() {
+        return sosBrandID;
+    }
+
+    public void setSosBrandID(Long sosBrandID) {
+        this.sosBrandID = sosBrandID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBrandgroup() {
+        return brandgroup;
+    }
+
+    public void setBrandgroup(String brandgroup) {
+        this.brandgroup = brandgroup;
+    }
+
+    public Integer getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(Integer displayOrder) {
+        this.displayOrder = displayOrder;
+    }
+
+    public List<PackinggroupDTO> getPackinggroupDTOs() {
+        return packinggroupDTOs;
+    }
+
+    public void setPackinggroupDTOs(List<PackinggroupDTO> packinggroupDTOs) {
+        this.packinggroupDTOs = packinggroupDTOs;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setBrandgroup(o.getString("brandgroup"));
+        setName(o.getString("name"));
+        setDisplayOrder(o.getInt("displayOrder"));
+        setSosBrandID(o.getLong("sosBrandID"));
+        updatePackinggroupDTOs(o.getJSONArray("packinggroupDTOs"));
+    }
+
+    private void updatePackinggroupDTOs(JSONArray a) throws JSONException {
+        if (packinggroupDTOs == null) {
+            packinggroupDTOs = new ArrayList<PackinggroupDTO>();
+        } else {
+            packinggroupDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            PackinggroupDTO bean = new PackinggroupDTO();
+            bean.unserializeJSON(o);
+            packinggroupDTOs.add(bean);
+        }
+    }
+}

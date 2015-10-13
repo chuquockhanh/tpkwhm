@@ -1,0 +1,14 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.domain.Oarfullrangefacing;
+
+/**
+ * <p>Generic DAO layer for Oarpowerskus</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public interface OarfullrangefacingDAO extends GenericDAO<Oarfullrangefacing,Long> {
+
+    void deleteByOutletAuditResult(Long outletAuditResultID);
+}

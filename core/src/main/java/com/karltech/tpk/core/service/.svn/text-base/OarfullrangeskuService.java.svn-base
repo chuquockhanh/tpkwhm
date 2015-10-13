@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Oarfullrangesku;
+
+
+public interface OarfullrangeskuService extends GenericService<Oarfullrangesku,Long> {
+
+}

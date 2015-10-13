@@ -1,0 +1,26 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Productbrand;
+import com.banvien.fcv.core.dto.BrandImportDTO;
+import com.banvien.fcv.core.dto.ProductBrandBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+import java.util.Map;
+
+
+public interface ProductbrandService extends GenericService<Productbrand,Long> {
+
+    void updateItem(ProductBrandBean productbrandBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(ProductBrandBean productbrandBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(ProductBrandBean bean);
+
+    Productbrand findByName(String name) throws ObjectNotFoundException;
+
+    Map<String,Productbrand> importProductBrand(List<BrandImportDTO> brandImportDTOs);
+}

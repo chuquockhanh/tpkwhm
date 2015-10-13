@@ -1,0 +1,41 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Promotion;
+import org.hibernate.cache.Region;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 6/16/12
+ * Time: 2:18 PM
+ */
+public class PromotionBean extends AbstractBean<Promotion> {
+    private Long[] scopes;
+
+    private Long[] productsToHandheld;
+
+    public PromotionBean() {
+        this.pojo = new Promotion();
+
+    }
+
+    public Long[] getScopes() {
+        return scopes;
+    }
+
+    public void setScopes(Long[] scopes) {
+        this.scopes = scopes;
+    }
+
+    public Long[] getProductsToHandheld() {
+        return productsToHandheld;
+    }
+
+    public void setProductsToHandheld(Long[] productsToHandheld) {
+        this.productsToHandheld = productsToHandheld;
+    }
+}

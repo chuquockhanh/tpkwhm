@@ -1,0 +1,101 @@
+package com.banvien.fcv.core.dao;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.domain.Promotion;
+import com.banvien.fcv.core.domain.Promotionproducttohandheld;
+import com.banvien.fcv.core.domain.Promotionscope;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Promotions</p>
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class PromotionHibernateDAO extends
+		AbstractHibernateDAO<Promotion, Long> implements
+		PromotionDAO {
+
+    public PromotionHibernateDAO() {
+		super(Promotion.class);
+	}
+
+    @Override
+    public List<Promotionscope> findPromotionscopeByRegions(final Set<Long> regionIDs) {
+        if (regionIDs.isEmpty()) {
+            return new ArrayList<Promotionscope>();
+        }
+        final StringBuffer q = new StringBuffer();
+        q.append("select ps from Promotionscope ps");
+        q.append(" inner join fetch ps.promotion as p");
+        q.append(" inner join fetch p.promotiontype");
+        q.append(" inner join fetch p.buyUnit");
+        q.append(" inner join fetch p.outletbrand");
+        q.append(" where p.effectiveDate <= :now and p.expireDate >= :now");
+        q.append(" and ps.region.regionID in (:regionIDs)");
+        return (List<Promotionscope>)getHibernateTemplate().execute(
+               new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                       Query query = session.createQuery(q.toString());
+                       query.setParameter("now",new Date(System.currentTimeMillis()));
+                       query.setParameterList("regionIDs",regionIDs);
+                       return query.list();
+                    }
+               });
+
+    }
+
+    @Override
+    public List<Promotionproducttohandheld> findPromotionproducttohandhelds(final Set<Long> promotionIDs) {
+        if (promotionIDs.isEmpty()) {
+            return  new ArrayList<Promotionproducttohandheld>();
+        }
+        final StringBuffer q = new StringBuffer();
+        q.append("select ps from Promotionproducttohandheld ps");
+        q.append(" inner join fetch ps.promotionproduct as p");
+        q.append(" where ps.promotion.promotionID in (:promotionIDs)");
+        return (List<Promotionproducttohandheld>)getHibernateTemplate().execute(
+               new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                       Query query = session.createQuery(q.toString());
+                       query.setParameterList("promotionIDs",promotionIDs);
+                       return query.list();
+                    }
+               });
+    }
+
+    @Override
+    public List<Promotion> findActivePromotions(final Timestamp fromDate, final Timestamp toDate) {
+        return (List<Promotion>)getHibernateTemplate().execute(
+               new HibernateCallback() {
+                    public Object doInHibernate(Session session)
+                                    throws HibernateException, SQLException {
+                        StringBuffer buffer = new StringBuffer();
+                        buffer.append("SELECT p FROM Promotion p WHERE ((p.effectiveDate <= :fromDate AND p.expireDate >= :fromDate)")
+                                .append(" OR (p.effectiveDate >= :fromDate AND p.expireDate <= :toDate)")
+                                .append(" OR (p.effectiveDate <= :toDate AND p.expireDate >= :toDate))");
+
+                        buffer.append(" ORDER BY p.effectiveDate ASC");
+                        Query query = session.createQuery(buffer.toString());
+                        query.setParameter("fromDate", fromDate);
+                        query.setParameter("toDate", toDate);
+
+                        return query.list();
+                    }
+               });
+    }
+}

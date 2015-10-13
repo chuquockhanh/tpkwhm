@@ -1,0 +1,35 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+import com.banvien.fcv.core.domain.OarFacingRegistered;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 2/26/13
+ * Time: 3:04 PM
+ */
+public class OarFacingRegisteredHibernateDAO extends AbstractHibernateDAO<OarFacingRegistered, Long> implements OarFacingRegisteredDAO {
+
+	@Override
+	public void deleteByOutletAuditResult(final Long outletAuditResultID) {
+		 getHibernateTemplate().execute(
+		            new HibernateCallback<Integer>() {
+		                public Integer doInHibernate(Session session)
+		                        throws HibernateException, SQLException {
+		                    Query query = session
+		                            .createQuery("DELETE FROM OarFacingRegistered WHERE outletauditresult.outletAuditResultID = :outletAuditResultID");
+		                    query.setParameter("outletAuditResultID", outletAuditResultID);
+		                    return query.executeUpdate();
+		                }
+		            });
+		
+	}
+}

@@ -1,0 +1,94 @@
+package com.banvien.fcv.core.dto;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Date: 7/25/12
+ * Time: 7:07 AM
+ */
+public class MTSODDTO implements Serializable {
+    private Long storeID;
+    private Timestamp day;
+    private String storeName;
+    private String account;
+    private Integer week;
+    private Integer fcvIFTSOD;
+    private Integer storeIFTSOD;
+    private Integer fcvDBBSOD;
+    private Integer storeDBBSOD;
+
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public Timestamp getDay() {
+        return day;
+    }
+
+    public void setDay(Timestamp day) {
+        this.day = day;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
+    public Integer getWeek() {
+        return week;
+    }
+
+    public void setWeek(Integer week) {
+        this.week = week;
+    }
+
+    public Integer getFcvIFTSOD() {
+        return fcvIFTSOD;
+    }
+
+    public void setFcvIFTSOD(Integer fcvIFTSOD) {
+        this.fcvIFTSOD = fcvIFTSOD;
+    }
+
+    public Integer getStoreIFTSOD() {
+        return storeIFTSOD;
+    }
+
+    public void setStoreIFTSOD(Integer storeIFTSOD) {
+        this.storeIFTSOD = storeIFTSOD;
+    }
+
+    public Integer getFcvDBBSOD() {
+        return fcvDBBSOD;
+    }
+
+    public void setFcvDBBSOD(Integer fcvDBBSOD) {
+        this.fcvDBBSOD = fcvDBBSOD;
+    }
+
+    public Integer getStoreDBBSOD() {
+        return storeDBBSOD;
+    }
+
+    public void setStoreDBBSOD(Integer storeDBBSOD) {
+        this.storeDBBSOD = storeDBBSOD;
+    }
+}

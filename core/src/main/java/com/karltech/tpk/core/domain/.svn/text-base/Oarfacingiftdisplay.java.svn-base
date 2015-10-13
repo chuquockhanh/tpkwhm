@@ -1,0 +1,110 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE OARFacingIFTDisplay</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Oarfacingiftdisplay implements Serializable {
+
+	/**
+	 * Attribute oARFacingIFTDisplayID.
+	 */
+	private Long oarFacingIFTDisplayID;
+	
+	/**
+	 * Attribute outletauditresult
+	 */
+	 private Outletauditresult outletauditresult;	
+
+	/**
+	 * Attribute outletbrand
+	 */
+	 private Outletbrand outletbrand;	
+
+	/**
+	 * Attribute iftdisplaylocation
+	 */
+	 private Iftdisplaylocation iftdisplaylocation;	
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+
+    public Long getOarFacingIFTDisplayID() {
+        return oarFacingIFTDisplayID;
+    }
+
+    public void setOarFacingIFTDisplayID(Long oarFacingIFTDisplayID) {
+        this.oarFacingIFTDisplayID = oarFacingIFTDisplayID;
+    }
+
+    /**
+	 * get outletauditresult
+	 */
+	public Outletauditresult getOutletauditresult() {
+		return this.outletauditresult;
+	}
+	
+	/**
+	 * set outletauditresult
+	 */
+	public void setOutletauditresult(Outletauditresult outletauditresult) {
+		this.outletauditresult = outletauditresult;
+	}
+
+	/**
+	 * get outletbrand
+	 */
+	public Outletbrand getOutletbrand() {
+		return this.outletbrand;
+	}
+	
+	/**
+	 * set outletbrand
+	 */
+	public void setOutletbrand(Outletbrand outletbrand) {
+		this.outletbrand = outletbrand;
+	}
+
+	/**
+	 * get iftdisplaylocation
+	 */
+	public Iftdisplaylocation getIftdisplaylocation() {
+		return this.iftdisplaylocation;
+	}
+	
+	/**
+	 * set iftdisplaylocation
+	 */
+	public void setIftdisplaylocation(Iftdisplaylocation iftdisplaylocation) {
+		this.iftdisplaylocation = iftdisplaylocation;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return has
+	 */
+	public Byte getHas() {
+		return has;
+	}
+
+	/**
+	 * @param has new value for has 
+	 */
+	public void setHas(Byte has) {
+		this.has = has;
+	}
+	
+}

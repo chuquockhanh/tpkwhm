@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Storepromotionproducttohandheld;
+
+
+public interface StorepromotionproducttohandheldService extends GenericService<Storepromotionproducttohandheld,Integer> {
+
+}

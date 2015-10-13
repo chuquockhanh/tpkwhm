@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Sarsbrandlocation;
+
+
+public interface SarsbrandlocationService extends GenericService<Sarsbrandlocation,Long> {
+
+}

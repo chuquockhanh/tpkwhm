@@ -1,0 +1,54 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Outletauditpicture;
+import com.banvien.fcv.core.domain.Storeauditpicture;
+
+import java.sql.Timestamp;
+
+/**
+ * Created by Ban Vien Ltd.
+ * User: Vien Nguyen (vien.nguyen@banvien.com)
+ * Timestamp: 7/2/12
+ * Time: 2:00 PM
+ */
+public class StorePictureBean extends AbstractBean<Storeauditpicture> {
+    private Long regionID;
+
+    private Long accountID;
+
+    private Timestamp fromDate;
+
+    private Timestamp toDate;
+
+    public Long getRegionID() {
+        return regionID;
+    }
+
+    public void setRegionID(Long regionID) {
+        this.regionID = regionID;
+    }
+
+    public Long getAccountID() {
+        return accountID;
+    }
+
+    public void setAccountID(Long accountID) {
+        this.accountID = accountID;
+    }
+
+    public Timestamp getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Timestamp fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Timestamp getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Timestamp toDate) {
+        this.toDate = toDate;
+    }
+}

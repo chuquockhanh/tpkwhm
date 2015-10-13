@@ -1,0 +1,53 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.OARAuditSummary;
+
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Ban Vien Co., Ltd.
+ * User: viennh
+ * Email: vien.nguyen@banvien.com
+ * Date: 3/6/13
+ * Time: 10:10 AM
+ */
+public class AuditSummaryReportInfo implements Serializable {
+
+    private List<OARAuditSummary> oarAuditSummaries;
+
+    private Map<Long, OARAuditSummary> oarAuditSummaryMap = new HashMap<Long, OARAuditSummary>();
+
+    public AuditSummaryReportInfo() {
+
+    }
+
+    public AuditSummaryReportInfo(List<OARAuditSummary> oarAuditSummaries) {
+        this.oarAuditSummaries = oarAuditSummaries;
+        if (oarAuditSummaries != null) {
+            for (OARAuditSummary oarAuditSummary : oarAuditSummaries) {
+                oarAuditSummaryMap.put(oarAuditSummary.getOutletbrand().getOutletBrandID(), oarAuditSummary);
+            }
+        }
+    }
+
+
+    public List<OARAuditSummary> getOarAuditSummaries() {
+        return oarAuditSummaries;
+    }
+
+    public void setOarAuditSummaries(List<OARAuditSummary> oarAuditSummaries) {
+        this.oarAuditSummaries = oarAuditSummaries;
+    }
+
+    public Map<Long, OARAuditSummary> getOarAuditSummaryMap() {
+        return oarAuditSummaryMap;
+    }
+
+    public void setOarAuditSummaryMap(Map<Long, OARAuditSummary> oarAuditSummaryMap) {
+        this.oarAuditSummaryMap = oarAuditSummaryMap;
+    }
+
+}

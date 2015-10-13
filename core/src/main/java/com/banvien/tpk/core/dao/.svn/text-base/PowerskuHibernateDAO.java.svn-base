@@ -1,0 +1,28 @@
+package com.banvien.fcv.core.dao;
+
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Powersku;
+
+
+
+/**
+ * <p>Hibernate DAO layer for Powerskus</p>
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class PowerskuHibernateDAO extends
+		AbstractHibernateDAO<Powersku, Long> implements
+		PowerskuDAO {
+
+    public PowerskuHibernateDAO() {
+		super(Powersku.class);
+	}
+
+    @Override
+    public List<Powersku> findAndFetchAll() {
+        return getHibernateTemplate().find("select p from Powersku p  inner join fetch p.outletbrand order by displayOrder asc");
+    }
+}

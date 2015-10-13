@@ -1,0 +1,96 @@
+package com.banvien.fcv.core.dto;
+
+import com.banvien.fcv.core.domain.Oarposm;
+import com.banvien.fcv.core.domain.Outletbrand;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: BAN
+ * Date: 8/30/12
+ * Time: 5:23 PM
+ */
+public class PosmReportInfo {
+    private List<Oarposm> oarposms;
+
+    private Map<Long, Byte> oarposmMap;
+
+    private Map<Long, Boolean> posmMeetMap = new HashMap<Long, Boolean>();
+
+    private Map<Long, String> oarPosmStatusMap = new HashMap<Long, String>();
+
+    Boolean meet;
+
+    public PosmReportInfo(List<Oarposm> oarposms, List<Outletbrand> outletBrands)
+    {
+        setMeet(true);
+        setPosmMeetMap(new HashMap<Long, Boolean>());
+        setPosmStatusMap(new HashMap<Long, String>());
+        this.oarposms = oarposms;
+        this.oarposmMap = new HashMap<Long, Byte>();
+        if (this.oarposms != null)
+        {
+            for(Outletbrand outletbrand : outletBrands)
+            {
+                for (Oarposm oarposm : oarposms) {
+                    this.oarposmMap.put(oarposm.getOutletposm().getOutletPOSMID(), oarposm.getHas());
+                    this.oarPosmStatusMap.put(oarposm.getOutletposm().getOutletPOSMID(), oarposm.getStatusPosm());
+                    if(oarposm.getOutletposm().getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID() && oarposm.getHas() == 0)
+                    {
+                        oarposmMap.put(oarposm.getOutletposm().getOutletPOSMID(), Byte.parseByte("0"));
+                        posmMeetMap.put(outletbrand.getOutletBrandID(),false);
+                        setMeet(false);
+                    }
+                    if(oarposm.getOutletposm().getOutletbrand().getOutletBrandID() == outletbrand.getOutletBrandID() && oarposm.getHas() == 1)
+                    {
+                        oarposmMap.put(oarposm.getOutletposm().getOutletPOSMID(), Byte.parseByte("1"));
+                        posmMeetMap.put(outletbrand.getOutletBrandID(),true);
+                    }
+                }
+            }
+        }
+    }
+
+    public List<Oarposm> getOarposms() {
+        return oarposms;
+    }
+
+    public void setOarposms(List<Oarposm> oarposms) {
+        this.oarposms = oarposms;
+    }
+
+    public Map<Long, Byte> getOarposmMap() {
+        return oarposmMap;
+    }
+
+    public void setOarposmMap(Map<Long, Byte> oarposmMap) {
+        this.oarposmMap = oarposmMap;
+    }
+
+    public Map<Long, Boolean> getPosmMeetMap() {
+        return posmMeetMap;
+    }
+
+    public void setPosmMeetMap(Map<Long, Boolean> posmMeetMap) {
+        this.posmMeetMap = posmMeetMap;
+    }
+
+
+    public Boolean getMeet() {
+        return meet;
+    }
+
+    public void setMeet(Boolean meet) {
+        this.meet = meet;
+    }
+
+    public Map<Long, String> getPosmStatusMap() {
+        return oarPosmStatusMap;
+    }
+
+    public void setPosmStatusMap(Map<Long, String> posmStatusMap) {
+        this.oarPosmStatusMap = posmStatusMap;
+    }
+}

@@ -1,0 +1,54 @@
+package com.banvien.fcv.core.dto;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/22/12
+ * Time: 11:09 AM
+ */
+public class SarsbrandlocationDTO {
+
+    private Long brandID;
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+
+	/**
+	 * Attribute right.
+	 */
+	private Byte right;
+
+    public Long getBrandID() {
+        return brandID;
+    }
+
+    public void setBrandID(Long brandID) {
+        this.brandID = brandID;
+    }
+
+    public Byte getHas() {
+        return has;
+    }
+
+    public void setHas(Byte has) {
+        this.has = has;
+    }
+
+    public Byte getRight() {
+        return right;
+    }
+
+    public void setRight(Byte right) {
+        this.right = right;
+    }
+
+    public void unserializeJSON(JSONObject o) throws JSONException {
+        setBrandID(o.getLong("brandID"));
+        setHas(Byte.valueOf(o.getString("has")));
+        setRight(Byte.valueOf(o.getString("right")));
+    }
+}

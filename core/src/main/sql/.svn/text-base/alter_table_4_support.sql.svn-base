@@ -1,0 +1,28 @@
+
+SET FOREIGN_KEY_CHECKS=0;
+-- ----------------------------
+-- Table structure for `agent`
+-- ----------------------------
+DROP TABLE IF EXISTS `agent`;
+CREATE TABLE `agent` (
+  `AgentID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`AgentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+
+ALTER TABLE USER
+ADD COLUM
+(
+	AgentID int
+)
+ADD CONSTRAINT `FK_User_Agent` FOREIGN KEY (`AgentID`) REFERENCES `agent` (`AgentID`) ON DELETE SET NULL ON UPDATE NO ACTION
+
+
+ALTER TABLE OUTLET
+ADD COLUM
+(
+	AgentID int
+)
+ADD CONSTRAINT `FK_Outlet_Agent` FOREIGN KEY (`AgentID`) REFERENCES `agent` (`AgentID`) ON DELETE SET NULL ON UPDATE NO ACTION

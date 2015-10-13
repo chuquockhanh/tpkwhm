@@ -1,0 +1,8 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Sarregisterproduct;
+
+
+public interface SarregisterproductService extends GenericService<Sarregisterproduct,Long> {
+
+}

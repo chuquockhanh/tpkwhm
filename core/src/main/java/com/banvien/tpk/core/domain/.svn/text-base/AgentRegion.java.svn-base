@@ -1,0 +1,55 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+
+
+/**
+ * <p>Pojo mapping TABLE District</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class AgentRegion implements Serializable {
+    public static final String FIELD_NAME = "name";
+
+    /**
+	 * Attribute agentRegionID.
+	 */
+	private Long agentRegionID;
+
+    /**
+	 * Attribute AgentID.
+	 */
+	private Agent agent;
+
+    /**
+   	 * Attribute RegionID.
+   	 */
+   	private Region region;
+
+    public Long getAgentRegionID() {
+        return agentRegionID;
+    }
+
+    public void setAgentRegionID(Long agentRegionID) {
+        this.agentRegionID = agentRegionID;
+    }
+
+    public Agent getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Agent agent) {
+        this.agent = agent;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+}

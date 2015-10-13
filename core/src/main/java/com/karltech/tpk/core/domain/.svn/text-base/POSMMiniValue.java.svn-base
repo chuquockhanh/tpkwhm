@@ -1,0 +1,52 @@
+package com.banvien.fcv.core.domain;
+
+import com.banvien.fcv.core.domain.Outletposm;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/21/12
+ * Time: 12:19 PM
+ */
+public class POSMMiniValue {
+
+    public static final String FIELD_NAME = "name";
+
+    private Long POSMMiniValueID;
+
+	/**
+	 * Attribute OutletPOSM.
+	 */
+	private Outletposm outletPosm;
+
+	/**
+	 * Attribute MiniValue
+	 */
+	private Integer MiniValue;
+
+
+    public Long getPOSMMiniValueID() {
+        return POSMMiniValueID;
+    }
+
+    public void setPOSMMiniValueID(Long POSMMiniValueID) {
+        this.POSMMiniValueID = POSMMiniValueID;
+    }
+
+    public Outletposm getOutletPosm() {
+        return outletPosm;
+    }
+
+    public void setOutletPosm(Outletposm outletPosm) {
+        this.outletPosm = outletPosm;
+    }
+
+    public Integer getMiniValue() {
+        return MiniValue;
+    }
+
+    public void setMiniValue(Integer miniValue) {
+        MiniValue = miniValue;
+    }
+}

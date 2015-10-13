@@ -1,0 +1,213 @@
+package com.banvien.fcv.core.domain;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+
+
+/**
+ * <p>Pojo mapping TABLE Promotion</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:11 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Storepromotion implements Serializable {
+
+    public static final String FIELD_CODE = "code";
+    public static final String FIELD_NAME = "name";
+
+
+	/**
+	 * Attribute promotionID.
+	 */
+	private Long storePromotionID;
+	
+	/**
+	 * Attribute code.
+	 */
+	private String code;
+	
+	/**
+	 * Attribute name.
+	 */
+	private String name;
+
+    /**
+     * Attribute outlet brand
+     */
+    private Sosbrand sosbrand;
+
+	/**
+	 * Attribute promotiontype
+	 */
+	 private Storepromotiontype storepromotiontype;	
+
+	/**
+	 * Attribute effectiveDate.
+	 */
+	private Timestamp effectiveDate;
+	
+	/**
+	 * Attribute expireDate.
+	 */
+	private Timestamp expireDate;
+	
+	/**
+	 * Attribute buyQuantity.
+	 */
+	private Integer buyQuantity;
+	
+	/**
+	 * Attribute unit
+	 */
+	 private Unit buyUnit;
+
+	/**
+	 * Attribute buyProduct
+	 */
+	 private String buyProduct;
+
+	/**
+	 * Attribute getQuantity.
+	 */
+	private Long getQuantity;
+	
+	/**
+	 * Attribute unit
+	 */
+	 private Unit getUnit;
+
+	/**
+	 * Attribute product
+	 */
+	private Storepromotionproduct getProduct;
+
+    private List<Account> scopes;
+
+    private List<Storepromotionproduct> productsToHandheld;
+
+	public Long getStorePromotionID() {
+		return storePromotionID;
+	}
+
+	public void setStorePromotionID(Long storePromotionID) {
+		this.storePromotionID = storePromotionID;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Sosbrand getSosbrand() {
+		return sosbrand;
+	}
+
+	public void setSosbrand(Sosbrand sosbrand) {
+		this.sosbrand = sosbrand;
+	}
+
+	public Storepromotiontype getStorepromotiontype() {
+		return storepromotiontype;
+	}
+
+	public void setStorepromotiontype(Storepromotiontype storepromotiontype) {
+		this.storepromotiontype = storepromotiontype;
+	}
+
+	public Timestamp getEffectiveDate() {
+		return effectiveDate;
+	}
+
+	public void setEffectiveDate(Timestamp effectiveDate) {
+		this.effectiveDate = effectiveDate;
+	}
+
+	public Timestamp getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(Timestamp expireDate) {
+		this.expireDate = expireDate;
+	}
+
+	public Integer getBuyQuantity() {
+		return buyQuantity;
+	}
+
+	public void setBuyQuantity(Integer buyQuantity) {
+		this.buyQuantity = buyQuantity;
+	}
+
+	public Unit getBuyUnit() {
+		return buyUnit;
+	}
+
+	public void setBuyUnit(Unit buyUnit) {
+		this.buyUnit = buyUnit;
+	}
+
+	public String getBuyProduct() {
+		return buyProduct;
+	}
+
+	public void setBuyProduct(String buyProduct) {
+		this.buyProduct = buyProduct;
+	}
+
+	public Long getGetQuantity() {
+		return getQuantity;
+	}
+
+	public void setGetQuantity(Long getQuantity) {
+		this.getQuantity = getQuantity;
+	}
+
+	public Unit getGetUnit() {
+		return getUnit;
+	}
+
+	public void setGetUnit(Unit getUnit) {
+		this.getUnit = getUnit;
+	}
+
+	public Storepromotionproduct getGetProduct() {
+		return getProduct;
+	}
+
+	public void setGetProduct(Storepromotionproduct getProduct) {
+		this.getProduct = getProduct;
+	}
+
+	public List<Account> getScopes() {
+		return scopes;
+	}
+
+	public void setScopes(List<Account> scopes) {
+		this.scopes = scopes;
+	}
+
+	public List<Storepromotionproduct> getProductsToHandheld() {
+		return productsToHandheld;
+	}
+
+	public void setProductsToHandheld(List<Storepromotionproduct> productsToHandheld) {
+		this.productsToHandheld = productsToHandheld;
+	}
+    
+    
+
+}

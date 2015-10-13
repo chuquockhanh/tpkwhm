@@ -1,0 +1,114 @@
+package com.banvien.fcv.core.domain;
+
+import java.util.List;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+
+/**
+ * <p>Pojo mapping TABLE SARSBrandLocation</p>
+ * <p></p>
+ *
+ * <p>Generated at Thu Jun 14 18:28:12 GMT+07:00 2012</p>
+ * @author Salto-db Generator v1.1 / Hibernate pojos and xml mapping files.
+ * 
+ */
+public class Sarsbrandlocation implements Serializable {
+
+	/**
+	 * Attribute sarSBrandLocationID.
+	 */
+	private Long sarSBrandLocationID;
+	
+	/**
+	 * Attribute storeauditresult
+	 */
+	 private Storeauditresult storeauditresult;	
+
+	/**
+	 * Attribute brand
+	 */
+	 private Brand brand;	
+
+	/**
+	 * Attribute has.
+	 */
+	private Byte has;
+	
+	/**
+	 * Attribute right.
+	 */
+	private Byte right;
+
+
+    public Long getSarSBrandLocationID() {
+        return sarSBrandLocationID;
+    }
+
+    public void setSarSBrandLocationID(Long sarSBrandLocationID) {
+        this.sarSBrandLocationID = sarSBrandLocationID;
+    }
+
+    /**
+	 * get storeauditresult
+	 */
+	public Storeauditresult getStoreauditresult() {
+		return this.storeauditresult;
+	}
+	
+	/**
+	 * set storeauditresult
+	 */
+	public void setStoreauditresult(Storeauditresult storeauditresult) {
+		this.storeauditresult = storeauditresult;
+	}
+
+	/**
+	 * get brand
+	 */
+	public Brand getBrand() {
+		return this.brand;
+	}
+	
+	/**
+	 * set brand
+	 */
+	public void setBrand(Brand brand) {
+		this.brand = brand;
+	}
+
+	/**
+	 * <p> 
+	 * </p>
+	 * @return has
+	 */
+	public Byte getHas() {
+		return has;
+	}
+
+	/**
+	 * @param has new value for has 
+	 */
+	public void setHas(Byte has) {
+		this.has = has;
+	}
+	
+	/**
+	 * <p> 
+	 * </p>
+	 * @return right
+	 */
+	public Byte getRight() {
+		return right;
+	}
+
+	/**
+	 * @param right new value for right 
+	 */
+	public void setRight(Byte right) {
+		this.right = right;
+	}
+	
+
+
+}

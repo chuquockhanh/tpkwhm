@@ -1,0 +1,8 @@
+use FCVAuditData;
+ALTER TABLE SARShareOfDisplay DROP INDEX UQ_SARShareOfDisplay;
+ALTER TABLE SARShareOfDisplay DROP FOREIGN KEY FK_SARShareOfDisplay_BrandGroup;
+ALTER TABLE SARShareOfDisplay CHANGE BrandGroupID SOSBrandID bigint NOT NULL;
+
+ALTER TABLE SARShareOfDisplay ADD KEY `FK_SARShareOfDisplay_SOSBrand` (`SOSBrandID`);
+ALTER TABLE SARShareOfDisplay ADD CONSTRAINT `FK_SARShareOfDisplay_SOSBrand` FOREIGN KEY (`SOSBrandID`) REFERENCES `SOSBrand` (`SOSBrandID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE SARShareOfDisplay ADD UNIQUE KEY `UQ_SARShareOfDisplay` (`StoreAuditResultID`,`SOSBrandID`);  

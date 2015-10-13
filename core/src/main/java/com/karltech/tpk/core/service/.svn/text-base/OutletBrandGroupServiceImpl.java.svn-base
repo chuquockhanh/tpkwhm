@@ -1,0 +1,73 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.OutletBrandGroupDAO;
+import com.banvien.fcv.core.domain.Outletbrand;
+import com.banvien.fcv.core.domain.Outletbrandgroup;
+import com.banvien.fcv.core.dto.OutletBrandBean;
+import com.banvien.fcv.core.dto.OutletBrandGroupBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class OutletBrandGroupServiceImpl extends GenericServiceImpl<Outletbrandgroup,Long>
+                                                    implements OutletbrandgroupService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private OutletBrandGroupDAO outletBrandGroupDAO;
+
+    public void setOutletBrandGroupDAO(OutletBrandGroupDAO outletBrandGroupDAO) {
+        this.outletBrandGroupDAO = outletBrandGroupDAO;
+    }
+
+    @Override
+	protected GenericDAO<Outletbrandgroup, Long> getGenericDAO() {
+		return outletBrandGroupDAO;
+	}
+
+    @Override
+    public void updateItem(OutletBrandGroupBean outletBrandGroupBean) throws ObjectNotFoundException, DuplicateException {
+        Outletbrandgroup dbItem = this.outletBrandGroupDAO.findByIdNoAutoCommit(outletBrandGroupBean.getPojo().getOutletBrandGroupID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found region " + outletBrandGroupBean.getPojo().getOutletBrandGroupID());
+
+        Outletbrandgroup pojo = outletBrandGroupBean.getPojo();
+        this.outletBrandGroupDAO.detach(dbItem);
+        this.outletBrandGroupDAO.update(pojo);
+    }
+
+    @Override
+    public void addNew(OutletBrandGroupBean outletBrandGroupBean) throws DuplicateException {
+        Outletbrandgroup pojo = outletBrandGroupBean.getPojo();
+        pojo = this.outletBrandGroupDAO.save(pojo);
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                outletBrandGroupDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(OutletBrandGroupBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Outletbrandgroup.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        return this.outletBrandGroupDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+}

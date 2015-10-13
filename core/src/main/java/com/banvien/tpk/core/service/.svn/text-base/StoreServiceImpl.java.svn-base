@@ -1,0 +1,401 @@
+package com.banvien.fcv.core.service;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.AccountDAO;
+import com.banvien.fcv.core.dao.BrandDAO;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.PackinggroupDAO;
+import com.banvien.fcv.core.dao.ProductDAO;
+import com.banvien.fcv.core.dao.SosbrandDAO;
+import com.banvien.fcv.core.dao.StoreDAO;
+import com.banvien.fcv.core.dao.StoreposmDAO;
+import com.banvien.fcv.core.dao.StorepromotionDAO;
+import com.banvien.fcv.core.dao.StoreregisteredproductDAO;
+import com.banvien.fcv.core.dao.StoresosmasterDAO;
+import com.banvien.fcv.core.dao.UnitDAO;
+import com.banvien.fcv.core.domain.Account;
+import com.banvien.fcv.core.domain.Brand;
+import com.banvien.fcv.core.domain.Brandgroup;
+import com.banvien.fcv.core.domain.Packinggroup;
+import com.banvien.fcv.core.domain.Product;
+import com.banvien.fcv.core.domain.Sosbrand;
+import com.banvien.fcv.core.domain.Store;
+import com.banvien.fcv.core.domain.Storeposm;
+import com.banvien.fcv.core.domain.Storepromotionproducttohandheld;
+import com.banvien.fcv.core.domain.Storepromotionscope;
+import com.banvien.fcv.core.domain.Storeregisteredproduct;
+import com.banvien.fcv.core.domain.Storesosmaster;
+import com.banvien.fcv.core.domain.Unit;
+import com.banvien.fcv.core.dto.AuditScheduleBean;
+import com.banvien.fcv.core.dto.BrandDTO;
+import com.banvien.fcv.core.dto.PackinggroupDTO;
+import com.banvien.fcv.core.dto.ProductDTO;
+import com.banvien.fcv.core.dto.SarshareofdisplayDTO;
+import com.banvien.fcv.core.dto.SosbrandDTO;
+import com.banvien.fcv.core.dto.StoreBean;
+import com.banvien.fcv.core.dto.StoreDTO;
+import com.banvien.fcv.core.dto.StoreImportDTO;
+import com.banvien.fcv.core.dto.StoreInfoList;
+import com.banvien.fcv.core.dto.StoreposmDTO;
+import com.banvien.fcv.core.dto.StorepromotionDTO;
+import com.banvien.fcv.core.dto.StorepromotionproductDTO;
+import com.banvien.fcv.core.dto.UnitDTO;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+public class StoreServiceImpl extends GenericServiceImpl<Store,Long> 
+                                                    implements StoreService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StoreDAO storeDAO;
+
+    private StoresosmasterDAO storesosmasterDAO;
+
+    private StoreregisteredproductDAO storeregisteredproductDAO;
+
+    private AccountDAO accountDAO;
+
+    private ProductDAO productDAO;
+
+    private StoreposmDAO storeposmDAO;
+
+    private SosbrandDAO sosbrandDAO;
+
+    private PackinggroupDAO packinggroupDAO;
+
+    private BrandDAO brandDAO;
+    
+    private StorepromotionDAO storepromotionDAO;
+    
+    private UnitDAO unitDAO;
+    
+    public void setAccountDAO(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
+    }
+
+    public void setStoreDAO(StoreDAO storeDAO) {
+        this.storeDAO = storeDAO;
+    }
+
+    public void setStoresosmasterDAO(StoresosmasterDAO storesosmasterDAO) {
+        this.storesosmasterDAO = storesosmasterDAO;
+    }
+
+    public void setStoreregisteredproductDAO(StoreregisteredproductDAO storeregisteredproductDAO) {
+        this.storeregisteredproductDAO = storeregisteredproductDAO;
+    }
+
+    public void setStorepromotionDAO(StorepromotionDAO storepromotionDAO) {
+		this.storepromotionDAO = storepromotionDAO;
+	}
+
+	public void setUnitDAO(UnitDAO unitDAO) {
+		this.unitDAO = unitDAO;
+	}
+
+	@Override
+	protected GenericDAO<Store, Long> getGenericDAO() {
+		return storeDAO;
+	}
+
+    @Override
+    public void updateItem(StoreBean storeBean) throws ObjectNotFoundException, DuplicateException {
+        Store dbItem = this.storeDAO.findByIdNoAutoCommit(storeBean.getPojo().getStoreID());
+        if (dbItem == null) throw new ObjectNotFoundException("Not found store " + storeBean.getPojo().getStoreID());
+
+        Store pojo = storeBean.getPojo();
+
+        this.storeDAO.detach(dbItem);
+        pojo = this.storeDAO.update(pojo);
+
+        List<Storesosmaster> storeSOSMasters = storeBean.getStoreSOSMasters();
+        for(Storesosmaster storesosmaster : storeSOSMasters) {
+            storesosmaster.setStore(pojo);
+            this.storesosmasterDAO.saveOrUpdate(storesosmaster);
+        }
+
+        storeregisteredproductDAO.deleteByStore(pojo.getStoreID());
+        for (Long productID : storeBean.getRegisteredProducts()) {
+            Storeregisteredproduct storeregisteredproduct = new Storeregisteredproduct();
+            storeregisteredproduct.setStore(pojo);
+            Product product = new Product();
+            product.setProductID(productID);
+            storeregisteredproduct.setProduct(product);
+            storeregisteredproductDAO.save(storeregisteredproduct);
+        }
+    }
+
+    @Override
+    public void addNew(StoreBean storeBean) throws DuplicateException {
+        Store pojo = storeBean.getPojo();
+        pojo = this.storeDAO.save(pojo);
+        storeBean.setPojo(pojo);
+
+        List<Storesosmaster> storeSOSMasters = storeBean.getStoreSOSMasters();
+        for(Storesosmaster storesosmaster : storeSOSMasters) {
+            storesosmaster.setStore(pojo);
+            this.storesosmasterDAO.saveOrUpdate(storesosmaster);
+        }
+
+        for (Long productID : storeBean.getRegisteredProducts()) {
+            Storeregisteredproduct storeregisteredproduct = new Storeregisteredproduct();
+            storeregisteredproduct.setStore(pojo);
+            Product product = new Product();
+            product.setProductID(productID);
+            storeregisteredproduct.setProduct(product);
+            storeregisteredproductDAO.save(storeregisteredproduct);
+        }
+    }
+
+    @Override
+    public Integer deleteItems(String[] checkList) {
+        Integer res = 0;
+        if (checkList != null && checkList.length > 0) {
+            res = checkList.length;
+            for (String id : checkList) {
+                storeDAO.delete(Long.parseLong(id));
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Object[] search(StoreBean bean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        if (StringUtils.isNotBlank(bean.getPojo().getCode())) {
+            properties.put(Store.FIELD_CODE, bean.getPojo().getCode());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getName())) {
+            properties.put(Store.FIELD_NAME, bean.getPojo().getName());
+        }
+
+        if (StringUtils.isNotBlank(bean.getPojo().getAddress())) {
+            properties.put(Store.FIELD_ADDRESS, bean.getPojo().getAddress());
+        }
+
+        if (bean.getPojo().getRegion() != null && bean.getPojo().getRegion().getRegionID() != null && bean.getPojo().getRegion().getRegionID() > 0) {
+            properties.put("region.accountID", bean.getPojo().getRegion().getRegionID());
+        }
+
+        if (bean.getPojo().getAccount() != null && bean.getPojo().getAccount().getAccountID() != null && bean.getPojo().getAccount().getAccountID() > 0) {
+            properties.put("account.accountID", bean.getPojo().getAccount().getAccountID());
+        }
+
+        return this.storeDAO.searchByProperties(properties, bean.getFirstItem(), bean.getMaxPageItems(), bean.getSortExpression(), bean.getSortDirection(), true);
+    }
+
+    @Override
+    public List<Store> findAvailableStores(AuditScheduleBean auditscheduleBean) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        if (auditscheduleBean.getRegionID() != null && auditscheduleBean.getRegionID() > 0) {
+            properties.put("region.accountID", auditscheduleBean.getRegionID());
+        }
+        if (StringUtils.isNotBlank(auditscheduleBean.getAddress())) {
+            properties.put(Store.FIELD_ADDRESS, auditscheduleBean.getAddress());
+        }
+        StringBuffer whereClause = new StringBuffer();
+        if (auditscheduleBean.getPojo().getAuditScheduleID() != null && auditscheduleBean.getPojo().getAuditScheduleID() > 0) {
+            whereClause.append(" storeID NOT IN (SELECT ast.store.storeID FROM Auditorstoretask ast WHERE ast.auditschedule.auditScheduleID = ")
+                    .append(auditscheduleBean.getPojo().getAuditScheduleID());
+            whereClause.append(")");
+
+        }
+        return storeDAO.findByProperties(properties, Store.FIELD_NAME, Constants.SORT_ASC, true, whereClause.toString());
+    }
+
+    @Override
+    public List<Store> findAssignedItemsByAuditAndAuditor(Long auditScheduleID, Long auditorID) {
+        return storeDAO.findAssignedItemsByAuditAndAuditor(auditScheduleID, auditorID);
+    }
+    @Override
+    public List<Store> findAssignedItemsByAuditBean(AuditScheduleBean auditscheduleBean) {
+        return storeDAO.findAssignedItemsByAuditIDRegionIDAddressAndNotAssigned(auditscheduleBean.getPojo().getAuditschedule().getAuditScheduleID(),auditscheduleBean.getPojo().getAuditScheduleID(),  auditscheduleBean.getRegionID(), auditscheduleBean.getAddress());
+    }
+    
+    @Override
+    public void importStore(StoreImportDTO storeImport, List<Product> registeredProduct) {
+        Store store = this.storeDAO.findByStoreNoAndAccount(storeImport.getStoreNo(), storeImport.getAccount());
+        if (store == null) {
+            store = new Store();
+
+            Account account = accountDAO.findEqualUnique(Account.FIELD_NAME, storeImport.getAccount());
+            if (account == null) {
+                account = new Account();
+                account.setName(storeImport.getAccount());
+                account = accountDAO.save(account);
+            }
+            store.setAccount(account);
+            store.setName(storeImport.getStoreName());
+            store.setCode(storeImport.getStoreNo());
+
+            store = storeDAO.save(store);
+        }
+        storeregisteredproductDAO.deleteByStore(store.getStoreID());
+        for (Product product : registeredProduct) {
+            Storeregisteredproduct storeregisteredproduct = new Storeregisteredproduct();
+            storeregisteredproduct.setStore(store);
+            storeregisteredproduct.setProduct(product);
+            storeregisteredproductDAO.save(storeregisteredproduct);
+        }
+
+    }
+
+    @Override
+    public StoreInfoList getStoreInfoListByAuditorCode(String auditorCode) throws ObjectNotFoundException {
+        List<Store> stores =  storeDAO.getStoresByAuditorCode(auditorCode);
+        if (stores == null || stores.size()==0) {
+            throw new ObjectNotFoundException("NOT FOUND any Store for Auditor:"+auditorCode);
+        }
+        Set<Long> accountIDs = new HashSet<Long>();
+        List<StoreDTO> storeDTOs = new ArrayList<StoreDTO>();
+        for (Store s: stores) {
+            StoreDTO dto = new StoreDTO(s);
+            List<Product> products = productDAO.findRegisteredProductByStoreID(s.getStoreID());
+            dto.setProductDTOs(toProductDTOs(products));
+            storeDTOs.add(dto);
+            accountIDs.add(s.getAccount().getAccountID());
+        }
+        //build List<StoreposmDTO> storeposmDTOs
+        List<StoreposmDTO> storeposmDTOs = new ArrayList<StoreposmDTO>();
+        List<Storeposm> storeposms =  storeposmDAO.findAllActive();
+        for (Storeposm o: storeposms) {
+             storeposmDTOs.add(new StoreposmDTO(o));
+        }
+        // build List<SosbrandDTO> sosbrandDTOs;
+        List<SosbrandDTO> sosbrandDTOs = new ArrayList<SosbrandDTO>();
+        List<Sosbrand> sosbrands = sosbrandDAO.findAndFetch();
+        for (Sosbrand b: sosbrands) {
+            SosbrandDTO sosbrandDTO = new SosbrandDTO(b);
+            List<Packinggroup> packinggroups = packinggroupDAO.findBySosbrandID(b.getSosBrandID());
+            sosbrandDTO.setPackinggroupDTOs(toPackinggroupDTOs(packinggroups,b.getSosBrandID()));
+            sosbrandDTOs.add(sosbrandDTO);
+        }
+        // build List<BrandDTO> brandDTOs;
+        List<BrandDTO> brandDTOs = new ArrayList<BrandDTO>();
+        List<Brand> brands =  brandDAO.findAndFetch();
+        Set<Brandgroup> brandGroups = new HashSet<Brandgroup>();
+        for (Brand b: brands) {
+            brandDTOs.add(new BrandDTO(b));
+            brandGroups.add(b.getBrandgroup());
+        }
+        // build  List<SarshareofdisplayDTO> sarshareofdisplayDTOs;
+        List<SarshareofdisplayDTO> sarshareofdisplayDTOs = new ArrayList<SarshareofdisplayDTO>();
+        for (Sosbrand b: sosbrands) {
+            SarshareofdisplayDTO dto = new SarshareofdisplayDTO();
+            dto.setBrandID(b.getSosBrandID());
+            dto.setBrandName(b.getName());
+            dto.setBrandgroupID(b.getBrandgroup().getBrandGroupID());
+            dto.setBrandgroupName(b.getBrandgroup().getName());
+            sarshareofdisplayDTOs.add(dto);
+        }
+        // build list of StorepromotionDTO
+        List<Storepromotionscope> promotionscopes = storepromotionDAO.findStorepromotionscopeByAccounts(accountIDs);
+        Set<Long> storepromotionIDs = new HashSet<Long>();
+        List<StorepromotionDTO> storepromotionDTOs = new ArrayList<StorepromotionDTO>();
+        Map<Long,List<Long>> accountPromotions = new HashMap<Long, List<Long>>();
+        for (Storepromotionscope ps : promotionscopes) {
+            if(storepromotionIDs.add(ps.getStorepromotion().getStorePromotionID())) {
+                storepromotionDTOs.add(new StorepromotionDTO(ps.getStorepromotion()));
+            }
+            Long accountID = ps.getAccount().getAccountID();
+            if (!accountPromotions.containsKey(accountID)) {
+                accountPromotions.put(accountID, new ArrayList<Long>());
+            }
+            accountPromotions.get(accountID).add(ps.getStorepromotion().getStorePromotionID());
+        }
+        // build list of StorepromotionproductDTO
+        Map<Long,List<Long>> promotionProductToHandheld = new HashMap<Long, List<Long>>();
+        List<StorepromotionproductDTO> promotionproductDTOs = new ArrayList<StorepromotionproductDTO>();
+        List<Storepromotionproducttohandheld> promotionproducttohandhelds = storepromotionDAO.findStorepromotionproducttohandhelds(storepromotionIDs);
+        Set<Long> productIDs = new HashSet<Long>();
+        for (Storepromotionproducttohandheld h: promotionproducttohandhelds) {
+            Long storepromotionID = h.getStorepromotion().getStorePromotionID();
+            if (!promotionProductToHandheld.containsKey(storepromotionID)) {
+                 promotionProductToHandheld.put(storepromotionID, new ArrayList<Long>());
+            }
+            promotionProductToHandheld.get(storepromotionID).add(h.getStorepromotionproduct().getStorePromotionProductID());
+            if (productIDs.add(h.getStorepromotionproduct().getStorePromotionProductID())) {
+                promotionproductDTOs.add(new StorepromotionproductDTO(h.getStorepromotionproduct()));
+            }
+        }
+        // build UnitDTOs
+        List<Unit> units = unitDAO.findAll();
+        List<UnitDTO> unitDTOs = new ArrayList<UnitDTO>();
+        for (Unit u: units) {
+            unitDTOs.add(new UnitDTO(u));
+        }
+        
+        StoreInfoList storeInfoList = new StoreInfoList();
+        storeInfoList.setAuditorCode(auditorCode);
+        storeInfoList.setBrandDTOs(brandDTOs);
+        storeInfoList.setSarshareofdisplayDTOs(sarshareofdisplayDTOs);
+        storeInfoList.setSosbrandDTOs(sosbrandDTOs);
+        storeInfoList.setStoreDTOs(storeDTOs);
+        storeInfoList.setStoreposmDTOs(storeposmDTOs);
+        storeInfoList.setStorepromotionproductDTOs(promotionproductDTOs);
+        storeInfoList.setStorepromotionDTOs(storepromotionDTOs);
+        storeInfoList.setPromotionProductToHandheld(promotionProductToHandheld);
+        storeInfoList.setAccountPromotions(accountPromotions);
+        storeInfoList.setUnitDTOs(unitDTOs);
+        return storeInfoList;
+    }
+
+    @Override
+    public List<Store> findByAccountID(Long accountID) {
+         Map<String, Object> properties = new HashMap<String, Object>();
+        if (accountID != null && accountID > 0) {
+            properties.put("account.accountID", accountID);
+        }
+        return storeDAO.findByProperties(properties, Store.FIELD_NAME, Constants.SORT_ASC, true, true);
+    }
+
+    private List<PackinggroupDTO> toPackinggroupDTOs(List<Packinggroup> packinggroups,Long sosBrandID) {
+        List<PackinggroupDTO> packinggroupDTOs = new ArrayList<PackinggroupDTO>();
+        for (Packinggroup p: packinggroups) {
+            PackinggroupDTO dto = new PackinggroupDTO(p);
+            dto.setSosbrandID(sosBrandID);
+            packinggroupDTOs.add(dto);
+        }
+        return packinggroupDTOs;
+    }
+
+    private List<ProductDTO> toProductDTOs(List<Product> products) {
+        List<ProductDTO> productDTOs = new ArrayList<ProductDTO>();
+        for (Product p: products) {
+            productDTOs.add(new ProductDTO(p));
+        }
+        return productDTOs;
+    }
+
+    public void setProductDAO(ProductDAO productDAO) {
+        this.productDAO = productDAO;
+    }
+
+    public void setStoreposmDAO(StoreposmDAO storeposmDAO) {
+        this.storeposmDAO = storeposmDAO;
+    }
+
+    public void setSosbrandDAO(SosbrandDAO sosbrandDAO) {
+        this.sosbrandDAO = sosbrandDAO;
+    }
+
+    public void setPackinggroupDAO(PackinggroupDAO packinggroupDAO) {
+        this.packinggroupDAO = packinggroupDAO;
+    }
+
+    public void setBrandDAO(BrandDAO brandDAO) {
+        this.brandDAO = brandDAO;
+    }
+}

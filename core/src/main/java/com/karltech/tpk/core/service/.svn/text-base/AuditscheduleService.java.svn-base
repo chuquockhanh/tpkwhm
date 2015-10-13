@@ -1,0 +1,32 @@
+package com.banvien.fcv.core.service;
+
+import java.util.List;
+
+import com.banvien.fcv.core.domain.Auditschedule;
+import com.banvien.fcv.core.dto.AuditScheduleBean;
+import com.banvien.fcv.core.dto.AuditorTaskDTO;
+import com.banvien.fcv.core.dto.OutletTaskImportDTO;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface AuditscheduleService extends GenericService<Auditschedule,Long> {
+
+    void updateItem(AuditScheduleBean auditscheduleBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(AuditScheduleBean auditscheduleBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(AuditScheduleBean bean);
+
+    Auditschedule findByCode(String code) throws ObjectNotFoundException;
+    
+    List<AuditorTaskDTO> findAuditorTaskByID(Long auditScheduleID);
+    
+    public List<Auditschedule> findActiveAuditNotAuditID(Long auditID);
+    
+    public void importOutletTask(OutletTaskImportDTO outletTaskImportDTO, Long auditScheduleID)throws DuplicateException;
+
+    public List<Auditschedule> findActiveAudit();
+}

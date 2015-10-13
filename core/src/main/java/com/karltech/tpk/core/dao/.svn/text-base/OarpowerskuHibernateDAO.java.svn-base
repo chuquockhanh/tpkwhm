@@ -1,0 +1,41 @@
+package com.banvien.fcv.core.dao;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.sql.Timestamp;
+
+import com.banvien.fcv.core.domain.Oarpowersku;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.springframework.orm.hibernate3.HibernateCallback;
+
+
+/**
+ * <p>Hibernate DAO layer for Oarpowerskus</p>
+ * <p>Generated at Thu Jun 14 18:28:13 GMT+07:00 2012</p>
+ *
+ * @author Salto-db Generator v1.1 / EJB3 + Spring/Hibernate DAO
+ */
+public class OarpowerskuHibernateDAO extends
+		AbstractHibernateDAO<Oarpowersku, Long> implements
+		OarpowerskuDAO {
+
+    public OarpowerskuHibernateDAO() {
+		super(Oarpowersku.class);
+	}
+
+    @Override
+    public void deleteByOutletAuditResult(final Long outletAuditResultID) {
+        getHibernateTemplate().execute(
+            new HibernateCallback<Integer>() {
+                public Integer doInHibernate(Session session)
+                        throws HibernateException, SQLException {
+                    Query query = session
+                            .createQuery("DELETE FROM Oarpowersku WHERE outletauditresult.outletAuditResultID = :outletAuditResultID");
+                    query.setParameter("outletAuditResultID", outletAuditResultID);
+                    return query.executeUpdate();
+                }
+            });
+    }
+}

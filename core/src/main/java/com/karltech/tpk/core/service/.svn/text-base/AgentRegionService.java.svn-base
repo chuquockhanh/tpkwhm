@@ -1,0 +1,18 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.AgentRegion;
+import com.banvien.fcv.core.dto.AgentRegionBean;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+
+public interface AgentRegionService extends GenericService<AgentRegion,Long> {
+
+    void updateItem(AgentRegionBean agentBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(AgentRegionBean agentBean) throws ObjectNotFoundException, DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+//    Object[] search(AgentRegionBean bean);
+}

@@ -1,0 +1,55 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.Constants;
+import com.banvien.fcv.core.dao.GenericDAO;
+import com.banvien.fcv.core.dao.StoreauditpictureDAO;
+import com.banvien.fcv.core.domain.Storeauditpicture;
+import com.banvien.fcv.core.dto.StorePictureBean;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class StoreauditpictureServiceImpl extends GenericServiceImpl<Storeauditpicture,Long> 
+                                                    implements StoreauditpictureService {
+
+    protected final Log logger = LogFactory.getLog(getClass());
+
+    private StoreauditpictureDAO storeauditpictureDAO;
+
+    public void setStoreauditpictureDAO(StoreauditpictureDAO storeauditpictureDAO) {
+        this.storeauditpictureDAO = storeauditpictureDAO;
+    }
+
+    @Override
+	protected GenericDAO<Storeauditpicture, Long> getGenericDAO() {
+		return storeauditpictureDAO;
+	}
+
+    @Override
+    public Object[] find4Report(StorePictureBean storePictureBean, boolean flagAll) {
+        Map<String, Object> properties = new HashMap<String, Object>();
+        StringBuffer whereClause = new StringBuffer(" 1 = 1 ");
+        if (storePictureBean.getRegionID() != null) {
+            properties.put("storeauditresult.storeaudittask.store.region.regionID", storePictureBean.getRegionID());
+        }
+        if (storePictureBean.getAccountID() != null) {
+            properties.put("storeauditresult.storeaudittask.store.account.accountID", storePictureBean.getAccountID());
+        }
+        if (storePictureBean.getFromDate() != null) {
+            whereClause.append(" AND storeauditresult.submittedDate >= '").append(storePictureBean.getFromDate()).append("'");
+        }
+        if (storePictureBean.getToDate() != null) {
+            whereClause.append(" AND storeauditresult.submittedDate <= '").append(storePictureBean.getToDate()).append("'");
+        }
+        if(flagAll == true)
+        {
+            Object objs[] = storeauditpictureDAO.searchByProperties(properties, storePictureBean.getFirstItem(), -1, "storeauditresult.submittedDate",Constants.SORT_DESC ,true, whereClause.toString());
+            return objs;
+        }
+
+        Object objs[] = storeauditpictureDAO.searchByProperties(properties, storePictureBean.getFirstItem(), storePictureBean.getMaxPageItems(), "storeauditresult.submittedDate",Constants.SORT_DESC ,true, whereClause.toString());
+        return objs;
+    }
+}

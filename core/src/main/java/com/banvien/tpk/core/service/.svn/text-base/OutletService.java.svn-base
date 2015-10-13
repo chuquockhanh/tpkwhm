@@ -1,0 +1,50 @@
+package com.banvien.fcv.core.service;
+
+import com.banvien.fcv.core.domain.Outlet;
+import com.banvien.fcv.core.domain.User;
+import com.banvien.fcv.core.dto.AuditScheduleBean;
+import com.banvien.fcv.core.dto.OutletBean;
+import com.banvien.fcv.core.dto.OutletImportDTO;
+import com.banvien.fcv.core.dto.OutletInfoList;
+import com.banvien.fcv.core.exception.DuplicateException;
+import com.banvien.fcv.core.exception.ObjectNotFoundException;
+
+import java.util.List;
+
+
+public interface OutletService extends GenericService<Outlet,Long> {
+	public OutletInfoList getOutletInfoListByAuditorCode(String auditorCode, Integer firstItem, Integer maxItems) throws ObjectNotFoundException;
+
+    Outlet findByDmsCodeAndDistributor(String dmsCode, Long distributorID) throws ObjectNotFoundException;
+
+    void updateItem(OutletBean outletBean) throws ObjectNotFoundException, DuplicateException;
+
+    void addNew(OutletBean outletBean) throws DuplicateException;
+
+    Integer deleteItems(String[] checkList);
+
+    Object[] search(OutletBean bean);
+
+    List<Outlet> findAvailableOutlet(AuditScheduleBean auditscheduleBean);
+
+    void importOutlet(OutletImportDTO outletImport, User onlineUser);
+
+    List<Outlet> findAssignedItemsByAuditAndAuditor(Long auditScheduleID, Long auditorID);
+
+    Long importOutletFacing(OutletImportDTO outletImport) throws ObjectNotFoundException;
+    
+    public List<Outlet> findAssignedItemsByAuditBean(AuditScheduleBean auditscheduleBean);
+    
+    public List<Outlet> findAssignedItemsByAuditBean(AuditScheduleBean auditscheduleBean, List<Long> outletIDs);
+
+    void clearFacingOfOutletExcept(List<Long> outletIds);
+    
+    public Outlet findBySapCodeAndDmsCode(String sapCode, String dmsCode);
+
+    public Outlet findBySapCodeAndDmsCodeAndName(String sapCode, String dmsCode, String name);
+
+    Long importOutletSaleman(OutletImportDTO outletImport) throws ObjectNotFoundException;
+
+    List<Outlet> findListBySapCodeAndDmsCode(String sapCode, String dmsCode);
+
+}

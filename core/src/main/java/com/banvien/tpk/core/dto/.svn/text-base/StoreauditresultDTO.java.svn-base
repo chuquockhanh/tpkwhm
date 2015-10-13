@@ -1,0 +1,247 @@
+package com.banvien.fcv.core.dto;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+/**
+ * User: BAN
+ * Date: 6/22/12
+ * Time: 10:48 AM
+ */
+public class StoreauditresultDTO {
+
+    private String auditorCode;
+
+    private Long storeID;
+
+    private String auditDate;
+
+	/**
+	 * Attribute submittedDate.
+	 */
+	private String submittedDate;
+
+	/**
+	 * Attribute gpsLatitude.
+	 */
+	private Double gpsLatitude;
+
+	/**
+	 * Attribute gpsLongtitude.
+	 */
+	private Double gpsLongtitude;
+
+    private List<SarposmDTO> sarposmDTOs;
+
+    private List<SarregisterproductDTO> sarregisterproductDTOs;
+
+    private List<SarsbrandlocationDTO> sarsbrandlocationDTOs;
+
+    private List<SarshareofdisplayDTO> sarshareofdisplayDTOs;
+
+    private List<SarshareofshelfDTO> sarshareofshelfDTOs;
+    
+    private List<OarStorepromotionDTO> oarstorepromotionDTOs;
+
+    public String getAuditorCode() {
+        return auditorCode;
+    }
+
+    public void setAuditorCode(String auditorCode) {
+        this.auditorCode = auditorCode;
+    }
+
+    public Long getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(Long storeID) {
+        this.storeID = storeID;
+    }
+
+    public String getAuditDate() {
+        return auditDate;
+    }
+
+    public void setAuditDate(String auditDate) {
+        this.auditDate = auditDate;
+    }
+
+    public String getSubmittedDate() {
+        return submittedDate;
+    }
+
+    public void setSubmittedDate(String submittedDate) {
+        this.submittedDate = submittedDate;
+    }
+
+    public Double getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    public void setGpsLatitude(Double gpsLatitude) {
+        this.gpsLatitude = gpsLatitude;
+    }
+
+    public Double getGpsLongtitude() {
+        return gpsLongtitude;
+    }
+
+    public void setGpsLongtitude(Double gpsLongtitude) {
+        this.gpsLongtitude = gpsLongtitude;
+    }
+
+    public List<SarposmDTO> getSarposmDTOs() {
+        return sarposmDTOs;
+    }
+
+    public void setSarposmDTOs(List<SarposmDTO> sarposmDTOs) {
+        this.sarposmDTOs = sarposmDTOs;
+    }
+
+    public List<SarregisterproductDTO> getSarregisterproductDTOs() {
+        return sarregisterproductDTOs;
+    }
+
+    public void setSarregisterproductDTOs(List<SarregisterproductDTO> sarregisterproductDTOs) {
+        this.sarregisterproductDTOs = sarregisterproductDTOs;
+    }
+
+    public List<SarsbrandlocationDTO> getSarsbrandlocationDTOs() {
+        return sarsbrandlocationDTOs;
+    }
+
+    public void setSarsbrandlocationDTOs(List<SarsbrandlocationDTO> sarsbrandlocationDTOs) {
+        this.sarsbrandlocationDTOs = sarsbrandlocationDTOs;
+    }
+
+    public List<SarshareofdisplayDTO> getSarshareofdisplayDTOs() {
+        return sarshareofdisplayDTOs;
+    }
+
+    public void setSarshareofdisplayDTOs(List<SarshareofdisplayDTO> sarshareofdisplayDTOs) {
+        this.sarshareofdisplayDTOs = sarshareofdisplayDTOs;
+    }
+
+    public List<SarshareofshelfDTO> getSarshareofshelfDTOs() {
+        return sarshareofshelfDTOs;
+    }
+
+    public void setSarshareofshelfDTOs(List<SarshareofshelfDTO> sarshareofshelfDTOs) {
+        this.sarshareofshelfDTOs = sarshareofshelfDTOs;
+    }
+
+
+	public List<OarStorepromotionDTO> getOarstorepromotionDTOs() {
+		return oarstorepromotionDTOs;
+	}
+
+	public void setOarstorepromotionDTOs(
+			List<OarStorepromotionDTO> oarstorepromotionDTOs) {
+		this.oarstorepromotionDTOs = oarstorepromotionDTOs;
+	}
+
+	public void unserializeJSON(JSONObject o) throws JSONException {
+        setAuditDate(o.getString("auditDate"));
+        setAuditorCode(o.getString("auditorCode"));
+        setGpsLatitude(o.getDouble("gpsLatitude"));
+        setGpsLongtitude(o.getDouble("gpsLongtitude"));
+        setStoreID(o.getLong("storeID"));
+        setSubmittedDate(o.getString("submittedDate"));
+        updateSarposmDTOs(o.getJSONArray("sarposmDTOs"));
+        updateSarregisterproductDTOs(o.getJSONArray("sarregisterproductDTOs"));
+        updateSarsbrandlocationDTOs(o.getJSONArray("sarsbrandlocationDTOs"));
+        updateSarshareofdisplayDTOs(o.getJSONArray("sarshareofdisplayDTOs"));
+        updateSarshareofshelfDTOs(o.getJSONArray("sarshareofshelfDTOs"));
+        updateOarStorepromotionDTOs(o.getJSONArray("oarstorepromotionDTOs"));
+    }
+
+	private void updateOarStorepromotionDTOs(JSONArray a) throws JSONException {
+        if (oarstorepromotionDTOs == null) {
+        	oarstorepromotionDTOs = new ArrayList<OarStorepromotionDTO>();
+        } else {
+        	oarstorepromotionDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            OarStorepromotionDTO bean = new OarStorepromotionDTO();
+            bean.unserializeJSON(o);
+            oarstorepromotionDTOs.add(bean);
+        }
+    }
+	
+    private void updateSarshareofshelfDTOs(JSONArray a) throws JSONException {
+        if (sarshareofshelfDTOs == null) {
+            sarshareofshelfDTOs = new ArrayList<SarshareofshelfDTO>();
+        } else {
+            sarshareofshelfDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SarshareofshelfDTO bean = new SarshareofshelfDTO();
+            bean.unserializeJSON(o);
+            sarshareofshelfDTOs.add(bean);
+        }
+    }
+
+    private void updateSarshareofdisplayDTOs(JSONArray a) throws JSONException {
+        if (sarshareofdisplayDTOs == null) {
+            sarshareofdisplayDTOs = new ArrayList<SarshareofdisplayDTO>();
+        } else {
+            sarshareofdisplayDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SarshareofdisplayDTO bean = new SarshareofdisplayDTO();
+            bean.unserializeJSON(o);
+            sarshareofdisplayDTOs.add(bean);
+        }
+    }
+
+    private void updateSarsbrandlocationDTOs(JSONArray a) throws JSONException {
+        if (sarsbrandlocationDTOs == null) {
+            sarsbrandlocationDTOs = new ArrayList<SarsbrandlocationDTO>();
+        } else {
+            sarsbrandlocationDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SarsbrandlocationDTO bean = new SarsbrandlocationDTO();
+            bean.unserializeJSON(o);
+            sarsbrandlocationDTOs.add(bean);
+        }
+    }
+
+    private void updateSarregisterproductDTOs(JSONArray a) throws JSONException {
+        if (sarregisterproductDTOs == null) {
+            sarregisterproductDTOs = new ArrayList<SarregisterproductDTO>();
+        } else {
+            sarregisterproductDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SarregisterproductDTO bean = new SarregisterproductDTO();
+            bean.unserializeJSON(o);
+            sarregisterproductDTOs.add(bean);
+        }
+    }
+
+    private void updateSarposmDTOs(JSONArray a) throws JSONException {
+        if (sarposmDTOs == null) {
+            sarposmDTOs = new ArrayList<SarposmDTO>();
+        } else {
+            sarposmDTOs.clear();
+        }
+        for (int i = 0; i < a.length(); i++) {
+            JSONObject o = a.getJSONObject(i);
+            SarposmDTO bean = new SarposmDTO();
+            bean.unserializeJSON(o);
+            sarposmDTOs.add(bean);
+        }
+    }
+
+}

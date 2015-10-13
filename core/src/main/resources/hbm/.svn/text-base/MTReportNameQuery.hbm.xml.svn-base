@@ -1,0 +1,274 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+	<sql-query name="MT_REPORT_BY_ACCOUNT">
+        <![CDATA[
+                SELECT acc.AccountID as accountID, acc.Name as account, COUNT(s.StoreID) as numberStore,
+                    SUM(numberOoSIFTSKUs) as numberOoSIFTSKUs,
+                    SUM(numberIFTSKUs) as numberIFTSKUs,
+                    SUM(numberOoSDBBSKUs) as numberOoSDBBSKUs,
+                    SUM(numberDBBSKUs) as numberDBBSKUs,
+                    group_concat(sodDetailIds SEPARATOR ',') as sodDetailIds,
+                    group_concat(sodFCVDetailValues SEPARATOR ',') as sodFCVDetailValues,
+                    group_concat(sodStoreDetailValues SEPARATOR ',') as sodStoreDetailValues,
+                    SUM(fcvIFTSOD) / SUM(storeIFTSOD) as sodIFT,
+                    SUM(fcvDBBSOD) / SUM(storeDBBSOD) as sodDBB,
+                    SUM(fcvIFTSOD + fcvDBBSOD) / SUM(storeIFTSOD + storeDBBSOD) as sodTotal,
+                    SUM(sosIFT) / SUM(sosMasterIFT) as sosIFT,
+                    SUM(sosDBB) / SUM(sosMasterDBB) as sosDBB,
+                    SUM(sosIFT + sosDBB) / SUM(sosMasterIFT + sosMasterDBB) as sosTotal,
+                    group_concat(sosDetailIds separator ',') as  sosDetailIds,
+                    group_concat(sosDetailValues separator ',') as  sosDetailValues,
+                    SUM(sosMasterIFT + sosMasterDBB) as sosMaster,
+                    SUM(brandLocIFT) / SUM(brandLocIFTTotal) as brandLocIFT,
+                    SUM(brandLocDBB) / SUM(brandLocDBBTotal) as brandLocDBB,
+                    SUM(posmIFT) / SUM(posmIFTTotal) as posmIFT,
+                    SUM(posmDBB) / SUM(posmDBBTotal) as posmDBB
+                FROM Account acc, Store s,
+                (SELECT sar.StoreID as StoreID,  sar.StoreAuditResultID,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgIFT AND sarRP.StoreAuditResultID = sar.StoreAuditResultID AND Has = 0) numberOoSIFTSKUs,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgIFT AND sarRP.StoreAuditResultID = sar.StoreAuditResultID) numberIFTSKUs,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgDBB AND sarRP.StoreAuditResultID = sar.StoreAuditResultID AND Has = 0) numberOoSDBBSKUs,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgDBB AND sarRP.StoreAuditResultID = sar.StoreAuditResultID) numberDBBSKUs,
+
+                    (SELECT group_concat(sarSOD.SOSBrandID SEPARATOR ',') FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as sodDetailIds,
+                    (SELECT group_concat((FCVSS + FCVGE + FCVOther) SEPARATOR ',') FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as sodFCVDetailValues,
+                    (SELECT group_concat((StoreSS + StoreGE + StoreOther) SEPARATOR ',') FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as sodStoreDetailValues,
+
+                    (SELECT SUM(FCVSS + FCVGE + FCVOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as fcvIFTSOD,
+                    (SELECT SUM(StoreSS + StoreGE + StoreOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as storeIFTSOD,
+                    (SELECT SUM(FCVSS + FCVGE + FCVOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as fcvDBBSOD,
+                    (SELECT SUM(StoreSS + StoreGE + StoreOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as storeDBBSOD,
+
+                    (SELECT ShelfInMain * TrayInShelf * LengthOfTray FROM StoreSOSMaster sosMaster, BrandGroup bg
+                        WHERE sosMaster.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sosMaster.StoreID = sar.StoreID) as sosMasterIFT,
+                    (SELECT ShelfInMain * TrayInShelf * LengthOfTray FROM StoreSOSMaster sosMaster, BrandGroup bg
+                        WHERE sosMaster.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sosMaster.StoreID = sar.StoreID) as sosMasterDBB,
+
+
+                    (SELECT group_concat(sosBrand.SOSBrandID separator ',') FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID
+                        AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosDetailIds,
+                    (SELECT group_concat((sarSOS.Quatity * pkg.Size) separator ',') FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID
+                        AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosDetailValues,
+
+
+                    (SELECT SUM(sarSOS.Quatity * pkg.Size) FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID
+                        AND bg.Code = :bgIFT AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosIFT,
+                    (SELECT SUM(sarSOS.Quatity * pkg.Size) FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID
+                        AND bg.Code = :bgDBB AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosDBB,
+
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID) as brandLocIFTTotal,
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID) as brandLocDBBTotal,
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID AND sarBrandLoc.IsRight = 1) as brandLocIFT,
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID and sarBrandLoc.IsRight = 1) as brandLocDBB,
+
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID) as posmIFTTotal,
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID) as posmDBBTotal,
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID AND sarPosm.Has = 1) as posmIFT,
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID AND sarPosm.Has = 1) as posmDBB
+
+                FROM
+                (SELECT sar.StoreAuditResultID as StoreAuditResultID, ast.StoreID as StoreID FROM StoreAuditResult sar, AuditorStoreTask ast, AuditSchedule sch
+                WHERE sar.StoreAuditTaskID = ast.AuditorStoreTaskID AND ast.AuditorScheduleID = sch.AuditScheduleID
+                    AND ((sch.FromDate >= :fromDate AND sch.ToDate <= :toDate) OR (sch.FromDate <= :fromDate AND sch.ToDate >= :fromDate) OR (sch.FromDate <= :toDate AND sch.ToDate >= :toDate))
+                ) as sar) as sarDetail
+                WHERE acc.AccountID = s.AccountID AND s.StoreID = sarDetail.StoreID
+
+        ]]>
+    </sql-query>
+    <sql-query name="MT_REPORT_BY_STORE">
+        <![CDATA[
+                SELECT s.StoreID as storeID, acc.Name as account, s.Name as storeName,
+                    SUM(numberOoSIFTSKUs) as numberOoSIFTSKUs,
+                    SUM(numberIFTSKUs) as numberIFTSKUs,
+                    SUM(numberOoSDBBSKUs) as numberOoSDBBSKUs,
+                    SUM(numberDBBSKUs) as numberDBBSKUs,
+                    group_concat(sodDetailIds SEPARATOR ',') as sodDetailIds,
+                    group_concat(sodFCVDetailValues SEPARATOR ',') as sodFCVDetailValues,
+                    group_concat(sodStoreDetailValues SEPARATOR ',') as sodStoreDetailValues,
+                    SUM(fcvIFTSOD) / SUM(storeIFTSOD) as sodIFT,
+                    SUM(fcvDBBSOD) / SUM(storeDBBSOD) as sodDBB,
+                    SUM(fcvIFTSOD + fcvDBBSOD) / SUM(storeIFTSOD + storeDBBSOD) as sodTotal,
+                    group_concat(sosDetailIds separator ',') as  sosDetailIds,
+                    group_concat(sosDetailValues separator ',') as  sosDetailValues,
+                    SUM(sosIFT) / SUM(sosMasterIFT) as sosIFT,
+                    SUM(sosDBB) / SUM(sosMasterDBB) as sosDBB,
+                    SUM(sosIFT + sosDBB) / SUM(sosMasterIFT + sosMasterDBB) as sosTotal,
+                    SUM(sosMasterIFT + sosMasterDBB) as sosMaster,
+
+                    SUM(brandLocIFT) / SUM(brandLocIFTTotal) as brandLocIFT,
+                    SUM(brandLocDBB) / SUM(brandLocDBBTotal) as brandLocDBB,
+                    SUM(posmIFT) / SUM(posmIFTTotal) as posmIFT,
+                    SUM(posmDBB) / SUM(posmDBBTotal) as posmDBB
+                FROM Account acc, Store s,
+                (SELECT sar.StoreID as StoreID,  sar.StoreAuditResultID,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgIFT AND sarRP.StoreAuditResultID = sar.StoreAuditResultID AND Has = 0) numberOoSIFTSKUs,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgIFT AND sarRP.StoreAuditResultID = sar.StoreAuditResultID) numberIFTSKUs,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgDBB AND sarRP.StoreAuditResultID = sar.StoreAuditResultID AND Has = 0) numberOoSDBBSKUs,
+                    (SELECT COUNT(*) FROM SARRegisterProduct sarRP, Product p, ProductBrand pb, BrandGroup bg
+                        WHERE sarRP.ProductID = p.ProductID AND p.ProductBrandID = pb.ProductBrandID and pb.BrandGroupID = bg.BrandGroupID
+                         AND bg.Code = :bgDBB AND sarRP.StoreAuditResultID = sar.StoreAuditResultID) numberDBBSKUs,
+
+                    (SELECT group_concat(sarSOD.SOSBrandID SEPARATOR ',') FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as sodDetailIds,
+                    (SELECT group_concat((FCVSS + FCVGE + FCVOther) SEPARATOR ',') FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as sodFCVDetailValues,
+                    (SELECT group_concat((StoreSS + StoreGE + StoreOther) SEPARATOR ',') FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as sodStoreDetailValues,
+
+                    (SELECT SUM(FCVSS + FCVGE + FCVOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as fcvIFTSOD,
+                    (SELECT SUM(StoreSS + StoreGE + StoreOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as storeIFTSOD,
+                    (SELECT SUM(FCVSS + FCVGE + FCVOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as fcvDBBSOD,
+                    (SELECT SUM(StoreSS + StoreGE + StoreOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as storeDBBSOD,
+
+
+                    (SELECT ShelfInMain * TrayInShelf * LengthOfTray FROM StoreSOSMaster sosMaster, BrandGroup bg
+                        WHERE sosMaster.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sosMaster.StoreID = sar.StoreID) as sosMasterIFT,
+                    (SELECT ShelfInMain * TrayInShelf * LengthOfTray FROM StoreSOSMaster sosMaster, BrandGroup bg
+                        WHERE sosMaster.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sosMaster.StoreID = sar.StoreID) as sosMasterDBB,
+
+
+                    (SELECT group_concat(sosBrand.SOSBrandID separator ',') FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID
+                        AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosDetailIds,
+                    (SELECT group_concat((sarSOS.Quatity * pkg.Size) separator ',') FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID
+                        AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosDetailValues,
+
+                    (SELECT SUM(sarSOS.Quatity * pkg.Size) FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID
+                        AND bg.Code = :bgIFT AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosIFT,
+                    (SELECT SUM(sarSOS.Quatity * pkg.Size) FROM SARShareOfShelf sarSOS, PackingGroup pkg, SOSBrand sosBrand, BrandGroup bg
+                        WHERE sarSOS.PackingGroupID = pkg.PackingGroupID AND pkg.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID
+                        AND bg.Code = :bgDBB AND sarSOS.StoreAuditResultID = sar.StoreAuditResultID) as sosDBB,
+
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID) as brandLocIFTTotal,
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID) as brandLocDBBTotal,
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID AND sarBrandLoc.IsRight = 1) as brandLocIFT,
+                    (SELECT COUNT(*) FROM SARSBrandLocation sarBrandLoc, Brand b, BrandGroup bg
+                        WHERE sarBrandLoc.BrandID = b.BrandID AND b.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarBrandLoc.StoreAuditResultID = sar.StoreAuditResultID and sarBrandLoc.IsRight = 1) as brandLocDBB,
+
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID) as posmIFTTotal,
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID) as posmDBBTotal,
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgIFT
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID AND sarPosm.Has = 1) as posmIFT,
+                    (SELECT COUNT(*) FROM SARPosm sarPosm, StorePOSM storePOSM, BrandGroup bg
+                        WHERE sarPosm.StorePOSM = storePOSM.StorePOSMID AND storePOSM.BrandGroupID = bg.BrandGroupID and bg.Code = :bgDBB
+                        AND sarPosm.StoreAuditResultID = sar.StoreAuditResultID AND sarPosm.Has = 1) as posmDBB
+
+                FROM
+                (SELECT sar.StoreAuditResultID as StoreAuditResultID, ast.StoreID as StoreID FROM StoreAuditResult sar, AuditorStoreTask ast, AuditSchedule sch
+                WHERE sar.StoreAuditTaskID = ast.AuditorStoreTaskID AND ast.AuditorScheduleID = sch.AuditScheduleID
+                    AND ((sch.FromDate >= :fromDate AND sch.ToDate <= :toDate) OR (sch.FromDate <= :fromDate AND sch.ToDate >= :fromDate) OR (sch.FromDate <= :toDate AND sch.ToDate >= :toDate))
+                ) as sar) as sarDetail
+                WHERE acc.AccountID = s.AccountID AND s.StoreID = sarDetail.StoreID
+
+        ]]>
+    </sql-query>
+    <sql-query name="MT_REPORT_OOS_DAILY">
+        <![CDATA[
+            SELECT ast.StoreID as storeID, sar.AuditedDate as day,
+                (SELECT COUNT(*) FROM SARRegisterProduct sarRP WHERE sarRP.StoreAuditResultID = sar.StoreAuditResultID) as numberOfSKU,
+                (SELECT COUNT(*) FROM SARRegisterProduct sarRP WHERE sarRP.StoreAuditResultID = sar.StoreAuditResultID AND sarRP.Has = 0) as numberOfOOSSKU,
+                (SELECT group_concat(p.Name SEPARATOR ', ') FROM SARRegisterProduct sarRP, Product p WHERE sarRP.ProductID = p.ProductID AND sarRP.StoreAuditResultID = sar.StoreAuditResultID and sarRP.Has = 0) as oosSKUs
+
+            FROM StoreAuditResult sar, AuditorStoreTask ast
+            WHERE sar.StoreAuditTaskID = ast.AuditorStoreTaskID
+                AND DATE(sar.AuditedDate) >= DATE(:fromDate) AND DATE(sar.AuditedDate) <= DATE(:toDate)
+
+        ]]>
+    </sql-query>
+
+    <sql-query name="MT_REPORT_SOD_DAILY">
+        <![CDATA[
+            SELECT ast.StoreID as storeID, sar.AuditedDate as day,
+                (SELECT SUM(FCVSS + FCVGE + FCVOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                    WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as fcvIFTSOD,
+                (SELECT SUM(StoreSS + StoreGE + StoreOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                    WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgIFT AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as storeIFTSOD,
+                (SELECT SUM(FCVSS + FCVGE + FCVOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                    WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as fcvDBBSOD,
+                (SELECT SUM(StoreSS + StoreGE + StoreOther) FROM SARShareOfDisplay sarSOD, SOSBrand sosBrand, BrandGroup bg
+                    WHERE sarSOD.SOSBrandID = sosBrand.SOSBrandID AND sosBrand.BrandGroupID = bg.BrandGroupID AND bg.Code = :bgDBB AND sarSOD.StoreAuditResultID = sar.StoreAuditResultID) as storeDBBSOD
+
+            FROM StoreAuditResult sar, AuditorStoreTask ast
+            WHERE sar.StoreAuditTaskID = ast.AuditorStoreTaskID
+                AND DATE(sar.AuditedDate) >= DATE(:fromDate) AND DATE(sar.AuditedDate) <= DATE(:toDate)
+
+        ]]>
+    </sql-query>
+
+    <sql-query name="MT_PROMOTION_REPORT_WEEKLY">
+        <![CDATA[
+            SELECT ast.StoreID as storeID, sar.AuditedDate as day,
+            (SELECT group_concat(StorePromotionID SEPARATOR ',') FROM OARStorePromotion SARPro WHERE SARPro.StoreAuditResultID = sar.StoreAuditResult) as promotionIds,
+            (SELECT group_concat(Known SEPARATOR ',') FROM OARStorePromotion SARPro WHERE SARPro.StoreAuditResultID = sar.StoreAuditResult) as awareness,
+            (SELECT group_concat(Correct SEPARATOR ',') FROM OARStorePromotion SARPro WHERE SARPro.StoreAuditResultID = sar.StoreAuditResult)  as mechanism
+
+
+            FROM StoreAuditResult sar, AuditorStoreTask ast
+            WHERE sar.StoreAuditTaskID = ast.AuditorStoreTaskID
+                AND DATE(sar.AuditedDate) >= DATE(:fromDate) AND DATE(sar.AuditedDate) <= DATE(:toDate)
+
+        ]]>
+    </sql-query>
+</hibernate-mapping>
